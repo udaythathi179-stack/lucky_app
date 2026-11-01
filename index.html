@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=15" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -210,6 +210,100 @@
         </div>
       </div>
       <button id="exitOnlineSearch" class="ghost-btn-sm" type="button">Back to My Library</button>
+    </div>
+
+    <!-- Home Dashboard (Spotify ordered layout: Quick Access, Spotlight, Jump back in, Universe) -->
+    <div id="homeDashboard" class="home-dashboard">
+      <!-- Quick Access 2-Column Grid -->
+      <section class="quick-jump-section">
+        <div class="section-title-row">
+          <h2 class="section-heading-sm">Quick Jump In</h2>
+          <span class="sub-greeting" id="timeGreeting">Studio Master Quality</span>
+        </div>
+        <div class="quick-jump-grid" id="quickJumpGrid">
+          <!-- Dynamically populated with compact 2-column cards -->
+        </div>
+      </section>
+
+      <!-- Featured Spotlight Card (H&M style banner in screenshot) -->
+      <section class="spotlight-card" id="spotlightCard">
+        <div class="spotlight-badge">🔥 TUNEUS SPOTLIGHT &bull; 320 KBPS STUDIO MASTER</div>
+        <div class="spotlight-body">
+          <div class="spotlight-art-wrap">
+            <img class="spotlight-art" id="spotlightArt" src="https://c.saavncdn.com/483/Aadavari-Matalaku-Ardhalu-Veruley-2007-500x500.jpg" alt="Featured Song" />
+          </div>
+          <div class="spotlight-info">
+            <span class="spotlight-label">FEATURED ARTIST RELEASE</span>
+            <h3 class="spotlight-title" id="spotlightTitle">Srivalli</h3>
+            <p class="spotlight-meta" id="spotlightMeta">Sid Sriram &bull; Pushpa: The Rise &bull; Devi Sri Prasad &bull; 320kbps Lossless</p>
+            <div class="spotlight-actions">
+              <button type="button" class="spotlight-play-btn" id="spotlightPlayBtn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
+                <span>Listen Now</span>
+              </button>
+              <button type="button" class="spotlight-fav-btn" id="spotlightFavBtn" title="Save to Favorites">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Jump Back In Section (Horizontal Scroll of Square Cards) -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>Jump back in</h2>
+            <p>Trending studio master hits picked for you</p>
+          </div>
+          <span class="shelf-pill-tag">✨ Trending</span>
+        </div>
+        <div class="horizontal-scroll-shelf" id="jumpBackShelf">
+          <!-- Populated with square artwork cards -->
+        </div>
+      </section>
+
+      <!-- Folk & Cultural Hits Section -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>🪕 Folk &amp; Cultural Masterpieces</h2>
+            <p>Authentic roots, vibrant rhythms &amp; energetic rural beats</p>
+          </div>
+          <button type="button" class="shelf-see-all" data-filter-target="Folk">See all &rarr;</button>
+        </div>
+        <div class="horizontal-scroll-shelf" id="folkShelf">
+          <!-- Populated with folk cards -->
+        </div>
+      </section>
+
+      <!-- Tollywood Blockbusters Section -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>🎬 Tollywood Blockbusters</h2>
+            <p>Mass anthems, melody chartbusters &amp; legendary Telugu hits</p>
+          </div>
+          <button type="button" class="shelf-see-all" data-filter-target="Telugu">See all &rarr;</button>
+        </div>
+        <div class="horizontal-scroll-shelf" id="teluguShelf">
+          <!-- Populated with Telugu cards -->
+        </div>
+      </section>
+
+      <!-- Bollywood Melodies Section -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>✨ Bollywood Melodies</h2>
+            <p>Soulful romantic tracks &amp; iconic timeless Hindi classics</p>
+          </div>
+          <button type="button" class="shelf-see-all" data-filter-target="Hindi">See all &rarr;</button>
+        </div>
+        <div class="horizontal-scroll-shelf" id="hindiShelf">
+          <!-- Populated with Hindi cards -->
+        </div>
+      </section>
     </div>
 
     <!-- Playlists View Container -->
@@ -728,7 +822,31 @@
   <!-- Toast Notification Feedback -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="app.js?v=14"></script>
+  <!-- Mobile Bottom Navigation Dock (Spotify Style) -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile Navigation">
+    <button type="button" class="nav-tab active" id="tabHome" title="Home">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Home</span>
+    </button>
+    <button type="button" class="nav-tab" id="tabSearch" title="Search">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+      <span>Search</span>
+    </button>
+    <button type="button" class="nav-tab" id="tabLibrary" title="Your Library">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Library</span>
+    </button>
+    <button type="button" class="nav-tab" id="tabEqualizer" title="Equalizer">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+      <span>Equalizer</span>
+    </button>
+    <button type="button" class="nav-tab" id="tabProfile" title="Profile">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <script src="app.js?v=15"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

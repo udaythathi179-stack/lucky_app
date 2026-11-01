@@ -1784,6 +1784,86 @@ function renderChips() {
   if (downloadsCount) downloadsCount.textContent = state.downloads.size;
 }
 
+// Render Spotify-Style Home Dashboard
+function renderHomeDashboard() {
+  // 1. Time greeting
+  const greetingEl = el('timeGreeting');
+  if (greetingEl) {
+    const hr = new Date().getHours();
+    const greet = hr < 12 ? 'Good morning' : hr < 18 ? 'Good afternoon' : 'Good evening';
+    greetingEl.textContent = `${greet} • Studio Master 320kbps`;
+  }
+
+  // 2. Quick Jump In 2-Column Grid (6 top tracks)
+  const quickGrid = el('quickJumpGrid');
+  if (quickGrid) {
+    const quickTracks = state.tracks.slice(0, 6);
+    quickGrid.innerHTML = quickTracks.map((t) => {
+      const art = t.artwork || 'icon-192.png';
+      return `
+        <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
+          <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" onerror="this.src='icon-192.png'" />
+          <span class="quick-jump-title">${esc(t.title)}</span>
+          <div class="quick-jump-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 3. Spotlight Card
+  const spotlightTrack = state.tracks.find((t) => t.id === 'allantha-doorala') || state.tracks[0];
+  if (spotlightTrack) {
+    const sTitle = el('spotlightTitle');
+    const sMeta = el('spotlightMeta');
+    const sArt = el('spotlightArt');
+    const sPlayBtn = el('spotlightPlayBtn');
+    if (sTitle) sTitle.textContent = spotlightTrack.title;
+    if (sMeta) sMeta.innerHTML = `${esc(spotlightTrack.artist)} &bull; ${esc(spotlightTrack.movie || 'Tollywood')} &bull; 320kbps Studio Lossless`;
+    if (sArt && spotlightTrack.artwork) sArt.src = spotlightTrack.artwork;
+    if (sPlayBtn) {
+      sPlayBtn.onclick = () => playTrack(spotlightTrack);
+    }
+  }
+
+  // Helper for rendering horizontal shelves
+  function renderShelf(containerId, tracks) {
+    const container = el(containerId);
+    if (!container) return;
+    container.innerHTML = tracks.map((t) => {
+      const art = t.artwork || 'icon-192.png';
+      return `
+        <div class="shelf-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
+          <div class="shelf-art-wrap">
+            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" onerror="this.src='icon-192.png'" />
+            <div class="shelf-play-floating" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <span class="shelf-title">${esc(t.title)}</span>
+          <span class="shelf-subtitle">${esc(t.artist)}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 4. Jump back in shelf
+  renderShelf('jumpBackShelf', state.tracks.slice(0, 10));
+
+  // 5. Folk Shelf
+  const folkTracks = state.tracks.filter((t) => (t.language === 'Folk' || (t.category && t.category.toLowerCase().includes('folk')) || (t.artist && (t.artist.includes('Mangli') || t.artist.includes('Madhu Priya') || t.artist.includes('Rahul Sipligunj')))));
+  renderShelf('folkShelf', folkTracks.slice(0, 10));
+
+  // 6. Telugu Shelf
+  const teluguTracks = state.tracks.filter((t) => t.language === 'Telugu');
+  renderShelf('teluguShelf', teluguTracks.slice(0, 10));
+
+  // 7. Hindi Shelf
+  const hindiTracks = state.tracks.filter((t) => t.language === 'Hindi');
+  renderShelf('hindiShelf', hindiTracks.slice(0, 10));
+}
+
 // Main Render Function
 function render() {
   renderChips();
@@ -1794,11 +1874,21 @@ function render() {
 
   el('onlineSearchBanner').hidden = !state.onlineSearch;
 
+  // Home Dashboard (Spotify ordered view: visible on All view without active search)
+  const isHomeView = state.filter === 'All' && !state.query && !state.onlineSearch;
+  const homeDashboard = el('homeDashboard');
+  if (homeDashboard) {
+    homeDashboard.hidden = !isHomeView;
+    if (isHomeView) {
+      renderHomeDashboard();
+    }
+  }
+
   const list = visibleTracks();
   el('songGrid').innerHTML = list.map(cardHTML).join('');
   el('emptyState').hidden = list.length > 0;
 
-  let titleText = 'Song library (Full Length)';
+  let titleText = isHomeView ? 'Complete Song Library (Studio Master)' : 'Song library (Full Length)';
   if (state.onlineSearch) {
     titleText = `Online Results for "${state.query || 'Telugu & Hindi'}"`;
   } else if (state.filter === 'Playlists') {
@@ -2616,6 +2706,76 @@ function bindEvents() {
     state.sort = e.target.value;
     render();
   });
+
+  // Home Dashboard interactions (Quick Jump cards, Shelves, Spotlight)
+  const homeDashboard = el('homeDashboard');
+  if (homeDashboard) {
+    homeDashboard.addEventListener('click', (event) => {
+      const seeAllBtn = event.target.closest('.shelf-see-all');
+      if (seeAllBtn) {
+        state.onlineSearch = false;
+        state.activePlaylistId = null;
+        state.filter = seeAllBtn.dataset.filterTarget;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const favBtn = event.target.closest('#spotlightFavBtn');
+      if (favBtn) {
+        const spotlightTrack = state.tracks.find((t) => t.id === 'allantha-doorala') || state.tracks[0];
+        if (spotlightTrack) toggleLike(spotlightTrack.id);
+        return;
+      }
+
+      const card = event.target.closest('[data-action="play-track"]');
+      if (!card) return;
+      const trackId = card.dataset.id;
+      const track = findTrackById(trackId);
+      if (!track) return;
+
+      if (state.current && state.current.id === track.id) {
+        togglePlayback();
+      } else {
+        playTrack(track);
+      }
+    });
+  }
+
+  // Mobile Bottom Navigation Dock interactions
+  const mobileNav = el('mobileBottomNav');
+  if (mobileNav) {
+    mobileNav.addEventListener('click', (event) => {
+      const tab = event.target.closest('.nav-tab');
+      if (!tab) return;
+      mobileNav.querySelectorAll('.nav-tab').forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      if (tab.id === 'tabHome') {
+        state.filter = 'All';
+        state.query = '';
+        state.onlineSearch = false;
+        if (el('search')) el('search').value = '';
+        el('clearSearch').hidden = true;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (tab.id === 'tabSearch') {
+        if (el('search')) {
+          el('search').focus();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else if (tab.id === 'tabLibrary') {
+        state.filter = 'Playlists';
+        state.onlineSearch = false;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (tab.id === 'tabEqualizer') {
+        openEqModal();
+      } else if (tab.id === 'tabProfile') {
+        openLoginModal();
+      }
+    });
+  }
 
   // Song grid click
   el('songGrid').addEventListener('click', (event) => {
