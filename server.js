@@ -1,6 +1,12 @@
 const http = require('http');
 const https = require('https');
 const crypto = require('crypto');
+let CryptoJS;
+try {
+  CryptoJS = require('crypto-js');
+} catch (e) {
+  CryptoJS = null;
+}
 const fs = require('fs');
 const path = require('path');
 
@@ -25,6 +31,19 @@ const MIME_TYPES = {
 // Decrypt JioSaavn full audio stream URL
 function decryptSaavnUrl(encrypted) {
   if (!encrypted) return '';
+  if (CryptoJS) {
+    try {
+      const key = CryptoJS.enc.Utf8.parse('38346591');
+      const decrypted = CryptoJS.DES.decrypt({ ciphertext: CryptoJS.enc.Base64.parse(encrypted) }, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+      });
+      const url = decrypted.toString(CryptoJS.enc.Utf8);
+      if (url && url.startsWith('http')) {
+        return url.replace(/_96\.mp4$/, '_320.mp4');
+      }
+    } catch (e) {}
+  }
   try {
     const decipher = crypto.createDecipheriv('des-ecb', Buffer.from('38346591', 'utf8'), null);
     decipher.setAutoPadding(true);
