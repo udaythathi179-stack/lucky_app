@@ -469,6 +469,29 @@ a {
   margin-right: 4px;
 }
 
+.quick-bar-divider {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex: none;
+  margin: 0 4px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+}
+
+.quick-universe-pill.pill-featured {
+  background: rgba(0, 210, 255, 0.12);
+  border-color: rgba(0, 210, 255, 0.45);
+  color: #00f0ff;
+  font-weight: 600;
+}
+
 .quick-universe-pill {
   flex: none;
   display: inline-flex;
