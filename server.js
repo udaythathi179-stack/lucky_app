@@ -119,9 +119,70 @@ function searchFullSongs(query, res) {
   });
 }
 
+// --- User Database Management (Persistent JSON Database) ---
+const USERS_DB_PATH = path.join(ROOT, 'data', 'users.json');
+
+function ensureDB() {
+  const dataDir = path.join(ROOT, 'data');
+  if (!fs.existsSync(dataDir)) {
+    try { fs.mkdirSync(dataDir, { recursive: true }); } catch (e) {}
+  }
+  if (!fs.existsSync(USERS_DB_PATH)) {
+    try { fs.writeFileSync(USERS_DB_PATH, JSON.stringify([], null, 2), 'utf8'); } catch (e) {}
+  }
+}
+
+function getUsersFromDB() {
+  ensureDB();
+  try {
+    const raw = fs.readFileSync(USERS_DB_PATH, 'utf8');
+    return JSON.parse(raw) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveUserToDB(name, email, avatar = '') {
+  ensureDB();
+  const users = getUsersFromDB();
+  const cleanEmail = (email || '').toLowerCase().trim();
+  const cleanName = (name || '').trim();
+  if (!cleanEmail || !cleanName) return null;
+
+  let user = users.find(u => u.email === cleanEmail);
+  const now = new Date().toISOString();
+
+  if (user) {
+    user.name = cleanName;
+    user.lastLoginAt = now;
+    user.loginCount = (user.loginCount || 1) + 1;
+    if (avatar) user.avatar = avatar;
+  } else {
+    user = {
+      id: 'usr_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+      name: cleanName,
+      email: cleanEmail,
+      avatar: avatar || '',
+      provider: cleanEmail.endsWith('@gmail.com') ? 'google' : 'email',
+      createdAt: now,
+      lastLoginAt: now,
+      loginCount: 1
+    };
+    users.push(user);
+  }
+
+  try {
+    fs.writeFileSync(USERS_DB_PATH, JSON.stringify(users, null, 2), 'utf8');
+  } catch (e) {
+    console.error('Error writing to users DB:', e.message);
+  }
+  return user;
+}
+
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, HEAD, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -131,6 +192,62 @@ const server = http.createServer((req, res) => {
 
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = parsedUrl.pathname;
+
+  // --- Auth API Endpoints (Saved in Database) ---
+  if (pathname === '/api/auth/login' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+      if (body.length > 1e6) req.destroy();
+    });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const user = saveUserToDB(payload.name, payload.email, payload.avatar);
+        if (!user) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+          res.end(JSON.stringify({ success: false, error: 'Name and valid email required' }));
+          return;
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ success: true, user }));
+      } catch (e) {
+        console.error('Login error:', e.message, 'body:', body);
+        res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ success: false, error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (pathname === '/api/auth/me' && req.method === 'GET') {
+    const email = (parsedUrl.searchParams.get('email') || '').toLowerCase().trim();
+    if (!email) {
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+      res.end(JSON.stringify({ success: false, error: 'Email parameter required' }));
+      return;
+    }
+    const users = getUsersFromDB();
+    const user = users.find(u => u.email === email);
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+    res.end(JSON.stringify({ success: true, user: user || null }));
+    return;
+  }
+
+  if (pathname === '/api/auth/users' && req.method === 'GET') {
+    const users = getUsersFromDB().map(u => ({
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      provider: u.provider,
+      createdAt: u.createdAt,
+      lastLoginAt: u.lastLoginAt,
+      loginCount: u.loginCount
+    }));
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+    res.end(JSON.stringify({ success: true, total: users.length, users }));
+    return;
+  }
 
   // Search API route for full length songs
   if (pathname === '/api/search') {
@@ -228,7 +345,15 @@ const server = http.createServer((req, res) => {
     }
 
     const ext = path.extname(filePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    let contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    const extraHeaders = {};
+    if (pathname === '/manifest.json') {
+      contentType = 'application/manifest+json; charset=UTF-8';
+    } else if (pathname === '/sw.js') {
+      contentType = 'application/javascript; charset=UTF-8';
+      extraHeaders['Service-Worker-Allowed'] = '/';
+      extraHeaders['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+    }
 
     // Support audio Range requests
     const range = req.headers.range;
@@ -243,14 +368,16 @@ const server = http.createServer((req, res) => {
         'Content-Range': `bytes ${start}-${end}/${stats.size}`,
         'Accept-Ranges': 'bytes',
         'Content-Length': chunkSize,
-        'Content-Type': contentType
+        'Content-Type': contentType,
+        ...extraHeaders
       });
       file.pipe(res);
     } else {
       res.writeHead(200, {
         'Content-Length': stats.size,
         'Content-Type': contentType,
-        'Accept-Ranges': 'bytes'
+        'Accept-Ranges': 'bytes',
+        ...extraHeaders
       });
       fs.createReadStream(filePath).pipe(res);
     }

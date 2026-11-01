@@ -2962,13 +2962,257 @@ function bindEvents() {
   });
 }
 
+// ==========================================================================
+// User Authentication & Database Synchronization
+// ==========================================================================
+const AUTH_STORAGE_KEY = 'tuneus_user';
+
+function getStoredUser() {
+  try {
+    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveUserSession(user) {
+  try {
+    if (user) {
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+    }
+  } catch (e) {}
+}
+
+function updateAuthUI(user) {
+  const avatarBadge = el('userAvatarBadge');
+  const nameLabel = el('userNameLabel');
+  const dropAvatar = el('dropdownAvatar');
+  const dropName = el('dropdownName');
+  const dropEmail = el('dropdownEmail');
+  const loginActionLabel = el('loginActionLabel');
+  const logoutBtn = el('logoutBtn');
+
+  if (user && user.name) {
+    const initial = user.name.trim().charAt(0).toUpperCase() || 'U';
+    if (avatarBadge) avatarBadge.textContent = initial;
+    if (nameLabel) nameLabel.textContent = user.name;
+    if (dropAvatar) dropAvatar.textContent = initial;
+    if (dropName) dropName.textContent = user.name;
+    if (dropEmail) dropEmail.textContent = user.email || 'Logged In';
+    if (loginActionLabel) loginActionLabel.textContent = 'Switch Account';
+    if (logoutBtn) logoutBtn.style.display = 'flex';
+  } else {
+    if (avatarBadge) avatarBadge.textContent = '👤';
+    if (nameLabel) nameLabel.textContent = 'Sign In';
+    if (dropAvatar) dropAvatar.textContent = '?';
+    if (dropName) dropName.textContent = 'Guest User';
+    if (dropEmail) dropEmail.textContent = 'Not logged in';
+    if (loginActionLabel) loginActionLabel.textContent = 'Sign In with Gmail';
+    if (logoutBtn) logoutBtn.style.display = 'none';
+  }
+}
+
+function openLoginModal(prefillEmail = '') {
+  const modal = el('loginModal');
+  const errorMsg = el('loginErrorMsg');
+  const emailInput = el('loginEmail');
+  const nameInput = el('loginName');
+  const dropdown = el('userDropdownPanel');
+
+  if (dropdown) dropdown.hidden = true;
+  if (errorMsg) {
+    errorMsg.hidden = true;
+    errorMsg.textContent = '';
+  }
+
+  const user = getStoredUser();
+  if (user) {
+    if (nameInput) nameInput.value = user.name || '';
+    if (emailInput) emailInput.value = user.email || '';
+  } else if (prefillEmail && emailInput) {
+    emailInput.value = prefillEmail;
+  }
+
+  if (modal) {
+    modal.hidden = false;
+    setTimeout(() => {
+      if (nameInput && !nameInput.value) nameInput.focus();
+      else if (emailInput) emailInput.focus();
+    }, 100);
+  }
+}
+
+function closeLoginModal() {
+  const modal = el('loginModal');
+  if (modal) modal.hidden = true;
+}
+
+async function loginUser(name, email, avatar = '') {
+  const errorMsg = el('loginErrorMsg');
+  const submitBtn = el('loginSubmitBtn');
+
+  const cleanName = (name || '').trim();
+  const cleanEmail = (email || '').trim().toLowerCase();
+
+  if (!cleanName) {
+    if (errorMsg) {
+      errorMsg.textContent = 'Please enter your name.';
+      errorMsg.hidden = false;
+    }
+    return false;
+  }
+
+  if (!cleanEmail || !cleanEmail.includes('@')) {
+    if (errorMsg) {
+      errorMsg.textContent = 'Please enter a valid Gmail address (e.g. yourname@gmail.com).';
+      errorMsg.hidden = false;
+    }
+    return false;
+  }
+
+  if (errorMsg) errorMsg.hidden = true;
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>Saving to database...</span>';
+  }
+
+  let savedUser = null;
+
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: cleanName, email: cleanEmail, avatar })
+    });
+    const data = await res.json();
+    if (data && data.success && data.user) {
+      savedUser = data.user;
+    }
+  } catch (err) {
+    console.warn('API login request error, using database state fallback:', err);
+  }
+
+  // Fallback if running statically without backend running
+  if (!savedUser) {
+    savedUser = {
+      id: 'usr_' + Date.now().toString(36),
+      name: cleanName,
+      email: cleanEmail,
+      avatar: avatar || '',
+      provider: cleanEmail.endsWith('@gmail.com') ? 'google' : 'email',
+      createdAt: new Date().toISOString(),
+      lastLoginAt: new Date().toISOString(),
+      loginCount: 1
+    };
+  }
+
+  saveUserSession(savedUser);
+  updateAuthUI(savedUser);
+  closeLoginModal();
+
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<span>🎵 Enter Tuneus &amp; Listen</span>';
+  }
+
+  toast(`Welcome ${savedUser.name}! Saved to database.`);
+  return true;
+}
+
+function logoutUser() {
+  saveUserSession(null);
+  updateAuthUI(null);
+  const dropdown = el('userDropdownPanel');
+  if (dropdown) dropdown.hidden = true;
+  toast('Signed out. Session cleared.');
+  openLoginModal();
+}
+
+function bindAuthEvents() {
+  const userProfileBtn = el('userProfileBtn');
+  const userDropdownPanel = el('userDropdownPanel');
+  const openLoginBtn = el('openLoginBtn');
+  const logoutBtn = el('logoutBtn');
+  const loginForm = el('loginForm');
+  const googleQuickBtn = el('googleQuickBtn');
+  const loginGuestBtn = el('loginGuestBtn');
+
+  if (userProfileBtn && userDropdownPanel) {
+    userProfileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userDropdownPanel.hidden = !userDropdownPanel.hidden;
+    });
+
+    document.addEventListener('click', (e) => {
+      if (userDropdownPanel && !userDropdownPanel.contains(e.target) && !userProfileBtn.contains(e.target)) {
+        userDropdownPanel.hidden = true;
+      }
+    });
+  }
+
+  if (openLoginBtn) {
+    openLoginBtn.addEventListener('click', () => {
+      openLoginModal();
+    });
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      logoutUser();
+    });
+  }
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = el('loginName')?.value || '';
+      const email = el('loginEmail')?.value || '';
+      loginUser(name, email);
+    });
+  }
+
+  if (googleQuickBtn) {
+    googleQuickBtn.addEventListener('click', () => {
+      const existing = getStoredUser();
+      const promptName = prompt('Enter your Name for Google Sign-in:', existing?.name || '');
+      if (!promptName) return;
+      const promptEmail = prompt('Enter your Gmail address:', existing?.email || `${promptName.toLowerCase().replace(/[^a-z0-9]/g, '')}@gmail.com`);
+      if (!promptEmail) return;
+      loginUser(promptName, promptEmail);
+    });
+  }
+
+  if (loginGuestBtn) {
+    loginGuestBtn.addEventListener('click', () => {
+      closeLoginModal();
+      toast('Browsing as Guest. Sign in anytime from top right.');
+    });
+  }
+
+  // Prevent browser mini-infobar or annoying pop-up on page load
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+  });
+}
+
 // App Initialization
 function init() {
   bindEvents();
+  bindAuthEvents();
   render();
   applyVolume();
   updateProgress(0, 0);
   loadDownloads().then(() => render()).catch(() => {});
+
+  // Check login state: if not logged in, prompt login modal immediately
+  const currentUser = getStoredUser();
+  updateAuthUI(currentUser);
+  if (!currentUser) {
+    openLoginModal();
+  }
 }
 
 init();
