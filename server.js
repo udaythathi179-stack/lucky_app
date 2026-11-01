@@ -115,6 +115,9 @@ const server = http.createServer((req, res) => {
 
   // Scope Extensions origin association endpoint (for PWABuilder & W3C validation)
   if (pathname === '/.well-known/web-app-origin-association' || pathname === '/.well-known/web-app-origin-association.json') {
+    const protocol = req.headers['x-forwarded-proto'] || 'https';
+    const host = req.headers.host || 'localhost';
+    const dynamicBase = `${protocol}://${host}`;
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=UTF-8',
       'Access-Control-Allow-Origin': '*'
@@ -122,10 +125,16 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({
       "web_apps": [
         {
-          "web_app_identity": "https://other-consultants-brochures-letter.trycloudflare.com/?source=pwa"
+          "web_app_identity": "https://judy-guestbook-seekers-asbestos.trycloudflare.com/?source=pwa"
         },
         {
-          "web_app_identity": "https://other-consultants-brochures-letter.trycloudflare.com/"
+          "web_app_identity": "https://judy-guestbook-seekers-asbestos.trycloudflare.com/"
+        },
+        {
+          "web_app_identity": `${dynamicBase}/?source=pwa`
+        },
+        {
+          "web_app_identity": `${dynamicBase}/`
         }
       ]
     }));
