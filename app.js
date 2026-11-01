@@ -1149,6 +1149,7 @@ const el = (id) => document.getElementById(id);
 const STORAGE_FAVORITES = 'tuneus_favorites_v1';
 const STORAGE_PLAYLISTS = 'tuneus_playlists_v1';
 const STORAGE_CUSTOM_TRACKS = 'tuneus_custom_tracks_v1';
+const STORAGE_RECENT_HISTORY = 'tuneus_recent_history_v1';
 
 // Load stored data safely
 function getStoredJSON(key, fallback) {
@@ -1379,6 +1380,7 @@ if (!storedPlaylists.some((p) => p.id === 'pl-tuneus-english')) {
 }
 const storedFavorites = new Set(getStoredJSON(STORAGE_FAVORITES, []));
 const storedCustomTracks = getStoredJSON(STORAGE_CUSTOM_TRACKS, []);
+const storedRecentHistory = getStoredJSON(STORAGE_RECENT_HISTORY, []);
 
 // State
 const state = {
@@ -1398,6 +1400,7 @@ const state = {
   favorites: storedFavorites,
   playlists: storedPlaylists,
   downloads: new Map(),
+  recentHistory: storedRecentHistory,
   eqPreset: 'normal'
 };
 
@@ -1784,25 +1787,67 @@ function renderChips() {
   if (downloadsCount) downloadsCount.textContent = state.downloads.size;
 }
 
+// Render Recent Songs Grid (History of up to 9 songs)
+function renderRecentGrid() {
+  const quickGrid = el('quickJumpGrid');
+  if (!quickGrid) return;
+
+  // Resolve tracks from recentHistory IDs (only valid songs in catalog)
+  let recentTracks = [];
+  if (state.recentHistory && state.recentHistory.length > 0) {
+    state.recentHistory.forEach((id) => {
+      const t = findTrackById(id);
+      if (t && !recentTracks.some((item) => item.id === t.id)) {
+        recentTracks.push(t);
+      }
+    });
+  }
+
+  // If user has listened to fewer than 9 songs, fill remaining slots up to 9 from catalog
+  if (recentTracks.length < 9) {
+    const existingIds = new Set(recentTracks.map((t) => t.id));
+    for (const t of state.tracks) {
+      if (!existingIds.has(t.id)) {
+        recentTracks.push(t);
+        if (recentTracks.length === 9) break;
+      }
+    }
+  }
+
+  // Strictly cap at 9 songs
+  const displayTracks = recentTracks.slice(0, 9);
+  quickGrid.innerHTML = displayTracks.map((t) => {
+    const art = t.artwork || 'icon-192.png';
+    return `
+      <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
+        <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" onerror="this.src='icon-192.png'" />
+        <span class="quick-jump-title">${esc(t.title)}</span>
+        <div class="quick-jump-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Add listened song to Recent Songs History (Max 9 songs)
+function addToRecentHistory(track) {
+  if (!track || !track.id) return;
+  // If already present, remove old position to bring it to index 0 (most recent)
+  state.recentHistory = state.recentHistory.filter((id) => id !== track.id);
+  state.recentHistory.unshift(track.id);
+  // Store only 9 songs maximum
+  if (state.recentHistory.length > 9) {
+    state.recentHistory = state.recentHistory.slice(0, 9);
+  }
+  setStoredJSON(STORAGE_RECENT_HISTORY, state.recentHistory);
+  renderRecentGrid();
+}
+
 // Render Spotify-Style Home Dashboard
 function renderHomeDashboard() {
-  // 1. Quick Jump In 2-Column Grid (6 top tracks)
-  const quickGrid = el('quickJumpGrid');
-  if (quickGrid) {
-    const quickTracks = state.tracks.slice(0, 6);
-    quickGrid.innerHTML = quickTracks.map((t) => {
-      const art = t.artwork || 'icon-192.png';
-      return `
-        <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
-          <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" onerror="this.src='icon-192.png'" />
-          <span class="quick-jump-title">${esc(t.title)}</span>
-          <div class="quick-jump-play" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
+  // 1. Recent Songs 3-Column Grid (Up to 9 recent tracks)
+  renderRecentGrid();
 
   // Helper for rendering horizontal shelves
   function renderShelf(containerId, tracks) {
@@ -2037,6 +2082,7 @@ function playTrack(track, forceModal = null) {
   stopAll();
   state.current = track;
   state.playing = false;
+  addToRecentHistory(track);
   initWebAudio();
   if (audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume().catch(() => {});
