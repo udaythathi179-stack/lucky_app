@@ -2041,7 +2041,7 @@ function stopAll() {
 }
 
 // Play specified track (Full Length 320kbps Audio)
-function playTrack(track) {
+function playTrack(track, forceModal = null) {
   stopAll();
   state.current = track;
   state.playing = false;
@@ -2075,6 +2075,11 @@ function playTrack(track) {
   }
 
   syncPlayState();
+
+  const shouldOpen = forceModal !== null ? forceModal : true;
+  if (shouldOpen) {
+    openExpandedModal();
+  }
 }
 
 function pausePlayback() {
@@ -2158,8 +2163,9 @@ function prevTrack() {
 }
 
 function handleEnded() {
+  const keepModalState = !el('expandedModal').hidden;
   if (state.repeat === 'one') {
-    if (state.current) playTrack(state.current);
+    if (state.current) playTrack(state.current, keepModalState);
     return;
   }
 
@@ -2174,13 +2180,13 @@ function handleEnded() {
   if (state.shuffle) {
     const pool = list.filter((track) => track.id !== state.current.id);
     const source = pool.length ? pool : list;
-    playTrack(source[Math.floor(Math.random() * source.length)]);
+    playTrack(source[Math.floor(Math.random() * source.length)], keepModalState);
     return;
   }
 
   let index = list.findIndex((track) => track.id === state.current.id);
   if (index === -1) {
-    playTrack(list[0]);
+    playTrack(list[0], keepModalState);
     return;
   }
 
@@ -2192,7 +2198,7 @@ function handleEnded() {
     return;
   }
 
-  playTrack(list[(index + 1) % list.length]);
+  playTrack(list[(index + 1) % list.length], keepModalState);
 }
 
 function applyVolume() {
