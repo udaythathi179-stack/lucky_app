@@ -3057,6 +3057,7 @@ function bindEvents() {
     }
 
     if (event.key === 'Escape') {
+      closeUniverseDrawer();
       el('importModal').hidden = true;
       el('shortcutsModal').hidden = true;
       el('eqModal').hidden = true;
@@ -3358,10 +3359,124 @@ function bindAuthEvents() {
   });
 }
 
+// ==========================================================================
+// Explore Universe Option Menu (Left-Side Up Corner Option Drawer)
+// ==========================================================================
+function openUniverseDrawer() {
+  const backdrop = el('universeDrawerBackdrop');
+  const input = el('universeFilterInput');
+  if (backdrop) {
+    backdrop.hidden = false;
+    if (input) {
+      input.value = '';
+      setTimeout(() => input.focus(), 120);
+    }
+    filterUniverseDrawerItems('');
+  }
+}
+
+function closeUniverseDrawer() {
+  const backdrop = el('universeDrawerBackdrop');
+  if (backdrop) backdrop.hidden = true;
+}
+
+function filterUniverseDrawerItems(filterText, tab = 'all') {
+  const content = el('universeDrawerContent');
+  if (!content) return;
+  const q = (filterText || '').toLowerCase().trim();
+
+  content.querySelectorAll('.universe-group').forEach((group) => {
+    const groupType = group.dataset.group;
+    let groupMatchesTab = tab === 'all' || tab === groupType;
+
+    let visibleInGroup = 0;
+    group.querySelectorAll('.universe-item-btn').forEach((btn) => {
+      const name = (btn.querySelector('.u-item-name')?.textContent || '').toLowerCase();
+      const sub = (btn.querySelector('.u-item-sub')?.textContent || '').toLowerCase();
+      const query = (btn.dataset.query || '').toLowerCase();
+
+      const textMatches = !q || name.includes(q) || sub.includes(q) || query.includes(q);
+      const isVisible = groupMatchesTab && textMatches;
+      btn.style.display = isVisible ? 'flex' : 'none';
+      if (isVisible) visibleInGroup++;
+    });
+
+    group.style.display = visibleInGroup > 0 ? 'block' : 'none';
+  });
+}
+
+function bindUniverseDrawerEvents() {
+  const openBtn = el('universeMenuBtn');
+  const closeBtn = el('closeUniverseDrawer');
+  const backdrop = el('universeDrawerBackdrop');
+  const drawer = el('universeDrawer');
+  const filterInput = el('universeFilterInput');
+  const content = el('universeDrawerContent');
+
+  if (openBtn) {
+    openBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openUniverseDrawer();
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      closeUniverseDrawer();
+    });
+  }
+
+  if (backdrop && drawer) {
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeUniverseDrawer();
+    });
+  }
+
+  // Live search in drawer
+  let activeTab = 'all';
+  if (filterInput) {
+    filterInput.addEventListener('input', () => {
+      filterUniverseDrawerItems(filterInput.value, activeTab);
+    });
+  }
+
+  // Tabs in drawer
+  document.querySelectorAll('.u-tab').forEach((tabBtn) => {
+    tabBtn.addEventListener('click', () => {
+      document.querySelectorAll('.u-tab').forEach((t) => t.classList.remove('active'));
+      tabBtn.classList.add('active');
+      activeTab = tabBtn.dataset.tab;
+      filterUniverseDrawerItems(filterInput ? filterInput.value : '', activeTab);
+    });
+  });
+
+  // Clicking an item in drawer
+  if (content) {
+    content.addEventListener('click', (e) => {
+      const itemBtn = e.target.closest('.universe-item-btn');
+      if (!itemBtn) return;
+      const query = itemBtn.dataset.query;
+      const singerName = itemBtn.querySelector('.u-item-name')?.textContent || query;
+      closeUniverseDrawer();
+
+      const searchInput = el('search');
+      if (searchInput) searchInput.value = query;
+      el('clearSearch').hidden = false;
+
+      state.query = query;
+      state.onlineSearch = true;
+      searchOnlineCatalog(query);
+      toast(`Exploring Universe: ${singerName}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
+
 // App Initialization
 function init() {
   bindEvents();
   bindAuthEvents();
+  bindUniverseDrawerEvents();
   render();
   applyVolume();
   updateProgress(0, 0);

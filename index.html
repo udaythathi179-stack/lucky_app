@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=15" />
+  <link rel="stylesheet" href="styles.css?v=16" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -27,13 +27,28 @@
 
   <!-- Top Navigation Bar -->
   <header class="topbar">
-    <div class="brand" role="banner" id="brandHome" title="Tuneus Music Home">
-      <div class="brand-mark" aria-hidden="true">
-        <img class="brand-logo-img" src="logo.png" alt="Tuneus Music Logo" />
-      </div>
-      <div class="brand-text">
-        <h1>Tuneus</h1>
-        <p>Tollywood &bull; Bollywood &bull; English &bull; Global</p>
+    <div class="top-left-group">
+      <!-- Explore Universe Option Menu (Top Left Corner) -->
+      <button id="universeMenuBtn" class="universe-menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Explore Universe (40+ Singers & Genres)">
+        <span class="universe-btn-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+        </span>
+        <span class="universe-btn-text">Explore Universe</span>
+        <svg class="universe-btn-arrow" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+
+      <div class="brand" role="banner" id="brandHome" title="Tuneus Music Home">
+        <div class="brand-mark" aria-hidden="true">
+          <img class="brand-logo-img" src="logo.png" alt="Tuneus Music Logo" />
+        </div>
+        <div class="brand-text">
+          <h1>Tuneus</h1>
+          <p>Tollywood &bull; Bollywood &bull; English &bull; Global</p>
+        </div>
       </div>
     </div>
 
@@ -141,59 +156,6 @@
           </select>
         </div>
       </div>
-    </div>
-
-    <!-- Quick Universe Online Search Pills -->
-    <div class="quick-universe-bar" id="quickUniverseBar">
-      <span class="quick-bar-label">Explore Universe:</span>
-      <button type="button" class="quick-universe-pill pill-featured" data-query="Tollywood Hits">🎬 Tollywood</button>
-      <button type="button" class="quick-universe-pill pill-featured" data-query="Bollywood Melodies">✨ Bollywood</button>
-      <button type="button" class="quick-universe-pill pill-featured" data-query="Folk Songs">🪕 Folk Hits</button>
-      <button type="button" class="quick-universe-pill pill-featured" data-query="English Pop Hits">🌍 English Hits</button>
-
-      <span class="quick-bar-divider">Telugu Singers</span>
-      <button type="button" class="quick-universe-pill" data-query="SP Balasubrahmanyam Telugu hits">🎙️ S. P. Balasubrahmanyam</button>
-      <button type="button" class="quick-universe-pill" data-query="Sid Sriram Telugu">🎙️ Sid Sriram</button>
-      <button type="button" class="quick-universe-pill" data-query="Anurag Kulkarni Telugu">🎙️ Anurag Kulkarni</button>
-      <button type="button" class="quick-universe-pill" data-query="Karthik Telugu songs">🎙️ Karthik</button>
-      <button type="button" class="quick-universe-pill" data-query="KS Chithra Telugu hits">🎙️ K. S. Chithra</button>
-      <button type="button" class="quick-universe-pill" data-query="Shreya Ghoshal Telugu">🎙️ Shreya Ghoshal</button>
-      <button type="button" class="quick-universe-pill" data-query="Ram Miriyala songs">🎙️ Ram Miriyala</button>
-      <button type="button" class="quick-universe-pill" data-query="Mangli songs">🎙️ Mangli</button>
-      <button type="button" class="quick-universe-pill" data-query="Geetha Madhuri Telugu">🎙️ Geetha Madhuri</button>
-      <button type="button" class="quick-universe-pill" data-query="Revanth Telugu hits">🎙️ Revanth</button>
-      <button type="button" class="quick-universe-pill" data-query="Rahul Sipligunj songs">🎙️ Rahul Sipligunj</button>
-      <button type="button" class="quick-universe-pill" data-query="Ramya Behara Telugu">🎙️ Ramya Behara</button>
-      <button type="button" class="quick-universe-pill" data-query="Sunitha Telugu songs">🎙️ Sunitha</button>
-      <button type="button" class="quick-universe-pill" data-query="Haricharan Telugu">🎙️ Haricharan</button>
-      <button type="button" class="quick-universe-pill" data-query="Vijay Yesudas Telugu">🎙️ Vijay Yesudas</button>
-      <button type="button" class="quick-universe-pill" data-query="Devi Sri Prasad hits">🎙️ D. S. P.</button>
-      <button type="button" class="quick-universe-pill" data-query="Madhu Priya songs">🎙️ Madhu Priya</button>
-      <button type="button" class="quick-universe-pill" data-query="Hemachandra Telugu">🎙️ Hemachandra</button>
-      <button type="button" class="quick-universe-pill" data-query="SP Charan Telugu">🎙️ S. P. Charan</button>
-      <button type="button" class="quick-universe-pill" data-query="Saketh Komanduri Telugu">🎙️ Saketh Komanduri</button>
-
-      <span class="quick-bar-divider">Hindi Singers</span>
-      <button type="button" class="quick-universe-pill" data-query="Arijit Singh Hindi hits">🎶 Arijit Singh</button>
-      <button type="button" class="quick-universe-pill" data-query="Sonu Nigam songs">🎶 Sonu Nigam</button>
-      <button type="button" class="quick-universe-pill" data-query="Shreya Ghoshal Hindi hits">🎶 Shreya Ghoshal</button>
-      <button type="button" class="quick-universe-pill" data-query="Lata Mangeshkar songs">🎶 Lata Mangeshkar</button>
-      <button type="button" class="quick-universe-pill" data-query="Kishore Kumar classic hits">🎶 Kishore Kumar</button>
-      <button type="button" class="quick-universe-pill" data-query="Udit Narayan hits">🎶 Udit Narayan</button>
-      <button type="button" class="quick-universe-pill" data-query="Kumar Sanu 90s hits">🎶 Kumar Sanu</button>
-      <button type="button" class="quick-universe-pill" data-query="Asha Bhosle hits">🎶 Asha Bhosle</button>
-      <button type="button" class="quick-universe-pill" data-query="KK hits">🎶 KK</button>
-      <button type="button" class="quick-universe-pill" data-query="Jubin Nautiyal songs">🎶 Jubin Nautiyal</button>
-      <button type="button" class="quick-universe-pill" data-query="Armaan Malik Hindi songs">🎶 Armaan Malik</button>
-      <button type="button" class="quick-universe-pill" data-query="Mohit Chauhan songs">🎶 Mohit Chauhan</button>
-      <button type="button" class="quick-universe-pill" data-query="Neha Kakkar hits">🎶 Neha Kakkar</button>
-      <button type="button" class="quick-universe-pill" data-query="Shaan Hindi hits">🎶 Shaan</button>
-      <button type="button" class="quick-universe-pill" data-query="Atif Aslam romantic hits">🎶 Atif Aslam</button>
-      <button type="button" class="quick-universe-pill" data-query="Alka Yagnik hits">🎶 Alka Yagnik</button>
-      <button type="button" class="quick-universe-pill" data-query="Vishal Mishra songs">🎶 Vishal Mishra</button>
-      <button type="button" class="quick-universe-pill" data-query="Mika Singh party hits">🎶 Mika Singh</button>
-      <button type="button" class="quick-universe-pill" data-query="Shankar Mahadevan songs">🎶 Shankar Mahadevan</button>
-      <button type="button" class="quick-universe-pill" data-query="Mohammed Rafi classic hits">🎶 Mohammed Rafi</button>
     </div>
 
     <!-- Online Search Banner -->
@@ -822,6 +784,410 @@
   <!-- Toast Notification Feedback -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <!-- Explore Universe Option Menu Drawer (Sliding Left Panel) -->
+  <div class="universe-drawer-backdrop" id="universeDrawerBackdrop" hidden>
+    <aside class="universe-drawer" id="universeDrawer" role="dialog" aria-modal="true" aria-labelledby="universeDrawerTitle">
+      <div class="universe-drawer-head">
+        <div class="universe-head-brand">
+          <span class="universe-head-badge">🌌 UNIVERSE OF MUSIC</span>
+          <h2 id="universeDrawerTitle">Explore Universe</h2>
+          <p>40+ Legendary Telugu &amp; Hindi Singers &amp; Genres</p>
+        </div>
+        <button type="button" class="universe-drawer-close" id="closeUniverseDrawer" aria-label="Close Explore Universe">&times;</button>
+      </div>
+
+      <!-- Quick Singer Filter inside Menu -->
+      <div class="universe-filter-wrap">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input type="text" id="universeFilterInput" placeholder="Filter singers (e.g. SPB, Sid, Arijit)..." autocomplete="off" spellcheck="false" />
+      </div>
+
+      <!-- Category Filter Tabs inside Menu -->
+      <div class="universe-tabs">
+        <button type="button" class="u-tab active" data-tab="all">All (44)</button>
+        <button type="button" class="u-tab" data-tab="telugu">Telugu (20)</button>
+        <button type="button" class="u-tab" data-tab="hindi">Hindi (20)</button>
+        <button type="button" class="u-tab" data-tab="genres">Genres (4)</button>
+      </div>
+
+      <!-- Singer and Genre List -->
+      <div class="universe-drawer-content" id="universeDrawerContent">
+        <!-- Genres Group -->
+        <div class="universe-group" data-group="genres">
+          <h3 class="universe-group-title">🎬 Featured Genres</h3>
+          <div class="universe-items-grid">
+            <button type="button" class="universe-item-btn genre-item" data-query="Tollywood Hits">
+              <span class="u-item-icon">🎬</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Tollywood Hits</span>
+                <span class="u-item-sub">Telugu Blockbusters &bull; High Energy Mass &amp; Melodies</span>
+              </div>
+              <span class="u-item-tag">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn genre-item" data-query="Bollywood Melodies">
+              <span class="u-item-icon">✨</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Bollywood Melodies</span>
+                <span class="u-item-sub">Hindi Chartbusters &bull; Romantic &amp; Classic Tracks</span>
+              </div>
+              <span class="u-item-tag">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn genre-item" data-query="Folk Songs">
+              <span class="u-item-icon">🪕</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Folk Songs &amp; Beats</span>
+                <span class="u-item-sub">Authentic Village Roots &bull; Dappu Rhythms &bull; Rural Hits</span>
+              </div>
+              <span class="u-item-tag">Folk</span>
+            </button>
+            <button type="button" class="universe-item-btn genre-item" data-query="English Pop Hits">
+              <span class="u-item-icon">🌍</span>
+              <div class="u-item-info">
+                <span class="u-item-name">English Pop &amp; Global</span>
+                <span class="u-item-sub">International Pop, Rock, EDM &amp; Billboard Hits</span>
+              </div>
+              <span class="u-item-tag">Global</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Telugu Singers Group (All 20) -->
+        <div class="universe-group" data-group="telugu">
+          <h3 class="universe-group-title">🎙️ Telugu Legendary Singers</h3>
+          <div class="universe-items-grid">
+            <button type="button" class="universe-item-btn" data-query="SP Balasubrahmanyam Telugu hits">
+              <span class="u-item-avatar">SPB</span>
+              <div class="u-item-info">
+                <span class="u-item-name">S. P. Balasubrahmanyam</span>
+                <span class="u-item-sub">Gana Gandharva &bull; 40,000+ Songs</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Sid Sriram Telugu">
+              <span class="u-item-avatar">SS</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Sid Sriram</span>
+                <span class="u-item-sub">Melody King &bull; Srivalli, Samajavaragamana</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Anurag Kulkarni Telugu">
+              <span class="u-item-avatar">AK</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Anurag Kulkarni</span>
+                <span class="u-item-sub">Ramuloo Ramulaa, Pilla Raa</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Karthik Telugu songs">
+              <span class="u-item-avatar">KA</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Karthik</span>
+                <span class="u-item-sub">Ee Manase, Niluvaddham, Aakasam Ammayi</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="KS Chithra Telugu hits">
+              <span class="u-item-avatar">KSC</span>
+              <div class="u-item-info">
+                <span class="u-item-name">K. S. Chithra</span>
+                <span class="u-item-sub">Chinna Kuyil &bull; 6 National Awards</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Shreya Ghoshal Telugu">
+              <span class="u-item-avatar">SG</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Shreya Ghoshal</span>
+                <span class="u-item-sub">Pillagali, Kopamga, Jagadananda</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Ram Miriyala songs">
+              <span class="u-item-avatar">RM</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Ram Miriyala</span>
+                <span class="u-item-sub">Chitti, Tillu Anna, Ooru Palletooru</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Mangli songs">
+              <span class="u-item-avatar">MA</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Mangli</span>
+                <span class="u-item-sub">Saranga Dariya, Bonalu, Folk Sensation</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Geetha Madhuri Telugu">
+              <span class="u-item-avatar">GM</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Geetha Madhuri</span>
+                <span class="u-item-sub">Pakka Local, Magadheera, Darlingey</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Revanth Telugu hits">
+              <span class="u-item-avatar">RE</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Revanth</span>
+                <span class="u-item-sub">Manohari, Indian Idol Winner, Telugu Rock</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Rahul Sipligunj songs">
+              <span class="u-item-avatar">RS</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Rahul Sipligunj</span>
+                <span class="u-item-sub">Naatu Naatu (Oscar Winner), Ranga Ranga</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Ramya Behara Telugu">
+              <span class="u-item-avatar">RB</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Ramya Behara</span>
+                <span class="u-item-sub">Dhivara (Baahubali), O Sthree Repu Vaa</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Sunitha Telugu songs">
+              <span class="u-item-avatar">SU</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Sunitha</span>
+                <span class="u-item-sub">9 Nandi Awards &bull; Melodious Icon</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Haricharan Telugu">
+              <span class="u-item-avatar">HC</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Haricharan</span>
+                <span class="u-item-sub">Nuvvele Nuvvele, Kaatuka Kannula</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Vijay Yesudas Telugu">
+              <span class="u-item-avatar">VY</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Vijay Yesudas</span>
+                <span class="u-item-sub">Malare, Evare (Premam), Soulful Vocalist</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Devi Sri Prasad hits">
+              <span class="u-item-avatar">DSP</span>
+              <div class="u-item-info">
+                <span class="u-item-name">D. S. P.</span>
+                <span class="u-item-sub">Rockstar Devi Sri Prasad &bull; High Voltage Hits</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Madhu Priya songs">
+              <span class="u-item-avatar">MP</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Madhu Priya</span>
+                <span class="u-item-sub">Vachinde Pilla, He Is So Cute</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Hemachandra Telugu">
+              <span class="u-item-avatar">HE</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Hemachandra</span>
+                <span class="u-item-sub">Bommarillu, Maryada Ramanna, Mass Power</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="SP Charan Telugu">
+              <span class="u-item-avatar">SPC</span>
+              <div class="u-item-info">
+                <span class="u-item-name">S. P. Charan</span>
+                <span class="u-item-sub">Mellaga Karagani, Golden Legacy</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Saketh Komanduri Telugu">
+              <span class="u-item-avatar">SK</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Saketh Komanduri</span>
+                <span class="u-item-sub">Pala Pitta, Saaho, Dynamic Classical Voice</span>
+              </div>
+              <span class="u-item-badge telugu">Telugu</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hindi Singers Group (All 20) -->
+        <div class="universe-group" data-group="hindi">
+          <h3 class="universe-group-title">🎶 Hindi Legendary Singers</h3>
+          <div class="universe-items-grid">
+            <button type="button" class="universe-item-btn" data-query="Arijit Singh Hindi hits">
+              <span class="u-item-avatar">AS</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Arijit Singh</span>
+                <span class="u-item-sub">Tum Hi Ho, Kesariya, Chaleya</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Sonu Nigam songs">
+              <span class="u-item-avatar">SN</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Sonu Nigam</span>
+                <span class="u-item-sub">Kal Ho Naa Ho, Abhi Mujh Mein Kahin</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Shreya Ghoshal Hindi hits">
+              <span class="u-item-avatar">SG</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Shreya Ghoshal</span>
+                <span class="u-item-sub">Sunn Raha Hai, Deewani Mastani, Teri Ore</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Lata Mangeshkar songs">
+              <span class="u-item-avatar">LM</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Lata Mangeshkar</span>
+                <span class="u-item-sub">Nightingale of India &bull; Bharat Ratna</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Kishore Kumar classic hits">
+              <span class="u-item-avatar">KK</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Kishore Kumar</span>
+                <span class="u-item-sub">Pal Pal Dil Ke Paas, Roop Tera Mastana</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Udit Narayan hits">
+              <span class="u-item-avatar">UN</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Udit Narayan</span>
+                <span class="u-item-sub">Papa Kehte Hain, Pehla Nasha, Mitwa</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Kumar Sanu 90s hits">
+              <span class="u-item-avatar">KS</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Kumar Sanu</span>
+                <span class="u-item-sub">King of 90s Romance &bull; 5 Consecutive Filmfares</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Asha Bhosle hits">
+              <span class="u-item-avatar">AB</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Asha Bhosle</span>
+                <span class="u-item-sub">Dum Maro Dum, Chura Liya, Rangeela Re</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="KK hits">
+              <span class="u-item-avatar">KK</span>
+              <div class="u-item-info">
+                <span class="u-item-name">KK</span>
+                <span class="u-item-sub">Yaaron, Pal, Tu Aashiqui Hai, Zara Sa</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Jubin Nautiyal songs">
+              <span class="u-item-avatar">JN</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Jubin Nautiyal</span>
+                <span class="u-item-sub">Raataan Lambiyan, Lut Gaye, Tum Hi Aana</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Armaan Malik Hindi songs">
+              <span class="u-item-avatar">AM</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Armaan Malik</span>
+                <span class="u-item-sub">Bol Do Na Zara, Main Hoon Hero Tera</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Mohit Chauhan songs">
+              <span class="u-item-avatar">MC</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Mohit Chauhan</span>
+                <span class="u-item-sub">Kun Faya Kun, Tum Se Hi, Masakali, Rockstar</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Neha Kakkar hits">
+              <span class="u-item-avatar">NK</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Neha Kakkar</span>
+                <span class="u-item-sub">Dilbar, Aankh Marey, O Saki Saki</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Shaan Hindi hits">
+              <span class="u-item-avatar">SH</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Shaan</span>
+                <span class="u-item-sub">Chand Sifarish, Tanha Dil, Woh Ladki Hai Kahan</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Atif Aslam romantic hits">
+              <span class="u-item-avatar">AA</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Atif Aslam</span>
+                <span class="u-item-sub">Tera Hone Laga Hoon, Dil Diyan Gallan, Jeena Jeena</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Alka Yagnik hits">
+              <span class="u-item-avatar">AY</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Alka Yagnik</span>
+                <span class="u-item-sub">Tip Tip Barsa, Taal Se Taal, Kuch Kuch Hota Hai</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Vishal Mishra songs">
+              <span class="u-item-avatar">VM</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Vishal Mishra</span>
+                <span class="u-item-sub">Pehle Bhi Main (Animal), Kaise Hua</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Mika Singh party hits">
+              <span class="u-item-avatar">MS</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Mika Singh</span>
+                <span class="u-item-sub">Mauja Hi Mauja, Subah Hone Na De, Jumme Ki Raat</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Shankar Mahadevan songs">
+              <span class="u-item-avatar">SM</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Shankar Mahadevan</span>
+                <span class="u-item-sub">Breathless, Dil Chahta Hai, Mitwa, Maa</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+            <button type="button" class="universe-item-btn" data-query="Mohammed Rafi classic hits">
+              <span class="u-item-avatar">MR</span>
+              <div class="u-item-info">
+                <span class="u-item-name">Mohammed Rafi</span>
+                <span class="u-item-sub">Golden Era Legend &bull; Kya Hua Tera Wada, Baharo Phool Barsao</span>
+              </div>
+              <span class="u-item-badge hindi">Hindi</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
   <!-- Mobile Bottom Navigation Dock (Spotify Style) -->
   <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile Navigation">
     <button type="button" class="nav-tab active" id="tabHome" title="Home">
@@ -846,7 +1212,7 @@
     </button>
   </nav>
 
-  <script src="app.js?v=15"></script>
+  <script src="app.js?v=16"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
