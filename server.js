@@ -41,14 +41,19 @@ function cleanHTML(str) {
     .replace(/&quot;/g, '"')
     .replace(/&amp;/g, '&')
     .replace(/&#039;/g, "'")
+    .replace(/&apos;/g, "'")
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .replace(/&ndash;/g, '–')
+    .replace(/&mdash;/g, '—')
+    .replace(/&hellip;/g, '…')
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(dec))
     .trim();
 }
 
-// Proxy Search for full-length songs
+// Proxy Search for full-length songs (Universe of Music: English, Bollywood, Tollywood, Global)
 function searchFullSongs(query, res) {
-  const url = `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=25&q=${encodeURIComponent(query)}`;
+  const url = `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=40&q=${encodeURIComponent(query)}`;
   https.get(url, {
     headers: {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
@@ -60,15 +65,18 @@ function searchFullSongs(query, res) {
       try {
         const json = JSON.parse(data);
         const results = (json && json.results ? json.results : []).map((song) => {
-          const streamUrl = decryptSaavnUrl(song.encrypted_media_url);
+          const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
+          const streamUrl = decryptSaavnUrl(encMedia);
           const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
+          const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
+          const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
           return {
             id: `saavn-${song.id || Math.random().toString(36).slice(2, 8)}`,
             title: cleanHTML(song.song || song.title),
             artist: cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || 'Unknown'),
             movie: cleanHTML(song.album || song.more_info?.album || 'Single'),
             year: song.year ? parseInt(song.year, 10) : new Date().getFullYear(),
-            language: song.language ? song.language[0].toUpperCase() + song.language.slice(1).toLowerCase() : 'Music',
+            language: cleanLang,
             src: streamUrl,
             artwork: artwork,
             duration: parseInt(song.duration, 10) || 240,
@@ -120,7 +128,7 @@ const server = http.createServer((req, res) => {
   // Direct Audio Download Proxy route (Forces file save on Mobile & Laptop)
   if (pathname === '/api/download') {
     const fileUrl = parsedUrl.searchParams.get('url');
-    let rawName = parsedUrl.searchParams.get('name') || 'Lucky_Song';
+    let rawName = parsedUrl.searchParams.get('name') || 'Tuneus_Song';
     let cleanName = rawName.replace(/[/\\?%*:|"<>]/g, '_').trim();
     if (!cleanName.toLowerCase().endsWith('.mp3') && !cleanName.toLowerCase().endsWith('.m4a')) {
       cleanName += '.mp3';
@@ -231,7 +239,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Lucky Music Player server is running:`);
+  console.log(`Tuneus Music Player server is running:`);
   console.log(`  Local:   http://localhost:${PORT}`);
   console.log(`  Network: http://192.168.0.111:${PORT}`);
 });

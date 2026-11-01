@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Lucky - Telugu &amp; Hindi Music Streaming</title>
-  <meta name="theme-color" content="#ff8533" />
+  <title>Tuneus - Universe of Music &bull; Tollywood, Bollywood, English &amp; Global</title>
+  <meta name="theme-color" content="#00d2ff" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Lucky" />
-  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <meta name="apple-mobile-web-app-title" content="Tuneus" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=9" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -22,17 +24,13 @@
 
   <!-- Top Navigation Bar -->
   <header class="topbar">
-    <div class="brand" role="banner" id="brandHome" title="Lucky Music Home">
+    <div class="brand" role="banner" id="brandHome" title="Tuneus Music Home">
       <div class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 18V5l12-2v13" />
-          <circle cx="6" cy="18" r="3" />
-          <circle cx="18" cy="16" r="3" />
-        </svg>
+        <img class="brand-logo-img" src="logo.png" alt="Tuneus Music Logo" />
       </div>
       <div class="brand-text">
-        <h1>Lucky</h1>
-        <p>Telugu &amp; Hindi Music</p>
+        <h1>Tuneus</h1>
+        <p>Tollywood &bull; Bollywood &bull; English &bull; Global</p>
       </div>
     </div>
 
@@ -43,7 +41,7 @@
           <circle cx="11" cy="11" r="7" />
           <path d="m20 20-3.6-3.6" />
         </svg>
-        <input id="search" type="search" placeholder="Search online for any song, artist, movie (Full Songs)..." autocomplete="off" spellcheck="false" aria-label="Search online for songs" />
+        <input id="search" type="search" placeholder="Search universe of songs (Tollywood, Bollywood, English, Global)..." autocomplete="off" spellcheck="false" aria-label="Search online for songs" />
         <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>&times;</button>
         <kbd class="search-kbd" title="Press / to focus">/</kbd>
       </div>
@@ -74,19 +72,22 @@
     <div class="nav-toolbar">
       <nav class="filters" aria-label="Filter by language and category">
         <button class="chip active" data-filter="All" type="button">
-          All <span class="chip-count" id="countAll">0</span>
+          All
         </button>
         <button class="chip" data-filter="Telugu" type="button">
-          Telugu <span class="chip-count" id="countTelugu">0</span>
+          Tollywood
         </button>
         <button class="chip" data-filter="Hindi" type="button">
-          Hindi <span class="chip-count" id="countHindi">0</span>
+          Bollywood
+        </button>
+        <button class="chip" data-filter="English" type="button">
+          English
         </button>
         <button class="chip chip-special" data-filter="Favorites" type="button">
-          <span class="heart-symbol">&#9829;</span> Liked <span class="chip-count" id="countFavorites">0</span>
+          <span class="heart-symbol">&#9829;</span> Liked
         </button>
         <button class="chip chip-special" data-filter="Playlists" type="button">
-          <span>&#9776;</span> Playlists <span class="chip-count" id="countPlaylists">0</span>
+          <span>&#9776;</span> Playlists
         </button>
         <button class="chip chip-special" data-filter="Downloads" type="button">
           <span>&#8681;</span> Downloads <span class="chip-count" id="countDownloads">0</span>
@@ -105,6 +106,21 @@
           </select>
         </div>
       </div>
+    </div>
+
+    <!-- Quick Universe Online Search Pills -->
+    <div class="quick-universe-bar" id="quickUniverseBar">
+      <span class="quick-bar-label">Explore Universe:</span>
+      <button type="button" class="quick-universe-pill" data-query="Tollywood Hits">🎬 Tollywood</button>
+      <button type="button" class="quick-universe-pill" data-query="Bollywood Melodies">✨ Bollywood</button>
+      <button type="button" class="quick-universe-pill" data-query="English Pop Hits">🌍 English Hits</button>
+      <button type="button" class="quick-universe-pill" data-query="Trending Songs 2025">🔥 Trending</button>
+      <button type="button" class="quick-universe-pill" data-query="Taylor Swift">🎤 Taylor Swift</button>
+      <button type="button" class="quick-universe-pill" data-query="Ed Sheeran">🎸 Ed Sheeran</button>
+      <button type="button" class="quick-universe-pill" data-query="Arijit Singh">🎶 Arijit Singh</button>
+      <button type="button" class="quick-universe-pill" data-query="Anirudh Ravichander">⚡ Anirudh</button>
+      <button type="button" class="quick-universe-pill" data-query="Sid Sriram">💫 Sid Sriram</button>
+      <button type="button" class="quick-universe-pill" data-query="Punjabi Hits">🎵 Punjabi</button>
     </div>
 
     <!-- Online Search Banner -->
@@ -136,11 +152,12 @@
     <section id="libraryHeaderSection" class="library-head">
       <div>
         <h2 id="sectionTitle">Song library (Full Length)</h2>
-        <p id="resultInfo">0 songs</p>
+        <p id="resultInfo">Studio master streams (320kbps)</p>
       </div>
       <div class="legend" aria-hidden="true">
-        <span><i class="dot telugu"></i>Telugu</span>
-        <span><i class="dot hindi"></i>Hindi</span>
+        <span><i class="dot telugu"></i>Tollywood</span>
+        <span><i class="dot hindi"></i>Bollywood</span>
+        <span><i class="dot english"></i>English</span>
         <span><i class="dot favorite"></i>Liked</span>
       </div>
     </section>
@@ -284,7 +301,7 @@
         </button>
         <div class="expanded-header-title">
           <span class="playing-from-tag">PLAYING FROM</span>
-          <strong id="expandedSourceTitle">Lucky Music Library</strong>
+          <strong id="expandedSourceTitle">Tuneus Music Library</strong>
         </div>
         <button id="expandedLikeBtn" class="icon-btn" type="button" aria-label="Like song">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -310,9 +327,9 @@
         <div class="expanded-meta">
           <div class="expanded-titles">
             <h2 id="expandedTitle">Select a track</h2>
-            <p id="expandedArtist">Lucky Telugu &amp; Hindi Music</p>
+            <p id="expandedArtist">Tuneus Universe of Music</p>
           </div>
-          <span id="expandedLangBadge" class="lang-badge">LUCKY</span>
+          <span id="expandedLangBadge" class="lang-badge">TUNEUS</span>
         </div>
 
         <!-- Timeline & Seek Slider -->
@@ -451,11 +468,78 @@
     </div>
   </div>
 
+  <!-- Download Destination Choice Modal -->
+  <div class="modal-backdrop" id="downloadModal" hidden>
+    <div class="modal download-modal" role="dialog" aria-modal="true" aria-labelledby="downloadModalTitle">
+      <h2 id="downloadModalTitle">Download Song</h2>
+      <p id="downloadModalSub" class="modal-sub">Choose where you want to download this track</p>
+
+      <div class="download-track-preview" id="downloadTrackPreview">
+        <div class="download-track-art" id="downloadTrackArt"></div>
+        <div class="download-track-info">
+          <strong id="downloadTrackTitle">Song Title</strong>
+          <span id="downloadTrackArtist">Artist Name</span>
+        </div>
+      </div>
+
+      <div class="download-options-grid">
+        <!-- Option 1: Save to Device (Local File: Phone / Laptop) -->
+        <button type="button" class="download-option-card" id="dlOptionDevice">
+          <div class="dl-opt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+          </div>
+          <div class="dl-opt-text">
+            <strong>Download to Device (MP3)</strong>
+            <span>Save MP3 file directly to your phone/laptop Downloads folder</span>
+          </div>
+          <div class="dl-opt-badge">File</div>
+        </button>
+
+        <!-- Option 2: Save in App (Offline Mode) -->
+        <button type="button" class="download-option-card" id="dlOptionApp">
+          <div class="dl-opt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="3" ry="3" />
+              <line x1="12" y1="18" x2="12.01" y2="18" />
+            </svg>
+          </div>
+          <div class="dl-opt-text">
+            <strong>Save Inside App (Offline Mode)</strong>
+            <span>Play inside Tuneus app anytime without internet &amp; 0 data usage</span>
+          </div>
+          <div class="dl-opt-badge">In-App</div>
+        </button>
+
+        <!-- Option 3: Both (App & Device) -->
+        <button type="button" class="download-option-card dl-opt-both" id="dlOptionBoth">
+          <div class="dl-opt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+          </div>
+          <div class="dl-opt-text">
+            <strong>Download Both</strong>
+            <span>Save MP3 to device AND keep offline copy in Tuneus app</span>
+          </div>
+          <div class="dl-opt-badge highlight">Best</div>
+        </button>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="ghost-btn" id="closeDownloadModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Keyboard Shortcuts Help Modal -->
   <div class="modal-backdrop" id="shortcutsModal" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="shortcutsTitle">
       <h2 id="shortcutsTitle">Keyboard Shortcuts</h2>
-      <p class="modal-sub">Navigate and control Lucky directly from your keyboard</p>
+      <p class="modal-sub">Navigate and control Tuneus directly from your keyboard</p>
 
       <div class="shortcuts-grid">
         <div class="shortcut-item"><kbd>Space</kbd> <span>Play / Pause</span></div>
@@ -489,8 +573,9 @@
 
       <span class="field-label">Choose language category</span>
       <div class="choices" id="importLanguages">
-        <button type="button" class="choice active" data-lang="Telugu">Telugu</button>
-        <button type="button" class="choice" data-lang="Hindi">Hindi</button>
+        <button type="button" class="choice active" data-lang="Telugu">Tollywood (Telugu)</button>
+        <button type="button" class="choice" data-lang="Hindi">Bollywood (Hindi)</button>
+        <button type="button" class="choice" data-lang="English">English</button>
         <button type="button" class="choice" data-lang="Other">Other</button>
       </div>
 
@@ -509,7 +594,7 @@
   <!-- Toast Notification Feedback -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=9"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

@@ -1,0 +1,19 @@
+{
+  "name": "tuneus-music",
+  "version": "1.0.0",
+  "description": "Tuneus - Studio Music Streaming & PWA (Tollywood, Bollywood, English, Global)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --openssl-legacy-provider server.js"
+  },
+  "keywords": [
+    "music-player",
+    "pwa",
+    "streaming",
+    "tollywood",
+    "bollywood",
+    "english-songs"
+  ],
+  "author": "Uday Kumar",
+  "license": "ISC"
+}

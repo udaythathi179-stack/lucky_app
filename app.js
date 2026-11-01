@@ -1,4 +1,4 @@
-// Lucky - Telugu & Hindi Music Streaming Application
+// Tuneus - Telugu & Hindi Music Streaming Application
 // Full Length Studio Songs (320kbps High Quality Master Streams)
 const catalog = [
   {
@@ -341,6 +341,204 @@ const catalog = [
     src: "https://aac.saavncdn.com/151/83d9815e1d6129ff644dc9575ef6db7e_320.mp4",
     artwork: "https://c.saavncdn.com/151/Ek-Villain-Hindi-2014-500x500.jpg",
     duration: 341
+  },
+  {
+    id: "song-O94kBTtw",
+    title: "Chuttamalle",
+    artist: "Anirudh Ravichander, Shilpa Rao",
+    movie: "Devara Part 1",
+    year: 2024,
+    language: "Telugu",
+    src: "https://aac.saavncdn.com/313/e49e604945889f330e5b3536dd0ff524_320.mp4",
+    artwork: "https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg",
+    duration: 222
+  },
+  {
+    id: "song-m0Yt29rq",
+    title: "Fear Song",
+    artist: "Anirudh Ravichander",
+    movie: "Devara Part 1",
+    year: 2024,
+    language: "Telugu",
+    src: "https://aac.saavncdn.com/313/1178c7b2a16c3fd32ec5cd002b5a1ce0_320.mp4",
+    artwork: "https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg",
+    duration: 195
+  },
+  {
+    id: "song-xO_AK9q9",
+    title: "Kissik",
+    artist: "Sublahshini, Devi Sri Prasad",
+    movie: "Pushpa 2 The Rule",
+    year: 2024,
+    language: "Telugu",
+    src: "https://aac.saavncdn.com/917/6b9b050f895bdbdb6c7146ce4a240a06_320.mp4",
+    artwork: "https://c.saavncdn.com/917/Tollywood-Heroines-Musical-Blockbusters-Telugu-2025-20251120161002-500x500.jpg",
+    duration: 248
+  },
+  {
+    id: "song-CVeqCCYc",
+    title: "Tauba Tauba",
+    artist: "Karan Aujla",
+    movie: "Bad Newz",
+    year: 2024,
+    language: "Hindi",
+    src: "https://aac.saavncdn.com/992/5d44da8bc1d78fb72d18b701d758fd1f_320.mp4",
+    artwork: "https://c.saavncdn.com/992/Bad-Newz-Hindi-2024-20250730113701-500x500.jpg",
+    duration: 207
+  },
+  {
+    id: "song-rjkrTnma",
+    title: "Kesariya",
+    artist: "Pritam, Arijit Singh",
+    movie: "Brahmastra",
+    year: 2022,
+    language: "Hindi",
+    src: "https://aac.saavncdn.com/871/c2febd353f3a076a406fa37510f31f9f_320.mp4",
+    artwork: "https://c.saavncdn.com/871/Brahmastra-Original-Motion-Picture-Soundtrack-Hindi-2022-20221006155213-500x500.jpg",
+    duration: 268
+  },
+  {
+    id: "song-aRZbUYD7",
+    title: "Tum Hi Ho",
+    artist: "Arijit Singh",
+    movie: "Aashiqui 2",
+    year: 2013,
+    language: "Hindi",
+    src: "https://aac.saavncdn.com/430/5c5ea5cc00e3bff45616013226f376fe_320.mp4",
+    artwork: "https://c.saavncdn.com/430/Aashiqui-2-Hindi-2013-500x500.jpg",
+    duration: 262
+  },
+  {
+    id: "en-wwSCc15h",
+    title: "Shape of You",
+    artist: "Ed Sheeran",
+    movie: "÷ (Divide)",
+    year: 2017,
+    language: "English",
+    src: "https://aac.saavncdn.com/286/2929d11a5d44a3592ced0383fa6f1977_320.mp4",
+    artwork: "https://c.saavncdn.com/286/WMG_190295851286-English-2017-500x500.jpg",
+    duration: 233
+  },
+  {
+    id: "en-BeXBcbVK",
+    title: "Believer",
+    artist: "Imagine Dragons",
+    movie: "Evolve",
+    year: 2017,
+    language: "English",
+    src: "https://aac.saavncdn.com/248/46944eb7b4b31f5b0abf5eb2e1be2d2a_320.mp4",
+    artwork: "https://c.saavncdn.com/248/Evolve-English-2018-20260605220036-500x500.jpg",
+    duration: 204
+  },
+  {
+    id: "en-TcDP-KUl",
+    title: "Starboy",
+    artist: "The Weeknd ft. Daft Punk",
+    movie: "Starboy",
+    year: 2016,
+    language: "English",
+    src: "https://aac.saavncdn.com/396/b4e570050007b056c662f2a98c9f28ec_320.mp4",
+    artwork: "https://c.saavncdn.com/396/The-Highlights-English-2021-20240207045714-500x500.jpg",
+    duration: 230
+  },
+  {
+    id: "en-4SQmljgZ",
+    title: "Cruel Summer",
+    artist: "Taylor Swift",
+    movie: "Lover",
+    year: 2019,
+    language: "English",
+    src: "https://aac.saavncdn.com/243/cf6b522de1390996fdbe109298873c72_320.mp4",
+    artwork: "https://c.saavncdn.com/243/The-Cruelest-Summer-English-2023-20231109123211-500x500.jpg",
+    duration: 178
+  },
+  {
+    id: "en-pizXlfUB",
+    title: "Blinding Lights",
+    artist: "The Weeknd",
+    movie: "After Hours",
+    year: 2020,
+    language: "English",
+    src: "https://aac.saavncdn.com/396/eca27e31e93211051fa0de18160ea825_320.mp4",
+    artwork: "https://c.saavncdn.com/396/The-Highlights-English-2021-20240207045714-500x500.jpg",
+    duration: 204
+  },
+  {
+    id: "en-kd8JSDbB",
+    title: "STAY",
+    artist: "The Kid LAROI, Justin Bieber",
+    movie: "F*ck Love 3: Overkill",
+    year: 2021,
+    language: "English",
+    src: "https://aac.saavncdn.com/895/9a3f48fb98e9dd0b201f6cacfb554408_320.mp4",
+    artwork: "https://c.saavncdn.com/895/Stay-English-2021-20210706223809-500x500.jpg",
+    duration: 140
+  },
+  {
+    id: "en-3IoDK8qI",
+    title: "Levitating",
+    artist: "Dua Lipa",
+    movie: "Future Nostalgia",
+    year: 2020,
+    language: "English",
+    src: "https://aac.saavncdn.com/665/7790c3b9097592113008eaf1031d6e57_320.mp4",
+    artwork: "https://c.saavncdn.com/665/Future-Nostalgia-English-2020-20260306223201-500x500.jpg",
+    duration: 203
+  },
+  {
+    id: "en-6o8JoQ8b",
+    title: "Perfect",
+    artist: "Ed Sheeran",
+    movie: "÷ (Divide)",
+    year: 2017,
+    language: "English",
+    src: "https://aac.saavncdn.com/286/71bb6cc3391ddf619a4a3f1a1134f1c4_320.mp4",
+    artwork: "https://c.saavncdn.com/286/WMG_190295851286-English-2017-500x500.jpg",
+    duration: 263
+  },
+  {
+    id: "en-_J5iTI6U",
+    title: "Night Changes",
+    artist: "One Direction",
+    movie: "FOUR",
+    year: 2014,
+    language: "English",
+    src: "https://aac.saavncdn.com/851/d3f6d5e7ae7c9050697a779f85eaabe8_320.mp4",
+    artwork: "https://c.saavncdn.com/851/FOUR-Deluxe--English-2014-500x500.jpg",
+    duration: 226
+  },
+  {
+    id: "en-WsHtbZuu",
+    title: "Faded",
+    artist: "Alan Walker",
+    movie: "Different World",
+    year: 2015,
+    language: "English",
+    src: "https://aac.saavncdn.com/562/b331b68fc5e35ff7d7cd7ce0e25158d7_320.mp4",
+    artwork: "https://c.saavncdn.com/562/Different-World-English-2018-20181130144209-500x500.jpg",
+    duration: 212
+  },
+  {
+    id: "en-rcfx8i4G",
+    title: "Something Just Like This",
+    artist: "The Chainsmokers, Coldplay",
+    movie: "Memories...Do Not Open",
+    year: 2017,
+    language: "English",
+    src: "https://aac.saavncdn.com/211/7c90f31d4a91a1e2661b0b1d69245e6e_320.mp4",
+    artwork: "https://c.saavncdn.com/211/Memories-Do-Not-Open-English-2017-500x500.jpg",
+    duration: 247
+  },
+  {
+    id: "en-Pf5IqYMQ",
+    title: "Closer",
+    artist: "The Chainsmokers ft. Halsey",
+    movie: "Collage",
+    year: 2016,
+    language: "English",
+    src: "https://aac.saavncdn.com/054/00363f6aceae57b88fa39f686c5af82e_320.mp4",
+    artwork: "https://c.saavncdn.com/054/Collage-EP-English-2016-500x500.jpg",
+    duration: 249
   }
 ];
 
@@ -348,14 +546,18 @@ const catalog = [
 const el = (id) => document.getElementById(id);
 
 // Storage Keys
-const STORAGE_FAVORITES = 'lucky_favorites_v1';
-const STORAGE_PLAYLISTS = 'lucky_playlists_v1';
-const STORAGE_CUSTOM_TRACKS = 'lucky_custom_tracks_v1';
+const STORAGE_FAVORITES = 'tuneus_favorites_v1';
+const STORAGE_PLAYLISTS = 'tuneus_playlists_v1';
+const STORAGE_CUSTOM_TRACKS = 'tuneus_custom_tracks_v1';
 
 // Load stored data safely
 function getStoredJSON(key, fallback) {
   try {
-    const val = localStorage.getItem(key);
+    let val = localStorage.getItem(key);
+    if (!val) {
+      const legacyKey = key.replace('tuneus_', 'lucky_');
+      val = localStorage.getItem(legacyKey);
+    }
     return val ? JSON.parse(val) : fallback;
   } catch (e) {
     return fallback;
@@ -368,7 +570,7 @@ function setStoredJSON(key, val) {
 }
 
 // Offline downloads storage (IndexedDB) so songs can play without internet
-const DOWNLOADS_DB_NAME = 'lucky_music_downloads_v1';
+const DOWNLOADS_DB_NAME = 'tuneus_music_downloads_v1';
 const DOWNLOADS_DB_VERSION = 1;
 const DOWNLOADS_STORE = 'songs';
 let downloadsDbPromise = null;
@@ -541,20 +743,30 @@ function saveBlobToDevice(blob, fileName) {
 // Initial Playlists
 const defaultPlaylists = [
   {
-    id: 'pl-lucky-telugu',
-    name: 'Lucky Telugu Superhits',
+    id: 'pl-tuneus-telugu',
+    name: 'Tuneus Tollywood Superhits',
     description: 'Full-length Telugu chartbusters and party hits',
     trackIds: catalog.filter((t) => t.language === 'Telugu').map((t) => t.id)
   },
   {
-    id: 'pl-lucky-hindi',
-    name: 'Lucky Bollywood Melodies',
+    id: 'pl-tuneus-hindi',
+    name: 'Tuneus Bollywood Melodies',
     description: 'Full-length Bollywood romantic and soulful songs',
     trackIds: catalog.filter((t) => t.language === 'Hindi').map((t) => t.id)
+  },
+  {
+    id: 'pl-tuneus-english',
+    name: 'Tuneus English & Global Hits',
+    description: 'World-famous international chartbusters and pop anthems',
+    trackIds: catalog.filter((t) => t.language === 'English').map((t) => t.id)
   }
 ];
 
-const storedPlaylists = getStoredJSON(STORAGE_PLAYLISTS, defaultPlaylists);
+let storedPlaylists = getStoredJSON(STORAGE_PLAYLISTS, defaultPlaylists);
+if (!storedPlaylists.some((p) => p.id === 'pl-tuneus-english')) {
+  const engPlaylist = defaultPlaylists.find((p) => p.id === 'pl-tuneus-english');
+  if (engPlaylist) storedPlaylists.push(engPlaylist);
+}
 const storedFavorites = new Set(getStoredJSON(STORAGE_FAVORITES, []));
 const storedCustomTracks = getStoredJSON(STORAGE_CUSTOM_TRACKS, []);
 
@@ -780,7 +992,7 @@ function startVisualizerLoop() {
       for (let i = 0; i < barCount; i++) {
         const val = dataArray[i % bufferLength] / 255;
         const h = val * miniCanvas.height;
-        miniCtx.fillStyle = 'rgba(255, 133, 51, 0.7)';
+        miniCtx.fillStyle = 'rgba(0, 210, 255, 0.75)';
         miniCtx.fillRect(i * barWidth, miniCanvas.height - h, barWidth - 2, h);
       }
     }
@@ -793,9 +1005,9 @@ function startVisualizerLoop() {
         const val = dataArray[i % bufferLength] / 255;
         const h = Math.max(3, val * (expCanvas.height - 4));
         const gradient = expCtx.createLinearGradient(0, expCanvas.height - h, 0, expCanvas.height);
-        gradient.addColorStop(0, '#ff477e');
-        gradient.addColorStop(0.5, '#ff8533');
-        gradient.addColorStop(1, '#ffc066');
+        gradient.addColorStop(0, '#00f0ff');
+        gradient.addColorStop(0.5, '#0088ff');
+        gradient.addColorStop(1, '#3b82f6');
         expCtx.fillStyle = gradient;
         expCtx.beginPath();
         expCtx.roundRect(i * barWidth, expCanvas.height - h, barWidth - 3, h, [3, 3, 0, 0]);
@@ -821,8 +1033,12 @@ function visibleTracks() {
   } else {
     list = state.tracks.slice();
 
-    if (state.filter === 'Telugu' || state.filter === 'Hindi') {
-      list = list.filter((t) => t.language === state.filter);
+    if (state.filter === 'Telugu') {
+      list = list.filter((t) => t.language === 'Telugu');
+    } else if (state.filter === 'Hindi') {
+      list = list.filter((t) => t.language === 'Hindi');
+    } else if (state.filter === 'English') {
+      list = list.filter((t) => t.language === 'English');
     } else if (state.filter === 'Favorites') {
       list = list.filter((t) => state.favorites.has(t.id));
     } else if (state.filter === 'Playlists') {
@@ -876,7 +1092,7 @@ function cardHTML(track) {
   const isLiked = state.favorites.has(track.id);
   const isDownloaded = state.downloads.has(track.id);
   const lang = (track.language || 'Other').toLowerCase();
-  const languageClass = lang === 'telugu' ? 'telugu' : lang === 'hindi' ? 'hindi' : track.isOnline ? 'online' : 'other';
+  const languageClass = lang === 'telugu' ? 'telugu' : lang === 'hindi' ? 'hindi' : lang === 'english' ? 'english' : track.isOnline ? 'online' : 'other';
 
   const classes = ['song-card'];
   if (isActive) classes.push('is-active');
@@ -938,7 +1154,7 @@ function renderPlaylistsGrid() {
       <div class="playlist-card" data-playlist-id="${esc(pl.id)}">
         <div class="playlist-card-icon">&#9835;</div>
         <h3>${esc(pl.name)}</h3>
-        <p>${esc(pl.description || 'Lucky music playlist')}</p>
+        <p>${esc(pl.description || 'Tuneus music playlist')}</p>
         <div class="playlist-card-meta">
           <span>${count} full track${count === 1 ? '' : 's'}</span>
           <button class="playlist-card-play" type="button" data-action="play-playlist" data-playlist-id="${esc(pl.id)}">Play All</button>
@@ -947,16 +1163,11 @@ function renderPlaylistsGrid() {
   }).join('');
 }
 
-// Render Filter Chips with Counts
+// Render Filter Chips (Downloads count is kept visible)
 function renderChips() {
   document.querySelectorAll('.chip').forEach((chip) => {
     chip.classList.toggle('active', chip.dataset.filter === state.filter && !state.onlineSearch);
   });
-  el('countAll').textContent = state.tracks.length;
-  el('countTelugu').textContent = state.tracks.filter((t) => t.language === 'Telugu').length;
-  el('countHindi').textContent = state.tracks.filter((t) => t.language === 'Hindi').length;
-  el('countFavorites').textContent = state.favorites.size;
-  el('countPlaylists').textContent = state.playlists.length;
   const downloadsCount = el('countDownloads');
   if (downloadsCount) downloadsCount.textContent = state.downloads.size;
 }
@@ -997,10 +1208,10 @@ function render() {
   const countSuffix = list.length === 1 ? '' : 's';
   if (state.filter === 'Downloads' && !state.query && !state.onlineSearch) {
     el('resultInfo').textContent = `${list.length} song${countSuffix} saved for offline listening`;
+  } else if (state.query) {
+    el('resultInfo').textContent = `${list.length} result${countSuffix} for "${state.query}"`;
   } else {
-    el('resultInfo').textContent = state.query
-      ? `${list.length} result${countSuffix} for "${state.query}"`
-      : `${list.length} full song${countSuffix} available`;
+    el('resultInfo').textContent = 'Studio master streams (320kbps)';
   }
 
   if (state.onlineSearch) {
@@ -1052,8 +1263,9 @@ function renderPlayer() {
       playerArtNode.innerHTML = `<span class="art-initials">${esc(initials(track.title))}</span>`;
     }
   } else {
-    playerArtNode.style.background = 'linear-gradient(135deg, #242232, #15141d)';
-    playerArtNode.innerHTML = '&#9834;';
+    playerArtNode.style.backgroundImage = "url('logo.png')";
+    playerArtNode.style.backgroundSize = "cover";
+    playerArtNode.innerHTML = '';
   }
 
   const isLiked = track ? state.favorites.has(track.id) : false;
@@ -1061,8 +1273,8 @@ function renderPlayer() {
   el('expandedLikeBtn').classList.toggle('is-liked', isLiked);
 
   el('expandedTitle').textContent = track ? track.title : 'Select a track';
-  el('expandedArtist').textContent = track ? `${track.artist} \u00b7 ${track.movie || ''}` : 'Lucky Telugu & Hindi Music';
-  el('expandedLangBadge').textContent = track ? (track.language || 'MUSIC').toUpperCase() : 'LUCKY';
+  el('expandedArtist').textContent = track ? `${track.artist} \u00b7 ${track.movie || ''}` : 'Tuneus Universe of Music';
+  el('expandedLangBadge').textContent = track ? (track.language || 'MUSIC').toUpperCase() : 'TUNEUS';
   el('expandedVinyl').classList.toggle('spinning', isPlaying);
 
   const expArtNode = el('expandedArt');
@@ -1075,8 +1287,9 @@ function renderPlayer() {
       expArtNode.innerHTML = esc(initials(track.title));
     }
   } else {
-    expArtNode.style.background = 'linear-gradient(135deg, #242232, #15141d)';
-    expArtNode.innerHTML = '&#9834;';
+    expArtNode.style.backgroundImage = "url('logo.png')";
+    expArtNode.style.backgroundSize = "cover";
+    expArtNode.innerHTML = '';
   }
 
   el('shuffleBtn').classList.toggle('is-on', state.shuffle);
@@ -1559,61 +1772,144 @@ function closeExpandedModal() {
   document.body.style.overflow = '';
 }
 
-// Download song to device AND keep an offline copy inside the website
-async function downloadTrack(track) {
+let pendingDownloadTrack = null;
+
+function openDownloadModal(track) {
   if (!track) {
-    toast('No song selected to download');
+    toast('No song selected');
     return;
   }
+  pendingDownloadTrack = track;
 
-  const existing = downloadRecordFor(track.id);
-  if (!track.src && !existing) {
-    toast('Audio stream not available for this song');
-    return;
+  const titleNode = el('downloadTrackTitle');
+  const artistNode = el('downloadTrackArtist');
+  const artNode = el('downloadTrackArt');
+
+  if (titleNode) titleNode.textContent = track.title || 'Untitled';
+  if (artistNode) artistNode.textContent = track.artist || 'Tuneus Music';
+  if (artNode) {
+    if (track.artwork) {
+      artNode.style.backgroundImage = `url('${track.artwork}')`;
+      artNode.textContent = '';
+    } else {
+      artNode.style.backgroundImage = 'none';
+      artNode.style.background = artStyle(track);
+      artNode.textContent = initials(track.title);
+    }
   }
 
-  const cleanTitle = (track.title || 'Lucky_Music').replace(/[/\\?%*:|"<>]/g, '_').trim();
+  const isAlreadyOffline = Boolean(state.downloads && state.downloads.has(track.id));
+  const appBadge = document.querySelector('#dlOptionApp .dl-opt-badge');
+  if (appBadge) {
+    appBadge.textContent = isAlreadyOffline ? 'Saved' : 'In-App';
+    appBadge.classList.toggle('active', isAlreadyOffline);
+  }
+
+  const modal = el('downloadModal');
+  if (modal) modal.hidden = false;
+}
+
+function closeDownloadModal() {
+  const modal = el('downloadModal');
+  if (modal) modal.hidden = true;
+  pendingDownloadTrack = null;
+}
+
+async function handleDownloadChoice(mode) {
+  const track = pendingDownloadTrack;
+  closeDownloadModal();
+  if (!track) return;
+
+  const cleanTitle = (track.title || 'Tuneus_Music').replace(/[/\\?%*:|"<>]/g, '_').trim();
   const cleanArtist = (track.artist || '').replace(/[/\\?%*:|"<>]/g, '_').trim();
   const baseName = cleanArtist ? `${cleanTitle} - ${cleanArtist}` : cleanTitle;
   const fileName = `${baseName}.mp3`;
 
-  // Already stored offline: just give the user another copy on their device
-  if (existing && existing.blob) {
-    saveBlobToDevice(existing.blob, existing.fileName || fileName);
-    toast(`"${cleanTitle}" is saved offline. Copy sent to your device.`);
-    return;
-  }
-
-  toast(`Downloading "${cleanTitle}" for offline listening...`);
-
-  const blob = await fetchTrackBlob(track);
-  if (blob) {
-    try {
-      await saveDownloadOffline(track, blob, fileName);
-      toast(`Saved "${cleanTitle}" offline & to your device!`);
-    } catch (err) {
-      toast(`Saved "${cleanTitle}" to device (offline copy failed).`);
-    }
-    saveBlobToDevice(blob, fileName);
-    render();
-    return;
-  }
-
-  // Could not read the bytes: fall back to a device-only download through the proxy
-  try {
-    const proxyUrl = `/api/download?url=${encodeURIComponent(track.src)}&name=${encodeURIComponent(fileName)}`;
-    const link = document.createElement('a');
-    link.href = proxyUrl;
-    link.download = fileName;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  // 1. Download to Device (MP3 file for phone or laptop)
+  if (mode === 'device') {
     toast(`Downloading "${cleanTitle}" to device...`);
-  } catch (fallbackErr) {
-    window.open(track.src, '_blank');
-    toast(`Opening download stream for "${cleanTitle}"...`);
+    const existing = downloadRecordFor(track.id);
+    if (existing && existing.blob) {
+      saveBlobToDevice(existing.blob, existing.fileName || fileName);
+      toast(`Saved "${cleanTitle}" to your Downloads folder!`);
+      return;
+    }
+
+    const blob = await fetchTrackBlob(track);
+    if (blob) {
+      saveBlobToDevice(blob, fileName);
+      toast(`Saved "${cleanTitle}" to your Downloads folder!`);
+    } else {
+      // Fallback via streaming proxy endpoint
+      try {
+        const proxyUrl = `/api/download?url=${encodeURIComponent(track.src)}&name=${encodeURIComponent(fileName)}`;
+        const link = document.createElement('a');
+        link.href = proxyUrl;
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast(`Downloading "${cleanTitle}" to device...`);
+      } catch (fallbackErr) {
+        window.open(track.src, '_blank');
+        toast(`Opening download stream for "${cleanTitle}"...`);
+      }
+    }
+    return;
   }
+
+  // 2. Save Inside Tuneus App (Offline Listening with 0 data)
+  if (mode === 'app') {
+    const existing = downloadRecordFor(track.id);
+    if (existing) {
+      toast(`"${cleanTitle}" is already saved in Tuneus for offline listening!`);
+      return;
+    }
+
+    toast(`Saving "${cleanTitle}" inside Tuneus app for offline mode...`);
+    const blob = await fetchTrackBlob(track);
+    if (blob) {
+      try {
+        await saveDownloadOffline(track, blob, fileName);
+        toast(`"${cleanTitle}" saved inside Tuneus! Listen offline anytime.`);
+        render();
+      } catch (err) {
+        toast(`Could not save offline copy: ${err.message}`);
+      }
+    } else {
+      toast('Could not fetch audio bytes for in-app offline storage.');
+    }
+    return;
+  }
+
+  // 3. Both (Save to Device AND inside Tuneus app)
+  if (mode === 'both') {
+    toast(`Downloading "${cleanTitle}" to device and saving in Tuneus app...`);
+    const blob = await fetchTrackBlob(track);
+    if (blob) {
+      try {
+        await saveDownloadOffline(track, blob, fileName);
+      } catch (err) {}
+      saveBlobToDevice(blob, fileName);
+      toast(`Saved "${cleanTitle}" to device AND inside Tuneus app!`);
+      render();
+    } else {
+      const proxyUrl = `/api/download?url=${encodeURIComponent(track.src)}&name=${encodeURIComponent(fileName)}`;
+      const link = document.createElement('a');
+      link.href = proxyUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast(`Downloading "${cleanTitle}" to device...`);
+    }
+  }
+}
+
+// Download button entry point: open destination choice modal
+function downloadTrack(track) {
+  openDownloadModal(track);
 }
 
 // Event Bindings
@@ -1676,6 +1972,19 @@ function bindEvents() {
     searchInput.value = '';
     el('clearSearch').hidden = true;
     render();
+  });
+
+  // Quick Universe Online Search Pills
+  document.querySelectorAll('.quick-universe-pill').forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const q = pill.dataset.query || pill.textContent.trim();
+      searchInput.value = q;
+      el('clearSearch').hidden = false;
+      state.query = q;
+      state.onlineSearch = true;
+      searchOnlineCatalog(q);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   });
   el('searchOnlineFromEmpty').addEventListener('click', () => {
     state.onlineSearch = true;
@@ -1785,6 +2094,18 @@ function bindEvents() {
     }
   });
   el('closeAddToPlaylist').addEventListener('click', closeAddToPlaylist);
+
+  const closeDlModal = el('closeDownloadModal');
+  if (closeDlModal) closeDlModal.addEventListener('click', closeDownloadModal);
+
+  const optDevice = el('dlOptionDevice');
+  if (optDevice) optDevice.addEventListener('click', () => handleDownloadChoice('device'));
+
+  const optApp = el('dlOptionApp');
+  if (optApp) optApp.addEventListener('click', () => handleDownloadChoice('app'));
+
+  const optBoth = el('dlOptionBoth');
+  if (optBoth) optBoth.addEventListener('click', () => handleDownloadChoice('both'));
 
   el('addMusicBtn').addEventListener('click', () => el('fileInput').click());
   el('fileInput').addEventListener('change', (e) => openImport(e.target.files));
@@ -1969,6 +2290,8 @@ function bindEvents() {
       el('eqModal').hidden = true;
       el('newPlaylistModal').hidden = true;
       el('addToPlaylistModal').hidden = true;
+      const dlModal = el('downloadModal');
+      if (dlModal) dlModal.hidden = true;
       el('queueDrawer').hidden = true;
       closeExpandedModal();
       if (document.activeElement === searchInput) searchInput.blur();

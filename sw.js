@@ -1,11 +1,14 @@
-const CACHE_NAME = 'lucky-music-v4';
+const CACHE_NAME = 'tuneus-music-v9';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/styles.css',
   '/app.js',
   '/manifest.json',
-  '/icon.svg'
+  '/logo.png',
+  '/favicon.png',
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
