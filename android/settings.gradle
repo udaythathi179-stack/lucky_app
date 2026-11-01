@@ -1,0 +1,2 @@
+rootProject.name = "Tuneus"
+include ':app'

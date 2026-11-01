@@ -18,6 +18,27 @@
 
 ---
 
+## 📱 Mobile App (Android APK & iOS)
+
+### 🤖 Android (APK & Native Install)
+1. **Direct APK Download**:
+   - Go to [Releases](https://github.com/udaythathi179-stack/lucky_app/releases) and download **`Tuneus.apk`**.
+   - Tap the downloaded `.apk` file and select **Install**.
+2. **Instant 1-Click PWA Install (No APK needed)**:
+   - Open `https://other-consultants-brochures-letter.trycloudflare.com` in **Google Chrome**.
+   - Tap **"Install Tuneus"** banner or tap the 3 dots (`⋮`) -> **"Install app"**.
+   - Tuneus will be installed directly to your phone's app list with the glowing logo!
+
+### 🍏 iOS (iPhone & iPad)
+- iOS does not support raw `.apk` files, but natively supports installing PWAs directly to your home screen with full app capabilities:
+1. Open `https://other-consultants-brochures-letter.trycloudflare.com` in **Safari** on your iPhone or iPad.
+2. Tap the **Share** button (the square with an arrow pointing up at the bottom).
+3. Scroll down and tap **"Add to Home Screen"** (`➕`).
+4. Tap **Add** in the top-right corner.
+5. **Tuneus** now appears on your iOS home screen as a standalone full-screen app!
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -62,3 +83,4 @@ songs app/
 
 ## 📄 License
 ISC © Uday Kumar
+
