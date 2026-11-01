@@ -1786,15 +1786,7 @@ function renderChips() {
 
 // Render Spotify-Style Home Dashboard
 function renderHomeDashboard() {
-  // 1. Time greeting
-  const greetingEl = el('timeGreeting');
-  if (greetingEl) {
-    const hr = new Date().getHours();
-    const greet = hr < 12 ? 'Good morning' : hr < 18 ? 'Good afternoon' : 'Good evening';
-    greetingEl.textContent = `${greet} • Studio Master 320kbps`;
-  }
-
-  // 2. Quick Jump In 2-Column Grid (6 top tracks)
+  // 1. Quick Jump In 2-Column Grid (6 top tracks)
   const quickGrid = el('quickJumpGrid');
   if (quickGrid) {
     const quickTracks = state.tracks.slice(0, 6);
