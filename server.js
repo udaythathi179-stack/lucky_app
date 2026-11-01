@@ -113,6 +113,25 @@ const server = http.createServer((req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = parsedUrl.pathname;
 
+  // Scope Extensions origin association endpoint (for PWABuilder & W3C validation)
+  if (pathname === '/.well-known/web-app-origin-association' || pathname === '/.well-known/web-app-origin-association.json') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify({
+      "web_apps": [
+        {
+          "web_app_identity": "https://other-consultants-brochures-letter.trycloudflare.com/?source=pwa"
+        },
+        {
+          "web_app_identity": "https://other-consultants-brochures-letter.trycloudflare.com/"
+        }
+      ]
+    }));
+    return;
+  }
+
   // Search API route for full length songs
   if (pathname === '/api/search') {
     const q = parsedUrl.searchParams.get('q') || '';

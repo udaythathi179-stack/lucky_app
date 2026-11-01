@@ -1,0 +1,10 @@
+{
+  "web_apps": [
+    {
+      "web_app_identity": "https://other-consultants-brochures-letter.trycloudflare.com/?source=pwa"
+    },
+    {
+      "web_app_identity": "https://other-consultants-brochures-letter.trycloudflare.com/"
+    }
+  ]
+}
