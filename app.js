@@ -1812,21 +1812,6 @@ function renderHomeDashboard() {
     }).join('');
   }
 
-  // 3. Spotlight Card
-  const spotlightTrack = state.tracks.find((t) => t.id === 'allantha-doorala') || state.tracks[0];
-  if (spotlightTrack) {
-    const sTitle = el('spotlightTitle');
-    const sMeta = el('spotlightMeta');
-    const sArt = el('spotlightArt');
-    const sPlayBtn = el('spotlightPlayBtn');
-    if (sTitle) sTitle.textContent = spotlightTrack.title;
-    if (sMeta) sMeta.innerHTML = `${esc(spotlightTrack.artist)} &bull; ${esc(spotlightTrack.movie || 'Tollywood')} &bull; 320kbps Studio Lossless`;
-    if (sArt && spotlightTrack.artwork) sArt.src = spotlightTrack.artwork;
-    if (sPlayBtn) {
-      sPlayBtn.onclick = () => playTrack(spotlightTrack);
-    }
-  }
-
   // Helper for rendering horizontal shelves
   function renderShelf(containerId, tracks) {
     const container = el(containerId);
@@ -2718,13 +2703,6 @@ function bindEvents() {
         state.filter = seeAllBtn.dataset.filterTarget;
         render();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
-
-      const favBtn = event.target.closest('#spotlightFavBtn');
-      if (favBtn) {
-        const spotlightTrack = state.tracks.find((t) => t.id === 'allantha-doorala') || state.tracks[0];
-        if (spotlightTrack) toggleLike(spotlightTrack.id);
         return;
       }
 
