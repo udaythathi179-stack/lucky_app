@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Lucky - Telugu &amp; Hindi Music Streaming</title>
+  <meta name="theme-color" content="#ff8533" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Lucky" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=3" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+</head>
+<body>
+  <div class="glow glow-a" id="glowA"></div>
+  <div class="glow glow-b" id="glowB"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="brand" role="banner" id="brandHome" title="Lucky Music Home">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13" />
+          <circle cx="6" cy="18" r="3" />
+          <circle cx="18" cy="16" r="3" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>Lucky</h1>
+        <p>Telugu &amp; Hindi Music</p>
+      </div>
+    </div>
+
+    <!-- Live Search Bar -->
+    <div class="search-section">
+      <div class="search-wrap" role="search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.6-3.6" />
+        </svg>
+        <input id="search" type="search" placeholder="Search online for any song, artist, movie (Full Songs)..." autocomplete="off" spellcheck="false" aria-label="Search online for songs" />
+        <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>&times;</button>
+        <kbd class="search-kbd" title="Press / to focus">/</kbd>
+      </div>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="top-actions">
+      <button id="helpBtn" class="action-icon-btn" type="button" title="Keyboard Shortcuts (?)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      </button>
+      <button id="addMusicBtn" class="add-btn" type="button" title="Import audio files from your device">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        <span>Add music</span>
+      </button>
+    </div>
+    <input id="fileInput" type="file" accept="audio/*" multiple hidden />
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+    <!-- Category & View Navigation -->
+    <div class="nav-toolbar">
+      <nav class="filters" aria-label="Filter by language and category">
+        <button class="chip active" data-filter="All" type="button">
+          All <span class="chip-count" id="countAll">0</span>
+        </button>
+        <button class="chip" data-filter="Telugu" type="button">
+          Telugu <span class="chip-count" id="countTelugu">0</span>
+        </button>
+        <button class="chip" data-filter="Hindi" type="button">
+          Hindi <span class="chip-count" id="countHindi">0</span>
+        </button>
+        <button class="chip chip-special" data-filter="Favorites" type="button">
+          <span class="heart-symbol">&#9829;</span> Liked <span class="chip-count" id="countFavorites">0</span>
+        </button>
+        <button class="chip chip-special" data-filter="Playlists" type="button">
+          <span>&#9776;</span> Playlists <span class="chip-count" id="countPlaylists">0</span>
+        </button>
+        <button class="chip chip-special" data-filter="Downloads" type="button">
+          <span>&#8681;</span> Downloads <span class="chip-count" id="countDownloads">0</span>
+        </button>
+      </nav>
+
+      <div class="library-tools">
+        <div class="sort-wrap">
+          <label for="sortSelect" class="sort-label">Sort:</label>
+          <select id="sortSelect" class="sort-select" aria-label="Sort library tracks">
+            <option value="default">Default</option>
+            <option value="title-asc">Title (A - Z)</option>
+            <option value="artist-asc">Artist (A - Z)</option>
+            <option value="year-desc">Year (Newest)</option>
+            <option value="year-asc">Year (Oldest)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Online Search Banner -->
+    <div id="onlineSearchBanner" class="online-banner" hidden>
+      <div class="online-banner-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="2" y1="12" x2="22" y2="12" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+        <div>
+          <strong id="onlineStatusTitle">Searching Full Songs Online</strong>
+          <p id="onlineStatusSub">Stream complete full-length tracks (320kbps) &amp; save to your library</p>
+        </div>
+      </div>
+      <button id="exitOnlineSearch" class="ghost-btn-sm" type="button">Back to My Library</button>
+    </div>
+
+    <!-- Playlists View Container -->
+    <section id="playlistsContainer" class="playlists-section" hidden>
+      <div class="playlists-head">
+        <h2>Your Playlists</h2>
+        <button id="newPlaylistBtn" class="primary-btn-sm" type="button">+ New Playlist</button>
+      </div>
+      <div id="playlistsGrid" class="playlists-grid"></div>
+    </section>
+
+    <!-- Library Section Header -->
+    <section id="libraryHeaderSection" class="library-head">
+      <div>
+        <h2 id="sectionTitle">Song library (Full Length)</h2>
+        <p id="resultInfo">0 songs</p>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="dot telugu"></i>Telugu</span>
+        <span><i class="dot hindi"></i>Hindi</span>
+        <span><i class="dot favorite"></i>Liked</span>
+      </div>
+    </section>
+
+    <!-- Songs Grid -->
+    <section id="songGrid" class="song-grid" aria-label="Songs list"></section>
+
+    <!-- Empty State -->
+    <section id="emptyState" class="empty" hidden>
+      <div class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.6-3.6" />
+        </svg>
+      </div>
+      <h3 id="emptyHeading">No songs found</h3>
+      <p id="emptyText">Try a different search or language.</p>
+      <div class="empty-actions">
+        <button id="resetFilters" class="ghost-btn" type="button">Clear filters</button>
+        <button id="searchOnlineFromEmpty" class="primary-btn" type="button">Search online for full song</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky Bottom Audio Player -->
+  <footer class="player" id="player" data-empty="true">
+    <!-- Now Playing Mini Info -->
+    <div class="now" id="nowCard" role="button" tabindex="0" title="Click to expand player (F)" aria-label="Open expanded now playing screen">
+      <div class="now-art" id="nowArt" aria-hidden="true">&#9834;</div>
+      <div class="now-text">
+        <strong id="nowTitle">Nothing playing</strong>
+        <span id="nowArtist">Pick a song to start</span>
+      </div>
+      <button id="playerLikeBtn" class="player-heart-btn" type="button" aria-label="Like song" title="Like song (L)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      </button>
+      <button id="playerDownloadBtn" class="player-heart-btn" type="button" aria-label="Download song" title="Download song to device (D)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Center Player Controls & Live Wave/Timeline -->
+    <div class="controls">
+      <div class="control-row">
+        <button id="shuffleBtn" class="icon-btn" type="button" aria-label="Shuffle" aria-pressed="false" title="Shuffle (S)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 3h5v5" /><path d="M4 20 21 3" /><path d="M21 16v5h-5" /><path d="m15 15 6 6" /><path d="m4 4 5 5" />
+          </svg>
+        </button>
+        <button id="prevBtn" class="icon-btn" type="button" aria-label="Previous song" title="Previous (Left Arrow)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z" /></svg>
+        </button>
+        <button id="playBtn" class="play-btn" type="button" aria-label="Play" title="Play / Pause (Space)">
+          <svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="5" width="3.6" height="14" rx="1.2" /><rect x="13.4" y="5" width="3.6" height="14" rx="1.2" /></svg>
+        </button>
+        <button id="nextBtn" class="icon-btn" type="button" aria-label="Next song" title="Next (Right Arrow)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z" /></svg>
+        </button>
+        <button id="repeatBtn" class="icon-btn" type="button" aria-label="Repeat mode" aria-pressed="false" title="Repeat mode (R)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" />
+          </svg>
+          <span class="repeat-one-badge" id="repeatOneBadge">1</span>
+        </button>
+      </div>
+
+      <!-- Scrubber Timeline & Subtle Audio Visualizer -->
+      <div class="timeline-wrap">
+        <canvas id="miniVisualizer" class="mini-visualizer" width="400" height="20" aria-hidden="true"></canvas>
+        <div class="timeline">
+          <span id="curTime">0:00</span>
+          <input id="seek" class="range" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek track position" />
+          <span id="durTime">0:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra Player Controls -->
+    <div class="player-side-tools">
+      <div class="volume">
+        <button id="muteBtn" class="icon-btn" type="button" aria-label="Mute" title="Mute (M)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4z" /><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18.7 5.3a10 10 0 0 1 0 13.4" />
+          </svg>
+        </button>
+        <input id="volume" class="range" type="range" min="0" max="100" value="80" step="1" aria-label="Volume level" />
+      </div>
+
+      <button id="queueToggleBtn" class="icon-btn tool-btn" type="button" aria-label="Up Next Queue" title="Up Next Queue (Q)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
+          <line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" />
+        </svg>
+      </button>
+
+      <button id="eqToggleBtn" class="icon-btn tool-btn" type="button" aria-label="Audio Equalizer" title="Equalizer Presets">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+          <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+          <circle cx="4" cy="12" r="2" /><circle cx="12" cy="10" r="2" /><circle cx="20" cy="14" r="2" />
+        </svg>
+      </button>
+
+      <button id="expandPlayerBtn" class="icon-btn tool-btn" type="button" aria-label="Full screen player" title="Full screen player (F)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" />
+          <line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Up Next Queue Drawer -->
+  <aside id="queueDrawer" class="queue-drawer" aria-label="Up Next playing queue" hidden>
+    <div class="queue-head">
+      <h3>Up Next Queue</h3>
+      <div class="queue-actions">
+        <button id="clearQueueBtn" class="ghost-btn-xs" type="button">Reset Queue</button>
+        <button id="closeQueueBtn" class="icon-close" type="button" aria-label="Close Queue">&times;</button>
+      </div>
+    </div>
+    <div id="queueList" class="queue-list"></div>
+  </aside>
+
+  <!-- Expanded Fullscreen Now Playing Modal -->
+  <div class="expanded-modal-backdrop" id="expandedModal" hidden>
+    <div class="expanded-container">
+      <div class="expanded-topbar">
+        <button id="closeExpandedBtn" class="icon-btn" type="button" aria-label="Close full player">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="expanded-header-title">
+          <span class="playing-from-tag">PLAYING FROM</span>
+          <strong id="expandedSourceTitle">Lucky Music Library</strong>
+        </div>
+        <button id="expandedLikeBtn" class="icon-btn" type="button" aria-label="Like song">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="expanded-body">
+        <!-- Vinyl Record / Album Art Cover -->
+        <div class="expanded-art-wrap">
+          <div class="expanded-vinyl" id="expandedVinyl">
+            <div class="expanded-art-img" id="expandedArt"></div>
+          </div>
+        </div>
+
+        <!-- Live Spectrum Visualizer Canvas -->
+        <div class="visualizer-container">
+          <canvas id="expandedVisualizer" class="spectrum-canvas" width="640" height="90"></canvas>
+        </div>
+
+        <!-- Track Info & Metadata -->
+        <div class="expanded-meta">
+          <div class="expanded-titles">
+            <h2 id="expandedTitle">Select a track</h2>
+            <p id="expandedArtist">Lucky Telugu &amp; Hindi Music</p>
+          </div>
+          <span id="expandedLangBadge" class="lang-badge">LUCKY</span>
+        </div>
+
+        <!-- Timeline & Seek Slider -->
+        <div class="expanded-timeline">
+          <div class="timeline-labels">
+            <span id="expCurTime">0:00</span>
+            <span id="expDurTime">0:00</span>
+          </div>
+          <input id="expSeek" class="range" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek track" />
+        </div>
+
+        <!-- Main Playback Controls -->
+        <div class="expanded-controls">
+          <button id="expShuffleBtn" class="icon-btn" type="button" aria-label="Shuffle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 3h5v5" /><path d="M4 20 21 3" /><path d="M21 16v5h-5" /><path d="m15 15 6 6" /><path d="m4 4 5 5" />
+            </svg>
+          </button>
+          <button id="expPrevBtn" class="icon-btn icon-btn-lg" type="button" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z" /></svg>
+          </button>
+          <button id="expPlayBtn" class="play-btn play-btn-lg" type="button" aria-label="Play">
+            <svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+            <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="5" width="3.6" height="14" rx="1.2" /><rect x="13.4" y="5" width="3.6" height="14" rx="1.2" /></svg>
+          </button>
+          <button id="expNextBtn" class="icon-btn icon-btn-lg" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z" /></svg>
+          </button>
+          <button id="expRepeatBtn" class="icon-btn" type="button" aria-label="Repeat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" />
+            </svg>
+            <span class="repeat-one-badge" id="expRepeatOneBadge">1</span>
+          </button>
+        </div>
+
+        <!-- Secondary Controls: Volume & Actions -->
+        <div class="expanded-footer-tools">
+          <div class="exp-volume-wrap">
+            <button id="expMuteBtn" class="icon-btn" type="button" aria-label="Mute">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 5 6 9H2v6h4l5 4z" /><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18.7 5.3a10 10 0 0 1 0 13.4" />
+              </svg>
+            </button>
+            <input id="expVolume" class="range" type="range" min="0" max="100" value="80" step="1" aria-label="Volume" />
+          </div>
+
+          <div class="exp-action-pills">
+            <button id="expDownloadBtn" class="pill-btn" type="button" title="Download song to device">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Download MP3</span>
+            </button>
+            <button id="expAddToPlaylistBtn" class="pill-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" /></svg>
+              <span>Add to Playlist</span>
+            </button>
+            <button id="expEqBtn" class="pill-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14" /><circle cx="4" cy="12" r="2" /></svg>
+              <span id="expEqName">EQ: Normal</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Equalizer Modal -->
+  <div class="modal-backdrop" id="eqModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="eqTitle">
+      <h2 id="eqTitle">Audio Equalizer &amp; Sound Presets</h2>
+      <p class="modal-sub">Tune your audio output with real-time frequency filters</p>
+
+      <div class="eq-presets-grid" id="eqPresets">
+        <button type="button" class="eq-card active" data-preset="normal">
+          <strong>Normal / Flat</strong>
+          <span>Neutral studio master sound</span>
+        </button>
+        <button type="button" class="eq-card" data-preset="bass">
+          <strong>Bass Boost 💥</strong>
+          <span>Punchy low-end punch for beats</span>
+        </button>
+        <button type="button" class="eq-card" data-preset="vocal">
+          <strong>Vocal Clarity 🎤</strong>
+          <span>Clear vocals and melodic resonance</span>
+        </button>
+        <button type="button" class="eq-card" data-preset="treble">
+          <strong>Treble Boost ✨</strong>
+          <span>Crisp highs and acoustic brightness</span>
+        </button>
+        <button type="button" class="eq-card" data-preset="party">
+          <strong>Party Dynamic 🎧</strong>
+          <span>Enhanced bass and high-energy spectrum</span>
+        </button>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="primary-btn" id="closeEqBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create New Playlist Modal -->
+  <div class="modal-backdrop" id="newPlaylistModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="newPlaylistTitle">
+      <h2 id="newPlaylistTitle">Create New Playlist</h2>
+      <p class="modal-sub">Name your custom music collection</p>
+
+      <label for="playlistNameInput" class="field-label">Playlist Name</label>
+      <input id="playlistNameInput" class="text-input" type="text" placeholder="e.g. Telugu Hits, Late Night Chill..." maxlength="45" autocomplete="off" />
+
+      <label for="playlistDescInput" class="field-label" style="margin-top: 14px;">Description (optional)</label>
+      <input id="playlistDescInput" class="text-input" type="text" placeholder="e.g. My favorite Telugu tracks for road trips" maxlength="80" autocomplete="off" />
+
+      <div class="modal-actions" style="margin-top: 22px;">
+        <button type="button" class="ghost-btn" id="cancelNewPlaylist">Cancel</button>
+        <button type="button" class="primary-btn" id="confirmNewPlaylist">Create Playlist</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Track to Playlist Dialog -->
+  <div class="modal-backdrop" id="addToPlaylistModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="addToPlaylistTitle">
+      <h2 id="addToPlaylistTitle">Add to Playlist</h2>
+      <p id="addToPlaylistSub" class="modal-sub">Choose a playlist for this track</p>
+
+      <div id="userPlaylistsList" class="user-playlists-list"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="ghost-btn" id="closeAddToPlaylist">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Help Modal -->
+  <div class="modal-backdrop" id="shortcutsModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="shortcutsTitle">
+      <h2 id="shortcutsTitle">Keyboard Shortcuts</h2>
+      <p class="modal-sub">Navigate and control Lucky directly from your keyboard</p>
+
+      <div class="shortcuts-grid">
+        <div class="shortcut-item"><kbd>Space</kbd> <span>Play / Pause</span></div>
+        <div class="shortcut-item"><kbd>&rarr;</kbd> <span>Next Track</span></div>
+        <div class="shortcut-item"><kbd>&larr;</kbd> <span>Previous Track</span></div>
+        <div class="shortcut-item"><kbd>Shift</kbd> + <kbd>&rarr;</kbd> <span>Seek forward 5s</span></div>
+        <div class="shortcut-item"><kbd>Shift</kbd> + <kbd>&larr;</kbd> <span>Seek backward 5s</span></div>
+        <div class="shortcut-item"><kbd>&uarr;</kbd> / <kbd>&darr;</kbd> <span>Volume Up / Down</span></div>
+        <div class="shortcut-item"><kbd>M</kbd> <span>Mute / Unmute</span></div>
+        <div class="shortcut-item"><kbd>D</kbd> <span>Download current song</span></div>
+        <div class="shortcut-item"><kbd>L</kbd> <span>Like / Unlike current song</span></div>
+        <div class="shortcut-item"><kbd>S</kbd> <span>Toggle Shuffle</span></div>
+        <div class="shortcut-item"><kbd>R</kbd> <span>Toggle Repeat (Off / All / One)</span></div>
+        <div class="shortcut-item"><kbd>F</kbd> <span>Fullscreen / Expanded Player</span></div>
+        <div class="shortcut-item"><kbd>Q</kbd> <span>Toggle Up Next Queue</span></div>
+        <div class="shortcut-item"><kbd>/</kbd> <span>Quick Search focus</span></div>
+        <div class="shortcut-item"><kbd>Esc</kbd> <span>Close open modal / dialog</span></div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="primary-btn" id="closeShortcutsBtn">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local Audio File Import Modal -->
+  <div class="modal-backdrop" id="importModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="importTitle">
+      <h2 id="importTitle">Add your music</h2>
+      <p id="importInfo" class="modal-sub">0 files selected</p>
+
+      <span class="field-label">Choose language category</span>
+      <div class="choices" id="importLanguages">
+        <button type="button" class="choice active" data-lang="Telugu">Telugu</button>
+        <button type="button" class="choice" data-lang="Hindi">Hindi</button>
+        <button type="button" class="choice" data-lang="Other">Other</button>
+      </div>
+
+      <label for="importArtistInput" class="field-label" style="margin-top: 14px;">Artist / Album (optional)</label>
+      <input id="importArtistInput" class="text-input" type="text" placeholder="e.g. My Collection" maxlength="50" autocomplete="off" />
+
+      <p class="hint">Your audio files stay securely on your computer and can be played anytime in this session.</p>
+
+      <div class="modal-actions">
+        <button type="button" class="ghost-btn" id="cancelImport">Cancel</button>
+        <button type="button" class="primary-btn" id="confirmImport">Add songs</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Feedback -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js?v=4"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then((reg) => {
+          reg.update();
+        }).catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
