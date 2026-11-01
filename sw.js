@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuneus-music-v10';
+const CACHE_NAME = 'tuneus-music-v11';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

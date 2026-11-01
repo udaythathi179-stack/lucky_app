@@ -2348,6 +2348,67 @@ function bindEvents() {
       toggleQueue();
     }
   });
+
+  // PWA Native App Installation Logic
+  let deferredPrompt = null;
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const pwaBtn = el('pwaInstallBtn');
+    if (pwaBtn) pwaBtn.hidden = false;
+    const banner = el('installAppBanner');
+    if (banner && !isStandalone) banner.hidden = false;
+  });
+
+  function triggerAppInstall() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          toast('Installing Tuneus App to your Home Screen...');
+        }
+        deferredPrompt = null;
+      });
+    } else {
+      alert("To convert into a real app without the website/Cloudflare bar:\n\n1. Tap the 3 dots (⋮) in the top-right corner.\n2. Tap 'Install app' (or 'Add to Home screen').\n\nTuneus will then appear as a full-screen app with NO website or Cloudflare bar!");
+    }
+  }
+
+  const pwaInstallBtn = el('pwaInstallBtn');
+  if (pwaInstallBtn) {
+    if (!isStandalone) pwaInstallBtn.hidden = false;
+    pwaInstallBtn.addEventListener('click', triggerAppInstall);
+  }
+
+  const bannerInstallBtn = el('bannerInstallBtn');
+  if (bannerInstallBtn) {
+    bannerInstallBtn.addEventListener('click', triggerAppInstall);
+  }
+
+  const dismissBanner = el('dismissInstallBanner');
+  if (dismissBanner) {
+    dismissBanner.addEventListener('click', () => {
+      const banner = el('installAppBanner');
+      if (banner) banner.hidden = true;
+    });
+  }
+
+  // Show banner on mobile if not in standalone mode
+  const installBanner = el('installAppBanner');
+  if (installBanner && !isStandalone && window.innerWidth < 850) {
+    installBanner.hidden = false;
+  }
+
+  window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    const pwaBtn = el('pwaInstallBtn');
+    if (pwaBtn) pwaBtn.hidden = true;
+    const banner = el('installAppBanner');
+    if (banner) banner.hidden = true;
+    toast('Tuneus installed! Open from Home Screen for full-screen mode.');
+  });
 }
 
 // App Initialization
