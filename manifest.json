@@ -1,196 +1,27 @@
 {
-  "name": "Tuneus Music",
+  "name": "Tuneus Music Player",
   "short_name": "Tuneus",
   "description": "Universe of Music: Stream Tollywood, Bollywood, English & Global full-length studio tracks",
-  "start_url": "/?source=pwa",
-  "id": "/?source=pwa",
+  "start_url": "/",
   "scope": "/",
-  "display": "standalone",
-  "display_override": [
-    "window-controls-overlay",
-    "standalone",
-    "minimal-ui"
-  ],
-  "orientation": "any",
-  "lang": "en",
-  "dir": "ltr",
+  "display": "browser",
   "background_color": "#060913",
   "theme_color": "#00d2ff",
-  "categories": [
-    "music",
-    "entertainment",
-    "audio"
-  ],
-  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
-  "prefer_related_applications": false,
-  "related_applications": [
-    {
-      "platform": "play",
-      "url": "https://play.google.com/store/apps/details?id=com.tuneus.music",
-      "id": "com.tuneus.music"
-    }
-  ],
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
     },
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/png"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "logo.png",
-      "sizes": "1024x1024",
-      "type": "image/png",
-      "purpose": "any"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Tuneus Desktop Player"
-    },
-    {
-      "src": "screenshot-mobile.png",
-      "sizes": "720x1280",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Tuneus Mobile Player"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Search Music",
-      "short_name": "Search",
-      "description": "Search online for full-length songs",
-      "url": "/?action=search",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Your Playlists",
-      "short_name": "Playlists",
-      "description": "Listen to your custom playlists",
-      "url": "/?action=playlists",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Offline Downloads",
-      "short_name": "Downloads",
-      "description": "Listen offline with zero data usage",
-      "url": "/?action=downloads",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    }
-  ],
-  "launch_handler": {
-    "client_mode": "focus-existing"
-  },
-  "file_handlers": [
-    {
-      "action": "/?action=open-file",
-      "name": "Audio files",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192"
-        }
-      ],
-      "accept": {
-        "audio/*": [
-          ".mp3",
-          ".m4a",
-          ".aac",
-          ".wav",
-          ".ogg"
-        ]
-      }
-    }
-  ],
-  "protocol_handlers": [
-    {
-      "protocol": "web+tuneus",
-      "url": "/?play=%s"
-    }
-  ],
-  "share_target": {
-    "action": "/?action=share",
-    "method": "GET",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  },
-  "edge_side_panel": {
-    "preferred_width": 420
-  },
-  "widgets": [
-    {
-      "name": "Tuneus Mini Player",
-      "description": "Control your playback from the Windows widget dashboard",
-      "tag": "tuneus-mini",
-      "template": "widget-template",
-      "ms_ac_template": "widget.json",
-      "data": "widget-data.json",
-      "type": "application/json",
-      "screenshots": [
-        {
-          "src": "screenshot-desktop.png",
-          "sizes": "1280x720",
-          "label": "Tuneus Widget Preview"
-        }
-      ],
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    }
-  ],
-  "note_taking": {
-    "new_note_url": "/?action=lyrics-note"
-  },
-  "scope_extensions": [
-    {
-      "origin": "https://italiano-print-through-beverly.trycloudflare.com"
+      "type": "image/png"
     }
   ]
 }
