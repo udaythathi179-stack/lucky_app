@@ -783,7 +783,7 @@ const state = {
   playing: false,
   shuffle: false,
   repeat: 'none', // 'none' | 'all' | 'one'
-  volume: 0.8,
+  volume: 1.0,
   muted: false,
   favorites: storedFavorites,
   playlists: storedPlaylists,
@@ -2163,7 +2163,7 @@ function bindEvents() {
 
   el('muteBtn').addEventListener('click', () => {
     state.muted = !state.muted;
-    if (!state.muted && state.volume === 0) state.volume = 0.8;
+    if (!state.muted && state.volume === 0) state.volume = 1.0;
     applyVolume();
   });
 
@@ -2212,7 +2212,7 @@ function bindEvents() {
 
   el('expMuteBtn').addEventListener('click', () => {
     state.muted = !state.muted;
-    if (!state.muted && state.volume === 0) state.volume = 0.8;
+    if (!state.muted && state.volume === 0) state.volume = 1.0;
     applyVolume();
   });
 
@@ -2328,7 +2328,7 @@ function bindEvents() {
       applyVolume();
     } else if (event.key.toLowerCase() === 'm') {
       state.muted = !state.muted;
-      if (!state.muted && state.volume === 0) state.volume = 0.8;
+      if (!state.muted && state.volume === 0) state.volume = 1.0;
       applyVolume();
     } else if (event.key.toLowerCase() === 'l') {
       if (state.current) toggleLike(state.current.id);
