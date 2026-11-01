@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private WebView webView;
-    private static final String APP_URL = "https://judy-guestbook-seekers-asbestos.trycloudflare.com";
+    private static final String APP_URL = "https://italiano-print-through-beverly.trycloudflare.com";
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override

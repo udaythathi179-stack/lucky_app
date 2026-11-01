@@ -125,10 +125,10 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({
       "web_apps": [
         {
-          "web_app_identity": "https://judy-guestbook-seekers-asbestos.trycloudflare.com/?source=pwa"
+          "web_app_identity": "https://italiano-print-through-beverly.trycloudflare.com/?source=pwa"
         },
         {
-          "web_app_identity": "https://judy-guestbook-seekers-asbestos.trycloudflare.com/"
+          "web_app_identity": "https://italiano-print-through-beverly.trycloudflare.com/"
         },
         {
           "web_app_identity": `${dynamicBase}/?source=pwa`
