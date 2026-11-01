@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuneus-music-v9';
+const CACHE_NAME = 'tuneus-music-v10';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -8,7 +8,9 @@ const ASSETS_TO_CACHE = [
   '/logo.png',
   '/favicon.png',
   '/icon-192.png',
-  '/icon-512.png'
+  '/icon-512.png',
+  '/screenshot-desktop.png',
+  '/screenshot-mobile.png'
 ];
 
 self.addEventListener('install', (event) => {
