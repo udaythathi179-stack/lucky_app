@@ -362,6 +362,58 @@ a {
   flex: none;
 }
 
+/* Data Saver / Streaming Quality Button */
+.data-saver-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: rgba(14, 38, 92, 0.85);
+  color: #38bdf8;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 14px rgba(0, 0, 0, 0.4);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.data-saver-btn:hover {
+  background: rgba(22, 56, 132, 0.96);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.5), 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.data-saver-btn svg {
+  flex-shrink: 0;
+  color: #38bdf8;
+}
+
+.data-saver-btn.mode-320 {
+  border-color: rgba(168, 85, 247, 0.5);
+  color: #c084fc;
+}
+.data-saver-btn.mode-320 svg {
+  color: #c084fc;
+}
+
+.data-saver-btn.mode-160 {
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #60a5fa;
+}
+.data-saver-btn.mode-160 svg {
+  color: #60a5fa;
+}
+
 /* User Profile Pill & Dropdown in Top Nav */
 .user-menu-wrap {
   position: relative;
@@ -1365,6 +1417,7 @@ a {
   overflow: hidden;
   margin-bottom: 12px;
   position: relative;
+  background: #081434;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
@@ -1534,6 +1587,7 @@ a {
   overflow: hidden;
   border-radius: 12px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 4px 14px rgba(0, 0, 0, 0.35);
+  background: #081434;
   background-size: cover;
   background-position: center;
 }

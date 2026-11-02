@@ -1150,6 +1150,7 @@ const STORAGE_FAVORITES = 'tuneus_favorites_v1';
 const STORAGE_PLAYLISTS = 'tuneus_playlists_v1';
 const STORAGE_CUSTOM_TRACKS = 'tuneus_custom_tracks_v1';
 const STORAGE_RECENT_HISTORY = 'tuneus_recent_history_v1';
+const STORAGE_STREAMING_QUALITY = 'tuneus_streaming_quality_v1';
 
 // Load stored data safely
 function getStoredJSON(key, fallback) {
@@ -1239,7 +1240,12 @@ function trackSource(track) {
   if (!track) return '';
   const offline = downloadRecordFor(track.id);
   if (offline && offline.blobUrl) return offline.blobUrl;
-  return track.src || '';
+  let src = track.src || '';
+  if (src.includes('saavncdn.com')) {
+    const q = state.streamingQuality || '96';
+    src = src.replace(/_(320|160|96)\.mp4/, `_${q}.mp4`);
+  }
+  return src;
 }
 
 function findTrackById(id) {
@@ -1434,7 +1440,8 @@ const state = {
   playlists: storedPlaylists,
   downloads: new Map(),
   recentHistory: storedRecentHistory,
-  eqPreset: 'normal'
+  eqPreset: 'normal',
+  streamingQuality: getStoredJSON(STORAGE_STREAMING_QUALITY, '96')
 };
 
 // HTML5 Audio Engine & Web Audio Visualizer / EQ
@@ -1521,7 +1528,8 @@ function decryptSaavnInBrowser(encrypted) {
     );
     let url = decrypted.toString(CryptoJS.enc.Utf8);
     if (url) {
-      url = url.replace(/(_96|_160|_64|_32)\.mp4$/, '_320.mp4');
+      const q = state.streamingQuality || '96';
+      url = url.replace(/(_96|_160|_64|_32|_320)\.mp4$/, `_${q}.mp4`);
     }
     return url;
   } catch (e) {
@@ -1792,17 +1800,14 @@ function cardHTML(track) {
   if (isActive) classes.push('is-active');
   if (isPlaying) classes.push('is-playing');
 
-  const artBackground = track.artwork
-    ? `background-image: url('${esc(track.artwork)}'); background-size: cover; background-position: center;`
-    : `background: ${artStyle(track)};`;
-
+  const fallbackStyle = track.artwork ? '' : `style="background: ${artStyle(track)};"`;
   const artworkInner = track.artwork
-    ? `<img class="art-img" src="${esc(track.artwork)}" alt="${esc(track.title)}" loading="lazy" decoding="async" onerror="this.style.opacity='0';" />`
+    ? `<img class="art-img" src="${esc(track.artwork)}" alt="${esc(track.title)}" loading="lazy" decoding="async" />`
     : `<span class="art-initials">${esc(initials(track.title))}</span>`;
 
   return `
     <div class="${classes.join(' ')}" data-id="${esc(track.id)}" role="button" tabindex="0" aria-label="Play ${esc(track.title)} by ${esc(track.artist)}">
-      <div class="art" style="${artBackground}">
+      <div class="art" ${fallbackStyle}>
         ${artworkInner}
         <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       </div>
@@ -1963,8 +1968,8 @@ function renderHomeDashboard() {
       const art = t.artwork || 'icon-192.png';
       return `
         <div class="shelf-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
-          <div class="shelf-art-wrap" style="background-image: url('${esc(art)}'); background-size: cover; background-position: center;">
-            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.style.opacity='0';" />
+          <div class="shelf-art-wrap">
+            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" />
             <div class="shelf-play-floating" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
@@ -2491,13 +2496,14 @@ async function searchOnlineCatalog(term) {
   render();
 
   try {
-    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+    const q = state.streamingQuality || '96';
+    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&quality=${q}`);
     const data = await res.json();
 
     if (data.success && data.results && data.results.length > 0) {
       state.onlineTracks = deduplicateTrackList(data.results);
       if (statusTitle) statusTitle.textContent = `Found ${state.onlineTracks.length} full songs for "${query}"`;
-      if (statusSub) statusSub.textContent = 'Full tracks ready to play at 320kbps!';
+      if (statusSub) statusSub.textContent = `Full tracks ready to stream (${q === '96' ? '⚡ 96kbps Data Saver' : q === '160' ? '🎧 160kbps Standard' : '💎 320kbps Master'})`;
     } else {
       state.onlineTracks = [];
       if (statusTitle) statusTitle.textContent = `No full songs found for "${query}"`;
@@ -2793,6 +2799,60 @@ async function handleDownloadChoice(mode) {
 // Download button entry point: open destination choice modal
 function downloadTrack(track) {
   openDownloadModal(track);
+}
+
+// Streaming Quality & Data Saver Management
+function updateQualityButton() {
+  const btn = el('dataSaverBtn');
+  const label = el('dataSaverLabel');
+  if (!btn || !label) return;
+  const q = state.streamingQuality || '96';
+  btn.classList.remove('mode-96', 'mode-160', 'mode-320');
+  btn.classList.add(`mode-${q}`);
+  if (q === '96') {
+    label.textContent = 'Data Saver ⚡ (96k)';
+    btn.title = 'Data Saver: Using 70% less data (~3.3MB/song). Click to switch.';
+  } else if (q === '160') {
+    label.textContent = 'Standard 🎧 (160k)';
+    btn.title = 'Standard Quality: Using 50% less data (~5.5MB/song). Click to switch.';
+  } else {
+    label.textContent = 'Ultra HD 💎 (320k)';
+    btn.title = 'Ultra HD Quality: Full studio master (~11MB/song). Click to switch.';
+  }
+}
+
+function cycleStreamingQuality() {
+  const current = state.streamingQuality || '96';
+  let next = '96';
+  if (current === '96') next = '160';
+  else if (current === '160') next = '320';
+  else next = '96';
+
+  state.streamingQuality = next;
+  setStoredJSON(STORAGE_STREAMING_QUALITY, next);
+  updateQualityButton();
+
+  if (next === '96') {
+    toast('⚡ Data Saver Mode ON (96 kbps) - Saves 70% Internet Data!');
+  } else if (next === '160') {
+    toast('🎧 Standard Quality ON (160 kbps) - Saves 50% Internet Data!');
+  } else {
+    toast('💎 Ultra HD ON (320 kbps) - Studio Master Quality');
+  }
+
+  // If a song is currently playing, update source seamlessly
+  if (state.current) {
+    const curTime = audio.currentTime;
+    const wasPlaying = state.playing;
+    const newSrc = trackSource(state.current);
+    if (audio.src !== newSrc) {
+      audio.src = newSrc;
+      audio.currentTime = curTime;
+      if (wasPlaying) {
+        audio.play().catch(() => {});
+      }
+    }
+  }
 }
 
 // Event Bindings
@@ -3223,6 +3283,11 @@ function bindEvents() {
       if (track) playTrack(track);
     }
   });
+
+  const dataSaverBtn = el('dataSaverBtn');
+  if (dataSaverBtn) {
+    dataSaverBtn.addEventListener('click', cycleStreamingQuality);
+  }
 
   el('helpBtn').addEventListener('click', () => el('shortcutsModal').hidden = false);
   el('closeShortcutsBtn').addEventListener('click', () => el('shortcutsModal').hidden = true);
@@ -3673,6 +3738,7 @@ function init() {
   bindEvents();
   bindAuthEvents();
   bindUniverseDrawerEvents();
+  updateQualityButton();
   render();
   applyVolume();
   updateProgress(0, 0);

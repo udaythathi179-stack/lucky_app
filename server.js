@@ -28,9 +28,10 @@ const MIME_TYPES = {
   '.aac': 'audio/aac'
 };
 
-// Decrypt JioSaavn full audio stream URL
-function decryptSaavnUrl(encrypted) {
+// Decrypt JioSaavn full audio stream URL with selectable quality
+function decryptSaavnUrl(encrypted, quality = '96') {
   if (!encrypted) return '';
+  const targetBitrate = quality === '320' ? '_320.mp4' : quality === '160' ? '_160.mp4' : '_96.mp4';
   if (CryptoJS) {
     try {
       const key = CryptoJS.enc.Utf8.parse('38346591');
@@ -40,7 +41,7 @@ function decryptSaavnUrl(encrypted) {
       });
       const url = decrypted.toString(CryptoJS.enc.Utf8);
       if (url && url.startsWith('http')) {
-        return url.replace(/_96\.mp4$/, '_320.mp4');
+        return url.replace(/_96\.mp4$/, targetBitrate);
       }
     } catch (e) {}
   }
@@ -49,7 +50,7 @@ function decryptSaavnUrl(encrypted) {
     decipher.setAutoPadding(true);
     let dec = decipher.update(encrypted, 'base64', 'utf8');
     dec += decipher.final('utf8');
-    return dec.replace(/_96\.mp4$/, '_320.mp4');
+    return dec.replace(/_96\.mp4$/, targetBitrate);
   } catch (e) {
     return '';
   }
@@ -71,7 +72,7 @@ function cleanHTML(str) {
 }
 
 // Proxy Search for full-length songs (Universe of Music: English, Bollywood, Tollywood, Global)
-function searchFullSongs(query, res) {
+function searchFullSongs(query, res, quality = '96') {
   const url = `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=40&q=${encodeURIComponent(query)}`;
   https.get(url, {
     headers: {
@@ -86,7 +87,7 @@ function searchFullSongs(query, res) {
         const seenKeys = new Set();
         const results = (json && json.results ? json.results : []).map((song) => {
           const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
-          const streamUrl = decryptSaavnUrl(encMedia);
+          const streamUrl = decryptSaavnUrl(encMedia, quality);
           const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
           const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
           const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
@@ -267,12 +268,13 @@ const server = http.createServer((req, res) => {
   // Search API route for full length songs
   if (pathname === '/api/search') {
     const q = parsedUrl.searchParams.get('q') || '';
+    const quality = parsedUrl.searchParams.get('quality') || '96';
     if (!q) {
       res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
       res.end(JSON.stringify({ success: true, results: [] }));
       return;
     }
-    searchFullSongs(q, res);
+    searchFullSongs(q, res, quality);
     return;
   }
 

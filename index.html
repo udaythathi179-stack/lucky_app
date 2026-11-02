@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -102,6 +102,14 @@
           </button>
         </div>
       </div>
+
+      <!-- Data Saver / Audio Quality Toggle -->
+      <button id="dataSaverBtn" class="data-saver-btn" type="button" title="Data Saver Mode (Click to cycle quality: 96k, 160k, 320k)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        <span id="dataSaverLabel">Data Saver ⚡ (96k)</span>
+      </button>
 
       <button id="helpBtn" class="action-icon-btn" type="button" title="Keyboard Shortcuts (?)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1101,7 +1109,7 @@
     </aside>
   </div>
 
-  <script src="app.js?v=38"></script>
+  <script src="app.js?v=39"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

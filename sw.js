@@ -1,4 +1,5 @@
-const CACHE_NAME = 'tuneus-music-v27';
+const CACHE_NAME = 'tuneus-music-v28';
+const IMAGE_CACHE_NAME = 'tuneus-artwork-v2';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -68,7 +69,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.filter((key) => key !== CACHE_NAME && key !== IMAGE_CACHE_NAME).map((key) => caches.delete(key))
       )
     )
   );
@@ -78,17 +79,37 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Audio streams, Saavn CDN album pictures & songs, and API calls bypass the service worker
-  // This allows the browser to handle CDN caching directly without CORS restrictions or placeholder overrides
+  // Audio streams and dynamic API calls bypass the service worker
   if (
     url.pathname.startsWith('/api/') ||
-    url.hostname.includes('saavncdn.com') ||
-    url.hostname.includes('apple.com') ||
-    url.hostname.includes('google.com') ||
+    url.hostname.includes('aac.saavncdn.com') ||
     url.pathname.endsWith('.mp4') ||
     url.pathname.endsWith('.m4a') ||
     url.pathname.endsWith('.mp3')
   ) {
+    return;
+  }
+
+  // Cache-First strategy for images: drastically cuts data usage and enables instant loading from disk
+  const isImage = (
+    url.hostname.includes('c.saavncdn.com') ||
+    url.pathname.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)
+  );
+
+  if (isImage && event.request.method === 'GET') {
+    event.respondWith(
+      caches.open(IMAGE_CACHE_NAME).then((cache) =>
+        cache.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) return cachedResponse;
+          return fetch(event.request).then((networkResponse) => {
+            if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          });
+        })
+      )
+    );
     return;
   }
 
