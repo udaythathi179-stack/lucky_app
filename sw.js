@@ -1,9 +1,10 @@
-const CACHE_NAME = 'tuneus-music-v19';
+const CACHE_NAME = 'tuneus-music-v20';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/styles.css',
   '/app.js',
+  '/theme-bg.jpg',
   '/wave-theme.jpg',
   '/manifest.json',
   '/logo.png',
