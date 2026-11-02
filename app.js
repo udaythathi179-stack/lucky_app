@@ -1752,14 +1752,6 @@ function visibleTracks() {
   return deduplicateTrackList(list);
 }
 
-function thumbArtwork(url) {
-  if (!url) return 'icon-192.png';
-  if (typeof url === 'string' && url.includes('500x500.jpg')) {
-    return url.replace('500x500.jpg', '150x150.jpg');
-  }
-  return url;
-}
-
 // Popular Home Artists Data
 const HOME_ARTISTS = [
   { name: 'S. P. Balasubrahmanyam', tag: 'Legend &bull; 40k Songs', img: 'images/artists/sp-balasubrahmanyam.jpg', query: 'SP Balasubrahmanyam Telugu hits' },
@@ -1789,7 +1781,7 @@ function queueTracks() {
   return list.length ? list : state.tracks;
 }
 
-// Generate Card HTML (Optimized: single image decode, lazy load, async decoding)
+// Generate Card HTML
 function cardHTML(track) {
   const isActive = state.current && state.current.id === track.id;
   const isPlaying = isActive && state.playing;
@@ -1802,14 +1794,17 @@ function cardHTML(track) {
   if (isActive) classes.push('is-active');
   if (isPlaying) classes.push('is-playing');
 
-  const thumbUrl = thumbArtwork(track.artwork);
+  const artBackground = track.artwork
+    ? `background-image: url('${esc(track.artwork)}'); background-size: cover; background-position: center;`
+    : `background: ${artStyle(track)};`;
+
   const artworkInner = track.artwork
-    ? `<img class="art-img" src="${esc(thumbUrl)}" alt="${esc(track.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />`
+    ? `<img class="art-img" src="${esc(track.artwork)}" alt="${esc(track.title)}" loading="lazy" decoding="async" onerror="this.style.opacity='0';" />`
     : `<span class="art-initials">${esc(initials(track.title))}</span>`;
 
   return `
     <div class="${classes.join(' ')}" data-id="${esc(track.id)}" role="button" tabindex="0" aria-label="Play ${esc(track.title)} by ${esc(track.artist)}">
-      <div class="art" style="background: rgba(8, 20, 52, 0.9);">
+      <div class="art" style="${artBackground}">
         ${artworkInner}
         <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       </div>
@@ -1958,17 +1953,17 @@ function renderHomeDashboard() {
   // 1. Recent Songs Grid (Up to 9 recent tracks)
   renderRecentGrid();
 
-  // Helper for rendering horizontal shelves with tiny, fast, cached thumbnails
+  // Helper for rendering horizontal shelves
   function renderShelf(containerId, tracks) {
     const container = el(containerId);
     if (!container) return;
     const uniqueTracks = deduplicateTrackList(tracks);
     container.innerHTML = uniqueTracks.map((t) => {
-      const art = thumbArtwork(t.artwork);
+      const art = t.artwork || 'icon-192.png';
       return `
         <div class="shelf-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
-          <div class="shelf-art-wrap">
-            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
+          <div class="shelf-art-wrap" style="background-image: url('${esc(art)}'); background-size: cover; background-position: center;">
+            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.style.opacity='0';" />
             <div class="shelf-play-floating" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>

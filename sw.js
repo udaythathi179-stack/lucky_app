@@ -1,5 +1,4 @@
-const CACHE_NAME = 'tuneus-music-v22';
-const IMAGE_CACHE_NAME = 'tuneus-artwork-v1';
+const CACHE_NAME = 'tuneus-music-v24';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -69,7 +68,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.filter((key) => key !== CACHE_NAME && key !== IMAGE_CACHE_NAME).map((key) => caches.delete(key))
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       )
     )
   );
@@ -79,10 +78,13 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Audio streams and dynamic API calls should bypass cache
+  // Audio streams, Saavn CDN album pictures & songs, and API calls bypass the service worker
+  // This allows the browser to handle CDN caching directly without CORS restrictions or placeholder overrides
   if (
     url.pathname.startsWith('/api/') ||
-    url.hostname.includes('aac.saavncdn.com') ||
+    url.hostname.includes('saavncdn.com') ||
+    url.hostname.includes('apple.com') ||
+    url.hostname.includes('google.com') ||
     url.pathname.endsWith('.mp4') ||
     url.pathname.endsWith('.m4a') ||
     url.pathname.endsWith('.mp3')
@@ -90,32 +92,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-First strategy for images: drastically reduces data usage and enables instant loading
-  const isImage = (
-    url.hostname.includes('c.saavncdn.com') ||
-    url.pathname.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)
-  );
-
-  if (isImage && event.request.method === 'GET') {
-    event.respondWith(
-      caches.open(IMAGE_CACHE_NAME).then((cache) =>
-        cache.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) return cachedResponse;
-          return fetch(event.request, { mode: 'cors' })
-            .then((networkResponse) => {
-              if (networkResponse && networkResponse.status === 200) {
-                cache.put(event.request, networkResponse.clone());
-              }
-              return networkResponse;
-            })
-            .catch(() => caches.match('/icon-192.png'));
-        })
-      )
-    );
-    return;
-  }
-
-  // Network-First strategy for scripts/HTML/styles: fresh when online, fallback to cache
+  // Network-First strategy for local scripts/HTML/styles/assets: fresh when online, fallback to cache
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
