@@ -1457,17 +1457,15 @@ let importLang = 'Telugu';
 let toastTimer = null;
 let trackToAddId = null;
 
-// Palette generation for artwork fallback
+// Palette generation for artwork fallback (Consistent Blue Theme)
 const palettes = [
-  ['#ff9f43', '#ff5f6d'],
-  ['#7c5cff', '#2ec5ff'],
-  ['#22c55e', '#0ea5e9'],
-  ['#f472b6', '#8b5cf6'],
-  ['#f59e0b', '#ef4444'],
+  ['#0284c7', '#0369a1'],
+  ['#2563eb', '#1d4ed8'],
+  ['#38bdf8', '#1e40af'],
+  ['#0ea5e9', '#2563eb'],
+  ['#60a5fa', '#1e3a8a'],
   ['#06b6d4', '#3b82f6'],
-  ['#a3e635', '#14b8a6'],
-  ['#fb7185', '#f97316'],
-  ['#e879f9', '#6366f1']
+  ['#1d4ed8', '#0284c7']
 ];
 
 function hash(value) {
@@ -2160,13 +2158,6 @@ function renderPlayer() {
   el('repeatBtn').classList.toggle('repeat-one', state.repeat === 'one');
   el('expRepeatBtn').classList.toggle('is-on', isRepeat);
   el('expRepeatBtn').classList.toggle('repeat-one', state.repeat === 'one');
-
-  if (track) {
-    const seed = hash(track.id || track.title);
-    const colors = palettes[seed % palettes.length];
-    el('glowA').style.background = colors[0];
-    el('glowB').style.background = colors[1];
-  }
 }
 
 // Synchronize song card states
