@@ -83,6 +83,7 @@ function searchFullSongs(query, res) {
     apiRes.on('end', () => {
       try {
         const json = JSON.parse(data);
+        const seenKeys = new Set();
         const results = (json && json.results ? json.results : []).map((song) => {
           const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
           const streamUrl = decryptSaavnUrl(encMedia);
@@ -101,7 +102,21 @@ function searchFullSongs(query, res) {
             duration: parseInt(song.duration, 10) || 240,
             isOnline: true
           };
-        }).filter(s => Boolean(s.src));
+        }).filter(s => {
+          if (!s.src || !s.title) return false;
+          const cleanTitle = s.title
+            .toLowerCase()
+            .replace(/\s*\(.*?\)/g, '')
+            .replace(/\s*\[.*?\]/g, '')
+            .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original).*$/i, '')
+            .replace(/[^a-z0-9]/g, '')
+            .trim();
+          const cleanLang = (s.language || 'all').toLowerCase().trim();
+          const key = `${cleanTitle}__${cleanLang}`;
+          if (cleanTitle && seenKeys.has(key)) return false;
+          if (cleanTitle) seenKeys.add(key);
+          return true;
+        });
 
         res.writeHead(200, {
           'Content-Type': 'application/json; charset=UTF-8',

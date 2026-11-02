@@ -1382,9 +1382,42 @@ const storedFavorites = new Set(getStoredJSON(STORAGE_FAVORITES, []));
 const storedCustomTracks = getStoredJSON(STORAGE_CUSTOM_TRACKS, []);
 const storedRecentHistory = getStoredJSON(STORAGE_RECENT_HISTORY, []);
 
+// Clean and deduplicate any list of tracks by normalized title and language
+function deduplicateTrackList(tracks) {
+  if (!Array.isArray(tracks)) return [];
+  const seenKeys = new Set();
+  const seenUrls = new Set();
+  const unique = [];
+
+  for (const track of tracks) {
+    if (!track || !track.title) continue;
+
+    const normTitle = String(track.title)
+      .toLowerCase()
+      .replace(/\s*\(.*?\)/g, '')
+      .replace(/\s*\[.*?\]/g, '')
+      .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original).*$/i, '')
+      .replace(/[^a-z0-9]/g, '')
+      .trim();
+
+    const normLang = String(track.language || 'all').toLowerCase().trim();
+    const key = `${normTitle}__${normLang}`;
+    const cleanUrl = track.src ? String(track.src).trim().toLowerCase().split('?')[0] : '';
+
+    if (normTitle && seenKeys.has(key)) continue;
+    if (cleanUrl && seenUrls.has(cleanUrl)) continue;
+
+    if (normTitle) seenKeys.add(key);
+    if (cleanUrl) seenUrls.add(cleanUrl);
+    unique.push(track);
+  }
+
+  return unique;
+}
+
 // State
 const state = {
-  tracks: [...storedCustomTracks, ...catalog.map((t) => ({ ...t }))],
+  tracks: deduplicateTrackList([...storedCustomTracks, ...catalog.map((t) => ({ ...t }))]),
   onlineTracks: [],
   filter: 'All',
   sort: 'default',
@@ -1692,7 +1725,7 @@ function visibleTracks() {
       break;
   }
 
-  return list;
+  return deduplicateTrackList(list);
 }
 
 function queueTracks() {
@@ -1797,25 +1830,43 @@ function renderRecentGrid() {
   if (state.recentHistory && state.recentHistory.length > 0) {
     state.recentHistory.forEach((id) => {
       const t = findTrackById(id);
-      if (t && !recentTracks.some((item) => item.id === t.id)) {
-        recentTracks.push(t);
-      }
+      if (t) recentTracks.push(t);
     });
   }
 
-  // If user has listened to fewer than 9 songs, fill remaining slots up to 9 from catalog
+  recentTracks = deduplicateTrackList(recentTracks);
+
+  // If user has listened to fewer than 9 songs, fill remaining slots up to 9 from catalog with unique songs
   if (recentTracks.length < 9) {
     const existingIds = new Set(recentTracks.map((t) => t.id));
-    for (const t of state.tracks) {
-      if (!existingIds.has(t.id)) {
+    // Pick diverse top songs across Telugu, Hindi & English
+    const defaultFillIds = [
+      'samajavaragamana', 'tum-hi-ho', 'shape-of-you',
+      'srivalli', 'kesariya', 'believer',
+      'naatu-naatu', 'channa-mereya', 'blinding-lights'
+    ];
+    for (const fillId of defaultFillIds) {
+      const t = findTrackById(fillId);
+      if (t && !existingIds.has(t.id)) {
         recentTracks.push(t);
+        existingIds.add(t.id);
         if (recentTracks.length === 9) break;
+      }
+    }
+    // Fallback if needed
+    if (recentTracks.length < 9) {
+      for (const t of state.tracks) {
+        if (!existingIds.has(t.id)) {
+          recentTracks.push(t);
+          existingIds.add(t.id);
+          if (recentTracks.length === 9) break;
+        }
       }
     }
   }
 
-  // Strictly cap at 9 songs
-  const displayTracks = recentTracks.slice(0, 9);
+  // Strictly cap at 9 unique songs
+  const displayTracks = deduplicateTrackList(recentTracks).slice(0, 9);
   quickGrid.innerHTML = displayTracks.map((t) => {
     const art = t.artwork || 'icon-192.png';
     return `
@@ -1846,14 +1897,15 @@ function addToRecentHistory(track) {
 
 // Render Spotify-Style Home Dashboard
 function renderHomeDashboard() {
-  // 1. Recent Songs 3-Column Grid (Up to 9 recent tracks)
+  // 1. Recent Songs Grid (Up to 9 recent tracks)
   renderRecentGrid();
 
   // Helper for rendering horizontal shelves
   function renderShelf(containerId, tracks) {
     const container = el(containerId);
     if (!container) return;
-    container.innerHTML = tracks.map((t) => {
+    const uniqueTracks = deduplicateTrackList(tracks);
+    container.innerHTML = uniqueTracks.map((t) => {
       const art = t.artwork || 'icon-192.png';
       return `
         <div class="shelf-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
@@ -1870,18 +1922,28 @@ function renderHomeDashboard() {
     }).join('');
   }
 
-  // 4. Jump back in shelf
-  renderShelf('jumpBackShelf', state.tracks.slice(0, 10));
+  // 4. Jump back in shelf (Diverse Trending Hits Across All Languages)
+  const trendingIds = [
+    'srivalli', 'kesariya', 'shape-of-you', 'samajavaragamana',
+    'tum-hi-ho', 'believer', 'naatu-naatu', 'apna-bana-le',
+    'blinding-lights', 'chitti'
+  ];
+  const jumpBackTracks = trendingIds.map((id) => findTrackById(id)).filter(Boolean);
+  renderShelf('jumpBackShelf', jumpBackTracks.length >= 8 ? jumpBackTracks : state.tracks.slice(0, 10));
 
-  // 5. Folk Shelf
-  const folkTracks = state.tracks.filter((t) => (t.language === 'Folk' || (t.category && t.category.toLowerCase().includes('folk')) || (t.artist && (t.artist.includes('Mangli') || t.artist.includes('Madhu Priya') || t.artist.includes('Rahul Sipligunj')))));
+  // 5. Folk Shelf (Authentic Roots & Rhythms)
+  const folkTracks = state.tracks.filter((t) => (
+    t.language === 'Folk' ||
+    (t.category && t.category.toLowerCase().includes('folk')) ||
+    (t.artist && (t.artist.includes('Mangli') || t.artist.includes('Madhu Priya') || t.artist.includes('Rahul Sipligunj') || t.artist.includes('Mame Khan')))
+  ));
   renderShelf('folkShelf', folkTracks.slice(0, 10));
 
-  // 6. Telugu Shelf
+  // 6. Telugu Shelf (Tollywood Blockbusters)
   const teluguTracks = state.tracks.filter((t) => t.language === 'Telugu');
   renderShelf('teluguShelf', teluguTracks.slice(0, 10));
 
-  // 7. Hindi Shelf
+  // 7. Hindi Shelf (Bollywood Melodies)
   const hindiTracks = state.tracks.filter((t) => t.language === 'Hindi');
   renderShelf('hindiShelf', hindiTracks.slice(0, 10));
 }
@@ -2345,7 +2407,7 @@ async function searchOnlineCatalog(term) {
     const data = await res.json();
 
     if (data.success && data.results && data.results.length > 0) {
-      state.onlineTracks = data.results;
+      state.onlineTracks = deduplicateTrackList(data.results);
       el('onlineStatusTitle').textContent = `Found ${state.onlineTracks.length} full songs for "${query}"`;
       el('onlineStatusSub').textContent = 'Full tracks ready to play at 320kbps!';
     } else {
