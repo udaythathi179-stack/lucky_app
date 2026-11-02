@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuneus-music-v24';
+const CACHE_NAME = 'tuneus-music-v25';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -102,7 +102,7 @@ self.addEventListener('fetch', (event) => {
         }
         return networkResponse;
       })
-      .catch(() => caches.match(event.request))
+      .catch(() => caches.match(event.request, { ignoreSearch: true }))
   );
 });
 
