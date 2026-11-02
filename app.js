@@ -1639,8 +1639,8 @@ function startVisualizerLoop() {
         const val = dataArray[i % bufferLength] / 255;
         const h = Math.max(2, val * miniCanvas.height);
         const grad = miniCtx.createLinearGradient(0, miniCanvas.height - h, 0, miniCanvas.height);
-        grad.addColorStop(0, '#c084fc');
-        grad.addColorStop(1, '#6366f1');
+        grad.addColorStop(0, '#38bdf8');
+        grad.addColorStop(1, '#1d4ed8');
         miniCtx.fillStyle = grad;
         miniCtx.fillRect(i * barWidth, miniCanvas.height - h, barWidth - 2, h);
       }
@@ -1657,12 +1657,12 @@ function startVisualizerLoop() {
         const w = barWidth - 3;
         const y = expCanvas.height - h;
 
-        // Glowing soundwave aurora bar matching neon violet image
+        // Glowing electric blue acoustic soundwave bar matching theme image
         const gradient = expCtx.createLinearGradient(0, y, 0, expCanvas.height);
-        gradient.addColorStop(0, '#f5d0fe');
-        gradient.addColorStop(0.25, '#c084fc');
-        gradient.addColorStop(0.65, '#9333ea');
-        gradient.addColorStop(1, 'rgba(79, 70, 229, 0.45)');
+        gradient.addColorStop(0, '#e0f2fe');
+        gradient.addColorStop(0.25, '#38bdf8');
+        gradient.addColorStop(0.65, '#2563eb');
+        gradient.addColorStop(1, 'rgba(29, 78, 216, 0.45)');
         expCtx.fillStyle = gradient;
         expCtx.beginPath();
         expCtx.roundRect(x, y, w, h, [3, 3, 0, 0]);
@@ -1671,8 +1671,8 @@ function startVisualizerLoop() {
         // Starry glowing acoustic particle bead atop wave crest
         if (h > 6) {
           expCtx.save();
-          expCtx.shadowColor = '#c084fc';
-          expCtx.shadowBlur = 8;
+          expCtx.shadowColor = '#38bdf8';
+          expCtx.shadowBlur = 10;
           expCtx.fillStyle = '#ffffff';
           expCtx.beginPath();
           expCtx.arc(x + w / 2, y, 1.8, 0, Math.PI * 2);
