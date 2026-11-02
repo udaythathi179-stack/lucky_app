@@ -1637,8 +1637,11 @@ function startVisualizerLoop() {
       const barWidth = miniCanvas.width / barCount;
       for (let i = 0; i < barCount; i++) {
         const val = dataArray[i % bufferLength] / 255;
-        const h = val * miniCanvas.height;
-        miniCtx.fillStyle = 'rgba(0, 210, 255, 0.75)';
+        const h = Math.max(2, val * miniCanvas.height);
+        const grad = miniCtx.createLinearGradient(0, miniCanvas.height - h, 0, miniCanvas.height);
+        grad.addColorStop(0, '#00f5ff');
+        grad.addColorStop(1, '#2563eb');
+        miniCtx.fillStyle = grad;
         miniCtx.fillRect(i * barWidth, miniCanvas.height - h, barWidth - 2, h);
       }
     }
@@ -1649,15 +1652,33 @@ function startVisualizerLoop() {
       const barWidth = expCanvas.width / barCount;
       for (let i = 0; i < barCount; i++) {
         const val = dataArray[i % bufferLength] / 255;
-        const h = Math.max(3, val * (expCanvas.height - 4));
-        const gradient = expCtx.createLinearGradient(0, expCanvas.height - h, 0, expCanvas.height);
-        gradient.addColorStop(0, '#00f0ff');
-        gradient.addColorStop(0.5, '#0088ff');
-        gradient.addColorStop(1, '#3b82f6');
+        const h = Math.max(3, val * (expCanvas.height - 6));
+        const x = i * barWidth;
+        const w = barWidth - 3;
+        const y = expCanvas.height - h;
+
+        // Glowing soundwave particle bar
+        const gradient = expCtx.createLinearGradient(0, y, 0, expCanvas.height);
+        gradient.addColorStop(0, '#a5f3fc');
+        gradient.addColorStop(0.25, '#00f5ff');
+        gradient.addColorStop(0.65, '#0284c7');
+        gradient.addColorStop(1, 'rgba(37, 99, 235, 0.45)');
         expCtx.fillStyle = gradient;
         expCtx.beginPath();
-        expCtx.roundRect(i * barWidth, expCanvas.height - h, barWidth - 3, h, [3, 3, 0, 0]);
+        expCtx.roundRect(x, y, w, h, [3, 3, 0, 0]);
         expCtx.fill();
+
+        // Starry glowing acoustic particle bead atop wave crest
+        if (h > 6) {
+          expCtx.save();
+          expCtx.shadowColor = '#00f5ff';
+          expCtx.shadowBlur = 8;
+          expCtx.fillStyle = '#ffffff';
+          expCtx.beginPath();
+          expCtx.arc(x + w / 2, y, 1.8, 0, Math.PI * 2);
+          expCtx.fill();
+          expCtx.restore();
+        }
       }
     }
   }
@@ -2029,6 +2050,7 @@ function render() {
 function renderPlayer() {
   const track = state.current;
   const isPlaying = state.playing && Boolean(track);
+  document.body.classList.toggle('is-playing-music', isPlaying);
 
   el('player').dataset.empty = track ? 'false' : 'true';
 
