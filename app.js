@@ -2067,6 +2067,8 @@ function updateProgress(current, duration) {
   seek.style.setProperty('--p', percent);
   expSeek.value = val;
   expSeek.style.setProperty('--p', percent);
+  const pb = el('playerProgressBar');
+  if (pb) pb.style.width = percent;
 }
 
 // Stop all playback
