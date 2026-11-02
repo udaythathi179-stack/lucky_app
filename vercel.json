@@ -6,7 +6,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "{index.html,styles.css,app.js,manifest.json,sw.js,logo.png,favicon.png,icon-192.png,icon-512.png}",
+      "src": "{index.html,styles.css,app.js,manifest.json,sw.js,logo.png,favicon.png,icon-192.png,icon-512.png,theme-bg.jpg,wave-theme.jpg,images/**}",
       "use": "@vercel/static"
     }
   ],

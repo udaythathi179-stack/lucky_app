@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=34" />
+  <link rel="stylesheet" href="styles.css?v=35" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -165,6 +165,20 @@
         </div>
         <div class="horizontal-scroll-shelf" id="jumpBackShelf">
           <!-- Populated with square artwork cards -->
+        </div>
+      </section>
+
+      <!-- Popular Artists & Legendary Singers Section -->
+      <section class="home-shelf-section artists-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>⭐ Popular Artists &amp; Legendary Singers</h2>
+            <p>Listen to your favorite singers &bull; Tap to explore tracks</p>
+          </div>
+          <button type="button" class="shelf-see-all" id="seeAllArtistsBtn">Explore All &rarr;</button>
+        </div>
+        <div class="horizontal-scroll-shelf artists-horizontal-shelf" id="homeArtistsShelf">
+          <!-- Dynamically populated with artist avatar circles -->
         </div>
       </section>
 
@@ -753,7 +767,7 @@
           <h3 class="universe-group-title">🎙️ Telugu Legendary Singers</h3>
           <div class="universe-items-grid">
             <button type="button" class="universe-item-btn" data-query="SP Balasubrahmanyam Telugu hits">
-              <img class="u-item-avatar" src="images/artists/sp-balasubrahmanyam.jpg" alt="S. P. Balasubrahmanyam" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/sp-balasubrahmanyam.jpg" alt="S. P. Balasubrahmanyam" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">S. P. Balasubrahmanyam</span>
                 <span class="u-item-sub">Gana Gandharva &bull; 40,000+ Songs</span>
@@ -761,7 +775,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Sid Sriram Telugu">
-              <img class="u-item-avatar" src="images/artists/sid-sriram.jpg" alt="Sid Sriram" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/sid-sriram.jpg" alt="Sid Sriram" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Sid Sriram</span>
                 <span class="u-item-sub">Melody King &bull; Srivalli, Samajavaragamana</span>
@@ -769,7 +783,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Anurag Kulkarni Telugu">
-              <img class="u-item-avatar" src="images/artists/anurag-kulkarni.jpg" alt="Anurag Kulkarni" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/anurag-kulkarni.jpg" alt="Anurag Kulkarni" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Anurag Kulkarni</span>
                 <span class="u-item-sub">Ramuloo Ramulaa, Pilla Raa</span>
@@ -777,7 +791,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Karthik Telugu songs">
-              <img class="u-item-avatar" src="images/artists/karthik.jpg" alt="Karthik" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/karthik.jpg" alt="Karthik" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Karthik</span>
                 <span class="u-item-sub">Ee Manase, Niluvaddham, Aakasam Ammayi</span>
@@ -785,7 +799,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="KS Chithra Telugu hits">
-              <img class="u-item-avatar" src="images/artists/ks-chithra.jpg" alt="K. S. Chithra" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/ks-chithra.jpg" alt="K. S. Chithra" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">K. S. Chithra</span>
                 <span class="u-item-sub">Chinna Kuyil &bull; 6 National Awards</span>
@@ -793,7 +807,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Shreya Ghoshal Telugu">
-              <img class="u-item-avatar" src="images/artists/shreya-ghoshal.jpg" alt="Shreya Ghoshal" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/shreya-ghoshal.jpg" alt="Shreya Ghoshal" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Shreya Ghoshal</span>
                 <span class="u-item-sub">Pillagali, Kopamga, Jagadananda</span>
@@ -801,7 +815,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Ram Miriyala songs">
-              <img class="u-item-avatar" src="images/artists/ram-miriyala.jpg" alt="Ram Miriyala" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/ram-miriyala.jpg" alt="Ram Miriyala" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Ram Miriyala</span>
                 <span class="u-item-sub">Chitti, Tillu Anna, Ooru Palletooru</span>
@@ -809,7 +823,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Mangli songs">
-              <img class="u-item-avatar" src="images/artists/mangli.jpg" alt="Mangli" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/mangli.jpg" alt="Mangli" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Mangli</span>
                 <span class="u-item-sub">Saranga Dariya, Bonalu, Folk Sensation</span>
@@ -817,7 +831,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Geetha Madhuri Telugu">
-              <img class="u-item-avatar" src="images/artists/geetha-madhuri.jpg" alt="Geetha Madhuri" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/geetha-madhuri.jpg" alt="Geetha Madhuri" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Geetha Madhuri</span>
                 <span class="u-item-sub">Pakka Local, Magadheera, Darlingey</span>
@@ -825,7 +839,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Revanth Telugu hits">
-              <img class="u-item-avatar" src="images/artists/revanth.jpg" alt="Revanth" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/revanth.jpg" alt="Revanth" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Revanth</span>
                 <span class="u-item-sub">Manohari, Indian Idol Winner, Telugu Rock</span>
@@ -833,7 +847,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Rahul Sipligunj songs">
-              <img class="u-item-avatar" src="images/artists/rahul-sipligunj.jpg" alt="Rahul Sipligunj" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/rahul-sipligunj.jpg" alt="Rahul Sipligunj" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Rahul Sipligunj</span>
                 <span class="u-item-sub">Naatu Naatu (Oscar Winner), Ranga Ranga</span>
@@ -841,7 +855,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Ramya Behara Telugu">
-              <img class="u-item-avatar" src="images/artists/ramya-behara.jpg" alt="Ramya Behara" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/ramya-behara.jpg" alt="Ramya Behara" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Ramya Behara</span>
                 <span class="u-item-sub">Dhivara (Baahubali), O Sthree Repu Vaa</span>
@@ -849,7 +863,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Sunitha Telugu songs">
-              <img class="u-item-avatar" src="images/artists/sunitha.jpg" alt="Sunitha" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/sunitha.jpg" alt="Sunitha" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Sunitha</span>
                 <span class="u-item-sub">9 Nandi Awards &bull; Melodious Icon</span>
@@ -857,7 +871,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Haricharan Telugu">
-              <img class="u-item-avatar" src="images/artists/haricharan.jpg" alt="Haricharan" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/haricharan.jpg" alt="Haricharan" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Haricharan</span>
                 <span class="u-item-sub">Nuvvele Nuvvele, Kaatuka Kannula</span>
@@ -865,7 +879,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Vijay Yesudas Telugu">
-              <img class="u-item-avatar" src="images/artists/vijay-yesudas.jpg" alt="Vijay Yesudas" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/vijay-yesudas.jpg" alt="Vijay Yesudas" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Vijay Yesudas</span>
                 <span class="u-item-sub">Malare, Evare (Premam), Soulful Vocalist</span>
@@ -873,7 +887,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Devi Sri Prasad hits">
-              <img class="u-item-avatar" src="images/artists/dsp.jpg" alt="D. S. P." loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/dsp.jpg" alt="D. S. P." loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">D. S. P.</span>
                 <span class="u-item-sub">Rockstar Devi Sri Prasad &bull; High Voltage Hits</span>
@@ -881,7 +895,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Madhu Priya songs">
-              <img class="u-item-avatar" src="images/artists/madhu-priya.jpg" alt="Madhu Priya" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/madhu-priya.jpg" alt="Madhu Priya" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Madhu Priya</span>
                 <span class="u-item-sub">Vachinde Pilla, He Is So Cute</span>
@@ -889,7 +903,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Hemachandra Telugu">
-              <img class="u-item-avatar" src="images/artists/hemachandra.jpg" alt="Hemachandra" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/hemachandra.jpg" alt="Hemachandra" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Hemachandra</span>
                 <span class="u-item-sub">Bommarillu, Maryada Ramanna, Mass Power</span>
@@ -897,7 +911,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="SP Charan Telugu">
-              <img class="u-item-avatar" src="images/artists/sp-charan.jpg" alt="S. P. Charan" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/sp-charan.jpg" alt="S. P. Charan" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">S. P. Charan</span>
                 <span class="u-item-sub">Mellaga Karagani, Golden Legacy</span>
@@ -905,7 +919,7 @@
               <span class="u-item-badge telugu">Telugu</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Saketh Komanduri Telugu">
-              <img class="u-item-avatar" src="images/artists/saketh-komanduri.jpg" alt="Saketh Komanduri" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/saketh-komanduri.jpg" alt="Saketh Komanduri" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Saketh Komanduri</span>
                 <span class="u-item-sub">Pala Pitta, Saaho, Dynamic Classical Voice</span>
@@ -920,7 +934,7 @@
           <h3 class="universe-group-title">🎶 Hindi Legendary Singers</h3>
           <div class="universe-items-grid">
             <button type="button" class="universe-item-btn" data-query="Arijit Singh Hindi hits">
-              <img class="u-item-avatar" src="images/artists/arijit-singh.jpg" alt="Arijit Singh" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/arijit-singh.jpg" alt="Arijit Singh" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Arijit Singh</span>
                 <span class="u-item-sub">Tum Hi Ho, Kesariya, Chaleya</span>
@@ -928,7 +942,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Sonu Nigam songs">
-              <img class="u-item-avatar" src="images/artists/sonu-nigam.jpg" alt="Sonu Nigam" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/sonu-nigam.jpg" alt="Sonu Nigam" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Sonu Nigam</span>
                 <span class="u-item-sub">Kal Ho Naa Ho, Abhi Mujh Mein Kahin</span>
@@ -936,7 +950,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Shreya Ghoshal Hindi hits">
-              <img class="u-item-avatar" src="images/artists/shreya-ghoshal.jpg" alt="Shreya Ghoshal" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/shreya-ghoshal.jpg" alt="Shreya Ghoshal" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Shreya Ghoshal</span>
                 <span class="u-item-sub">Sunn Raha Hai, Deewani Mastani, Teri Ore</span>
@@ -944,7 +958,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Lata Mangeshkar songs">
-              <img class="u-item-avatar" src="images/artists/lata-mangeshkar.jpg" alt="Lata Mangeshkar" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/lata-mangeshkar.jpg" alt="Lata Mangeshkar" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Lata Mangeshkar</span>
                 <span class="u-item-sub">Nightingale of India &bull; Bharat Ratna</span>
@@ -952,7 +966,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Kishore Kumar classic hits">
-              <img class="u-item-avatar" src="images/artists/kishore-kumar.jpg" alt="Kishore Kumar" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/kishore-kumar.jpg" alt="Kishore Kumar" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Kishore Kumar</span>
                 <span class="u-item-sub">Pal Pal Dil Ke Paas, Roop Tera Mastana</span>
@@ -960,7 +974,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Udit Narayan hits">
-              <img class="u-item-avatar" src="images/artists/udit-narayan.jpg" alt="Udit Narayan" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/udit-narayan.jpg" alt="Udit Narayan" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Udit Narayan</span>
                 <span class="u-item-sub">Papa Kehte Hain, Pehla Nasha, Mitwa</span>
@@ -968,7 +982,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Kumar Sanu 90s hits">
-              <img class="u-item-avatar" src="images/artists/kumar-sanu.jpg" alt="Kumar Sanu" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/kumar-sanu.jpg" alt="Kumar Sanu" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Kumar Sanu</span>
                 <span class="u-item-sub">King of 90s Romance &bull; 5 Consecutive Filmfares</span>
@@ -976,7 +990,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Asha Bhosle hits">
-              <img class="u-item-avatar" src="images/artists/asha-bhosle.jpg" alt="Asha Bhosle" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/asha-bhosle.jpg" alt="Asha Bhosle" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Asha Bhosle</span>
                 <span class="u-item-sub">Dum Maro Dum, Chura Liya, Rangeela Re</span>
@@ -984,7 +998,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="KK hits">
-              <img class="u-item-avatar" src="images/artists/kk.jpg" alt="KK" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/kk.jpg" alt="KK" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">KK</span>
                 <span class="u-item-sub">Yaaron, Pal, Tu Aashiqui Hai, Zara Sa</span>
@@ -992,7 +1006,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Jubin Nautiyal songs">
-              <img class="u-item-avatar" src="images/artists/jubin-nautiyal.jpg" alt="Jubin Nautiyal" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/jubin-nautiyal.jpg" alt="Jubin Nautiyal" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Jubin Nautiyal</span>
                 <span class="u-item-sub">Raataan Lambiyan, Lut Gaye, Tum Hi Aana</span>
@@ -1000,7 +1014,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Armaan Malik Hindi songs">
-              <img class="u-item-avatar" src="images/artists/armaan-malik.jpg" alt="Armaan Malik" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/armaan-malik.jpg" alt="Armaan Malik" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Armaan Malik</span>
                 <span class="u-item-sub">Bol Do Na Zara, Main Hoon Hero Tera</span>
@@ -1008,7 +1022,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Mohit Chauhan songs">
-              <img class="u-item-avatar" src="images/artists/mohit-chauhan.jpg" alt="Mohit Chauhan" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/mohit-chauhan.jpg" alt="Mohit Chauhan" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Mohit Chauhan</span>
                 <span class="u-item-sub">Kun Faya Kun, Tum Se Hi, Masakali, Rockstar</span>
@@ -1016,7 +1030,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Neha Kakkar hits">
-              <img class="u-item-avatar" src="images/artists/neha-kakkar.jpg" alt="Neha Kakkar" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/neha-kakkar.jpg" alt="Neha Kakkar" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Neha Kakkar</span>
                 <span class="u-item-sub">Dilbar, Aankh Marey, O Saki Saki</span>
@@ -1024,7 +1038,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Shaan Hindi hits">
-              <img class="u-item-avatar" src="images/artists/shaan.jpg" alt="Shaan" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/shaan.jpg" alt="Shaan" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Shaan</span>
                 <span class="u-item-sub">Chand Sifarish, Tanha Dil, Woh Ladki Hai Kahan</span>
@@ -1032,7 +1046,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Atif Aslam romantic hits">
-              <img class="u-item-avatar" src="images/artists/atif-aslam.jpg" alt="Atif Aslam" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/atif-aslam.jpg" alt="Atif Aslam" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Atif Aslam</span>
                 <span class="u-item-sub">Tera Hone Laga Hoon, Dil Diyan Gallan, Jeena Jeena</span>
@@ -1040,7 +1054,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Alka Yagnik hits">
-              <img class="u-item-avatar" src="images/artists/alka-yagnik.jpg" alt="Alka Yagnik" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/alka-yagnik.jpg" alt="Alka Yagnik" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Alka Yagnik</span>
                 <span class="u-item-sub">Tip Tip Barsa, Taal Se Taal, Kuch Kuch Hota Hai</span>
@@ -1048,7 +1062,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Vishal Mishra songs">
-              <img class="u-item-avatar" src="images/artists/vishal-mishra.jpg" alt="Vishal Mishra" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/vishal-mishra.jpg" alt="Vishal Mishra" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Vishal Mishra</span>
                 <span class="u-item-sub">Pehle Bhi Main (Animal), Kaise Hua</span>
@@ -1056,7 +1070,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Mika Singh party hits">
-              <img class="u-item-avatar" src="images/artists/mika-singh.jpg" alt="Mika Singh" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/mika-singh.jpg" alt="Mika Singh" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Mika Singh</span>
                 <span class="u-item-sub">Mauja Hi Mauja, Subah Hone Na De, Jumme Ki Raat</span>
@@ -1064,7 +1078,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Shankar Mahadevan songs">
-              <img class="u-item-avatar" src="images/artists/shankar-mahadevan.jpg" alt="Shankar Mahadevan" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/shankar-mahadevan.jpg" alt="Shankar Mahadevan" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Shankar Mahadevan</span>
                 <span class="u-item-sub">Breathless, Dil Chahta Hai, Mitwa, Maa</span>
@@ -1072,7 +1086,7 @@
               <span class="u-item-badge hindi">Hindi</span>
             </button>
             <button type="button" class="universe-item-btn" data-query="Mohammed Rafi classic hits">
-              <img class="u-item-avatar" src="images/artists/mohammed-rafi.jpg" alt="Mohammed Rafi" loading="lazy" />
+              <img class="u-item-avatar" onerror="this.onerror=null; this.src='icon-192.png';" src="images/artists/mohammed-rafi.jpg" alt="Mohammed Rafi" loading="lazy" />
               <div class="u-item-info">
                 <span class="u-item-name">Mohammed Rafi</span>
                 <span class="u-item-sub">Golden Era Legend &bull; Kya Hua Tera Wada, Baharo Phool Barsao</span>
@@ -1085,7 +1099,7 @@
     </aside>
   </div>
 
-  <script src="app.js?v=34"></script>
+  <script src="app.js?v=35"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

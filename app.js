@@ -1439,7 +1439,7 @@ const state = {
 
 // HTML5 Audio Engine & Web Audio Visualizer / EQ
 const audio = new Audio();
-audio.preload = 'auto';
+audio.preload = 'none';
 audio.crossOrigin = 'anonymous';
 
 let audioCtx = null;
@@ -1605,8 +1605,10 @@ function applyEqPreset(preset) {
   });
 }
 
-// Visualizer animation loop
+// High-Performance Visualizer Loop (Zero CPU/GPU usage when paused)
 function startVisualizerLoop() {
+  if (animFrameId) return;
+
   const miniCanvas = el('miniVisualizer');
   const expCanvas = el('expandedVisualizer');
   const miniCtx = miniCanvas ? miniCanvas.getContext('2d') : null;
@@ -1616,12 +1618,17 @@ function startVisualizerLoop() {
   const dataArray = new Uint8Array(bufferLength);
 
   function draw() {
-    animFrameId = requestAnimationFrame(draw);
     if (!state.playing) {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
       if (miniCtx) miniCtx.clearRect(0, 0, miniCanvas.width, miniCanvas.height);
       if (expCtx) expCtx.clearRect(0, 0, expCanvas.width, expCanvas.height);
       return;
     }
+
+    animFrameId = requestAnimationFrame(draw);
 
     if (analyserNode) {
       analyserNode.getByteFrequencyData(dataArray);
@@ -1668,22 +1675,18 @@ function startVisualizerLoop() {
         expCtx.roundRect(x, y, w, h, [3, 3, 0, 0]);
         expCtx.fill();
 
-        // Starry glowing acoustic particle bead atop wave crest
+        // Starry glowing acoustic particle bead atop wave crest (Fast direct drawing)
         if (h > 6) {
-          expCtx.save();
-          expCtx.shadowColor = '#38bdf8';
-          expCtx.shadowBlur = 10;
           expCtx.fillStyle = '#ffffff';
           expCtx.beginPath();
           expCtx.arc(x + w / 2, y, 1.8, 0, Math.PI * 2);
           expCtx.fill();
-          expCtx.restore();
         }
       }
     }
   }
 
-  draw();
+  animFrameId = requestAnimationFrame(draw);
 }
 
 // Filter and Sort Tracks
@@ -1749,12 +1752,44 @@ function visibleTracks() {
   return deduplicateTrackList(list);
 }
 
+function thumbArtwork(url) {
+  if (!url) return 'icon-192.png';
+  if (typeof url === 'string' && url.includes('500x500.jpg')) {
+    return url.replace('500x500.jpg', '150x150.jpg');
+  }
+  return url;
+}
+
+// Popular Home Artists Data
+const HOME_ARTISTS = [
+  { name: 'S. P. Balasubrahmanyam', tag: 'Legend &bull; 40k Songs', img: 'images/artists/sp-balasubrahmanyam.jpg', query: 'SP Balasubrahmanyam Telugu hits' },
+  { name: 'Sid Sriram', tag: 'Melody King &bull; Srivalli', img: 'images/artists/sid-sriram.jpg', query: 'Sid Sriram Telugu' },
+  { name: 'Arijit Singh', tag: 'Soul of Bollywood', img: 'images/artists/arijit-singh.jpg', query: 'Arijit Singh romantic hits' },
+  { name: 'Shreya Ghoshal', tag: 'Melody Queen', img: 'images/artists/shreya-ghoshal.jpg', query: 'Shreya Ghoshal Telugu' },
+  { name: 'Anurag Kulkarni', tag: 'Ramuloo, Pilla Raa', img: 'images/artists/anurag-kulkarni.jpg', query: 'Anurag Kulkarni Telugu' },
+  { name: 'Mangli', tag: 'Folk Sensationalist', img: 'images/artists/mangli.jpg', query: 'Mangli songs' },
+  { name: 'Sonu Nigam', tag: 'Golden Voice', img: 'images/artists/sonu-nigam.jpg', query: 'Sonu Nigam romantic hits' },
+  { name: 'Karthik', tag: 'Ee Manase, Niluvaddham', img: 'images/artists/karthik.jpg', query: 'Karthik Telugu songs' },
+  { name: 'K. S. Chithra', tag: 'Nightingale of South', img: 'images/artists/ks-chithra.jpg', query: 'KS Chithra Telugu hits' },
+  { name: 'KK', tag: 'Timeless Voice', img: 'images/artists/kk.jpg', query: 'KK hits' },
+  { name: 'Devi Sri Prasad', tag: 'Rockstar DSP', img: 'images/artists/dsp.jpg', query: 'Devi Sri Prasad hits' },
+  { name: 'Atif Aslam', tag: 'Romantic Icon', img: 'images/artists/atif-aslam.jpg', query: 'Atif Aslam romantic hits' },
+  { name: 'Ram Miriyala', tag: 'DJ Tillu, Chitti', img: 'images/artists/ram-miriyala.jpg', query: 'Ram Miriyala songs' },
+  { name: 'Sunitha', tag: 'Melodious Diva', img: 'images/artists/sunitha.jpg', query: 'Sunitha Telugu songs' },
+  { name: 'Jubin Nautiyal', tag: 'Raataan Lambiyan', img: 'images/artists/jubin-nautiyal.jpg', query: 'Jubin Nautiyal songs' },
+  { name: 'Geetha Madhuri', tag: 'Pakka Local, Top Lesi', img: 'images/artists/geetha-madhuri.jpg', query: 'Geetha Madhuri Telugu' },
+  { name: 'Haricharan', tag: 'Kaatuka Kanneeru', img: 'images/artists/haricharan.jpg', query: 'Haricharan Telugu' },
+  { name: 'Lata Mangeshkar', tag: 'Voice of the Millennium', img: 'images/artists/lata-mangeshkar.jpg', query: 'Lata Mangeshkar timeless hits' },
+  { name: 'Kishore Kumar', tag: 'Evergreen Legend', img: 'images/artists/kishore-kumar.jpg', query: 'Kishore Kumar classic hits' },
+  { name: 'Armaan Malik', tag: 'Butta Bomma', img: 'images/artists/armaan-malik.jpg', query: 'Armaan Malik Hindi songs' }
+];
+
 function queueTracks() {
   const list = visibleTracks();
   return list.length ? list : state.tracks;
 }
 
-// Generate Card HTML
+// Generate Card HTML (Optimized: single image decode, lazy load, async decoding)
 function cardHTML(track) {
   const isActive = state.current && state.current.id === track.id;
   const isPlaying = isActive && state.playing;
@@ -1767,14 +1802,14 @@ function cardHTML(track) {
   if (isActive) classes.push('is-active');
   if (isPlaying) classes.push('is-playing');
 
-  const artBackground = track.artwork ? `background-image: url('${esc(track.artwork)}');` : `background: ${artStyle(track)};`;
+  const thumbUrl = thumbArtwork(track.artwork);
   const artworkInner = track.artwork
-    ? `<img class="art-img" src="${esc(track.artwork)}" alt="${esc(track.title)}" loading="lazy" onerror="this.style.display='none'" />`
+    ? `<img class="art-img" src="${esc(thumbUrl)}" alt="${esc(track.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />`
     : `<span class="art-initials">${esc(initials(track.title))}</span>`;
 
   return `
     <div class="${classes.join(' ')}" data-id="${esc(track.id)}" role="button" tabindex="0" aria-label="Play ${esc(track.title)} by ${esc(track.artist)}">
-      <div class="art" style="${artBackground}">
+      <div class="art" style="background: rgba(8, 20, 52, 0.9);">
         ${artworkInner}
         <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       </div>
@@ -1916,22 +1951,24 @@ function addToRecentHistory(track) {
   renderRecentGrid();
 }
 
-// Render Spotify-Style Home Dashboard
+let homeDashboardRendered = false;
+
+// Render Spotify-Style Home Dashboard (Rendered once on startup for maximum speed)
 function renderHomeDashboard() {
   // 1. Recent Songs Grid (Up to 9 recent tracks)
   renderRecentGrid();
 
-  // Helper for rendering horizontal shelves
+  // Helper for rendering horizontal shelves with tiny, fast, cached thumbnails
   function renderShelf(containerId, tracks) {
     const container = el(containerId);
     if (!container) return;
     const uniqueTracks = deduplicateTrackList(tracks);
     container.innerHTML = uniqueTracks.map((t) => {
-      const art = t.artwork || 'icon-192.png';
+      const art = thumbArtwork(t.artwork);
       return `
         <div class="shelf-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
           <div class="shelf-art-wrap">
-            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" onerror="this.src='icon-192.png'" />
+            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
             <div class="shelf-play-floating" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
@@ -1943,7 +1980,7 @@ function renderHomeDashboard() {
     }).join('');
   }
 
-  // 4. Jump back in shelf (Diverse Trending Hits Across All Languages)
+  // 2. Jump back in shelf (Diverse Trending Hits Across All Languages)
   const trendingIds = [
     'srivalli', 'kesariya', 'shape-of-you', 'samajavaragamana',
     'tum-hi-ho', 'believer', 'naatu-naatu', 'apna-bana-le',
@@ -1952,7 +1989,21 @@ function renderHomeDashboard() {
   const jumpBackTracks = trendingIds.map((id) => findTrackById(id)).filter(Boolean);
   renderShelf('jumpBackShelf', jumpBackTracks.length >= 8 ? jumpBackTracks : state.tracks.slice(0, 10));
 
-  // 5. Folk Shelf (Authentic Roots & Rhythms)
+  // 3. Popular Artists Shelf (Circular Avatars)
+  const homeArtistsEl = el('homeArtistsShelf');
+  if (homeArtistsEl) {
+    homeArtistsEl.innerHTML = HOME_ARTISTS.map((artist) => `
+      <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" title="Listen to ${esc(artist.name)}">
+        <div class="artist-avatar-wrap">
+          <img class="artist-avatar-img" src="${esc(artist.img)}" alt="${esc(artist.name)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
+        </div>
+        <span class="artist-name">${esc(artist.name)}</span>
+        <span class="artist-genre">${esc(artist.tag)}</span>
+      </button>
+    `).join('');
+  }
+
+  // 4. Folk Shelf (Authentic Roots & Rhythms)
   const folkTracks = state.tracks.filter((t) => (
     t.language === 'Folk' ||
     (t.category && t.category.toLowerCase().includes('folk')) ||
@@ -1960,11 +2011,11 @@ function renderHomeDashboard() {
   ));
   renderShelf('folkShelf', folkTracks.slice(0, 10));
 
-  // 6. Telugu Shelf (Tollywood Blockbusters)
+  // 5. Telugu Shelf (Tollywood Blockbusters)
   const teluguTracks = state.tracks.filter((t) => t.language === 'Telugu');
   renderShelf('teluguShelf', teluguTracks.slice(0, 10));
 
-  // 7. Hindi Shelf (Bollywood Melodies)
+  // 6. Hindi Shelf (Bollywood Melodies)
   const hindiTracks = state.tracks.filter((t) => t.language === 'Hindi');
   renderShelf('hindiShelf', hindiTracks.slice(0, 10));
 }
@@ -1985,8 +2036,9 @@ function render() {
   const homeDashboard = el('homeDashboard');
   if (homeDashboard) {
     homeDashboard.hidden = !isHomeView;
-    if (isHomeView) {
+    if (isHomeView && !homeDashboardRendered) {
       renderHomeDashboard();
+      homeDashboardRendered = true;
     }
   }
 
@@ -2185,6 +2237,8 @@ function playTrack(track, forceModal = null) {
       if (state.current && state.current.id === track.id) {
         state.playing = true;
         syncPlayState();
+        startVisualizerLoop();
+        renderRecentGrid();
       }
     }).catch((err) => {
       toast(`Error playing ${track.title}. Retrying...`);
@@ -2192,6 +2246,8 @@ function playTrack(track, forceModal = null) {
         audio.play().then(() => {
           state.playing = true;
           syncPlayState();
+          startVisualizerLoop();
+          renderRecentGrid();
         }).catch(() => {});
       }, 500);
     });
@@ -2232,6 +2288,7 @@ function resumePlayback() {
     audio.play().then(() => {
       state.playing = true;
       syncPlayState();
+      startVisualizerLoop();
     }).catch(() => {
       playTrack(track);
     });
@@ -2365,10 +2422,11 @@ function toast(message) {
   toastTimer = setTimeout(() => node.classList.remove('show'), 2800);
 }
 
-// Favorites / Like Management
+// Favorites / Like Management (High-performance in-place update)
 function toggleLike(trackId) {
   if (!trackId) return;
   const isLiked = state.favorites.has(trackId);
+  const nowLiked = !isLiked;
   if (isLiked) {
     state.favorites.delete(trackId);
     toast('Removed from Liked Songs');
@@ -2377,7 +2435,22 @@ function toggleLike(trackId) {
     toast('Added to Liked Songs ❤️');
   }
   setStoredJSON(STORAGE_FAVORITES, Array.from(state.favorites));
-  render();
+
+  // Instantly toggle player buttons
+  if (state.current && state.current.id === trackId) {
+    el('playerLikeBtn').classList.toggle('is-liked', nowLiked);
+    el('expandedLikeBtn').classList.toggle('is-liked', nowLiked);
+  }
+
+  // Instantly toggle cards currently in DOM without destroying the grid
+  document.querySelectorAll(`.song-card[data-id="${trackId}"] [data-action="like"]`).forEach((btn) => {
+    btn.classList.toggle('is-liked', nowLiked);
+    btn.title = nowLiked ? 'Unlike' : 'Like';
+  });
+
+  if (state.filter === 'Favorites') {
+    render();
+  }
 }
 
 // Up Next Queue Drawer
@@ -2832,10 +2905,26 @@ function bindEvents() {
     });
   }
 
-  // Home Dashboard interactions (Quick Jump cards, Shelves, Spotlight)
+  // Home Dashboard interactions (Quick Jump cards, Shelves, Artists, Spotlight)
   const homeDashboard = el('homeDashboard');
   if (homeDashboard) {
     homeDashboard.addEventListener('click', (event) => {
+      const seeAllArtists = event.target.closest('#seeAllArtistsBtn');
+      if (seeAllArtists) {
+        openUniverseDrawer();
+        return;
+      }
+
+      const artistCard = event.target.closest('.artist-shelf-card');
+      if (artistCard) {
+        const q = artistCard.dataset.artistQuery;
+        el('searchInput').value = q;
+        state.onlineSearch = true;
+        searchOnlineCatalog(q);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       const seeAllBtn = event.target.closest('.shelf-see-all');
       if (seeAllBtn) {
         state.onlineSearch = false;

@@ -1,4 +1,6 @@
-const CACHE_NAME = 'tuneus-music-v21';
+const CACHE_NAME = 'tuneus-music-v22';
+const IMAGE_CACHE_NAME = 'tuneus-artwork-v1';
+
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -12,7 +14,46 @@ const ASSETS_TO_CACHE = [
   '/icon-192.png',
   '/icon-512.png',
   '/screenshot-desktop.png',
-  '/screenshot-mobile.png'
+  '/screenshot-mobile.png',
+  '/images/artists/alka-yagnik.jpg',
+  '/images/artists/anurag-kulkarni.jpg',
+  '/images/artists/arijit-singh.jpg',
+  '/images/artists/armaan-malik.jpg',
+  '/images/artists/asha-bhosle.jpg',
+  '/images/artists/atif-aslam.jpg',
+  '/images/artists/dsp.jpg',
+  '/images/artists/geetha-madhuri.jpg',
+  '/images/artists/haricharan.jpg',
+  '/images/artists/hemachandra.jpg',
+  '/images/artists/jubin-nautiyal.jpg',
+  '/images/artists/karthik.jpg',
+  '/images/artists/kishore-kumar.jpg',
+  '/images/artists/kk.jpg',
+  '/images/artists/ks-chithra.jpg',
+  '/images/artists/kumar-sanu.jpg',
+  '/images/artists/lata-mangeshkar.jpg',
+  '/images/artists/madhu-priya.jpg',
+  '/images/artists/mangli.jpg',
+  '/images/artists/mika-singh.jpg',
+  '/images/artists/mohammed-rafi.jpg',
+  '/images/artists/mohit-chauhan.jpg',
+  '/images/artists/neha-kakkar.jpg',
+  '/images/artists/rahul-sipligunj.jpg',
+  '/images/artists/ram-miriyala.jpg',
+  '/images/artists/ramya-behara.jpg',
+  '/images/artists/revanth.jpg',
+  '/images/artists/saketh-komanduri.jpg',
+  '/images/artists/shaan.jpg',
+  '/images/artists/shankar-mahadevan.jpg',
+  '/images/artists/shreya-ghoshal.jpg',
+  '/images/artists/sid-sriram.jpg',
+  '/images/artists/sonu-nigam.jpg',
+  '/images/artists/sp-balasubrahmanyam.jpg',
+  '/images/artists/sp-charan.jpg',
+  '/images/artists/sunitha.jpg',
+  '/images/artists/udit-narayan.jpg',
+  '/images/artists/vijay-yesudas.jpg',
+  '/images/artists/vishal-mishra.jpg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -28,7 +69,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.filter((key) => key !== CACHE_NAME && key !== IMAGE_CACHE_NAME).map((key) => caches.delete(key))
       )
     )
   );
@@ -38,12 +79,43 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Audio streams and API calls should bypass cache
-  if (url.pathname.startsWith('/api/') || url.hostname.includes('saavncdn.com') || url.hostname.includes('apple.com')) {
+  // Audio streams and dynamic API calls should bypass cache
+  if (
+    url.pathname.startsWith('/api/') ||
+    url.hostname.includes('aac.saavncdn.com') ||
+    url.pathname.endsWith('.mp4') ||
+    url.pathname.endsWith('.m4a') ||
+    url.pathname.endsWith('.mp3')
+  ) {
     return;
   }
 
-  // Network-First strategy: always fetch fresh from server, fallback to cache if offline
+  // Cache-First strategy for images: drastically reduces data usage and enables instant loading
+  const isImage = (
+    url.hostname.includes('c.saavncdn.com') ||
+    url.pathname.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)
+  );
+
+  if (isImage && event.request.method === 'GET') {
+    event.respondWith(
+      caches.open(IMAGE_CACHE_NAME).then((cache) =>
+        cache.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) return cachedResponse;
+          return fetch(event.request, { mode: 'cors' })
+            .then((networkResponse) => {
+              if (networkResponse && networkResponse.status === 200) {
+                cache.put(event.request, networkResponse.clone());
+              }
+              return networkResponse;
+            })
+            .catch(() => caches.match('/icon-192.png'));
+        })
+      )
+    );
+    return;
+  }
+
+  // Network-First strategy for scripts/HTML/styles: fresh when online, fallback to cache
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
@@ -59,38 +131,7 @@ self.addEventListener('fetch', (event) => {
 
 // Background Sync capability
 self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-tuneus-library') {
+  if (event.tag === 'sync-user-playlists') {
     event.waitUntil(Promise.resolve());
   }
-});
-
-// Periodic Background Sync capability
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'sync-trending-songs') {
-    event.waitUntil(Promise.resolve());
-  }
-});
-
-// Push Notifications capability
-self.addEventListener('push', (event) => {
-  const data = event.data ? event.data.text() : 'Enjoy new songs on Tuneus!';
-  event.waitUntil(
-    self.registration.showNotification('Tuneus Music', {
-      body: data,
-      icon: '/icon-192.png',
-      badge: '/icon-192.png'
-    })
-  );
-});
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((clientList) => {
-      for (const client of clientList) {
-        if (client.url && 'focus' in client) return client.focus();
-      }
-      if (clients.openWindow) return clients.openWindow('/');
-    })
-  );
 });

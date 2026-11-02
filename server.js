@@ -345,8 +345,10 @@ const server = http.createServer((req, res) => {
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
   const filePath = path.normalize(path.join(ROOT, reqPath));
+  const normFilePath = path.resolve(filePath).toLowerCase();
+  const normRoot = path.resolve(ROOT).toLowerCase();
 
-  if (!filePath.startsWith(ROOT)) {
+  if (!normFilePath.startsWith(normRoot)) {
     res.writeHead(403);
     res.end('403 Forbidden');
     return;
@@ -361,8 +363,13 @@ const server = http.createServer((req, res) => {
 
     const ext = path.extname(filePath).toLowerCase();
     let contentType = MIME_TYPES[ext] || 'application/octet-stream';
-    const extraHeaders = {};
-    if (pathname === '/manifest.json') {
+    const extraHeaders = {
+      'Access-Control-Allow-Origin': '*'
+    };
+
+    if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp' || ext === '.svg' || ext === '.ico') {
+      extraHeaders['Cache-Control'] = 'public, max-age=604800, immutable';
+    } else if (pathname === '/manifest.json') {
       contentType = 'application/manifest+json; charset=UTF-8';
     } else if (pathname === '/sw.js') {
       contentType = 'application/javascript; charset=UTF-8';
