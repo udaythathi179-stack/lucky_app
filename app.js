@@ -2802,10 +2802,13 @@ function bindEvents() {
     });
   });
 
-  el('sortSelect').addEventListener('change', (e) => {
-    state.sort = e.target.value;
-    render();
-  });
+  const sortSelect = el('sortSelect');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      render();
+    });
+  }
 
   // Home Dashboard interactions (Quick Jump cards, Shelves, Spotlight)
   const homeDashboard = el('homeDashboard');
