@@ -1956,7 +1956,8 @@ function render() {
   el('playlistsContainer').hidden = !isPlaylistsFilter;
   if (isPlaylistsFilter) renderPlaylistsGrid();
 
-  el('onlineSearchBanner').hidden = !state.onlineSearch;
+  const onlineBanner = el('onlineSearchBanner');
+  if (onlineBanner) onlineBanner.hidden = !state.onlineSearch;
 
   // Home Dashboard (Spotify ordered view: visible on All view without active search)
   const isHomeView = state.filter === 'All' && !state.query && !state.onlineSearch;
@@ -2397,9 +2398,12 @@ async function searchOnlineCatalog(term) {
   }
 
   state.onlineSearch = true;
-  el('onlineSearchBanner').hidden = false;
-  el('onlineStatusTitle').textContent = `Searching full songs for "${query}"...`;
-  el('onlineStatusSub').textContent = 'Fetching complete 320kbps studio tracks...';
+  const banner = el('onlineSearchBanner');
+  if (banner) banner.hidden = false;
+  const statusTitle = el('onlineStatusTitle');
+  if (statusTitle) statusTitle.textContent = `Searching full songs for "${query}"...`;
+  const statusSub = el('onlineStatusSub');
+  if (statusSub) statusSub.textContent = 'Fetching complete 320kbps studio tracks...';
   render();
 
   try {
@@ -2408,12 +2412,12 @@ async function searchOnlineCatalog(term) {
 
     if (data.success && data.results && data.results.length > 0) {
       state.onlineTracks = deduplicateTrackList(data.results);
-      el('onlineStatusTitle').textContent = `Found ${state.onlineTracks.length} full songs for "${query}"`;
-      el('onlineStatusSub').textContent = 'Full tracks ready to play at 320kbps!';
+      if (statusTitle) statusTitle.textContent = `Found ${state.onlineTracks.length} full songs for "${query}"`;
+      if (statusSub) statusSub.textContent = 'Full tracks ready to play at 320kbps!';
     } else {
       state.onlineTracks = [];
-      el('onlineStatusTitle').textContent = `No full songs found for "${query}"`;
-      el('onlineStatusSub').textContent = 'Try another song title or artist name.';
+      if (statusTitle) statusTitle.textContent = `No full songs found for "${query}"`;
+      if (statusSub) statusSub.textContent = 'Try another song title or artist name.';
     }
   } catch (err) {
     toast('Search server unavailable. Ensure server is running.');
@@ -2761,13 +2765,16 @@ function bindEvents() {
     render();
   });
 
-  el('exitOnlineSearch').addEventListener('click', () => {
-    state.onlineSearch = false;
-    state.query = '';
-    searchInput.value = '';
-    el('clearSearch').hidden = true;
-    render();
-  });
+  const exitBtn = el('exitOnlineSearch');
+  if (exitBtn) {
+    exitBtn.addEventListener('click', () => {
+      state.onlineSearch = false;
+      state.query = '';
+      searchInput.value = '';
+      el('clearSearch').hidden = true;
+      render();
+    });
+  }
 
   // Quick Universe Online Search Pills
   document.querySelectorAll('.quick-universe-pill').forEach((pill) => {
