@@ -1921,9 +1921,12 @@ function renderRecentGrid() {
   quickGrid.innerHTML = displayTracks.map((t) => {
     const art = t.artwork || 'icon-192.png';
     return `
-      <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
-        <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" onerror="this.src='icon-192.png'" />
-        <span class="quick-jump-title">${esc(t.title)}</span>
+      <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)} by ${esc(t.artist)}">
+        <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.src='icon-192.png'" />
+        <div class="quick-jump-info">
+          <span class="quick-jump-title">${esc(t.title)}</span>
+          <span class="quick-jump-artist">${esc(t.artist)}</span>
+        </div>
         <div class="quick-jump-play" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </div>
