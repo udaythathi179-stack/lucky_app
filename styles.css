@@ -306,15 +306,29 @@ a {
   flex: none;
 }
 
-.search-wrap input {
+.search-wrap input,
+#search {
   flex: 1;
   min-width: 0;
   height: 100%;
-  border: 0;
-  outline: none;
+  border: 0 !important;
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
   background: transparent;
   color: var(--text);
   font-size: 14.5px;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.search-wrap input:focus,
+.search-wrap input:focus-visible,
+#search:focus,
+#search:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  border: 0 !important;
 }
 
 .search-wrap input::placeholder {
@@ -4755,11 +4769,31 @@ input[type="range"].range:hover::-webkit-slider-thumb {
 
 /* ----- Keyboard focus ring ----- */
 button:focus-visible,
-input:focus-visible,
 select:focus-visible,
 a:focus-visible {
   outline: 2px solid rgba(0, 229, 255, 0.85);
   outline-offset: 2px;
+}
+
+input:focus-visible:not(#search):not(.search-wrap input):not(.universe-filter-wrap input) {
+  outline: 2px solid rgba(0, 229, 255, 0.85);
+  outline-offset: 2px;
+}
+
+#search,
+.search-wrap input,
+.search-wrap input:focus,
+.search-wrap input:focus-visible,
+#search:focus,
+#search:focus-visible,
+.universe-filter-wrap input,
+.universe-filter-wrap input:focus,
+.universe-filter-wrap input:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 /* ==========================================================================
