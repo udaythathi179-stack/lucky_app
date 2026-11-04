@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=41" />
+  <link rel="stylesheet" href="styles.css?v=42" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -242,21 +242,6 @@
       </div>
       <div id="playlistsGrid" class="playlists-grid"></div>
     </section>
-
-    <!-- Online Search & Artist Banner -->
-    <div id="onlineSearchBanner" class="online-banner" hidden>
-      <div class="online-banner-info">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <polygon points="10 8 16 12 10 16 10 8" />
-        </svg>
-        <div>
-          <strong id="onlineStatusTitle">Artist Discography</strong>
-          <p id="onlineStatusSub">Fetching complete full songs...</p>
-        </div>
-      </div>
-      <button id="exitOnlineSearch" class="ghost-btn" type="button" style="padding: 6px 14px; font-size: 12.5px;" title="Exit and return to Home">&times; Close</button>
-    </div>
 
     <!-- Library Section Header -->
     <section id="libraryHeaderSection" class="library-head">
@@ -1125,7 +1110,7 @@
     </aside>
   </div>
 
-  <script src="app.js?v=42"></script>
+  <script src="app.js?v=43"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

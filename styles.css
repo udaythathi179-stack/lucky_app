@@ -879,16 +879,7 @@ a {
 
 /* Online Search Banner */
 .online-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 22px;
-  padding: 14px 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 210, 255, 0.35);
-  background: linear-gradient(90deg, rgba(0, 210, 255, 0.12), rgba(37, 99, 235, 0.12));
-  box-shadow: 0 8px 28px -10px rgba(0, 210, 255, 0.2);
+  display: none !important;
 }
 
 .online-banner-info {
