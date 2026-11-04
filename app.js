@@ -1995,7 +1995,7 @@ function renderHomeDashboard() {
   const homeArtistsEl = el('homeArtistsShelf');
   if (homeArtistsEl) {
     homeArtistsEl.innerHTML = HOME_ARTISTS.map((artist) => `
-      <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" data-artist-name="${esc(artist.name)}" title="Listen to all songs by ${esc(artist.name)}">
+      <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" data-artist-name="${esc(artist.name)}" onclick="window.openArtistShelfSongs(this)" title="Listen to all songs by ${esc(artist.name)}">
         <div class="artist-avatar-wrap">
           <img class="artist-avatar-img" src="${esc(artist.img)}" alt="${esc(artist.name)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
         </div>
@@ -2003,6 +2003,14 @@ function renderHomeDashboard() {
         <span class="artist-genre">${esc(artist.tag)}</span>
       </button>
     `).join('');
+
+    homeArtistsEl.onclick = (e) => {
+      const card = e.target.closest('.artist-shelf-card');
+      if (!card) return;
+      const q = card.dataset.artistQuery;
+      const name = card.dataset.artistName || card.querySelector('.artist-name')?.textContent || q;
+      playAndShowArtist(name, q);
+    };
   }
 
   // 4. Folk Shelf (Authentic Roots & Rhythms)
@@ -2585,8 +2593,29 @@ async function playAndShowArtist(artistName, query) {
   // Initialize onlineTracks with local songs so the user sees results instantly
   state.onlineTracks = localMatches.slice();
 
-  // Render immediately and scroll to top
+  // Hide home dashboard immediately so song grid is in view
+  const homeDashboard = el('homeDashboard');
+  if (homeDashboard) homeDashboard.hidden = true;
+
+  // Render immediately
   render();
+
+  // If no local matches yet while fetching online catalog, show a loading placeholder in songGrid instead of "No songs found"
+  if (localMatches.length === 0) {
+    const grid = el('songGrid');
+    if (grid) {
+      grid.innerHTML = `
+        <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 16px; gap: 14px; color: #38bdf8;">
+          <div style="width: 32px; height: 32px; border: 3px solid rgba(56, 189, 248, 0.25); border-top-color: #38bdf8; border-radius: 50%; animation: spinVinyl 0.8s linear infinite;"></div>
+          <span style="font-size: 14.5px; font-weight: 600; color: #e2e8f0;">Loading songs by ${esc(cleanName)}...</span>
+        </div>
+      `;
+    }
+    const empty = el('emptyState');
+    if (empty) empty.hidden = true;
+  }
+
+  // Smooth scroll to top of song list
   window.scrollTo({ top: 0, behavior: 'smooth' });
   toast(`Showing all songs by ${cleanName}`);
 
@@ -2630,6 +2659,15 @@ async function playAndShowArtist(artistName, query) {
   // Re-render with full combined song list
   render();
 }
+
+// Global hook so any artist avatar card click in the Popular Artists shelf triggers reliably
+window.openArtistShelfSongs = function(card) {
+  if (!card) return;
+  const q = card.dataset.artistQuery;
+  const name = card.dataset.artistName || card.querySelector('.artist-name')?.textContent || q;
+  playAndShowArtist(name, q);
+};
+window.playAndShowArtist = playAndShowArtist;
 
 // Playlists Management
 function openNewPlaylistModal() {
@@ -3105,6 +3143,18 @@ function bindEvents() {
       } else {
         playTrack(track);
       }
+    });
+  }
+
+  // Home Artists Shelf direct click listener (guarantees immediate opening on all devices)
+  const homeArtistsShelf = el('homeArtistsShelf');
+  if (homeArtistsShelf) {
+    homeArtistsShelf.addEventListener('click', (e) => {
+      const card = e.target.closest('.artist-shelf-card');
+      if (!card) return;
+      const q = card.dataset.artistQuery;
+      const name = card.dataset.artistName || card.querySelector('.artist-name')?.textContent || q;
+      playAndShowArtist(name, q);
     });
   }
 
