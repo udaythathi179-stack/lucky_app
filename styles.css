@@ -340,13 +340,7 @@ a {
 }
 
 .search-kbd {
-  font-family: inherit;
-  font-size: 11px;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2px 7px;
-  background: rgba(255, 255, 255, 0.04);
+  display: none !important;
 }
 
 .clear-search {
