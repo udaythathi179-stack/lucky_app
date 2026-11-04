@@ -3420,7 +3420,10 @@ function bindEvents() {
     dataSaverBtn.addEventListener('click', cycleStreamingQuality);
   }
 
-  el('helpBtn').addEventListener('click', () => el('shortcutsModal').hidden = false);
+  const helpBtn = el('helpBtn');
+  if (helpBtn) {
+    helpBtn.addEventListener('click', () => el('shortcutsModal').hidden = false);
+  }
   el('closeShortcutsBtn').addEventListener('click', () => el('shortcutsModal').hidden = true);
   el('resetFilters').addEventListener('click', resetFilters);
 
