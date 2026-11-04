@@ -1150,6 +1150,7 @@ const STORAGE_FAVORITES = 'tuneus_favorites_v1';
 const STORAGE_PLAYLISTS = 'tuneus_playlists_v1';
 const STORAGE_CUSTOM_TRACKS = 'tuneus_custom_tracks_v1';
 const STORAGE_RECENT_HISTORY = 'tuneus_recent_history_v1';
+const STORAGE_RECENT_TRACKS = 'tuneus_recent_tracks_v2';
 const STORAGE_STREAMING_QUALITY = 'tuneus_streaming_quality_v1';
 
 // Load stored data safely
@@ -1249,8 +1250,11 @@ function trackSource(track) {
 }
 
 function findTrackById(id) {
+  if (!id) return null;
   const local = state.tracks.find((t) => t.id === id);
   if (local) return local;
+  const recent = (state.recentTracks || []).find((t) => t && t.id === id);
+  if (recent) return recent;
   const online = state.onlineTracks.find((t) => t.id === id);
   if (online) return online;
   const offline = downloadRecordFor(id);
@@ -1386,7 +1390,20 @@ if (!storedPlaylists.some((p) => p.id === 'pl-tuneus-english')) {
 }
 const storedFavorites = new Set(getStoredJSON(STORAGE_FAVORITES, []));
 const storedCustomTracks = getStoredJSON(STORAGE_CUSTOM_TRACKS, []);
+const storedRecentTracks = getStoredJSON(STORAGE_RECENT_TRACKS, null);
 const storedRecentHistory = getStoredJSON(STORAGE_RECENT_HISTORY, []);
+
+// Initialize Recent Songs: preserve full track objects so online songs from search play seamlessly
+let initialRecentTracks = [];
+if (Array.isArray(storedRecentTracks) && storedRecentTracks.length > 0) {
+  initialRecentTracks = storedRecentTracks.filter((t) => t && t.id && t.title).slice(0, 9);
+} else if (Array.isArray(storedRecentHistory) && storedRecentHistory.length > 0) {
+  storedRecentHistory.forEach((id) => {
+    const t = catalog.find((c) => c.id === id);
+    if (t) initialRecentTracks.push({ ...t });
+  });
+  initialRecentTracks = initialRecentTracks.slice(0, 9);
+}
 
 // Clean and deduplicate any list of tracks by normalized title and language
 function deduplicateTrackList(tracks) {
@@ -1440,7 +1457,8 @@ const state = {
   favorites: storedFavorites,
   playlists: storedPlaylists,
   downloads: new Map(),
-  recentHistory: storedRecentHistory,
+  recentTracks: initialRecentTracks,
+  recentHistory: initialRecentTracks.map((t) => t.id),
   eqPreset: 'normal',
   streamingQuality: getStoredJSON(STORAGE_STREAMING_QUALITY, '96')
 };
@@ -1880,56 +1898,29 @@ function renderRecentGrid() {
   const quickGrid = el('quickJumpGrid');
   if (!quickGrid) return;
 
-  // Resolve tracks from recentHistory IDs (only valid songs in catalog)
-  let recentTracks = [];
-  if (state.recentHistory && state.recentHistory.length > 0) {
-    state.recentHistory.forEach((id) => {
-      const t = findTrackById(id);
-      if (t) recentTracks.push(t);
-    });
+  const tracks = (state.recentTracks || []).filter((t) => t && t.id && t.title);
+
+  if (tracks.length === 0) {
+    quickGrid.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 20px 14px; text-align: center; color: rgba(147, 197, 253, 0.75); font-size: 13.5px; border: 1px dashed rgba(56, 189, 248, 0.25); border-radius: 12px; background: rgba(6, 16, 44, 0.45);">
+        <span style="display: block; font-weight: 600; color: #e2e8f0; margin-bottom: 4px;">No recently played songs</span>
+        Play any song from the search bar or library to see your recent tracks here (up to 9 songs).
+      </div>
+    `;
+    return;
   }
 
-  recentTracks = deduplicateTrackList(recentTracks);
-
-  // If user has listened to fewer than 9 songs, fill remaining slots up to 9 from catalog with unique songs
-  if (recentTracks.length < 9) {
-    const existingIds = new Set(recentTracks.map((t) => t.id));
-    // Pick diverse top songs across Telugu, Hindi & English
-    const defaultFillIds = [
-      'samajavaragamana', 'tum-hi-ho', 'shape-of-you',
-      'srivalli', 'kesariya', 'believer',
-      'naatu-naatu', 'channa-mereya', 'blinding-lights'
-    ];
-    for (const fillId of defaultFillIds) {
-      const t = findTrackById(fillId);
-      if (t && !existingIds.has(t.id)) {
-        recentTracks.push(t);
-        existingIds.add(t.id);
-        if (recentTracks.length === 9) break;
-      }
-    }
-    // Fallback if needed
-    if (recentTracks.length < 9) {
-      for (const t of state.tracks) {
-        if (!existingIds.has(t.id)) {
-          recentTracks.push(t);
-          existingIds.add(t.id);
-          if (recentTracks.length === 9) break;
-        }
-      }
-    }
-  }
-
-  // Strictly cap at 9 unique songs
-  const displayTracks = deduplicateTrackList(recentTracks).slice(0, 9);
+  // Strictly up to 9 unique songs
+  const displayTracks = deduplicateTrackList(tracks).slice(0, 9);
   quickGrid.innerHTML = displayTracks.map((t) => {
     const art = t.artwork || 'icon-192.png';
+    const artistName = t.artist || t.movie || 'Tuneus Master';
     return `
-      <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)} by ${esc(t.artist)}">
+      <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)} by ${esc(artistName)}">
         <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.src='icon-192.png'" />
         <div class="quick-jump-info">
           <span class="quick-jump-title">${esc(t.title)}</span>
-          <span class="quick-jump-artist">${esc(t.artist)}</span>
+          <span class="quick-jump-artist">${esc(artistName)}</span>
         </div>
         <div class="quick-jump-play" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -1939,17 +1930,57 @@ function renderRecentGrid() {
   }).join('');
 }
 
-// Add listened song to Recent Songs History (Max 9 songs)
+// Add listened song to Recent Songs History (Max 9 songs, FIFO eviction of 10th song)
 function addToRecentHistory(track) {
   if (!track || !track.id) return;
-  // If already present, remove old position to bring it to index 0 (most recent)
-  state.recentHistory = state.recentHistory.filter((id) => id !== track.id);
-  state.recentHistory.unshift(track.id);
-  // Store only 9 songs maximum
-  if (state.recentHistory.length > 9) {
-    state.recentHistory = state.recentHistory.slice(0, 9);
+
+  // Clone full track object with complete audio/art metadata
+  const trackToSave = {
+    id: String(track.id),
+    title: String(track.title || 'Untitled'),
+    artist: String(track.artist || 'Unknown Artist'),
+    movie: String(track.movie || ''),
+    year: track.year || '',
+    language: track.language || '',
+    category: track.category || '',
+    src: track.src || '',
+    artwork: track.artwork || 'icon-192.png',
+    duration: Number(track.duration) || 0,
+    isOnline: Boolean(track.isOnline)
+  };
+
+  // Remove if already present (by ID or normalized title+artist) so it moves to index 0 (most recent)
+  const existingList = Array.isArray(state.recentTracks) ? state.recentTracks : [];
+  state.recentTracks = existingList.filter((t) => {
+    if (!t || !t.id) return false;
+    if (t.id === trackToSave.id) return false;
+    if (
+      t.title && trackToSave.title &&
+      t.title.trim().toLowerCase() === trackToSave.title.trim().toLowerCase() &&
+      t.artist && trackToSave.artist &&
+      t.artist.trim().toLowerCase() === trackToSave.artist.trim().toLowerCase()
+    ) {
+      return false;
+    }
+    return true;
+  });
+
+  // Prepend to top/front (index 0 - most recent)
+  state.recentTracks.unshift(trackToSave);
+
+  // If there are more than 9 songs (e.g. 10th song added), remove the oldest song (FIFO)
+  if (state.recentTracks.length > 9) {
+    state.recentTracks = state.recentTracks.slice(0, 9);
   }
+
+  // Also maintain state.recentHistory IDs for backwards compatibility
+  state.recentHistory = state.recentTracks.map((t) => t.id);
+
+  // Persist to storage
+  setStoredJSON(STORAGE_RECENT_TRACKS, state.recentTracks);
   setStoredJSON(STORAGE_RECENT_HISTORY, state.recentHistory);
+
+  // Re-render recent songs grid immediately
   renderRecentGrid();
 }
 
@@ -2046,9 +2077,13 @@ function render() {
   const homeDashboard = el('homeDashboard');
   if (homeDashboard) {
     homeDashboard.hidden = !isHomeView;
-    if (isHomeView && !homeDashboardRendered) {
-      renderHomeDashboard();
-      homeDashboardRendered = true;
+    if (isHomeView) {
+      if (!homeDashboardRendered) {
+        renderHomeDashboard();
+        homeDashboardRendered = true;
+      } else {
+        renderRecentGrid();
+      }
     }
   }
 
