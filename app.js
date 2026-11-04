@@ -2048,13 +2048,12 @@ function render() {
   el('songGrid').innerHTML = list.map(cardHTML).join('');
   el('emptyState').hidden = list.length > 0;
 
+  const libHead = el('libraryHeaderSection');
+  if (libHead) libHead.hidden = Boolean(state.activeArtist);
+
   let titleText = isHomeView ? 'Complete Song Library (Studio Master)' : 'Song library (Full Length)';
   if (state.onlineSearch) {
-    if (state.activeArtist) {
-      titleText = `🎤 All Songs by ${state.activeArtist} (${list.length})`;
-    } else {
-      titleText = `Online Results for "${state.query || 'Telugu & Hindi'}"`;
-    }
+    titleText = `Online Results for "${state.query || 'Telugu & Hindi'}"`;
   } else if (state.filter === 'Playlists') {
     if (state.activePlaylistId) {
       const pl = state.playlists.find((p) => p.id === state.activePlaylistId);
@@ -2072,9 +2071,7 @@ function render() {
   el('sectionTitle').textContent = titleText;
 
   const countSuffix = list.length === 1 ? '' : 's';
-  if (state.activeArtist && state.onlineSearch) {
-    el('resultInfo').textContent = `${list.length} song${countSuffix} sung by ${state.activeArtist} • Tap any song to play`;
-  } else if (state.filter === 'Downloads' && !state.query && !state.onlineSearch) {
+  if (state.filter === 'Downloads' && !state.query && !state.onlineSearch) {
     el('resultInfo').textContent = `${list.length} song${countSuffix} saved for offline listening`;
   } else if (state.query) {
     el('resultInfo').textContent = `${list.length} result${countSuffix} for "${state.query}"`;
@@ -2588,18 +2585,6 @@ async function playAndShowArtist(artistName, query) {
   // Initialize onlineTracks with local songs so the user sees results instantly
   state.onlineTracks = localMatches.slice();
 
-  // Update banner
-  const banner = el('onlineSearchBanner');
-  if (banner) banner.hidden = false;
-  const statusTitle = el('onlineStatusTitle');
-  if (statusTitle) statusTitle.textContent = `🎤 All Songs by ${cleanName}`;
-  const statusSub = el('onlineStatusSub');
-  if (statusSub) {
-    statusSub.textContent = localMatches.length > 0
-      ? `Found ${localMatches.length} songs locally • Searching complete discography online...`
-      : `Searching all full songs by ${cleanName}...`;
-  }
-
   // Render immediately and scroll to top
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2634,12 +2619,6 @@ async function playAndShowArtist(artistName, query) {
 
       const combined = deduplicateTrackList([...localMatches, ...onlineResults]);
       state.onlineTracks = combined;
-
-      if (statusTitle) statusTitle.textContent = `🎤 All Songs by ${cleanName} (${combined.length} songs)`;
-      if (statusSub) statusSub.textContent = `Complete 320kbps discography • Tap any song to play`;
-    } else {
-      if (statusTitle) statusTitle.textContent = `No songs found for "${cleanName}"`;
-      if (statusSub) statusSub.textContent = 'Try another artist name or song title.';
     }
   } catch (err) {
     console.error('Error loading artist songs:', err);
