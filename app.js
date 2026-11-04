@@ -1428,6 +1428,7 @@ const state = {
   filter: 'All',
   sort: 'default',
   query: '',
+  activeArtist: null,
   onlineSearch: false,
   activePlaylistId: null,
   current: null,
@@ -1994,7 +1995,7 @@ function renderHomeDashboard() {
   const homeArtistsEl = el('homeArtistsShelf');
   if (homeArtistsEl) {
     homeArtistsEl.innerHTML = HOME_ARTISTS.map((artist) => `
-      <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" title="Listen to ${esc(artist.name)}">
+      <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" data-artist-name="${esc(artist.name)}" title="Listen to all songs by ${esc(artist.name)}">
         <div class="artist-avatar-wrap">
           <img class="artist-avatar-img" src="${esc(artist.img)}" alt="${esc(artist.name)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
         </div>
@@ -2049,7 +2050,11 @@ function render() {
 
   let titleText = isHomeView ? 'Complete Song Library (Studio Master)' : 'Song library (Full Length)';
   if (state.onlineSearch) {
-    titleText = `Online Results for "${state.query || 'Telugu & Hindi'}"`;
+    if (state.activeArtist) {
+      titleText = `🎤 All Songs by ${state.activeArtist} (${list.length})`;
+    } else {
+      titleText = `Online Results for "${state.query || 'Telugu & Hindi'}"`;
+    }
   } else if (state.filter === 'Playlists') {
     if (state.activePlaylistId) {
       const pl = state.playlists.find((p) => p.id === state.activePlaylistId);
@@ -2067,7 +2072,9 @@ function render() {
   el('sectionTitle').textContent = titleText;
 
   const countSuffix = list.length === 1 ? '' : 's';
-  if (state.filter === 'Downloads' && !state.query && !state.onlineSearch) {
+  if (state.activeArtist && state.onlineSearch) {
+    el('resultInfo').textContent = `${list.length} song${countSuffix} sung by ${state.activeArtist} • Auto-playing`;
+  } else if (state.filter === 'Downloads' && !state.query && !state.onlineSearch) {
     el('resultInfo').textContent = `${list.length} song${countSuffix} saved for offline listening`;
   } else if (state.query) {
     el('resultInfo').textContent = `${list.length} result${countSuffix} for "${state.query}"`;
@@ -2526,6 +2533,139 @@ function toggleOnlineSearch() {
   }
 }
 
+// Check if track matches target artist name or query tokens
+function matchesArtist(track, artistName, query = '') {
+  if (!track || !track.artist) return false;
+  const clean = (s) => (s || '')
+    .toLowerCase()
+    .replace(/[.\-_,()]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const tArtist = clean(track.artist);
+  const target = clean(artistName);
+  const qClean = clean(query).replace(/\b(telugu|hindi|english|hits|songs|classic|romantic|party|legendary|masters|icons)\b/g, '').trim();
+
+  // Substring or exact match
+  if (target && (tArtist.includes(target) || target.includes(tArtist))) return true;
+  if (qClean && (tArtist.includes(qClean) || qClean.includes(tArtist))) return true;
+
+  // Split tokens (e.g. "Balasubrahmanyam", "Arijit", "Sriram")
+  const parts = target.split(' ').filter((p) => p.length >= 3);
+  if (parts.length > 0 && parts.every((p) => tArtist.includes(p))) return true;
+
+  // Check query tokens (e.g. "Devi Sri Prasad" -> "devi", "sri", "prasad")
+  const qParts = qClean.split(' ').filter((p) => p.length >= 3);
+  if (qParts.length > 0 && qParts.every((p) => tArtist.includes(p))) return true;
+
+  return false;
+}
+
+// Open artist discography, display all songs sung by artist, and auto-play
+async function playAndShowArtist(artistName, query) {
+  const cleanName = (artistName || '').trim();
+  const searchQuery = (query || cleanName).trim();
+  if (!cleanName && !searchQuery) return;
+
+  // 1. Close menu drawer if open
+  closeUniverseDrawer();
+
+  // 2. Update search bar
+  const searchInput = el('search');
+  if (searchInput) searchInput.value = cleanName || searchQuery;
+  const clearBtn = el('clearSearch');
+  if (clearBtn) clearBtn.hidden = false;
+
+  // 3. Set state to artist discography mode
+  state.activeArtist = cleanName;
+  state.query = cleanName || searchQuery;
+  state.onlineSearch = true;
+  state.activePlaylistId = null;
+  state.filter = 'All';
+
+  // 4. Immediately find any matching songs in the local library
+  const localMatches = state.tracks.filter((t) => matchesArtist(t, cleanName, searchQuery));
+
+  // Initialize onlineTracks with local songs so the user sees results instantly
+  state.onlineTracks = localMatches.slice();
+
+  // Update banner
+  const banner = el('onlineSearchBanner');
+  if (banner) banner.hidden = false;
+  const statusTitle = el('onlineStatusTitle');
+  if (statusTitle) statusTitle.textContent = `🎤 All Songs by ${cleanName}`;
+  const statusSub = el('onlineStatusSub');
+  if (statusSub) {
+    statusSub.textContent = localMatches.length > 0
+      ? `Found ${localMatches.length} songs locally • Searching complete discography online...`
+      : `Searching all full songs by ${cleanName}...`;
+  }
+
+  // Render immediately and scroll to top
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // 5. Immediately start playing the first song if available locally!
+  let playedImmediate = false;
+  if (localMatches.length > 0) {
+    playTrack(localMatches[0]);
+    playedImmediate = true;
+    toast(`Playing ${localMatches[0].title} by ${cleanName}`);
+  }
+
+  // 6. Fetch complete songs from backend catalog (JioSaavn)
+  try {
+    const qQuality = state.streamingQuality || '96';
+    const primaryQuery = searchQuery || cleanName;
+    const res = await fetch(`/api/search?q=${encodeURIComponent(primaryQuery)}&quality=${qQuality}`);
+    const data = await res.json();
+    let onlineResults = (data.success && Array.isArray(data.results)) ? data.results : [];
+
+    // If query returned few results and clean name differs, fetch clean artist name too
+    if (onlineResults.length < 25 && cleanName && primaryQuery !== cleanName) {
+      try {
+        const res2 = await fetch(`/api/search?q=${encodeURIComponent(cleanName)}&quality=${qQuality}`);
+        const data2 = await res2.json();
+        if (data2.success && Array.isArray(data2.results) && data2.results.length > 0) {
+          onlineResults = [...onlineResults, ...data2.results];
+        }
+      } catch (e) {}
+    }
+
+    if (onlineResults.length > 0 || localMatches.length > 0) {
+      // Sort online results so songs explicitly sung by this artist are prioritized at the top
+      onlineResults.sort((a, b) => {
+        const aMatch = matchesArtist(a, cleanName, searchQuery) ? 1 : 0;
+        const bMatch = matchesArtist(b, cleanName, searchQuery) ? 1 : 0;
+        return bMatch - aMatch;
+      });
+
+      const combined = deduplicateTrackList([...localMatches, ...onlineResults]);
+      state.onlineTracks = combined;
+
+      if (statusTitle) statusTitle.textContent = `🎤 All Songs by ${cleanName} (${combined.length} songs)`;
+      if (statusSub) statusSub.textContent = `Complete 320kbps discography • Tap any song to play`;
+
+      // If no local song was played, start playing the top online song now!
+      if (!playedImmediate && combined.length > 0) {
+        playTrack(combined[0]);
+        playedImmediate = true;
+        toast(`Playing ${combined[0].title} by ${cleanName}`);
+      }
+    } else {
+      if (statusTitle) statusTitle.textContent = `No songs found for "${cleanName}"`;
+      if (statusSub) statusSub.textContent = 'Try another artist name or song title.';
+    }
+  } catch (err) {
+    console.error('Error loading artist songs:', err);
+    if (localMatches.length === 0) {
+      toast(`Search server unavailable for ${cleanName}.`);
+    }
+  }
+
+  // Re-render with full combined song list
+  render();
+}
+
 // Playlists Management
 function openNewPlaylistModal() {
   el('playlistNameInput').value = '';
@@ -2862,6 +3002,7 @@ function bindEvents() {
   searchInput.addEventListener('input', () => {
     const q = (searchInput.value || '').trim();
     state.query = q;
+    state.activeArtist = null;
     el('clearSearch').hidden = !searchInput.value;
 
     clearTimeout(searchDebounceTimer);
@@ -2888,6 +3029,7 @@ function bindEvents() {
     }
     clearTimeout(searchDebounceTimer);
     state.query = q;
+    state.activeArtist = null;
     state.onlineSearch = true;
     searchOnlineCatalog(q);
   }
@@ -2900,6 +3042,7 @@ function bindEvents() {
 
   el('clearSearch').addEventListener('click', () => {
     state.query = '';
+    state.activeArtist = null;
     searchInput.value = '';
     el('clearSearch').hidden = true;
     searchInput.focus();
@@ -2913,8 +3056,10 @@ function bindEvents() {
   if (exitBtn) {
     exitBtn.addEventListener('click', () => {
       state.onlineSearch = false;
+      state.activeArtist = null;
+      state.onlineTracks = [];
       state.query = '';
-      searchInput.value = '';
+      if (searchInput) searchInput.value = '';
       el('clearSearch').hidden = true;
       render();
     });
@@ -2927,6 +3072,7 @@ function bindEvents() {
       searchInput.value = q;
       el('clearSearch').hidden = false;
       state.query = q;
+    state.activeArtist = null;
       state.onlineSearch = true;
       searchOnlineCatalog(q);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2940,6 +3086,7 @@ function bindEvents() {
   document.querySelectorAll('.chip').forEach((chip) => {
     chip.addEventListener('click', () => {
       state.onlineSearch = false;
+      state.activeArtist = null;
       state.activePlaylistId = null;
       state.filter = chip.dataset.filter;
       render();
@@ -2967,10 +3114,8 @@ function bindEvents() {
       const artistCard = event.target.closest('.artist-shelf-card');
       if (artistCard) {
         const q = artistCard.dataset.artistQuery;
-        el('searchInput').value = q;
-        state.onlineSearch = true;
-        searchOnlineCatalog(q);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const name = artistCard.dataset.artistName || artistCard.querySelector('.artist-name')?.textContent || q;
+        playAndShowArtist(name, q);
         return;
       }
 
@@ -3711,24 +3856,14 @@ function bindUniverseDrawerEvents() {
     });
   });
 
-  // Clicking an item in drawer
+  // Clicking an item in drawer (Play artist songs and show all their tracks)
   if (content) {
     content.addEventListener('click', (e) => {
       const itemBtn = e.target.closest('.universe-item-btn');
       if (!itemBtn) return;
       const query = itemBtn.dataset.query;
       const singerName = itemBtn.querySelector('.u-item-name')?.textContent || query;
-      closeUniverseDrawer();
-
-      const searchInput = el('search');
-      if (searchInput) searchInput.value = query;
-      el('clearSearch').hidden = false;
-
-      state.query = query;
-      state.onlineSearch = true;
-      searchOnlineCatalog(query);
-      toast(`Exploring Universe: ${singerName}`);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      playAndShowArtist(singerName, query);
     });
   }
 }
