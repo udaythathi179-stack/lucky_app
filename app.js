@@ -2073,7 +2073,7 @@ function render() {
 
   const countSuffix = list.length === 1 ? '' : 's';
   if (state.activeArtist && state.onlineSearch) {
-    el('resultInfo').textContent = `${list.length} song${countSuffix} sung by ${state.activeArtist} • Auto-playing`;
+    el('resultInfo').textContent = `${list.length} song${countSuffix} sung by ${state.activeArtist} • Tap any song to play`;
   } else if (state.filter === 'Downloads' && !state.query && !state.onlineSearch) {
     el('resultInfo').textContent = `${list.length} song${countSuffix} saved for offline listening`;
   } else if (state.query) {
@@ -2560,7 +2560,7 @@ function matchesArtist(track, artistName, query = '') {
   return false;
 }
 
-// Open artist discography, display all songs sung by artist, and auto-play
+// Open artist discography and display all songs sung by artist (without auto-playing)
 async function playAndShowArtist(artistName, query) {
   const cleanName = (artistName || '').trim();
   const searchQuery = (query || cleanName).trim();
@@ -2603,16 +2603,9 @@ async function playAndShowArtist(artistName, query) {
   // Render immediately and scroll to top
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  toast(`Showing all songs by ${cleanName}`);
 
-  // 5. Immediately start playing the first song if available locally!
-  let playedImmediate = false;
-  if (localMatches.length > 0) {
-    playTrack(localMatches[0]);
-    playedImmediate = true;
-    toast(`Playing ${localMatches[0].title} by ${cleanName}`);
-  }
-
-  // 6. Fetch complete songs from backend catalog (JioSaavn)
+  // 5. Fetch complete songs from backend catalog (JioSaavn)
   try {
     const qQuality = state.streamingQuality || '96';
     const primaryQuery = searchQuery || cleanName;
@@ -2644,13 +2637,6 @@ async function playAndShowArtist(artistName, query) {
 
       if (statusTitle) statusTitle.textContent = `🎤 All Songs by ${cleanName} (${combined.length} songs)`;
       if (statusSub) statusSub.textContent = `Complete 320kbps discography • Tap any song to play`;
-
-      // If no local song was played, start playing the top online song now!
-      if (!playedImmediate && combined.length > 0) {
-        playTrack(combined[0]);
-        playedImmediate = true;
-        toast(`Playing ${combined[0].title} by ${cleanName}`);
-      }
     } else {
       if (statusTitle) statusTitle.textContent = `No songs found for "${cleanName}"`;
       if (statusSub) statusSub.textContent = 'Try another artist name or song title.';
