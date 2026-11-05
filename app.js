@@ -1642,24 +1642,10 @@ function applyBandGains(bassDb, vocalDb, trebleDb, preset = 'custom', save = tru
     card.classList.toggle('active', card.dataset.preset === preset);
   });
 
-  // Sync expanded player button label
+  // Keep 3rd action pill cleanly labeled as "Bass" (not technical values like b:+14db.v:+0db)
   const expEqName = el('expEqName');
   if (expEqName) {
-    const labelMap = {
-      normal: '🎛️ Bass & Vocal Band',
-      bass: '🎛️ Heavy Bass (+10dB)',
-      vocal: '🎛️ Vocal Boost (+9dB)',
-      bass_vocal: '🎛️ Bass + Vocal Boost',
-      party: '🎛️ Party Dynamic',
-      treble: '🎛️ Treble Bright'
-    };
-    if (preset !== 'custom' && labelMap[preset]) {
-      expEqName.textContent = labelMap[preset];
-    } else {
-      const bSign = b >= 0 ? '+' : '';
-      const vSign = v >= 0 ? '+' : '';
-      expEqName.textContent = `🎛️ B:${bSign}${b}dB • V:${vSign}${v}dB`;
-    }
+    expEqName.textContent = 'Bass';
   }
 
   if (save) {

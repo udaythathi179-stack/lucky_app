@@ -314,7 +314,7 @@ fun ExpandedPlayerSheet(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "🎛️ Bass & Vocal Band",
+                    text = "Bass",
                     color = TextPrimary,
                     fontSize = 13.5.sp,
                     fontWeight = FontWeight.SemiBold
