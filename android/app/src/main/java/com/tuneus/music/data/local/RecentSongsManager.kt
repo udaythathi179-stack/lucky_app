@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 object RecentSongsManager {
     private const val PREFS_NAME = "tuneus_music_prefs"
     private const val KEY_RECENT_TRACKS = "tuneus_recent_tracks_v2"
-    private const val MAX_RECENT_COUNT = 9
+    private const val MAX_RECENT_COUNT = 10
 
     private lateinit var prefs: SharedPreferences
     private val gson = Gson()
@@ -40,11 +40,11 @@ object RecentSongsManager {
     }
 
     /**
-     * Adds a song to Recent Songs with strict FIFO eviction at 9 songs:
+     * Adds a song to Recent Songs with strict FIFO eviction at 10 songs:
      * - Places the played song at index 0 (most recent).
      * - Removes any duplicate occurrence of the same song so it moves to front.
-     * - If the list reaches 10 songs, the 10th song (the oldest one listened to earliest)
-     *   is removed, keeping strictly up to 9 songs.
+     * - If the list reaches 11 songs, the 11th song (the oldest one listened to earliest)
+     *   is removed, keeping strictly up to 10 songs.
      */
     fun addTrack(track: Track) {
         val current = _recentTracks.value.toMutableList()
@@ -60,7 +60,7 @@ object RecentSongsManager {
         // Add newly played song at index 0 (top-left, most recent)
         current.add(0, track)
 
-        // Keep strictly up to 9 songs (FIFO: evicts the 10th song)
+        // Keep strictly up to 10 songs (FIFO: evicts the 11th song)
         val cappedList = if (current.size > MAX_RECENT_COUNT) {
             current.take(MAX_RECENT_COUNT)
         } else {

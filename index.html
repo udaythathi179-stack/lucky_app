@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=47" />
+  <link rel="stylesheet" href="styles.css?v=48" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -144,13 +144,13 @@
 
     <!-- Home Dashboard (Spotify ordered layout: Quick Access, Spotlight, Jump back in, Universe) -->
     <div id="homeDashboard" class="home-dashboard">
-      <!-- Recent Songs Grid (History of up to 9 songs) -->
+      <!-- Recent Songs Grid (History of up to 10 songs) -->
       <section class="quick-jump-section">
         <div class="section-title-row">
           <h2 class="section-heading-sm">Recent Songs</h2>
         </div>
         <div class="quick-jump-grid" id="quickJumpGrid">
-          <!-- Dynamically populated with 9 recent song cards -->
+          <!-- Dynamically populated with 10 recent song cards -->
         </div>
       </section>
 
@@ -1188,7 +1188,7 @@
     </aside>
   </div>
 
-  <script src="app.js?v=50"></script>
+  <script src="app.js?v=51"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

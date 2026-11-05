@@ -1400,13 +1400,13 @@ const storedRecentHistory = getStoredJSON(STORAGE_RECENT_HISTORY, []);
 // Initialize Recent Songs: preserve full track objects so online songs from search play seamlessly
 let initialRecentTracks = [];
 if (Array.isArray(storedRecentTracks) && storedRecentTracks.length > 0) {
-  initialRecentTracks = storedRecentTracks.filter((t) => t && t.id && t.title).slice(0, 9);
+  initialRecentTracks = storedRecentTracks.filter((t) => t && t.id && t.title).slice(0, 10);
 } else if (Array.isArray(storedRecentHistory) && storedRecentHistory.length > 0) {
   storedRecentHistory.forEach((id) => {
     const t = catalog.find((c) => c.id === id);
     if (t) initialRecentTracks.push({ ...t });
   });
-  initialRecentTracks = initialRecentTracks.slice(0, 9);
+  initialRecentTracks = initialRecentTracks.slice(0, 10);
 }
 
 // Clean and deduplicate any list of tracks by normalized title and language
@@ -1971,7 +1971,7 @@ function renderChips() {
   if (downloadsCount) downloadsCount.textContent = state.downloads.size;
 }
 
-// Render Recent Songs Grid (History of up to 9 songs)
+// Render Recent Songs Grid (History of up to 10 songs)
 function renderRecentGrid() {
   const quickGrid = el('quickJumpGrid');
   if (!quickGrid) return;
@@ -1982,14 +1982,14 @@ function renderRecentGrid() {
     quickGrid.innerHTML = `
       <div style="grid-column: 1 / -1; padding: 20px 14px; text-align: center; color: rgba(147, 197, 253, 0.75); font-size: 13.5px; border: 1px dashed rgba(56, 189, 248, 0.25); border-radius: 12px; background: rgba(6, 16, 44, 0.45);">
         <span style="display: block; font-weight: 600; color: #e2e8f0; margin-bottom: 4px;">No recently played songs</span>
-        Play any song from the search bar or library to see your recent tracks here (up to 9 songs).
+        Play any song from the search bar or library to see your recent tracks here (up to 10 songs).
       </div>
     `;
     return;
   }
 
-  // Strictly up to 9 unique songs
-  const displayTracks = deduplicateTrackList(tracks).slice(0, 9);
+  // Strictly up to 10 unique songs with equal sized cards
+  const displayTracks = deduplicateTrackList(tracks).slice(0, 10);
   quickGrid.innerHTML = displayTracks.map((t) => {
     const art = t.artwork || 'icon-192.png';
     const artistName = t.artist || t.movie || 'Tuneus Master';
@@ -2008,7 +2008,7 @@ function renderRecentGrid() {
   }).join('');
 }
 
-// Add listened song to Recent Songs History (Max 9 songs, FIFO eviction of 10th song)
+// Add listened song to Recent Songs History (Max 10 songs, FIFO eviction of 11th song)
 function addToRecentHistory(track) {
   if (!track || !track.id) return;
 
@@ -2046,9 +2046,9 @@ function addToRecentHistory(track) {
   // Prepend to top/front (index 0 - most recent)
   state.recentTracks.unshift(trackToSave);
 
-  // If there are more than 9 songs (e.g. 10th song added), remove the oldest song (FIFO)
-  if (state.recentTracks.length > 9) {
-    state.recentTracks = state.recentTracks.slice(0, 9);
+  // If there are more than 10 songs (e.g. 11th song added), remove the oldest song (FIFO)
+  if (state.recentTracks.length > 10) {
+    state.recentTracks = state.recentTracks.slice(0, 10);
   }
 
   // Also maintain state.recentHistory IDs for backwards compatibility

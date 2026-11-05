@@ -200,14 +200,14 @@ fun HomeScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Songs you listen to will appear here (up to 9 songs)",
+                                text = "Songs you listen to will appear here (up to 10 songs)",
                                 color = TextMuted,
                                 fontSize = 13.sp
                             )
                         }
                     } else {
-                        // Display 2-column grid of up to 9 songs
-                        val chunked = recentSongs.take(9).chunked(2)
+                        // Display 2-column grid of up to 10 songs (5 equal pairs)
+                        val chunked = recentSongs.take(10).chunked(2)
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             chunked.forEach { rowTracks ->
                                 Row(

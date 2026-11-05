@@ -1037,7 +1037,8 @@ a {
 
 @media (min-width: 900px) {
   .quick-jump-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 }
 
@@ -2822,13 +2823,20 @@ input[type="range"].range::-moz-range-thumb {
   align-items: center;
   justify-content: center;
   gap: 12px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .pill-btn {
+  flex: 1 1 0;
+  min-width: 0;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 8px;
-  padding: 9px 18px;
+  padding: 10px 14px;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.05);
@@ -2837,6 +2845,13 @@ input[type="range"].range::-moz-range-thumb {
   font-weight: 600;
   cursor: pointer;
   transition: 0.18s;
+  box-sizing: border-box;
+}
+
+.pill-btn span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pill-btn:hover {
