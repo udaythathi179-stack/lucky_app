@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.TuneusMusic" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">#040816</item>
+        <item name="android:navigationBarColor">#040816</item>
+        <item name="android:windowBackground">#040816</item>
+    </style>
+</resources>
+

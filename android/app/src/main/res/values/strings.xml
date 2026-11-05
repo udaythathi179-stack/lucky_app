@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Tuneus Music</string>
+    <string name="search_hint">Search songs, artists, albums...</string>
+    <string name="recent_songs">Recent Songs</string>
+    <string name="popular_artists">Popular Artists &amp; Legendary Singers</string>
+    <string name="jump_back_in">Jump back in</string>
+    <string name="folk_masterpieces">Folk &amp; Cultural Masterpieces</string>
+    <string name="tollywood_blockbusters">Tollywood Blockbusters</string>
+    <string name="bollywood_melodies">Bollywood Melodies</string>
+    <string name="liked_songs">Liked Songs</string>
+    <string name="artist_menu">Artist Menu</string>
+    <string name="studio_quality">Studio Master 320kbps</string>
+</resources>
+
