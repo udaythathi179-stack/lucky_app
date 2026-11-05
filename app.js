@@ -1409,6 +1409,18 @@ if (Array.isArray(storedRecentTracks) && storedRecentTracks.length > 0) {
   initialRecentTracks = initialRecentTracks.slice(0, 10);
 }
 
+// Always ensure exactly 10 songs in Recent Songs by backfilling from top catalog master hits
+if (initialRecentTracks.length < 10) {
+  const existingIds = new Set(initialRecentTracks.map((t) => t.id));
+  for (const catTrack of catalog) {
+    if (initialRecentTracks.length >= 10) break;
+    if (!existingIds.has(catTrack.id)) {
+      initialRecentTracks.push({ ...catTrack });
+      existingIds.add(catTrack.id);
+    }
+  }
+}
+
 // Clean and deduplicate any list of tracks by normalized title and language
 function deduplicateTrackList(tracks) {
   if (!Array.isArray(tracks)) return [];
@@ -1971,24 +1983,30 @@ function renderChips() {
   if (downloadsCount) downloadsCount.textContent = state.downloads.size;
 }
 
-// Render Recent Songs Grid (History of up to 10 songs)
+// Render Recent Songs Grid (Always exactly 10 songs with equal sized cards)
 function renderRecentGrid() {
   const quickGrid = el('quickJumpGrid');
   if (!quickGrid) return;
 
-  const tracks = (state.recentTracks || []).filter((t) => t && t.id && t.title);
+  let tracks = (state.recentTracks || []).filter((t) => t && t.id && t.title);
 
-  if (tracks.length === 0) {
-    quickGrid.innerHTML = `
-      <div style="grid-column: 1 / -1; padding: 20px 14px; text-align: center; color: rgba(147, 197, 253, 0.75); font-size: 13.5px; border: 1px dashed rgba(56, 189, 248, 0.25); border-radius: 12px; background: rgba(6, 16, 44, 0.45);">
-        <span style="display: block; font-weight: 600; color: #e2e8f0; margin-bottom: 4px;">No recently played songs</span>
-        Play any song from the search bar or library to see your recent tracks here (up to 10 songs).
-      </div>
-    `;
-    return;
+  // If fewer than 10 songs, backfill from top catalog hits so there are always 10 songs
+  if (tracks.length < 10) {
+    const existingIds = new Set(tracks.map((t) => t.id));
+    for (const catTrack of catalog) {
+      if (tracks.length >= 10) break;
+      if (!existingIds.has(catTrack.id)) {
+        tracks.push({ ...catTrack });
+        existingIds.add(catTrack.id);
+      }
+    }
+    state.recentTracks = tracks.slice(0, 10);
+    state.recentHistory = state.recentTracks.map((t) => t.id);
+    setStoredJSON(STORAGE_RECENT_TRACKS, state.recentTracks);
+    setStoredJSON(STORAGE_RECENT_HISTORY, state.recentHistory);
   }
 
-  // Strictly up to 10 unique songs with equal sized cards
+  // Strictly display 10 unique songs
   const displayTracks = deduplicateTrackList(tracks).slice(0, 10);
   quickGrid.innerHTML = displayTracks.map((t) => {
     const art = t.artwork || 'icon-192.png';

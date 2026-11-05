@@ -26,17 +26,32 @@ object RecentSongsManager {
     }
 
     private fun loadRecentTracks() {
+        val list = mutableListOf<Track>()
         val json = prefs.getString(KEY_RECENT_TRACKS, null)
         if (!json.isNullOrBlank()) {
             try {
                 val type = object : TypeToken<List<Track>>() {}.type
-                val list: List<Track> = gson.fromJson(json, type) ?: emptyList()
-                _recentTracks.value = list.take(MAX_RECENT_COUNT)
+                val stored: List<Track> = gson.fromJson(json, type) ?: emptyList()
+                list.addAll(stored.take(MAX_RECENT_COUNT))
             } catch (e: Exception) {
                 e.printStackTrace()
-                _recentTracks.value = emptyList()
             }
         }
+
+        // If fewer than 10 songs, pre-populate from catalog hits so Recent Songs always has 10 songs
+        if (list.size < MAX_RECENT_COUNT) {
+            val existingIds = list.map { it.id }.toSet()
+            for (t in CatalogData.BUNDLED_TRACKS) {
+                if (list.size >= MAX_RECENT_COUNT) break
+                if (!existingIds.contains(t.id)) {
+                    list.add(t)
+                }
+            }
+        }
+
+        val capped = list.take(MAX_RECENT_COUNT)
+        _recentTracks.value = capped
+        saveRecentTracks(capped)
     }
 
     /**
