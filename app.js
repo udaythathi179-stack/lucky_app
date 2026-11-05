@@ -1355,43 +1355,16 @@ function saveBlobToDevice(blob, fileName) {
   setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
 }
 
-// Initial Playlists
-const defaultPlaylists = [
-  {
-    id: 'pl-tuneus-telugu',
-    name: 'Tuneus Tollywood Superhits',
-    description: 'Full-length Telugu chartbusters and party hits',
-    trackIds: catalog.filter((t) => t.language === 'Telugu').map((t) => t.id)
-  },
-  {
-    id: 'pl-tuneus-hindi',
-    name: 'Tuneus Bollywood Melodies',
-    description: 'Full-length Bollywood romantic and soulful songs',
-    trackIds: catalog.filter((t) => t.language === 'Hindi').map((t) => t.id)
-  },
-  {
-    id: 'pl-tuneus-folk',
-    name: 'Tuneus Folk Classics & Beats',
-    description: 'Authentic Telugu, Telangana & Indian folk songs and festival beats',
-    trackIds: catalog.filter((t) => t.category === 'Folk').map((t) => t.id)
-  },
-  {
-    id: 'pl-tuneus-english',
-    name: 'Tuneus English & Global Hits',
-    description: 'World-famous international chartbusters and pop anthems',
-    trackIds: catalog.filter((t) => t.language === 'English').map((t) => t.id)
-  }
-];
+// Initial Playlists (All 4 pre-made default playlists removed; custom playlists only)
+const defaultPlaylists = [];
 
-let storedPlaylists = getStoredJSON(STORAGE_PLAYLISTS, defaultPlaylists);
-if (!storedPlaylists.some((p) => p.id === 'pl-tuneus-folk')) {
-  const folkPlaylist = defaultPlaylists.find((p) => p.id === 'pl-tuneus-folk');
-  if (folkPlaylist) storedPlaylists.push(folkPlaylist);
-}
-if (!storedPlaylists.some((p) => p.id === 'pl-tuneus-english')) {
-  const engPlaylist = defaultPlaylists.find((p) => p.id === 'pl-tuneus-english');
-  if (engPlaylist) storedPlaylists.push(engPlaylist);
-}
+// Load stored playlists and purge the 4 legacy default playlists (Tollywood, Bollywood, Folk, English)
+const legacyDefaultIds = new Set(['pl-tuneus-telugu', 'pl-tuneus-hindi', 'pl-tuneus-folk', 'pl-tuneus-english']);
+let storedPlaylists = (getStoredJSON(STORAGE_PLAYLISTS, []) || [])
+  .filter((p) => p && p.id && !legacyDefaultIds.has(p.id));
+
+// Save cleaned list back to storage so the 4 default playlists are completely wiped
+setStoredJSON(STORAGE_PLAYLISTS, storedPlaylists);
 const storedFavorites = new Set(getStoredJSON(STORAGE_FAVORITES, []));
 const storedCustomTracks = getStoredJSON(STORAGE_CUSTOM_TRACKS, []);
 const storedRecentTracks = getStoredJSON(STORAGE_RECENT_TRACKS, null);
@@ -1955,23 +1928,40 @@ function cardHTML(track) {
     </div>`;
 }
 
-// Render Playlists Section
+// Render Playlists Section (Clean custom playlists with "+ Create New Playlist" card)
 function renderPlaylistsGrid() {
   const container = el('playlistsGrid');
   if (!container) return;
-  container.innerHTML = state.playlists.map((pl) => {
-    const count = pl.trackIds.length;
+
+  // Prominent "+ Create New Playlist" Card
+  const createCardHTML = `
+    <div class="playlist-create-card" data-action="create-playlist" role="button" tabindex="0" title="Create a new playlist">
+      <div class="playlist-create-icon">+</div>
+      <h3>Create New Playlist</h3>
+      <p>Start a new collection for your favorite songs</p>
+      <button class="primary-btn-sm" type="button" data-action="create-playlist">+ Create</button>
+    </div>
+  `;
+
+  const customPlaylists = (state.playlists || []).filter((pl) => pl && pl.id);
+  const playlistCardsHTML = customPlaylists.map((pl) => {
+    const count = (pl.trackIds || []).length;
     return `
       <div class="playlist-card" data-playlist-id="${esc(pl.id)}">
-        <div class="playlist-card-icon">&#9835;</div>
+        <div class="playlist-card-top">
+          <div class="playlist-card-icon">&#9835;</div>
+          <button class="playlist-card-delete" type="button" data-action="delete-playlist" data-playlist-id="${esc(pl.id)}" title="Delete playlist">&times;</button>
+        </div>
         <h3>${esc(pl.name)}</h3>
-        <p>${esc(pl.description || 'Tuneus music playlist')}</p>
+        <p>${esc(pl.description || 'Custom playlist')}</p>
         <div class="playlist-card-meta">
-          <span>${count} full track${count === 1 ? '' : 's'}</span>
+          <span>${count} track${count === 1 ? '' : 's'}</span>
           <button class="playlist-card-play" type="button" data-action="play-playlist" data-playlist-id="${esc(pl.id)}">Play All</button>
         </div>
       </div>`;
   }).join('');
+
+  container.innerHTML = createCardHTML + playlistCardsHTML;
 }
 
 // Render Filter Chips (Downloads count is kept visible)
@@ -3363,6 +3353,24 @@ function bindEvents() {
 
   // Playlists grid interactions
   el('playlistsGrid').addEventListener('click', (event) => {
+    const createBtn = event.target.closest('[data-action="create-playlist"], .playlist-create-card');
+    if (createBtn) {
+      openNewPlaylistModal();
+      return;
+    }
+
+    const deleteBtn = event.target.closest('[data-action="delete-playlist"]');
+    if (deleteBtn) {
+      event.stopPropagation();
+      const plId = deleteBtn.dataset.playlistId;
+      state.playlists = state.playlists.filter((p) => p.id !== plId);
+      setStoredJSON(STORAGE_PLAYLISTS, state.playlists);
+      if (state.activePlaylistId === plId) state.activePlaylistId = null;
+      render();
+      toast('Playlist deleted');
+      return;
+    }
+
     const playBtn = event.target.closest('[data-action="play-playlist"]');
     if (playBtn) {
       event.stopPropagation();
@@ -3373,6 +3381,8 @@ function bindEvents() {
         render();
         const first = state.tracks.find((t) => t.id === pl.trackIds[0]);
         if (first) playTrack(first);
+      } else {
+        toast('This playlist is empty. Add songs to play!');
       }
       return;
     }
