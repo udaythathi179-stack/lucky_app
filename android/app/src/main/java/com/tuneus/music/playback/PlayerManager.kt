@@ -50,11 +50,19 @@ object PlayerManager {
     fun init(context: Context) {
         if (exoPlayer != null) return
 
+        AudioFxManager.init(context)
+
         exoPlayer = ExoPlayer.Builder(context).build().apply {
+            AudioFxManager.attachToSession(audioSessionId)
             addListener(object : Player.Listener {
                 override fun onIsPlayingChanged(playing: Boolean) {
                     _isPlaying.value = playing
-                    if (playing) startProgressTicker() else stopProgressTicker()
+                    if (playing) {
+                        AudioFxManager.attachToSession(audioSessionId)
+                        startProgressTicker()
+                    } else {
+                        stopProgressTicker()
+                    }
                 }
 
                 override fun onPlaybackStateChanged(playbackState: Int) {

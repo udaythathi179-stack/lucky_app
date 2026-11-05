@@ -46,8 +46,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.media3.common.Player
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import com.tuneus.music.playback.AudioFxManager
+import com.tuneus.music.ui.theme.CardBorder
 import coil.compose.AsyncImage
 import com.tuneus.music.data.model.Track
 import com.tuneus.music.ui.theme.BgCard
@@ -82,6 +89,7 @@ fun ExpandedPlayerSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var isDraggingSlider by remember { mutableStateOf(false) }
     var dragProgress by remember { mutableFloatStateOf(0f) }
+    var showEqDialog by remember { mutableStateOf(false) }
 
     val safeDuration = duration.coerceAtLeast(1L)
     val sliderValue = if (isDraggingSlider) {
@@ -273,8 +281,8 @@ fun ExpandedPlayerSheet(
 
                 IconButton(onClick = onCycleRepeat) {
                     val (icon, tint) = when (repeatMode) {
-                        Player.REPEAT_MODE_ONE -> Pair(Icons.Default.RepeatOne, ElectricBlue)
-                        Player.REPEAT_MODE_ALL -> Pair(Icons.Default.Repeat, ElectricBlue)
+                        androidx.media3.common.Player.REPEAT_MODE_ONE -> Pair(Icons.Default.RepeatOne, ElectricBlue)
+                        androidx.media3.common.Player.REPEAT_MODE_ALL -> Pair(Icons.Default.Repeat, ElectricBlue)
                         else -> Pair(Icons.Default.Repeat, TextMuted)
                     }
                     Icon(
@@ -285,8 +293,180 @@ fun ExpandedPlayerSheet(
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            // Bass & Vocal Band Button
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(20.dp))
+                    .background(BgCard)
+                    .border(1.dp, CardBorder, RoundedCornerShape(20.dp))
+                    .clickable { showEqDialog = true }
+                    .padding(horizontal = 18.dp, vertical = 9.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Tune,
+                    contentDescription = "Bass & Vocal Band",
+                    tint = ElectricBlue,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "🎛️ Bass & Vocal Band",
+                    color = TextPrimary,
+                    fontSize = 13.5.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
         }
     }
+
+    if (showEqDialog) {
+        BassVocalEqualizerDialog(onDismiss = { showEqDialog = false })
+    }
+}
+
+@Composable
+fun BassVocalEqualizerDialog(onDismiss: () -> Unit) {
+    val bassLevel by AudioFxManager.bassLevel.collectAsState()
+    val vocalLevel by AudioFxManager.vocalLevel.collectAsState()
+    val currentPreset by AudioFxManager.currentPreset.collectAsState()
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Done", color = ElectricBlue, fontWeight = FontWeight.Bold)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { AudioFxManager.applyPreset("normal") }) {
+                Text("Reset", color = TextMuted)
+            }
+        },
+        title = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(text = "🎛️ Bass & Vocal Band", color = TextPrimary, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            }
+        },
+        text = {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Adjust bass thump and vocal clarity in real time",
+                    color = TextMuted,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(bottom = 14.dp)
+                )
+
+                // Bass Band Slider
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(BgCard)
+                        .padding(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = "💥 Bass Band", color = TextPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                        Text(
+                            text = if (bassLevel > 0) "+${bassLevel} dB" else "${bassLevel} dB",
+                            color = if (bassLevel > 0) ElectricBlue else TextMuted,
+                            fontSize = 12.5.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Slider(
+                        value = bassLevel.toFloat(),
+                        onValueChange = { AudioFxManager.setBass(it.toInt()) },
+                        valueRange = -12f..14f,
+                        steps = 25,
+                        colors = SliderDefaults.colors(
+                            thumbColor = ElectricBlue,
+                            activeTrackColor = ElectricBlue,
+                            inactiveTrackColor = CardBorder
+                        )
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Vocal Boost Slider
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(BgCard)
+                        .padding(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = "🎤 Vocal Boost", color = TextPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                        Text(
+                            text = if (vocalLevel > 0) "+${vocalLevel} dB" else "${vocalLevel} dB",
+                            color = if (vocalLevel > 0) ElectricBlue else TextMuted,
+                            fontSize = 12.5.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Slider(
+                        value = vocalLevel.toFloat(),
+                        onValueChange = { AudioFxManager.setVocal(it.toInt()) },
+                        valueRange = -12f..14f,
+                        steps = 25,
+                        colors = SliderDefaults.colors(
+                            thumbColor = ElectricBlue,
+                            activeTrackColor = ElectricBlue,
+                            inactiveTrackColor = CardBorder
+                        )
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Presets
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    val presets = listOf(
+                        Pair("normal", "Flat"),
+                        Pair("bass", "Bass 💥"),
+                        Pair("vocal", "Vocal 🎤"),
+                        Pair("bass_vocal", "Both 🚀")
+                    )
+                    presets.forEach { (key, label) ->
+                        val isSelected = currentPreset == key
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isSelected) ElectricBlue else BgCard)
+                                .clickable { AudioFxManager.applyPreset(key) }
+                                .padding(vertical = 6.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = label,
+                                color = if (isSelected) BgMain else TextSecondary,
+                                fontSize = 11.5.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        containerColor = BgMain
+    )
 }
 
 private fun formatTime(millis: Long): String {

@@ -1152,6 +1152,10 @@ const STORAGE_CUSTOM_TRACKS = 'tuneus_custom_tracks_v1';
 const STORAGE_RECENT_HISTORY = 'tuneus_recent_history_v1';
 const STORAGE_RECENT_TRACKS = 'tuneus_recent_tracks_v2';
 const STORAGE_STREAMING_QUALITY = 'tuneus_streaming_quality_v1';
+const STORAGE_EQ_BASS = 'tuneus_eq_bass_v1';
+const STORAGE_EQ_VOCAL = 'tuneus_eq_vocal_v1';
+const STORAGE_EQ_TREBLE = 'tuneus_eq_treble_v1';
+const STORAGE_EQ_PRESET = 'tuneus_eq_preset_v1';
 
 // Load stored data safely
 function getStoredJSON(key, fallback) {
@@ -1459,7 +1463,10 @@ const state = {
   downloads: new Map(),
   recentTracks: initialRecentTracks,
   recentHistory: initialRecentTracks.map((t) => t.id),
-  eqPreset: 'normal',
+  eqPreset: getStoredJSON(STORAGE_EQ_PRESET, 'normal'),
+  eqBass: Number(getStoredJSON(STORAGE_EQ_BASS, 0)) || 0,
+  eqVocal: Number(getStoredJSON(STORAGE_EQ_VOCAL, 0)) || 0,
+  eqTreble: Number(getStoredJSON(STORAGE_EQ_TREBLE, 0)) || 0,
   streamingQuality: getStoredJSON(STORAGE_STREAMING_QUALITY, '96')
 };
 
@@ -1567,18 +1574,21 @@ function initWebAudio() {
     analyserNode.fftSize = 128;
     analyserNode.smoothingTimeConstant = 0.8;
 
+    // Bass lowshelf filter (160 Hz for punchy sub-bass & kicks)
     biquadBass = audioCtx.createBiquadFilter();
     biquadBass.type = 'lowshelf';
-    biquadBass.frequency.value = 200;
+    biquadBass.frequency.value = 160;
 
+    // Vocal presence peaking filter (2200 Hz, Q=1.2 for singer voice clarity)
     biquadMid = audioCtx.createBiquadFilter();
     biquadMid.type = 'peaking';
-    biquadMid.frequency.value = 1500;
-    biquadMid.Q.value = 1;
+    biquadMid.frequency.value = 2200;
+    biquadMid.Q.value = 1.2;
 
+    // Treble highshelf filter (4500 Hz for airy acoustic brightness)
     biquadTreble = audioCtx.createBiquadFilter();
     biquadTreble.type = 'highshelf';
-    biquadTreble.frequency.value = 3500;
+    biquadTreble.frequency.value = 4500;
 
     audioSourceNode = audioCtx.createMediaElementSource(audio);
     audioSourceNode.connect(biquadBass);
@@ -1587,47 +1597,129 @@ function initWebAudio() {
     biquadTreble.connect(analyserNode);
     analyserNode.connect(audioCtx.destination);
 
-    applyEqPreset(state.eqPreset);
+    // Apply stored Bass & Vocal gains
+    applyBandGains(state.eqBass, state.eqVocal, state.eqTreble, state.eqPreset, false);
     startVisualizerLoop();
   } catch (err) {}
 }
 
-function applyEqPreset(preset) {
+function applyBandGains(bassDb, vocalDb, trebleDb, preset = 'custom', save = true) {
+  const b = Math.max(-12, Math.min(14, Math.round(Number(bassDb) || 0)));
+  const v = Math.max(-12, Math.min(14, Math.round(Number(vocalDb) || 0)));
+  const t = Math.max(-12, Math.min(14, Math.round(Number(trebleDb) || 0)));
+
+  state.eqBass = b;
+  state.eqVocal = v;
+  state.eqTreble = t;
   state.eqPreset = preset;
-  if (!biquadBass || !biquadMid || !biquadTreble) return;
-  switch (preset) {
-    case 'bass':
-      biquadBass.gain.value = 8;
-      biquadMid.gain.value = -1;
-      biquadTreble.gain.value = 1;
-      break;
-    case 'vocal':
-      biquadBass.gain.value = -3;
-      biquadMid.gain.value = 6;
-      biquadTreble.gain.value = 3;
-      break;
-    case 'treble':
-      biquadBass.gain.value = -2;
-      biquadMid.gain.value = 1;
-      biquadTreble.gain.value = 7;
-      break;
-    case 'party':
-      biquadBass.gain.value = 6;
-      biquadMid.gain.value = 2;
-      biquadTreble.gain.value = 6;
-      break;
-    case 'normal':
-    default:
-      biquadBass.gain.value = 0;
-      biquadMid.gain.value = 0;
-      biquadTreble.gain.value = 0;
-      break;
+
+  if (biquadBass) biquadBass.gain.value = b;
+  if (biquadMid) biquadMid.gain.value = v;
+  if (biquadTreble) biquadTreble.gain.value = t;
+
+  // Sync range inputs
+  const bassInput = el('eqBassSlider');
+  if (bassInput && parseFloat(bassInput.value) !== b) bassInput.value = b;
+  const vocalInput = el('eqVocalSlider');
+  if (vocalInput && parseFloat(vocalInput.value) !== v) vocalInput.value = v;
+  const trebleInput = el('eqTrebleSlider');
+  if (trebleInput && parseFloat(trebleInput.value) !== t) trebleInput.value = t;
+
+  // Sync badges
+  function updateBadge(badgeId, val) {
+    const badge = el(badgeId);
+    if (!badge) return;
+    badge.textContent = (val > 0 ? '+' : '') + val + ' dB';
+    badge.classList.toggle('boosted', val > 0);
+    badge.classList.toggle('cut', val < 0);
   }
-  const labelMap = { normal: 'Normal', bass: 'Bass Boost', vocal: 'Vocal Clarity', treble: 'Treble Boost', party: 'Party Dynamic' };
-  el('expEqName').textContent = `EQ: ${labelMap[preset] || 'Normal'}`;
+  updateBadge('eqBassVal', b);
+  updateBadge('eqVocalVal', v);
+  updateBadge('eqTrebleVal', t);
+
+  // Sync preset card active states
   document.querySelectorAll('#eqPresets .eq-card').forEach((card) => {
     card.classList.toggle('active', card.dataset.preset === preset);
   });
+
+  // Sync expanded player button label
+  const expEqName = el('expEqName');
+  if (expEqName) {
+    const labelMap = {
+      normal: '🎛️ Bass & Vocal Band',
+      bass: '🎛️ Heavy Bass (+10dB)',
+      vocal: '🎛️ Vocal Boost (+9dB)',
+      bass_vocal: '🎛️ Bass + Vocal Boost',
+      party: '🎛️ Party Dynamic',
+      treble: '🎛️ Treble Bright'
+    };
+    if (preset !== 'custom' && labelMap[preset]) {
+      expEqName.textContent = labelMap[preset];
+    } else {
+      const bSign = b >= 0 ? '+' : '';
+      const vSign = v >= 0 ? '+' : '';
+      expEqName.textContent = `🎛️ B:${bSign}${b}dB • V:${vSign}${v}dB`;
+    }
+  }
+
+  if (save) {
+    setStoredJSON(STORAGE_EQ_BASS, b);
+    setStoredJSON(STORAGE_EQ_VOCAL, v);
+    setStoredJSON(STORAGE_EQ_TREBLE, t);
+    setStoredJSON(STORAGE_EQ_PRESET, preset);
+  }
+}
+
+function applyEqPreset(preset) {
+  switch (preset) {
+    case 'bass':
+      applyBandGains(10, 0, 1, 'bass', true);
+      break;
+    case 'vocal':
+      applyBandGains(-1, 9, 3, 'vocal', true);
+      break;
+    case 'bass_vocal':
+      applyBandGains(8, 7, 2, 'bass_vocal', true);
+      break;
+    case 'party':
+      applyBandGains(7, 3, 6, 'party', true);
+      break;
+    case 'treble':
+      applyBandGains(-2, 1, 8, 'treble', true);
+      break;
+    case 'normal':
+    default:
+      applyBandGains(0, 0, 0, 'normal', true);
+      break;
+  }
+}
+
+function openEqModal() {
+  initWebAudio();
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(() => {});
+  }
+
+  const liveText = el('eqLiveTrackText');
+  if (liveText) {
+    if (state.current && state.playing) {
+      liveText.textContent = `Now Playing: ${state.current.title} — Real-time tuning`;
+    } else if (state.current) {
+      liveText.textContent = `Tuning: ${state.current.title}`;
+    } else {
+      liveText.textContent = 'Tune your sound • Adjustments apply instantly to audio playback';
+    }
+  }
+
+  applyBandGains(state.eqBass, state.eqVocal, state.eqTreble, state.eqPreset, false);
+
+  const modal = el('eqModal');
+  if (modal) modal.hidden = false;
+}
+
+function closeEqModal() {
+  const modal = el('eqModal');
+  if (modal) modal.hidden = true;
 }
 
 // High-Performance Visualizer Loop (Zero CPU/GPU usage when paused)
@@ -3452,16 +3544,103 @@ function bindEvents() {
     if (state.current) openAddToPlaylist(state.current.id);
   });
 
-  el('eqToggleBtn').addEventListener('click', () => el('eqModal').hidden = false);
-  el('expEqBtn').addEventListener('click', () => el('eqModal').hidden = false);
-  el('closeEqBtn').addEventListener('click', () => el('eqModal').hidden = true);
-  el('eqPresets').addEventListener('click', (e) => {
-    const card = e.target.closest('.eq-card');
-    if (card) {
-      applyEqPreset(card.dataset.preset);
-      toast(`Equalizer: ${card.querySelector('strong').textContent}`);
-    }
+  const eqToggle = el('eqToggleBtn');
+  if (eqToggle) eqToggle.addEventListener('click', openEqModal);
+
+  const expEq = el('expEqBtn');
+  if (expEq) expEq.addEventListener('click', openEqModal);
+
+  const closeEq = el('closeEqBtn');
+  if (closeEq) closeEq.addEventListener('click', closeEqModal);
+
+  const closeEqX = el('closeEqXBtn');
+  if (closeEqX) closeEqX.addEventListener('click', closeEqModal);
+
+  // Close modal when clicking outside (backdrop)
+  const eqModal = el('eqModal');
+  if (eqModal) {
+    eqModal.addEventListener('click', (e) => {
+      if (e.target === eqModal) closeEqModal();
+    });
+  }
+
+  // Bass slider real-time input
+  const bassSlider = el('eqBassSlider');
+  if (bassSlider) {
+    bassSlider.addEventListener('input', (e) => {
+      initWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      const val = parseFloat(e.target.value) || 0;
+      applyBandGains(val, state.eqVocal, state.eqTreble, 'custom', true);
+    });
+  }
+
+  // Vocal slider real-time input (Increases/decreases singing vocal volume & presence)
+  const vocalSlider = el('eqVocalSlider');
+  if (vocalSlider) {
+    vocalSlider.addEventListener('input', (e) => {
+      initWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      const val = parseFloat(e.target.value) || 0;
+      applyBandGains(state.eqBass, val, state.eqTreble, 'custom', true);
+    });
+  }
+
+  // Treble slider real-time input
+  const trebleSlider = el('eqTrebleSlider');
+  if (trebleSlider) {
+    trebleSlider.addEventListener('input', (e) => {
+      initWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      const val = parseFloat(e.target.value) || 0;
+      applyBandGains(state.eqBass, state.eqVocal, val, 'custom', true);
+    });
+  }
+
+  // Stepper buttons (− and +)
+  document.querySelectorAll('.eq-step-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      initWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      const target = btn.dataset.target;
+      const step = parseFloat(btn.dataset.step) || 1;
+      if (target === 'eqBass') {
+        const next = Math.max(-12, Math.min(14, state.eqBass + step));
+        applyBandGains(next, state.eqVocal, state.eqTreble, 'custom', true);
+      } else if (target === 'eqVocal') {
+        const next = Math.max(-12, Math.min(14, state.eqVocal + step));
+        applyBandGains(state.eqBass, next, state.eqTreble, 'custom', true);
+      } else if (target === 'eqTreble') {
+        const next = Math.max(-12, Math.min(14, state.eqTreble + step));
+        applyBandGains(state.eqBass, state.eqVocal, next, 'custom', true);
+      }
+    });
   });
+
+  // Reset to Flat button
+  const resetEq = el('resetEqBtn');
+  if (resetEq) {
+    resetEq.addEventListener('click', () => {
+      initWebAudio();
+      applyBandGains(0, 0, 0, 'normal', true);
+      toast('Equalizer reset to Flat (0 dB)');
+    });
+  }
+
+  // Preset cards
+  const eqPresets = el('eqPresets');
+  if (eqPresets) {
+    eqPresets.addEventListener('click', (e) => {
+      const card = e.target.closest('.eq-card');
+      if (card) {
+        initWebAudio();
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        applyEqPreset(card.dataset.preset);
+        const name = card.querySelector('strong') ? card.querySelector('strong').textContent : card.dataset.preset;
+        toast(`Equalizer: ${name}`);
+      }
+    });
+  }
 
   el('queueToggleBtn').addEventListener('click', toggleQueue);
   el('closeQueueBtn').addEventListener('click', toggleQueue);

@@ -2962,44 +2962,281 @@ input[type="range"].range::-moz-range-thumb {
   gap: 10px;
 }
 
-/* Equalizer Presets Grid */
+/* Bass & Vocal Equalizer Modal Dialog */
+.eq-modal-dialog {
+  max-width: 520px;
+  padding: 24px 26px;
+  background: linear-gradient(180deg, #071126 0%, #030712 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 24px 70px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.15);
+  border-radius: 24px;
+}
+
+.modal-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.modal-header-info {
+  flex: 1;
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.modal-title-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.modal-title-wrap h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.01em;
+}
+
+.eq-live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.eq-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: eqPulse 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes eqPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+.eq-live-text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #bae6fd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Equalizer Bands Section */
+.eq-bands-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.eq-band-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+}
+
+.eq-band-card:hover,
+.eq-band-card:focus-within {
+  background: rgba(56, 189, 248, 0.04);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.eq-band-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.eq-band-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eq-band-emoji {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.eq-band-title strong {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.eq-band-desc {
+  display: block;
+  font-size: 11.5px;
+  color: #94a3b8;
+  margin-top: 1px;
+}
+
+.eq-band-badge {
+  font-size: 12.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 58px;
+  text-align: center;
+  transition: all 0.18s;
+}
+
+.eq-band-badge.boosted {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+.eq-band-badge.cut {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+.eq-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eq-step-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #cbd5e1;
+  font-size: 16px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.eq-step-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  transform: scale(1.05);
+}
+
+.eq-step-btn:active {
+  transform: scale(0.95);
+}
+
+.eq-range-input {
+  flex: 1;
+  height: 6px;
+  -webkit-appearance: none;
+  background: linear-gradient(90deg, #1e293b, #334155);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.eq-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #38bdf8;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.eq-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.9);
+}
+
+.eq-presets-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+/* Presets Grid */
 .eq-presets-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 520px) {
+  .eq-presets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .eq-card {
   display: flex;
   flex-direction: column;
-  padding: 12px 16px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
   text-align: left;
   cursor: pointer;
-  transition: 0.18s;
+  transition: all 0.18s ease;
 }
 
 .eq-card:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.07);
 }
 
 .eq-card.active {
-  border-color: var(--accent);
-  background: rgba(0, 210, 255, 0.14);
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.16);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.2);
 }
 
 .eq-card strong {
-  font-size: 14.5px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
   margin-bottom: 2px;
 }
 
 .eq-card span {
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.3;
 }
 
 /* User Playlists List inside Dialog */
@@ -3686,9 +3923,19 @@ body {
   }
 
   .volume,
-  #queueToggleBtn,
-  #eqToggleBtn {
+  #queueToggleBtn {
     display: none;
+  }
+
+  #eqToggleBtn {
+    display: grid !important;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.25);
   }
 
   #expandPlayerBtn {

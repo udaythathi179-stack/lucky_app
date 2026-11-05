@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=45" />
+  <link rel="stylesheet" href="styles.css?v=46" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -347,7 +347,7 @@
         </svg>
       </button>
 
-      <button id="eqToggleBtn" class="icon-btn tool-btn" type="button" aria-label="Audio Equalizer" title="Equalizer Presets">
+      <button id="eqToggleBtn" class="icon-btn tool-btn" type="button" aria-label="Bass &amp; Vocal Band Equalizer" title="Bass &amp; Vocal Band (Adjust Bass &amp; Increase Vocal)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
           <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
@@ -479,9 +479,13 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" /></svg>
               <span>Add to Playlist</span>
             </button>
-            <button id="expEqBtn" class="pill-btn" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14" /><circle cx="4" cy="12" r="2" /></svg>
-              <span id="expEqName">EQ: Normal</span>
+            <button id="expEqBtn" class="pill-btn" type="button" title="Bass &amp; Vocal Band: Adjust bass and increase vocal in real time">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14" /><circle cx="4" cy="12" r="2" />
+                <line x1="12" y1="21" x2="12" y2="8" /><circle cx="12" cy="6" r="2" />
+                <line x1="20" y1="21" x2="20" y2="16" /><circle cx="20" cy="14" r="2" />
+              </svg>
+              <span id="expEqName">🎛️ Bass &amp; Vocal Band</span>
             </button>
           </div>
         </div>
@@ -550,36 +554,119 @@
     </div>
   </div>
 
-  <!-- Audio Equalizer Modal -->
+  <!-- Audio Equalizer & Bass/Vocal Band Modal -->
   <div class="modal-backdrop" id="eqModal" hidden>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="eqTitle">
-      <h2 id="eqTitle">Audio Equalizer &amp; Sound Presets</h2>
-      <p class="modal-sub">Tune your audio output with real-time frequency filters</p>
+    <div class="modal eq-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="eqTitle">
+      <div class="modal-header-row">
+        <div class="modal-header-info">
+          <div class="modal-title-wrap">
+            <span class="modal-title-icon" aria-hidden="true">🎛️</span>
+            <h2 id="eqTitle">Bass &amp; Vocal Band</h2>
+          </div>
+          <p class="modal-sub" id="eqModalSub">Fine-tune bass thump and vocal clarity in real time while listening</p>
+        </div>
+        <button type="button" class="icon-close" id="closeEqXBtn" aria-label="Close Equalizer">&times;</button>
+      </div>
 
+      <!-- Live Track Playing Indicator Banner -->
+      <div class="eq-live-indicator" id="eqLiveTrackBadge">
+        <div class="eq-pulse-dot"></div>
+        <span class="eq-live-text" id="eqLiveTrackText">Tuning currently playing song in real time</span>
+      </div>
+
+      <!-- Real-Time Band Sliders -->
+      <div class="eq-bands-section">
+        <!-- 1. Bass Band Slider -->
+        <div class="eq-band-card" data-band="bass">
+          <div class="eq-band-header">
+            <div class="eq-band-title">
+              <span class="eq-band-emoji">💥</span>
+              <div>
+                <strong>Bass Band</strong>
+                <span class="eq-band-desc">Low-end punch, 808s &amp; deep kicks (160 Hz)</span>
+              </div>
+            </div>
+            <span id="eqBassVal" class="eq-band-badge">0 dB</span>
+          </div>
+          <div class="eq-slider-row">
+            <button type="button" class="eq-step-btn" data-target="eqBass" data-step="-1" title="Decrease Bass (1 dB)">−</button>
+            <input id="eqBassSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Adjust Bass" />
+            <button type="button" class="eq-step-btn" data-target="eqBass" data-step="1" title="Increase Bass (1 dB)">+</button>
+          </div>
+        </div>
+
+        <!-- 2. Vocal Band Slider -->
+        <div class="eq-band-card" data-band="vocal">
+          <div class="eq-band-header">
+            <div class="eq-band-title">
+              <span class="eq-band-emoji">🎤</span>
+              <div>
+                <strong>Vocal Boost</strong>
+                <span class="eq-band-desc">Singer presence, lyrics &amp; voice clarity (2.2 kHz)</span>
+              </div>
+            </div>
+            <span id="eqVocalVal" class="eq-band-badge">0 dB</span>
+          </div>
+          <div class="eq-slider-row">
+            <button type="button" class="eq-step-btn" data-target="eqVocal" data-step="-1" title="Decrease Vocal (1 dB)">−</button>
+            <input id="eqVocalSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Increase Vocal" />
+            <button type="button" class="eq-step-btn" data-target="eqVocal" data-step="1" title="Increase Vocal (1 dB)">+</button>
+          </div>
+        </div>
+
+        <!-- 3. Treble Band Slider -->
+        <div class="eq-band-card" data-band="treble">
+          <div class="eq-band-header">
+            <div class="eq-band-title">
+              <span class="eq-band-emoji">✨</span>
+              <div>
+                <strong>Treble &amp; Air</strong>
+                <span class="eq-band-desc">Acoustic sparkle, brightness &amp; highs (4.5 kHz)</span>
+              </div>
+            </div>
+            <span id="eqTrebleVal" class="eq-band-badge">0 dB</span>
+          </div>
+          <div class="eq-slider-row">
+            <button type="button" class="eq-step-btn" data-target="eqTreble" data-step="-1" title="Decrease Treble (1 dB)">−</button>
+            <input id="eqTrebleSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Adjust Treble" />
+            <button type="button" class="eq-step-btn" data-target="eqTreble" data-step="1" title="Increase Treble (1 dB)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick 1-Tap Presets -->
+      <div class="eq-presets-head">
+        <span class="field-label" style="margin-bottom: 0;">Quick Sound Presets</span>
+      </div>
       <div class="eq-presets-grid" id="eqPresets">
         <button type="button" class="eq-card active" data-preset="normal">
-          <strong>Normal / Flat</strong>
-          <span>Neutral studio master sound</span>
+          <strong>Normal / Flat 🎵</strong>
+          <span>Studio master original (0 dB)</span>
         </button>
         <button type="button" class="eq-card" data-preset="bass">
-          <strong>Bass Boost 💥</strong>
-          <span>Punchy low-end punch for beats</span>
+          <strong>Heavy Bass 💥</strong>
+          <span>+10 dB bass boost for thump</span>
         </button>
         <button type="button" class="eq-card" data-preset="vocal">
-          <strong>Vocal Clarity 🎤</strong>
-          <span>Clear vocals and melodic resonance</span>
+          <strong>Vocal Boost 🎤</strong>
+          <span>+9 dB vocal clarity for singing</span>
         </button>
-        <button type="button" class="eq-card" data-preset="treble">
-          <strong>Treble Boost ✨</strong>
-          <span>Crisp highs and acoustic brightness</span>
+        <button type="button" class="eq-card" data-preset="bass_vocal">
+          <strong>Bass + Vocal 🚀</strong>
+          <span>Punchy bass &amp; prominent voice</span>
         </button>
         <button type="button" class="eq-card" data-preset="party">
           <strong>Party Dynamic 🎧</strong>
-          <span>Enhanced bass and high-energy spectrum</span>
+          <span>Club energy &amp; full spectrum</span>
+        </button>
+        <button type="button" class="eq-card" data-preset="treble">
+          <strong>Treble Bright ✨</strong>
+          <span>Crisp acoustic highs</span>
         </button>
       </div>
 
-      <div class="modal-actions">
+      <div class="modal-actions" style="margin-top: 20px; justify-content: space-between;">
+        <button type="button" class="ghost-btn" id="resetEqBtn" title="Reset all bands to flat (0 dB)">Reset to Flat</button>
         <button type="button" class="primary-btn" id="closeEqBtn">Done</button>
       </div>
     </div>
@@ -1101,7 +1188,7 @@
     </aside>
   </div>
 
-  <script src="app.js?v=48"></script>
+  <script src="app.js?v=49"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
