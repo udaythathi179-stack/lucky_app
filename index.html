@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=50" />
+  <link rel="stylesheet" href="styles.css?v=52" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -33,20 +33,102 @@
   <div class="glow glow-a" id="glowA"></div>
   <div class="glow glow-b" id="glowB"></div>
 
-  <!-- Top Navigation Bar -->
+  <!-- Screenshot 1: User Profile & Navigation Drawer -->
+  <div id="profileDrawerBackdrop" class="profile-drawer-backdrop" hidden></div>
+  <aside id="profileDrawer" class="profile-drawer" role="dialog" aria-modal="true" aria-label="Profile and Settings" hidden>
+    <div class="profile-drawer-content">
+      <!-- Profile Header Row (Screenshot 1) -->
+      <div class="p-drawer-profile-card">
+        <div class="p-drawer-avatar-wrap">
+          <img class="p-drawer-avatar" src="images/avatar-uday.jpg" alt="uday" onerror="this.onerror=null; this.src='icon-192.png';" />
+        </div>
+        <div class="p-drawer-info">
+          <h2 class="p-drawer-name" id="pDrawerUserName">uday</h2>
+          <button type="button" class="p-drawer-view-profile-btn" id="pDrawerViewProfileBtn">View profile</button>
+        </div>
+      </div>
+
+      <!-- Add Account Button (Screenshot 1) -->
+      <button type="button" class="p-drawer-add-account-btn" id="pDrawerAddAccountBtn">
+        <div class="p-drawer-add-icon-circle">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+        <span class="p-drawer-add-text">Add account</span>
+      </button>
+
+      <div class="p-drawer-divider"></div>
+
+      <!-- Nav Menu Items (Screenshot 1) -->
+      <nav class="p-drawer-nav">
+        <!-- Recents -->
+        <button type="button" class="p-drawer-item" id="pDrawerRecentsBtn">
+          <div class="p-drawer-item-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <span class="p-drawer-item-label">Recents</span>
+        </button>
+
+        <!-- Your Updates -->
+        <button type="button" class="p-drawer-item" id="pDrawerUpdatesBtn">
+          <div class="p-drawer-item-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </div>
+          <span class="p-drawer-item-label">Your Updates</span>
+        </button>
+
+        <!-- Settings and privacy -->
+        <button type="button" class="p-drawer-item" id="pDrawerSettingsBtn">
+          <div class="p-drawer-item-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <span class="p-drawer-item-label">Settings and privacy</span>
+        </button>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Top Navigation Bar (Screenshot 2) -->
   <header class="topbar">
     <div class="top-left-group">
-      <!-- Artist Menu Option (Top Left Corner) -->
+      <!-- Spotify-Style Profile Avatar (Screenshot 2: Top Left) -->
+      <button id="profileDrawerBtn" class="topbar-avatar-btn" type="button" aria-label="Open uday profile drawer" title="uday (View profile & settings)">
+        <img class="topbar-avatar-img" src="images/avatar-uday.jpg" alt="uday" onerror="this.onerror=null; this.src='icon-192.png';" />
+      </button>
+
+      <!-- Category Filter Chips (Screenshot 2: All, Music, Podcasts + quick categories) -->
+      <div class="topbar-chips-scroll" id="topbarChipsScroll">
+        <button class="chip active" data-filter="All" type="button">All</button>
+        <button class="chip" data-filter="Music" type="button">Music</button>
+        <button class="chip" data-filter="Podcasts" type="button">Podcasts</button>
+        <button class="chip" data-filter="Telugu" type="button">Telugu</button>
+        <button class="chip" data-filter="Hindi" type="button">Hindi</button>
+        <button class="chip" data-filter="Folk" type="button">Folk</button>
+        <button class="chip" data-filter="Favorites" type="button"><span class="heart-symbol">&#9829;</span> Liked</button>
+        <button class="chip" data-filter="Playlists" type="button"><span>&#9776;</span> Playlists</button>
+      </div>
+
+      <!-- Artist Menu Option (Secondary trigger) -->
       <button id="universeMenuBtn" class="universe-menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Artist Menu (Explore Singers)">
         <span class="universe-btn-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </span>
-        <span class="universe-btn-text">Artist Menu</span>
-        <svg class="universe-btn-arrow" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        <span class="universe-btn-text">Singers</span>
       </button>
 
       <div class="brand" role="banner" id="brandHome" title="Tuneus Music Home">
@@ -142,33 +224,44 @@
     </div>
 
 
-    <!-- Home Dashboard (Spotify ordered layout: Quick Access, Spotlight, Jump back in, Universe) -->
+    <!-- Home Dashboard (Spotify-identical ordered layout matching Screenshot 2) -->
     <div id="homeDashboard" class="home-dashboard">
-      <!-- Recent Songs Grid (History of up to 10 songs) -->
+      <!-- Quick Jump Grid (Screenshot 2: 2-column compact cards with artwork + title + eq bars) -->
       <section class="quick-jump-section">
-        <div class="section-title-row">
-          <h2 class="section-heading-sm">Recent Songs</h2>
-        </div>
         <div class="quick-jump-grid" id="quickJumpGrid">
-          <!-- Dynamically populated with 10 recent song cards -->
+          <!-- Dynamically populated with 2-column compact cards matching Screenshot 2 -->
         </div>
       </section>
 
-      <!-- Jump Back In Section (Horizontal Scroll of Square Cards) -->
+      <!-- Section 1: Recommended for today (Screenshot 2) -->
       <section class="home-shelf-section">
         <div class="shelf-head">
           <div>
-            <h2>Jump back in</h2>
-            <p>Trending studio master hits picked for you</p>
+            <h2>Recommended for today</h2>
+            <p>Fresh studio masters &amp; blockbuster chartbusters curated for you</p>
           </div>
-          <span class="shelf-pill-tag">✨ Trending</span>
+          <span class="shelf-pill-tag">✨ Daily Mix</span>
         </div>
-        <div class="horizontal-scroll-shelf" id="jumpBackShelf">
-          <!-- Populated with square artwork cards -->
+        <div class="horizontal-scroll-shelf" id="recommendedShelf">
+          <!-- Populated with Recommended cards (Boom Boom, AGR, Srivalli, Kesariya, etc.) -->
         </div>
       </section>
 
-      <!-- Popular Artists & Legendary Singers Section -->
+      <!-- Section 2: Albums featuring songs you like (Screenshot 2) -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>Albums featuring songs you like</h2>
+            <p>Blockbuster original soundtracks &amp; acclaimed compositions</p>
+          </div>
+          <span class="shelf-pill-tag">💿 Albums</span>
+        </div>
+        <div class="horizontal-scroll-shelf" id="albumsShelf">
+          <!-- Populated with Album cards (Vikramasimha, Chhaava, Pushpa 2, Devara, etc.) -->
+        </div>
+      </section>
+
+      <!-- Section 3: Popular Artists & Legendary Singers (Featured Circular Avatars) -->
       <section class="home-shelf-section artists-shelf-section">
         <div class="shelf-head">
           <div>
@@ -178,11 +271,53 @@
           <button type="button" class="shelf-see-all" id="seeAllArtistsBtn">Explore All &rarr;</button>
         </div>
         <div class="horizontal-scroll-shelf artists-horizontal-shelf" id="homeArtistsShelf">
-          <!-- Dynamically populated with artist avatar circles -->
+          <!-- Populated with circular artist avatars -->
         </div>
       </section>
 
-      <!-- Folk & Cultural Hits Section -->
+      <!-- Section 4: Jump back in (Trending Master Tracks) -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>Jump back in</h2>
+            <p>Trending studio master hits picked for you</p>
+          </div>
+          <span class="shelf-pill-tag">🔥 Trending</span>
+        </div>
+        <div class="horizontal-scroll-shelf" id="jumpBackShelf">
+          <!-- Populated with trending square cards -->
+        </div>
+      </section>
+
+      <!-- Section 5: Tollywood Blockbusters -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>🎬 Tollywood Blockbusters</h2>
+            <p>Mass anthems, melody chartbusters &amp; legendary Telugu hits</p>
+          </div>
+          <button type="button" class="shelf-see-all" data-filter-target="Telugu">See all &rarr;</button>
+        </div>
+        <div class="horizontal-scroll-shelf" id="teluguShelf">
+          <!-- Populated with Telugu cards -->
+        </div>
+      </section>
+
+      <!-- Section 6: Bollywood Melodies -->
+      <section class="home-shelf-section">
+        <div class="shelf-head">
+          <div>
+            <h2>✨ Bollywood Melodies</h2>
+            <p>Soulful romantic tracks &amp; iconic timeless Hindi classics</p>
+          </div>
+          <button type="button" class="shelf-see-all" data-filter-target="Hindi">See all &rarr;</button>
+        </div>
+        <div class="horizontal-scroll-shelf" id="hindiShelf">
+          <!-- Populated with Hindi cards -->
+        </div>
+      </section>
+
+      <!-- Section 7: Folk & Cultural Masterpieces -->
       <section class="home-shelf-section">
         <div class="shelf-head">
           <div>
@@ -245,6 +380,57 @@
         <span><i class="dot hindi"></i>Bollywood</span>
         <span><i class="dot english"></i>English</span>
         <span><i class="dot favorite"></i>Liked</span>
+      </div>
+    </section>
+
+    <!-- Dedicated Artist Discography Hero Banner -->
+    <section id="artistHeroSection" class="artist-hero-section" hidden>
+      <div class="artist-hero-backdrop" id="artistHeroBackdrop"></div>
+      <div class="artist-hero-container">
+        <div class="artist-hero-top-nav">
+          <button type="button" id="artistBackBtn" class="artist-back-btn" title="Back to All Artists and Shelves">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Home</span>
+          </button>
+          <span class="artist-discography-title">Artist Discography</span>
+        </div>
+
+        <div class="artist-hero-main">
+          <div class="artist-hero-avatar-wrap">
+            <img id="artistHeroAvatar" class="artist-hero-avatar" src="" alt="Artist" onerror="this.onerror=null; this.src='icon-192.png';" />
+            <div class="artist-hero-verified-badge" title="Verified Artist">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#38bdf8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+          </div>
+
+          <div class="artist-hero-meta">
+            <div class="artist-hero-badge-row">
+              <span class="artist-verified-pill">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Verified Artist
+              </span>
+              <span id="artistHeroGenre" class="artist-hero-tag">Playback Singer</span>
+            </div>
+            <h1 id="artistHeroName" class="artist-hero-name">Artist Name</h1>
+            <p id="artistHeroBio" class="artist-hero-bio">Listen to all hit songs</p>
+            <div class="artist-hero-actions">
+              <button type="button" id="artistPlayAllBtn" class="artist-cta-play">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                <span>Play All Songs</span>
+              </button>
+              <button type="button" id="artistShuffleBtn" class="artist-cta-shuffle" title="Shuffle Artist Songs">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line>
+                </svg>
+                <span>Shuffle</span>
+              </button>
+              <span id="artistSongCountBadge" class="artist-count-pill">0 songs</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -364,6 +550,148 @@
       </button>
     </div>
   </footer>
+
+  <!-- Floating Spotify-Style Docked Mini Player (Screenshot 2) -->
+  <div class="spotify-floating-player" id="floatingMiniPlayer" data-empty="true">
+    <div class="s-player-progress-bar" id="floatingProgressBar"></div>
+    <div class="s-player-main" id="floatingPlayerBody" role="button" tabindex="0" title="Tap to expand player (F)">
+      <div class="s-player-art" id="floatingArt">&#9834;</div>
+      <div class="s-player-text">
+        <strong id="floatingTitle">Select a track</strong>
+        <span id="floatingArtist">Tuneus Cosmic Master</span>
+      </div>
+    </div>
+    <div class="s-player-actions">
+      <!-- Cast / Device / Equalizer icon -->
+      <button type="button" class="s-action-btn" id="floatingEqBtn" title="Bass &amp; Vocal Band Equalizer">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line>
+          <line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line>
+          <circle cx="4" cy="12" r="2"></circle><circle cx="12" cy="10" r="2"></circle><circle cx="20" cy="14" r="2"></circle>
+        </svg>
+      </button>
+      <!-- "+" Add to Playlist icon -->
+      <button type="button" class="s-action-btn" id="floatingAddBtn" title="Add to Playlist">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="9"></circle>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </button>
+      <!-- Play / Pause icon -->
+      <button type="button" class="s-action-btn s-play-btn" id="floatingPlayBtn" title="Play / Pause (Space)">
+        <svg class="s-i-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="s-i-pause" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="7" y="5" width="3.6" height="14" rx="1.2"/><rect x="13.4" y="5" width="3.6" height="14" rx="1.2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar (5 tabs with labels, Screenshot 2 & 3) -->
+  <nav class="spotify-bottom-nav" id="mobileBottomNav" aria-label="Main Navigation">
+    <!-- Home Tab -->
+    <button type="button" class="s-nav-item active" id="tabHome">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+      <span>Home</span>
+    </button>
+
+    <!-- Search Tab -->
+    <button type="button" class="s-nav-item" id="tabSearch">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <span>Search</span>
+    </button>
+
+    <!-- Your Library Tab -->
+    <button type="button" class="s-nav-item" id="tabLibrary">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        <line x1="8" y1="7" x2="16" y2="7"/>
+        <line x1="8" y1="11" x2="13" y2="11"/>
+      </svg>
+      <span>Your Library</span>
+    </button>
+
+    <!-- Equalizer / Premium Tab -->
+    <button type="button" class="s-nav-item" id="tabEqualizer">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+      <span>Equalizer</span>
+    </button>
+
+    <!-- Create Tab (Screenshot 2 & 3) -->
+    <button type="button" class="s-nav-item s-nav-create" id="tabCreate">
+      <div class="s-create-icon-wrap" id="createNavIconWrap">
+        <svg class="s-create-plus" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <svg class="s-create-close" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </div>
+      <span>Create</span>
+    </button>
+  </nav>
+
+  <!-- "+ Create" Bottom Sheet Modal (Screenshot 3) -->
+  <div id="createSheetBackdrop" class="create-sheet-backdrop" hidden></div>
+  <div id="createBottomSheet" class="create-bottom-sheet" role="dialog" aria-modal="true" aria-label="Create new playlist or blend" hidden>
+    <div class="create-sheet-handle"></div>
+    <div class="create-sheet-items">
+      <!-- 1. Playlist -->
+      <button type="button" class="create-sheet-item" id="createSheetPlaylistBtn">
+        <div class="cs-item-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+        </div>
+        <div class="cs-item-text">
+          <strong class="cs-item-title">Playlist</strong>
+          <span class="cs-item-sub">Create a playlist with songs or episodes</span>
+        </div>
+      </button>
+
+      <!-- 2. Collaborative playlist -->
+      <button type="button" class="create-sheet-item" id="createSheetCollabBtn">
+        <div class="cs-item-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div class="cs-item-text">
+          <strong class="cs-item-title">Collaborative playlist</strong>
+          <span class="cs-item-sub">Create a playlist together with friends</span>
+        </div>
+      </button>
+
+      <!-- 3. Blend -->
+      <button type="button" class="create-sheet-item" id="createSheetBlendBtn">
+        <div class="cs-item-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <circle cx="9" cy="12" r="5" fill-opacity="0.6"/>
+            <circle cx="15" cy="12" r="5" fill-opacity="0.9"/>
+          </svg>
+        </div>
+        <div class="cs-item-text">
+          <strong class="cs-item-title">Blend</strong>
+          <span class="cs-item-sub">Combine your friends' tastes into a playlist</span>
+        </div>
+      </button>
+    </div>
+  </div>
 
   <!-- Up Next Queue Drawer -->
   <aside id="queueDrawer" class="queue-drawer" aria-label="Up Next playing queue" hidden>
@@ -1188,7 +1516,8 @@
     </aside>
   </div>
 
-  <script src="app.js?v=53"></script>
+  <script src="data/artistCuratedTracks.js?v=2"></script>
+  <script src="app.js?v=55"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

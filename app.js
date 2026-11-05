@@ -1259,6 +1259,8 @@ function findTrackById(id) {
   if (local) return local;
   const recent = (state.recentTracks || []).find((t) => t && t.id === id);
   if (recent) return recent;
+  const rec = (typeof RECOMMENDED_TODAY !== 'undefined' ? RECOMMENDED_TODAY : []).find((t) => t && t.id === id);
+  if (rec) return rec;
   const online = state.onlineTracks.find((t) => t.id === id);
   if (online) return online;
   const offline = downloadRecordFor(id);
@@ -1779,6 +1781,9 @@ function startVisualizerLoop() {
 
 // Filter and Sort Tracks
 function visibleTracks() {
+  if (state.activeArtist) {
+    return state.onlineTracks;
+  }
   if (state.onlineSearch) {
     return state.onlineTracks;
   }
@@ -1791,7 +1796,11 @@ function visibleTracks() {
   } else {
     list = state.tracks.slice();
 
-    if (state.filter === 'Telugu') {
+    if (state.filter === 'Music') {
+      list = list.filter((t) => t.category !== 'Podcasts');
+    } else if (state.filter === 'Podcasts') {
+      list = list.filter((t) => t.category === 'Podcasts' || (t.movie && t.movie.toLowerCase().includes('podcast')) || (t.title && t.title.toLowerCase().includes('podcast')));
+    } else if (state.filter === 'Telugu') {
       list = list.filter((t) => t.language === 'Telugu');
     } else if (state.filter === 'Hindi') {
       list = list.filter((t) => t.language === 'Hindi');
@@ -2001,12 +2010,16 @@ function renderRecentGrid() {
   quickGrid.innerHTML = displayTracks.map((t) => {
     const art = t.artwork || 'icon-192.png';
     const artistName = t.artist || t.movie || 'Tuneus Master';
+    const isPlaying = state.current && state.current.id === t.id && state.playing;
     return `
-      <div class="quick-jump-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)} by ${esc(artistName)}">
-        <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.src='icon-192.png'" />
+      <div class="quick-jump-card ${isPlaying ? 'is-playing' : ''}" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)} by ${esc(artistName)}">
+        <img class="quick-jump-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png'" />
         <div class="quick-jump-info">
           <span class="quick-jump-title">${esc(t.title)}</span>
           <span class="quick-jump-artist">${esc(artistName)}</span>
+        </div>
+        <div class="qj-eq-bars" aria-hidden="true">
+          <span></span><span></span><span></span>
         </div>
         <div class="quick-jump-play" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -2070,14 +2083,262 @@ function addToRecentHistory(track) {
   renderRecentGrid();
 }
 
+// ==========================================================================
+// Spotify Home Shelves Data (Screenshot 2: Recommended for today & Albums featuring)
+// ==========================================================================
+const RECOMMENDED_TODAY = [
+  {
+    id: "rec-agr",
+    title: "AGR (Original Motion Picture Soundtrack)",
+    artist: "A.R. Rahman",
+    badge: "EP",
+    movie: "Pathu Thala (AGR)",
+    year: 2023,
+    language: "Tamil",
+    category: "Soundtrack",
+    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
+    artwork: "images/cover-agr.jpg",
+    duration: 254
+  },
+  {
+    id: "rec-boomboom",
+    title: 'Boom Boom [From "Dude (Telugu)"]',
+    artist: "Sai Abhyankkar, Bhumi, Sanjana",
+    badge: "Single",
+    movie: "Dude",
+    year: 2024,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/252/c086f0cf5ab8996412d8d60f52bd059b_320.mp4",
+    artwork: "images/cover-boomboom.jpg",
+    duration: 218
+  },
+  {
+    id: "rec-magadheera",
+    title: "Magadheera",
+    artist: "M. M. Keeravaani",
+    badge: "EP",
+    movie: "Magadheera",
+    year: 2009,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
+    artwork: "https://c.saavncdn.com/483/Aadavari-Matalaku-Ardhalu-Veruley-2007-500x500.jpg",
+    duration: 268
+  },
+  {
+    id: "rec-kesariya",
+    title: "Kesariya",
+    artist: "Arijit Singh, Pritam",
+    badge: "Single",
+    movie: "Brahmastra",
+    year: 2022,
+    language: "Hindi",
+    category: "Hindi",
+    src: "https://aac.saavncdn.com/274/3b9b4a4cbcfc28059c25aa2b4dc21d51_320.mp4",
+    artwork: "https://c.saavncdn.com/274/Brahmastra-Hindi-2022-20220717092820-500x500.jpg",
+    duration: 268
+  },
+  {
+    id: "rec-srivalli",
+    title: "Srivalli",
+    artist: "Sid Sriram, Devi Sri Prasad",
+    badge: "Single",
+    movie: "Pushpa - The Rise",
+    year: 2021,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/056/9b4eb9d1366b266ce29037ab66d9fb7d_320.mp4",
+    artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
+    duration: 221
+  },
+  {
+    id: "rec-ramuloo",
+    title: "Ramuloo Ramulaa",
+    artist: "Anurag Kulkarni, Mangli",
+    badge: "Single",
+    movie: "Ala Vaikunthapurramuloo",
+    year: 2020,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/517/a3f65fe3623cb49a42f567fbf91ee7b6_320.mp4",
+    artwork: "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
+    duration: 271
+  },
+  {
+    id: "rec-saranga",
+    title: "Saranga Dariya",
+    artist: "Mangli",
+    badge: "Single",
+    movie: "Love Story",
+    year: 2021,
+    language: "Telugu",
+    category: "Folk",
+    src: "https://aac.saavncdn.com/978/6a92b234ebdc50d5345719ea45187768_320.mp4",
+    artwork: "https://c.saavncdn.com/978/Love-Story-Telugu-2021-20210924151740-500x500.jpg",
+    duration: 229
+  },
+  {
+    id: "rec-fear-song",
+    title: "Fear Song",
+    artist: "Anirudh Ravichander",
+    badge: "Single",
+    movie: "Devara Part 1",
+    year: 2024,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
+    artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
+    duration: 194
+  },
+  {
+    id: "rec-pushpa2",
+    title: "Pushpa Pushpa",
+    artist: "Nakash Aziz, Devi Sri Prasad",
+    badge: "Single",
+    movie: "Pushpa 2: The Rule",
+    year: 2024,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
+    artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
+    duration: 254
+  },
+  {
+    id: "rec-chitti",
+    title: "Chitti",
+    artist: "Ram Miriyala",
+    badge: "Single",
+    movie: "Jathi Ratnalu",
+    year: 2021,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/001/Chitti-From-Jathi-Ratnalu-Telugu-2021-20210111162402-500x500.jpg",
+    artwork: "https://c.saavncdn.com/001/Chitti-From-Jathi-Ratnalu-Telugu-2021-20210111162402-500x500.jpg",
+    duration: 184
+  }
+];
+
+const ALBUMS_FEATURING = [
+  {
+    id: "alb-vikramasimha",
+    title: "Vikramasimha",
+    artist: "A.R. Rahman, Rajinikanth",
+    badge: "Album",
+    artwork: "images/cover-vikramasimha.jpg",
+    query: "Vikramasimha"
+  },
+  {
+    id: "alb-chhaava",
+    title: "Chhaava",
+    artist: "A.R. Rahman",
+    badge: "Album",
+    artwork: "images/cover-chhaava.jpg",
+    query: "Chhaava"
+  },
+  {
+    id: "alb-hanuman",
+    title: "Shree Hanuman Chalisa",
+    artist: "Hariharan, Gulshan Kumar",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/798/Shree-Hanuman-Chalisa-Hanuman-Ashtak-Hindi-1992-20240924151740-500x500.jpg",
+    query: "Hanuman Chalisa Hariharan"
+  },
+  {
+    id: "alb-pushpa2",
+    title: "Pushpa 2: The Rule",
+    artist: "Devi Sri Prasad",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
+    query: "Pushpa 2"
+  },
+  {
+    id: "alb-devara",
+    title: "Devara Part 1",
+    artist: "Anirudh Ravichander",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
+    query: "Devara"
+  },
+  {
+    id: "alb-alavp",
+    title: "Ala Vaikunthapurramuloo",
+    artist: "Thaman S",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
+    query: "Ala Vaikunthapurramuloo"
+  },
+  {
+    id: "alb-animal",
+    title: "Animal",
+    artist: "Pritam, Harshavardhan Rameshwar",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/092/ANIMAL-Hindi-2023-20260724191152-500x500.jpg",
+    query: "Animal"
+  },
+  {
+    id: "alb-kalki",
+    title: "Kalki 2898 AD",
+    artist: "Santhosh Narayanan",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/000/Guntur-Kaaram-Telugu-2023-20240126145901-500x500.jpg",
+    query: "Kalki 2898 AD"
+  },
+  {
+    id: "alb-guntur",
+    title: "Guntur Kaaram",
+    artist: "Thaman S",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/000/Guntur-Kaaram-Telugu-2023-20240126145901-500x500.jpg",
+    query: "Guntur Kaaram"
+  },
+  {
+    id: "alb-bahubali",
+    title: "Bahubali: The Beginning",
+    artist: "M. M. Keeravaani",
+    badge: "Album",
+    artwork: "https://c.saavncdn.com/483/Aadavari-Matalaku-Ardhalu-Veruley-2007-500x500.jpg",
+    query: "Bahubali"
+  }
+];
+
+async function playAndShowAlbum(albumTitle, query) {
+  const q = query || albumTitle;
+  toast(`Opening album: ${albumTitle}...`);
+  const cleanTitle = albumTitle.toLowerCase().trim();
+  const localMatches = state.tracks.filter((t) => {
+    const m = (t.movie || '').toLowerCase();
+    const tit = (t.title || '').toLowerCase();
+    return m.includes(cleanTitle) || cleanTitle.includes(m) || tit.includes(cleanTitle);
+  });
+
+  state.activeArtist = null;
+  state.activePlaylistId = null;
+  state.onlineSearch = true;
+  state.query = albumTitle;
+  const searchInput = el('search');
+  if (searchInput) searchInput.value = albumTitle;
+  const clearBtn = el('clearSearch');
+  if (clearBtn) clearBtn.hidden = false;
+
+  if (localMatches.length > 0) {
+    state.onlineTracks = localMatches;
+    render();
+    playTrack(localMatches[0]);
+  } else {
+    searchOnlineCatalog(q);
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 let homeDashboardRendered = false;
 
 // Render Spotify-Style Home Dashboard (Rendered once on startup for maximum speed)
 function renderHomeDashboard() {
-  // 1. Recent Songs Grid (Up to 9 recent tracks)
+  // 1. Recent Songs Grid (10 equal sized cards matching Screenshot 2)
   renderRecentGrid();
 
-  // Helper for rendering horizontal shelves
+  // Helper for rendering standard horizontal shelves
   function renderShelf(containerId, tracks) {
     const container = el(containerId);
     if (!container) return;
@@ -2087,7 +2348,7 @@ function renderHomeDashboard() {
       return `
         <div class="shelf-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
           <div class="shelf-art-wrap">
-            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" />
+            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
             <div class="shelf-play-floating" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
@@ -2099,7 +2360,60 @@ function renderHomeDashboard() {
     }).join('');
   }
 
-  // 2. Jump back in shelf (Diverse Trending Hits Across All Languages)
+  // 2. Recommended for today shelf (Screenshot 2: EP/Single badges, title, artist)
+  const recEl = el('recommendedShelf');
+  if (recEl) {
+    recEl.innerHTML = RECOMMENDED_TODAY.map((t) => {
+      const art = t.artwork || 'icon-192.png';
+      return `
+        <div class="shelf-card" data-action="play-track" data-id="${esc(t.id)}" role="button" tabindex="0" title="Play ${esc(t.title)}">
+          <div class="shelf-art-wrap">
+            <img class="shelf-art" src="${esc(art)}" alt="${esc(t.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
+            <div class="shelf-play-floating" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <span class="shelf-type-badge">${esc(t.badge || 'Single')}</span>
+          <span class="shelf-title">${esc(t.title)}</span>
+          <span class="shelf-subtitle">${esc(t.artist)}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 3. Albums featuring songs you like (Screenshot 2: Vikramasimha, Chhaava, etc.)
+  const albEl = el('albumsShelf');
+  if (albEl) {
+    albEl.innerHTML = ALBUMS_FEATURING.map((a) => `
+      <div class="shelf-card album-shelf-card" data-action="open-album" data-album="${esc(a.title)}" data-query="${esc(a.query || a.title)}" role="button" tabindex="0" title="Listen to ${esc(a.title)}">
+        <div class="shelf-art-wrap">
+          <img class="shelf-art" src="${esc(a.artwork)}" alt="${esc(a.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
+          <div class="shelf-play-floating" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <span class="shelf-type-badge">${esc(a.badge || 'Album')}</span>
+        <span class="shelf-title">${esc(a.title)}</span>
+        <span class="shelf-subtitle">${esc(a.artist)}</span>
+      </div>
+    `).join('');
+  }
+
+  // 4. Popular Artists Shelf (Circular Avatars)
+  const homeArtistsEl = el('homeArtistsShelf');
+  if (homeArtistsEl) {
+    homeArtistsEl.innerHTML = HOME_ARTISTS.map((artist) => `
+      <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" data-artist-name="${esc(artist.name)}" onclick="window.openArtistShelfSongs(this, event)" title="Listen to all songs by ${esc(artist.name)}">
+        <div class="artist-avatar-wrap">
+          <img class="artist-avatar-img" src="${esc(artist.img)}" alt="${esc(artist.name)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
+        </div>
+        <span class="artist-name">${esc(artist.name)}</span>
+        <span class="artist-genre">${esc(artist.tag)}</span>
+      </button>
+    `).join('');
+  }
+
+  // 5. Jump back in shelf (Diverse Trending Hits Across All Languages)
   const trendingIds = [
     'srivalli', 'kesariya', 'shape-of-you', 'samajavaragamana',
     'tum-hi-ho', 'believer', 'naatu-naatu', 'apna-bana-le',
@@ -2108,29 +2422,7 @@ function renderHomeDashboard() {
   const jumpBackTracks = trendingIds.map((id) => findTrackById(id)).filter(Boolean);
   renderShelf('jumpBackShelf', jumpBackTracks.length >= 8 ? jumpBackTracks : state.tracks.slice(0, 10));
 
-  // 3. Popular Artists Shelf (Circular Avatars)
-  const homeArtistsEl = el('homeArtistsShelf');
-  if (homeArtistsEl) {
-    homeArtistsEl.innerHTML = HOME_ARTISTS.map((artist) => `
-      <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" data-artist-name="${esc(artist.name)}" onclick="window.openArtistShelfSongs(this)" title="Listen to all songs by ${esc(artist.name)}">
-        <div class="artist-avatar-wrap">
-          <img class="artist-avatar-img" src="${esc(artist.img)}" alt="${esc(artist.name)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
-        </div>
-        <span class="artist-name">${esc(artist.name)}</span>
-        <span class="artist-genre">${esc(artist.tag)}</span>
-      </button>
-    `).join('');
-
-    homeArtistsEl.onclick = (e) => {
-      const card = e.target.closest('.artist-shelf-card');
-      if (!card) return;
-      const q = card.dataset.artistQuery;
-      const name = card.dataset.artistName || card.querySelector('.artist-name')?.textContent || q;
-      playAndShowArtist(name, q);
-    };
-  }
-
-  // 4. Folk Shelf (Authentic Roots & Rhythms)
+  // 6. Folk Shelf (Authentic Roots & Rhythms)
   const folkTracks = state.tracks.filter((t) => (
     t.language === 'Folk' ||
     (t.category && t.category.toLowerCase().includes('folk')) ||
@@ -2138,11 +2430,11 @@ function renderHomeDashboard() {
   ));
   renderShelf('folkShelf', folkTracks.slice(0, 10));
 
-  // 5. Telugu Shelf (Tollywood Blockbusters)
+  // 7. Telugu Shelf (Tollywood Blockbusters)
   const teluguTracks = state.tracks.filter((t) => t.language === 'Telugu');
   renderShelf('teluguShelf', teluguTracks.slice(0, 10));
 
-  // 6. Hindi Shelf (Bollywood Melodies)
+  // 8. Hindi Shelf (Bollywood Melodies)
   const hindiTracks = state.tracks.filter((t) => t.language === 'Hindi');
   renderShelf('hindiShelf', hindiTracks.slice(0, 10));
 }
@@ -2151,15 +2443,16 @@ function renderHomeDashboard() {
 function render() {
   renderChips();
 
-  const isPlaylistsFilter = state.filter === 'Playlists' && !state.activePlaylistId && !state.onlineSearch;
+  const isArtistView = Boolean(state.activeArtist);
+  const isPlaylistsFilter = state.filter === 'Playlists' && !state.activePlaylistId && !state.onlineSearch && !isArtistView;
   el('playlistsContainer').hidden = !isPlaylistsFilter;
   if (isPlaylistsFilter) renderPlaylistsGrid();
 
   const onlineBanner = el('onlineSearchBanner');
-  if (onlineBanner) onlineBanner.hidden = !state.onlineSearch;
+  if (onlineBanner) onlineBanner.hidden = !state.onlineSearch || isArtistView;
 
-  // Home Dashboard (Spotify ordered view: visible on All view without active search)
-  const isHomeView = state.filter === 'All' && !state.query && !state.onlineSearch;
+  // Home Dashboard (Spotify ordered view: visible on All / Music view without active search and without active artist)
+  const isHomeView = (state.filter === 'All' || state.filter === 'Music') && !state.query && !state.onlineSearch && !isArtistView;
   const homeDashboard = el('homeDashboard');
   if (homeDashboard) {
     homeDashboard.hidden = !isHomeView;
@@ -2173,12 +2466,17 @@ function render() {
     }
   }
 
+  const artistHero = el('artistHeroSection');
+  if (artistHero) {
+    artistHero.hidden = !isArtistView;
+  }
+
   const list = visibleTracks();
   el('songGrid').innerHTML = list.map(cardHTML).join('');
   el('emptyState').hidden = list.length > 0;
 
   const libHead = el('libraryHeaderSection');
-  if (libHead) libHead.hidden = Boolean(state.activeArtist);
+  if (libHead) libHead.hidden = isArtistView || isPlaylistsFilter || (!isHomeView && state.onlineSearch);
 
   let titleText = isHomeView ? 'Complete Song Library (Studio Master)' : 'Song library (Full Length)';
   if (state.onlineSearch) {
@@ -2296,6 +2594,36 @@ function renderPlayer() {
   el('repeatBtn').classList.toggle('repeat-one', state.repeat === 'one');
   el('expRepeatBtn').classList.toggle('is-on', isRepeat);
   el('expRepeatBtn').classList.toggle('repeat-one', state.repeat === 'one');
+
+  // Update floating Spotify mini player (Screenshot 2)
+  const floatPlayer = el('floatingMiniPlayer');
+  if (floatPlayer) {
+    floatPlayer.dataset.empty = track ? 'false' : 'true';
+    const fTitle = el('floatingTitle');
+    if (fTitle) fTitle.textContent = track ? track.title : 'Select a track';
+    const fArtist = el('floatingArtist');
+    if (fArtist) fArtist.textContent = track ? `${track.artist} \u00b7 ${track.movie || track.language || 'Tuneus'}` : 'Tuneus Cosmic Master';
+    const fArt = el('floatingArt');
+    if (fArt) {
+      if (track && track.artwork) {
+        fArt.style.backgroundImage = `url('${track.artwork}')`;
+        fArt.style.backgroundSize = 'cover';
+        fArt.innerHTML = '';
+      } else if (track) {
+        fArt.style.background = artStyle(track);
+        fArt.innerHTML = esc(initials(track.title));
+      } else {
+        fArt.style.backgroundImage = "url('logo.png')";
+        fArt.style.backgroundSize = 'cover';
+        fArt.innerHTML = '';
+      }
+    }
+    const fPlayBtn = el('floatingPlayBtn');
+    if (fPlayBtn) {
+      fPlayBtn.classList.toggle('is-playing', isPlaying);
+      fPlayBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
+    }
+  }
 }
 
 // Synchronize song card states
@@ -2333,6 +2661,8 @@ function updateProgress(current, duration) {
   expSeek.style.setProperty('--p', percent);
   const pb = el('playerProgressBar');
   if (pb) pb.style.width = percent;
+  const fpb = el('floatingProgressBar');
+  if (fpb) fpb.style.width = percent;
 }
 
 // Stop all playback
@@ -2675,19 +3005,30 @@ function matchesArtist(track, artistName, query = '') {
   if (target && (tArtist.includes(target) || target.includes(tArtist))) return true;
   if (qClean && (tArtist.includes(qClean) || qClean.includes(tArtist))) return true;
 
-  // Split tokens (e.g. "Balasubrahmanyam", "Arijit", "Sriram")
-  const parts = target.split(' ').filter((p) => p.length >= 3);
-  if (parts.length > 0 && parts.every((p) => tArtist.includes(p))) return true;
+  // Well-known artist aliases
+  const aliases = [
+    ['spb', 'balasubrahmanyam'],
+    ['dsp', 'devi sri prasad'],
+    ['chithra', 'ks chithra'],
+    ['chitra', 'ks chithra']
+  ];
+  for (const [k, v] of aliases) {
+    if ((target.includes(k) || target.includes(v)) && (tArtist.includes(k) || tArtist.includes(v))) return true;
+    if ((qClean.includes(k) || qClean.includes(v)) && (tArtist.includes(k) || tArtist.includes(v))) return true;
+  }
 
-  // Check query tokens (e.g. "Devi Sri Prasad" -> "devi", "sri", "prasad")
-  const qParts = qClean.split(' ').filter((p) => p.length >= 3);
-  if (qParts.length > 0 && qParts.every((p) => tArtist.includes(p))) return true;
+  // Token match (tokens with length >= 4)
+  const parts = target.split(' ').filter((p) => p.length >= 4);
+  if (parts.length > 0 && parts.some((p) => tArtist.includes(p))) return true;
+
+  const qParts = qClean.split(' ').filter((p) => p.length >= 4);
+  if (qParts.length > 0 && qParts.some((p) => tArtist.includes(p))) return true;
 
   return false;
 }
 
-// Open artist discography and display all songs sung by artist (without auto-playing)
-async function playAndShowArtist(artistName, query) {
+// Open dedicated artist discography and display all songs sung by artist
+async function openArtistHero(artistName, query) {
   const cleanName = (artistName || '').trim();
   const searchQuery = (query || cleanName).trim();
   if (!cleanName && !searchQuery) return;
@@ -2695,100 +3036,153 @@ async function playAndShowArtist(artistName, query) {
   // 1. Close menu drawer if open
   closeUniverseDrawer();
 
-  // 2. Update search bar
-  const searchInput = el('search');
-  if (searchInput) searchInput.value = cleanName || searchQuery;
-  const clearBtn = el('clearSearch');
-  if (clearBtn) clearBtn.hidden = false;
+  // 2. Find matching artist from HOME_ARTISTS
+  let artistData = HOME_ARTISTS.find((a) => {
+    const aLower = a.name.toLowerCase();
+    const cLower = cleanName.toLowerCase();
+    return aLower === cLower || aLower.includes(cLower) || cLower.includes(aLower);
+  });
 
-  // 3. Set state to artist discography mode
-  state.activeArtist = cleanName;
-  state.query = cleanName || searchQuery;
-  state.onlineSearch = true;
+  if (!artistData) {
+    artistData = {
+      name: cleanName,
+      tag: 'Playback Singer &bull; Hit Discography',
+      img: 'images/artists/sp-balasubrahmanyam.jpg',
+      query: searchQuery || cleanName
+    };
+  }
+
+  // Guard against rapid duplicate triggers
+  if (state.activeArtist === artistData.name && el('artistHeroSection') && !el('artistHeroSection').hidden) {
+    return;
+  }
+
+  // 3. Set application state to dedicated artist view
+  state.activeArtist = artistData.name;
+  state.query = '';
+  state.onlineSearch = false;
   state.activePlaylistId = null;
   state.filter = 'All';
 
-  // 4. Immediately find any matching songs in the local library
-  const localMatches = state.tracks.filter((t) => matchesArtist(t, cleanName, searchQuery));
+  // Clear search bar UI
+  const searchInput = el('search');
+  if (searchInput) searchInput.value = '';
+  const clearBtn = el('clearSearch');
+  if (clearBtn) clearBtn.hidden = true;
 
-  // Initialize onlineTracks with local songs so the user sees results instantly
-  state.onlineTracks = localMatches.slice();
+  // 4. Populate Artist Hero Banner UI
+  const heroSection = el('artistHeroSection');
+  const heroAvatar = el('artistHeroAvatar');
+  const heroBackdrop = el('artistHeroBackdrop');
+  const heroName = el('artistHeroName');
+  const heroBio = el('artistHeroBio');
+  const heroGenre = el('artistHeroGenre');
+  const songCountBadge = el('artistSongCountBadge');
 
-  // Hide home dashboard immediately so song grid is in view
-  const homeDashboard = el('homeDashboard');
-  if (homeDashboard) homeDashboard.hidden = true;
+  if (heroAvatar) heroAvatar.src = artistData.img || 'icon-192.png';
+  if (heroBackdrop) heroBackdrop.style.backgroundImage = `url('${artistData.img || 'icon-192.png'}')`;
+  if (heroName) heroName.textContent = artistData.name;
+  if (heroBio) heroBio.innerHTML = `Iconic studio master recordings &bull; ${artistData.tag}`;
+  if (heroGenre) heroGenre.textContent = artistData.tag.split('&bull;')[0]?.trim() || 'Legendary Singer';
 
-  // Render immediately
+  // 5. Gather songs: First pull pre-curated tracks + local library tracks
+  const curatedMap = window.ARTIST_CURATED_TRACKS || {};
+  const curated = (curatedMap[artistData.name] || []).slice();
+  const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name, artistData.query));
+  let initialTracks = deduplicateTrackList([...curated, ...localLibraryMatches]);
+
+  state.onlineTracks = initialTracks;
+  if (songCountBadge) songCountBadge.textContent = `${initialTracks.length} Songs`;
+
+  // Render immediately with instant curated songs
   render();
 
-  // If no local matches yet while fetching online catalog, show a loading placeholder in songGrid instead of "No songs found"
-  if (localMatches.length === 0) {
-    const grid = el('songGrid');
-    if (grid) {
-      grid.innerHTML = `
-        <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 16px; gap: 14px; color: #38bdf8;">
-          <div style="width: 32px; height: 32px; border: 3px solid rgba(56, 189, 248, 0.25); border-top-color: #38bdf8; border-radius: 50%; animation: spinVinyl 0.8s linear infinite;"></div>
-          <span style="font-size: 14.5px; font-weight: 600; color: #e2e8f0;">Loading songs by ${esc(cleanName)}...</span>
-        </div>
-      `;
-    }
-    const empty = el('emptyState');
-    if (empty) empty.hidden = true;
+  // Wire Hero Buttons
+  const playAllBtn = el('artistPlayAllBtn');
+  if (playAllBtn) {
+    playAllBtn.onclick = () => {
+      if (state.onlineTracks.length > 0) {
+        playTrack(state.onlineTracks[0]);
+        toast(`Playing all ${state.onlineTracks.length} songs by ${artistData.name}`);
+      }
+    };
   }
 
-  // Smooth scroll to top of song list
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  toast(`Showing all songs by ${cleanName}`);
+  const shuffleBtn = el('artistShuffleBtn');
+  if (shuffleBtn) {
+    shuffleBtn.onclick = () => {
+      if (state.onlineTracks.length > 0) {
+        const shuffled = state.onlineTracks.slice().sort(() => Math.random() - 0.5);
+        state.onlineTracks = shuffled;
+        render();
+        playTrack(shuffled[0]);
+        toast(`Shuffled songs by ${artistData.name}`);
+      }
+    };
+  }
 
-  // 5. Fetch complete songs from backend catalog (JioSaavn)
+  const backBtn = el('artistBackBtn');
+  if (backBtn) {
+    backBtn.onclick = () => {
+      closeArtistHero();
+    };
+  }
+
+  // Smooth scroll to top of artist view
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  toast(`Opened ${artistData.name} (${initialTracks.length} songs)`);
+
+  // 6. Concurrently augment with online JioSaavn search catalog if server is reachable
   try {
     const qQuality = state.streamingQuality || '96';
-    const primaryQuery = searchQuery || cleanName;
+    const primaryQuery = artistData.query || artistData.name;
     const res = await fetch(`/api/search?q=${encodeURIComponent(primaryQuery)}&quality=${qQuality}`);
     const data = await res.json();
     let onlineResults = (data.success && Array.isArray(data.results)) ? data.results : [];
 
-    // If query returned few results and clean name differs, fetch clean artist name too
-    if (onlineResults.length < 25 && cleanName && primaryQuery !== cleanName) {
-      try {
-        const res2 = await fetch(`/api/search?q=${encodeURIComponent(cleanName)}&quality=${qQuality}`);
-        const data2 = await res2.json();
-        if (data2.success && Array.isArray(data2.results) && data2.results.length > 0) {
-          onlineResults = [...onlineResults, ...data2.results];
-        }
-      } catch (e) {}
-    }
-
-    if (onlineResults.length > 0 || localMatches.length > 0) {
-      // Sort online results so songs explicitly sung by this artist are prioritized at the top
+    if (onlineResults.length > 0 && state.activeArtist === artistData.name) {
       onlineResults.sort((a, b) => {
-        const aMatch = matchesArtist(a, cleanName, searchQuery) ? 1 : 0;
-        const bMatch = matchesArtist(b, cleanName, searchQuery) ? 1 : 0;
+        const aMatch = matchesArtist(a, artistData.name, primaryQuery) ? 1 : 0;
+        const bMatch = matchesArtist(b, artistData.name, primaryQuery) ? 1 : 0;
         return bMatch - aMatch;
       });
 
-      const combined = deduplicateTrackList([...localMatches, ...onlineResults]);
-      state.onlineTracks = combined;
+      const merged = deduplicateTrackList([...initialTracks, ...onlineResults]);
+      state.onlineTracks = merged;
+      if (songCountBadge) songCountBadge.textContent = `${merged.length} Songs`;
+      render();
     }
   } catch (err) {
-    console.error('Error loading artist songs:', err);
-    if (localMatches.length === 0) {
-      toast(`Search server unavailable for ${cleanName}.`);
-    }
+    // Offline or server not active - perfectly fine since initialTracks are rich and instant!
   }
+}
 
-  // Re-render with full combined song list
+function closeArtistHero() {
+  state.activeArtist = null;
+  state.query = '';
+  state.onlineSearch = false;
+  state.activePlaylistId = null;
+  state.filter = 'All';
+  const hero = el('artistHeroSection');
+  if (hero) hero.hidden = true;
+  const searchInput = el('search');
+  if (searchInput) searchInput.value = '';
+  const clearBtn = el('clearSearch');
+  if (clearBtn) clearBtn.hidden = true;
   render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Global hook so any artist avatar card click in the Popular Artists shelf triggers reliably
-window.openArtistShelfSongs = function(card) {
+window.openArtistShelfSongs = function(card, event) {
+  if (event && event.stopPropagation) event.stopPropagation();
   if (!card) return;
   const q = card.dataset.artistQuery;
   const name = card.dataset.artistName || card.querySelector('.artist-name')?.textContent || q;
-  playAndShowArtist(name, q);
+  openArtistHero(name, q);
 };
-window.playAndShowArtist = playAndShowArtist;
+window.playAndShowArtist = openArtistHero;
+window.closeArtistHero = closeArtistHero;
 
 // Playlists Management
 function openNewPlaylistModal() {
@@ -3243,6 +3637,14 @@ function bindEvents() {
         return;
       }
 
+      const albumCard = event.target.closest('[data-action="open-album"]');
+      if (albumCard) {
+        const albumName = albumCard.dataset.album;
+        const albumQuery = albumCard.dataset.query;
+        playAndShowAlbum(albumName, albumQuery);
+        return;
+      }
+
       const seeAllBtn = event.target.closest('.shelf-see-all');
       if (seeAllBtn) {
         state.onlineSearch = false;
@@ -3279,21 +3681,32 @@ function bindEvents() {
     });
   }
 
-  // Mobile Bottom Navigation Dock interactions
+  // Mobile Bottom Navigation Dock interactions (Screenshot 2 & 3: 5 tabs)
   const mobileNav = el('mobileBottomNav');
   if (mobileNav) {
     mobileNav.addEventListener('click', (event) => {
-      const tab = event.target.closest('.nav-tab');
+      const tab = event.target.closest('.s-nav-item, .nav-tab');
       if (!tab) return;
-      mobileNav.querySelectorAll('.nav-tab').forEach((t) => t.classList.remove('active'));
+
+      if (tab.id === 'tabCreate') {
+        toggleCreateSheet();
+        return;
+      }
+
+      // If create sheet was open, close it
+      closeCreateSheet();
+
+      mobileNav.querySelectorAll('.s-nav-item, .nav-tab').forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
 
       if (tab.id === 'tabHome') {
         state.filter = 'All';
         state.query = '';
         state.onlineSearch = false;
+        state.activeArtist = null;
+        state.activePlaylistId = null;
         if (el('search')) el('search').value = '';
-        el('clearSearch').hidden = true;
+        if (el('clearSearch')) el('clearSearch').hidden = true;
         render();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (tab.id === 'tabSearch') {
@@ -3303,13 +3716,13 @@ function bindEvents() {
         }
       } else if (tab.id === 'tabLibrary') {
         state.filter = 'Playlists';
+        state.activeArtist = null;
         state.onlineSearch = false;
         render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const plContainer = el('playlistsContainer');
+        if (plContainer) plContainer.scrollIntoView({ behavior: 'smooth' });
       } else if (tab.id === 'tabEqualizer') {
         openEqModal();
-      } else if (tab.id === 'tabProfile') {
-        openLoginModal();
       }
     });
   }
@@ -4114,23 +4527,270 @@ function bindUniverseDrawerEvents() {
   }
 }
 
+// ==========================================================================
+// Spotify-Style Profile Drawer & Create Bottom Sheet Actions (Screenshots 1, 2, 3)
+// ==========================================================================
+function openProfileDrawer() {
+  const drawer = el('profileDrawer');
+  const backdrop = el('profileDrawerBackdrop');
+  if (drawer) drawer.hidden = false;
+  if (backdrop) backdrop.hidden = false;
+  const user = getStoredUser();
+  const nameEl = el('pDrawerUserName');
+  if (nameEl) nameEl.textContent = (user && user.name) ? user.name : 'uday';
+}
+
+function closeProfileDrawer() {
+  const drawer = el('profileDrawer');
+  const backdrop = el('profileDrawerBackdrop');
+  if (drawer) drawer.hidden = true;
+  if (backdrop) backdrop.hidden = true;
+}
+
+function openCreateSheet() {
+  const sheet = el('createBottomSheet');
+  const backdrop = el('createSheetBackdrop');
+  if (sheet) sheet.hidden = false;
+  if (backdrop) backdrop.hidden = false;
+  document.body.classList.add('is-create-sheet-open');
+}
+
+function closeCreateSheet() {
+  const sheet = el('createBottomSheet');
+  const backdrop = el('createSheetBackdrop');
+  if (sheet) sheet.hidden = true;
+  if (backdrop) backdrop.hidden = true;
+  document.body.classList.remove('is-create-sheet-open');
+}
+
+function toggleCreateSheet() {
+  const sheet = el('createBottomSheet');
+  if (sheet && !sheet.hidden) {
+    closeCreateSheet();
+  } else {
+    openCreateSheet();
+  }
+}
+
+function createCollaborativePlaylist() {
+  const name = prompt('Enter Collaborative Playlist Name:', 'Friends Jam Session');
+  if (!name || !name.trim()) return;
+  const code = 'JAM-' + Math.floor(1000 + Math.random() * 9000);
+  const sampleTracks = (state.tracks.slice(0, 8)).map((t) => t.id);
+  const newPl = {
+    id: 'collab-' + Date.now(),
+    name: name.trim(),
+    trackIds: sampleTracks,
+    isCollaborative: true,
+    inviteCode: code,
+    createdBy: 'uday',
+    createdAt: new Date().toISOString()
+  };
+  state.playlists.push(newPl);
+  setStoredJSON(STORAGE_PLAYLISTS, state.playlists);
+  state.filter = 'Playlists';
+  state.activePlaylistId = newPl.id;
+  render();
+  const plContainer = el('playlistsContainer');
+  if (plContainer) plContainer.scrollIntoView({ behavior: 'smooth' });
+  toast(`✨ Created Collaborative Playlist "${name.trim()}"! Invite Code: ${code}`);
+}
+
+function createDailyBlendPlaylist() {
+  const blendTracks = [
+    ...state.tracks.filter((t) => t.language === 'Telugu').slice(0, 5),
+    ...state.tracks.filter((t) => t.language === 'Hindi').slice(0, 5),
+    ...state.tracks.filter((t) => t.category === 'Folk' || (t.artist && t.artist.includes('Mangli'))).slice(0, 4),
+    ...Array.from(state.favorites).map((id) => findTrackById(id)).filter(Boolean).slice(0, 6)
+  ];
+  const uniqueBlend = deduplicateTrackList(blendTracks);
+  const newPl = {
+    id: 'blend-' + Date.now(),
+    name: 'Tuneus Daily Blend (uday & Friends)',
+    trackIds: uniqueBlend.map((t) => t.id),
+    isBlend: true,
+    blendScore: '98% Taste Match',
+    createdAt: new Date().toISOString()
+  };
+  state.playlists.push(newPl);
+  setStoredJSON(STORAGE_PLAYLISTS, state.playlists);
+  state.filter = 'Playlists';
+  state.activePlaylistId = newPl.id;
+  render();
+  const plContainer = el('playlistsContainer');
+  if (plContainer) plContainer.scrollIntoView({ behavior: 'smooth' });
+  toast('✨ Created "Daily Blend" playlist with 98% taste match!');
+}
+
+function bindSpotifyNavigationEvents() {
+  // 1. Profile Drawer (Screenshot 1)
+  const profileDrawerBtn = el('profileDrawerBtn');
+  if (profileDrawerBtn) {
+    profileDrawerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openProfileDrawer();
+    });
+  }
+
+  const profileBackdrop = el('profileDrawerBackdrop');
+  if (profileBackdrop) {
+    profileBackdrop.addEventListener('click', closeProfileDrawer);
+  }
+
+  const viewProfileBtn = el('pDrawerViewProfileBtn');
+  if (viewProfileBtn) {
+    viewProfileBtn.addEventListener('click', () => {
+      closeProfileDrawer();
+      openLoginModal();
+    });
+  }
+
+  const addAccountBtn = el('pDrawerAddAccountBtn');
+  if (addAccountBtn) {
+    addAccountBtn.addEventListener('click', () => {
+      closeProfileDrawer();
+      openLoginModal();
+    });
+  }
+
+  const pRecentsBtn = el('pDrawerRecentsBtn');
+  if (pRecentsBtn) {
+    pRecentsBtn.addEventListener('click', () => {
+      closeProfileDrawer();
+      state.filter = 'All';
+      state.query = '';
+      state.onlineSearch = false;
+      state.activeArtist = null;
+      render();
+      const qj = el('quickJumpGrid');
+      if (qj) qj.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Showing your 10 most recent songs');
+    });
+  }
+
+  const pUpdatesBtn = el('pDrawerUpdatesBtn');
+  if (pUpdatesBtn) {
+    pUpdatesBtn.addEventListener('click', () => {
+      closeProfileDrawer();
+      toast('📢 Tuneus Updates: Studio Equalizer with Bass & Vocal Band Boost, Curated Daily Mixes, Popular Artists & Collaborative Blend playlists!');
+    });
+  }
+
+  const pSettingsBtn = el('pDrawerSettingsBtn');
+  if (pSettingsBtn) {
+    pSettingsBtn.addEventListener('click', () => {
+      closeProfileDrawer();
+      openEqModal();
+    });
+  }
+
+  // 2. Floating Mini Player (Screenshot 2)
+  const floatBody = el('floatingPlayerBody');
+  if (floatBody) {
+    floatBody.addEventListener('click', openExpandedModal);
+  }
+
+  const floatEq = el('floatingEqBtn');
+  if (floatEq) {
+    floatEq.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openEqModal();
+    });
+  }
+
+  const floatAdd = el('floatingAddBtn');
+  if (floatAdd) {
+    floatAdd.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (state.current) openAddToPlaylist(state.current.id);
+      else toast('Play a song first to add it to a playlist');
+    });
+  }
+
+  const floatPlay = el('floatingPlayBtn');
+  if (floatPlay) {
+    floatPlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      togglePlayback();
+    });
+  }
+
+  // 3. "+ Create" Bottom Sheet Modal (Screenshot 3)
+  const sheetBackdrop = el('createSheetBackdrop');
+  if (sheetBackdrop) {
+    sheetBackdrop.addEventListener('click', closeCreateSheet);
+  }
+
+  const createPlaylistBtn = el('createSheetPlaylistBtn');
+  if (createPlaylistBtn) {
+    createPlaylistBtn.addEventListener('click', () => {
+      closeCreateSheet();
+      openNewPlaylistModal();
+    });
+  }
+
+  const createCollabBtn = el('createSheetCollabBtn');
+  if (createCollabBtn) {
+    createCollabBtn.addEventListener('click', () => {
+      closeCreateSheet();
+      createCollaborativePlaylist();
+    });
+  }
+
+  const createBlendBtn = el('createSheetBlendBtn');
+  if (createBlendBtn) {
+    createBlendBtn.addEventListener('click', () => {
+      closeCreateSheet();
+      createDailyBlendPlaylist();
+    });
+  }
+
+  // 4. Category Filter Chips (Screenshot 2)
+  const topChips = el('topbarChipsScroll');
+  if (topChips) {
+    topChips.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      const f = chip.dataset.filter;
+      state.activeArtist = null;
+      state.onlineSearch = false;
+      state.activePlaylistId = null;
+      state.query = '';
+      if (el('search')) el('search').value = '';
+      if (el('clearSearch')) el('clearSearch').hidden = true;
+
+      if (f === 'Music') {
+        state.filter = 'Music';
+      } else if (f === 'Podcasts') {
+        state.filter = 'Podcasts';
+      } else {
+        state.filter = f;
+      }
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
+
 // App Initialization
 function init() {
   bindEvents();
   bindAuthEvents();
   bindUniverseDrawerEvents();
+  bindSpotifyNavigationEvents();
   updateQualityButton();
   render();
   applyVolume();
   updateProgress(0, 0);
   loadDownloads().then(() => render()).catch(() => {});
 
-  // Check login state: if not logged in, prompt login modal immediately
-  const currentUser = getStoredUser();
-  updateAuthUI(currentUser);
+  // Set default profile name to "uday" matching Screenshot 1
+  let currentUser = getStoredUser();
   if (!currentUser) {
-    openLoginModal();
+    currentUser = { name: 'uday', email: 'uday@tuneus.music', avatar: 'images/avatar-uday.jpg' };
+    saveUserSession(currentUser);
   }
+  updateAuthUI(currentUser);
 }
 
 init();

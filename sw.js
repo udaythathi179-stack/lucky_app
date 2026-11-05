@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuneus-music-v44';
+const CACHE_NAME = 'tuneus-music-v46';
 const IMAGE_CACHE_NAME = 'tuneus-artwork-v2';
 
 const ASSETS_TO_CACHE = [
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   '/index.html',
   '/styles.css',
   '/app.js',
+  '/data/artistCuratedTracks.js',
   '/theme-bg.jpg',
   '/wave-theme.jpg',
   '/manifest.json',
@@ -13,6 +14,11 @@ const ASSETS_TO_CACHE = [
   '/favicon.png',
   '/icon-192.png',
   '/icon-512.png',
+  '/images/avatar-uday.jpg',
+  '/images/cover-agr.jpg',
+  '/images/cover-boomboom.jpg',
+  '/images/cover-vikramasimha.jpg',
+  '/images/cover-chhaava.jpg',
   '/screenshot-desktop.png',
   '/screenshot-mobile.png',
   '/images/artists/alka-yagnik.jpg',
