@@ -135,24 +135,44 @@ function searchFullSongs(query, res, quality = '96') {
   });
 }
 
-// Lifetime Artist Discography Aggregator (Fetches comprehensive catalog across languages, hits, and decades)
+// In-memory cache for lightning-fast sub-millisecond artist discography responses
+const artistDiscographyCache = new Map();
+
+// High-Speed Lifetime Artist Discography Aggregator
 function fetchArtistDiscography(artistName, page, quality, res) {
   const clean = (artistName || '').replace(/[\.\,\(\)]/g, ' ').replace(/\s+/g, ' ').trim();
-  const queries = [
-    clean,
-    `${clean} hits`,
-    `${clean} Telugu`,
-    `${clean} Tamil`,
-    `${clean} Hindi`,
-    `${clean} classics`
-  ];
+  const cacheKey = `${clean.toLowerCase()}__p_${page}__q_${quality}`;
 
-  const pageOffset = (Math.max(1, page) - 1) * 2;
-  const requests = [];
+  if (artistDiscographyCache.has(cacheKey)) {
+    const cached = artistDiscographyCache.get(cacheKey);
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify(cached));
+    return;
+  }
 
-  function fetchUrl(targetUrl) {
+  const queries = [];
+  if (page === 1) {
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' hits')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Telugu')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Hindi')}`);
+  } else if (page === 2) {
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean + ' hits')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Tamil')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' classics')}`);
+  } else {
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page}&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page}&n=50&q=${encodeURIComponent(clean + ' hits')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page - 1}&n=50&q=${encodeURIComponent(clean + ' songs')}`);
+  }
+
+  function fetchUrl(targetUrl, timeoutMs = 2800) {
     return new Promise((resolve) => {
-      https.get(targetUrl, {
+      const req = https.get(targetUrl, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         }
@@ -162,18 +182,16 @@ function fetchArtistDiscography(artistName, page, quality, res) {
         apiRes.on('end', () => {
           try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
         });
-      }).on('error', () => resolve(null));
+      });
+      req.on('error', () => resolve(null));
+      req.setTimeout(timeoutMs, () => {
+        req.destroy();
+        resolve(null);
+      });
     });
   }
 
-  for (const q of queries) {
-    for (let p = 1 + pageOffset; p <= 2 + pageOffset; p++) {
-      const u = `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${p}&n=40&q=${encodeURIComponent(q)}`;
-      requests.push(fetchUrl(u));
-    }
-  }
-
-  Promise.all(requests).then((responses) => {
+  Promise.all(queries.map(u => fetchUrl(u))).then((responses) => {
     const seenTitles = new Set();
     const results = [];
 
@@ -211,11 +229,16 @@ function fetchArtistDiscography(artistName, page, quality, res) {
       }
     }
 
+    const payload = { success: true, page, total: results.length, results };
+    if (results.length > 0) {
+      artistDiscographyCache.set(cacheKey, payload);
+    }
+
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=UTF-8',
       'Access-Control-Allow-Origin': '*'
     });
-    res.end(JSON.stringify({ success: true, page, total: results.length, results }));
+    res.end(JSON.stringify(payload));
   }).catch((err) => {
     res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8' });
     res.end(JSON.stringify({ success: false, error: err.message }));

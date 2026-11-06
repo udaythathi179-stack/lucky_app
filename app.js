@@ -3202,6 +3202,7 @@ function matchesArtist(track, artistName, query = '') {
 
 let artistDiscographyPage = 1;
 let isLoadingArtistMore = false;
+const ARTIST_DISCOGRAPHY_CACHE = new Map();
 
 // Load more lifetime songs for the currently active artist
 async function loadMoreArtistDiscography() {
@@ -3223,6 +3224,7 @@ async function loadMoreArtistDiscography() {
       const merged = deduplicateTrackList([...state.onlineTracks, ...newResults]);
       const addedCount = merged.length - state.onlineTracks.length;
       state.onlineTracks = merged;
+      ARTIST_DISCOGRAPHY_CACHE.set(state.activeArtist, merged);
       const songCountBadge = el('artistSongCountBadge');
       if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
       render();
@@ -3304,18 +3306,6 @@ async function openArtistHero(artistName, query) {
   if (heroBio) heroBio.innerHTML = `Complete Lifetime Discography &bull; ${artistData.tag}`;
   if (heroGenre) heroGenre.textContent = artistData.tag.split('&bull;')[0]?.trim() || 'Legendary Singer';
 
-  // 5. Gather songs: First pull pre-curated tracks + local library tracks for 0ms instant display
-  const curatedMap = window.ARTIST_CURATED_TRACKS || {};
-  const curated = (curatedMap[artistData.name] || []).slice();
-  const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name, artistData.query));
-  let initialTracks = deduplicateTrackList([...curated, ...localLibraryMatches]);
-
-  state.onlineTracks = initialTracks;
-  if (songCountBadge) songCountBadge.textContent = `${initialTracks.length} Songs (Loading discography...)`;
-
-  // Render immediately with instant curated songs
-  render();
-
   // Wire Hero Buttons
   const playAllBtn = el('artistPlayAllBtn');
   if (playAllBtn) {
@@ -3347,11 +3337,31 @@ async function openArtistHero(artistName, query) {
     };
   }
 
-  // Smooth scroll to top of artist view
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  toast(`Loading lifetime songs by ${artistData.name}...`);
+  // Check instant client-side cache
+  if (ARTIST_DISCOGRAPHY_CACHE.has(artistData.name)) {
+    const cachedTracks = ARTIST_DISCOGRAPHY_CACHE.get(artistData.name);
+    state.onlineTracks = cachedTracks;
+    if (songCountBadge) songCountBadge.textContent = `${cachedTracks.length} Lifetime Studio Songs`;
+    render();
+    if (loadMoreContainer) loadMoreContainer.hidden = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
 
-  // 6. Concurrently augment with extensive lifetime discography from JioSaavn
+  // 5. Gather songs: First pull pre-curated tracks + local library tracks for 0ms instant display
+  const curatedMap = window.ARTIST_CURATED_TRACKS || {};
+  const curated = (curatedMap[artistData.name] || []).slice();
+  const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name, artistData.query));
+  let initialTracks = deduplicateTrackList([...curated, ...localLibraryMatches]);
+
+  state.onlineTracks = initialTracks;
+  if (songCountBadge) songCountBadge.textContent = `${initialTracks.length} Songs`;
+
+  // Render immediately with instant curated songs
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // 6. Fast background load of complete discography (~200ms)
   try {
     const qQuality = state.streamingQuality || '320';
     const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
@@ -3367,13 +3377,13 @@ async function openArtistHero(artistName, query) {
 
       const merged = deduplicateTrackList([...initialTracks, ...onlineResults]);
       state.onlineTracks = merged;
+      ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, merged);
       if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
       render();
       if (loadMoreContainer) loadMoreContainer.hidden = false;
-      toast(`Loaded ${merged.length} lifetime songs by ${artistData.name}`);
     }
   } catch (err) {
-    // Offline or server not active - perfectly fine since initialTracks are rich and instant!
+    // Offline or server not active - initialTracks remain available
   }
 }
 
