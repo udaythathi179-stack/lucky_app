@@ -3348,20 +3348,37 @@ async function openArtistHero(artistName, query) {
     return;
   }
 
-  // 5. Gather songs: First pull pre-curated tracks + local library tracks for 0ms instant display
+  // 5. Instantly gather complete lifetime discography (4,800+ studio tracks available in 0ms)
+  const fullDiscographies = window.ALL_ARTIST_DISCOGRAPHIES || {};
+  let lifetimeSongs = (fullDiscographies[artistData.name] || []).slice();
+
+  // If not found by exact key, try alias matching
+  if (lifetimeSongs.length === 0) {
+    for (const key of Object.keys(fullDiscographies)) {
+      if (matchesArtist({ artist: key }, artistData.name)) {
+        lifetimeSongs = (fullDiscographies[key] || []).slice();
+        break;
+      }
+    }
+  }
+
   const curatedMap = window.ARTIST_CURATED_TRACKS || {};
   const curated = (curatedMap[artistData.name] || []).slice();
   const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name, artistData.query));
-  let initialTracks = deduplicateTrackList([...curated, ...localLibraryMatches]);
+  let allArtistTracks = deduplicateTrackList([...lifetimeSongs, ...curated, ...localLibraryMatches]);
 
-  state.onlineTracks = initialTracks;
-  if (songCountBadge) songCountBadge.textContent = `${initialTracks.length} Songs`;
+  state.onlineTracks = allArtistTracks;
+  ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, allArtistTracks);
 
-  // Render immediately with instant curated songs
+  if (songCountBadge) {
+    songCountBadge.textContent = `${allArtistTracks.length} Lifetime Studio Songs`;
+  }
+
+  // Render immediately with all lifetime songs (0ms instant response)
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // 6. Fast background load of complete discography (~200ms)
+  // 6. Seamless background query for any newly released online songs
   try {
     const qQuality = state.streamingQuality || '320';
     const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
@@ -3369,21 +3386,16 @@ async function openArtistHero(artistName, query) {
     let onlineResults = (data.success && Array.isArray(data.results)) ? data.results : [];
 
     if (onlineResults.length > 0 && state.activeArtist === artistData.name) {
-      onlineResults.sort((a, b) => {
-        const aMatch = matchesArtist(a, artistData.name, searchQuery) ? 1 : 0;
-        const bMatch = matchesArtist(b, artistData.name, searchQuery) ? 1 : 0;
-        return bMatch - aMatch;
-      });
-
-      const merged = deduplicateTrackList([...initialTracks, ...onlineResults]);
-      state.onlineTracks = merged;
-      ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, merged);
-      if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
-      render();
-      if (loadMoreContainer) loadMoreContainer.hidden = false;
+      const merged = deduplicateTrackList([...allArtistTracks, ...onlineResults]);
+      if (merged.length > allArtistTracks.length) {
+        state.onlineTracks = merged;
+        ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, merged);
+        if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
+        render();
+      }
     }
   } catch (err) {
-    // Offline or server not active - initialTracks remain available
+    // Offline or server not active - all lifetime songs are already fully rendered!
   }
 }
 
