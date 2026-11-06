@@ -4819,15 +4819,19 @@ async function syncGoogleAccountsFromDB() {
 function openGoogleAccountModal() {
   const modal = el('googleAccountModal');
   if (!modal) return;
+  closeLoginModal();
   renderGoogleAccountsList();
   const form = el('googleNewAccountForm');
   if (form) form.hidden = true;
   modal.hidden = false;
 }
 
-function closeGoogleAccountModal() {
+function closeGoogleAccountModal(reopenLoginIfGuest = false) {
   const modal = el('googleAccountModal');
   if (modal) modal.hidden = true;
+  if (reopenLoginIfGuest && !getStoredUser()) {
+    openLoginModal();
+  }
 }
 
 function renderGoogleAccountsList() {
@@ -4864,60 +4868,13 @@ function renderGoogleAccountsList() {
 
     btn.addEventListener('click', async () => {
       saveGoogleAccount(acc);
-      closeGoogleAccountModal();
-      await loginUser(acc.name, acc.email, acc.avatar || '');
+      closeGoogleAccountModal(false);
+      await loginUser(acc.name, acc.email, acc.avatar || 'images/avatar-uday.jpg');
       toast(`Signed in with Google as ${acc.name}!`);
     });
 
     listContainer.appendChild(btn);
   });
-}
-
-function handleGoogleCredentialResponse(response) {
-  if (!response || !response.credential) return;
-  try {
-    const base64Url = response.credential.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    const payload = JSON.parse(jsonPayload);
-    const googleName = payload.name || payload.given_name || 'Google User';
-    const googleEmail = payload.email || '';
-    const googlePicture = payload.picture || '';
-
-    saveGoogleAccount({ name: googleName, email: googleEmail, avatar: googlePicture });
-    closeGoogleAccountModal();
-    loginUser(googleName, googleEmail, googlePicture);
-    toast(`Signed in with Google as ${googleName}!`);
-  } catch (err) {
-    console.warn('Failed to decode Google JWT token:', err);
-  }
-}
-
-function initGoogleIdentityServices() {
-  if (typeof window === 'undefined') return;
-  const setupGsi = () => {
-    if (window.google && window.google.accounts && window.google.accounts.id) {
-      try {
-        window.google.accounts.id.initialize({
-          client_id: '725940166291-vks803r6q7t72v96sl5t21q6s8t2319f.apps.googleusercontent.com',
-          callback: handleGoogleCredentialResponse,
-          auto_select: false,
-          cancel_on_tap_outside: true
-        });
-      } catch (err) {
-        console.warn('Google Identity Services init warning:', err);
-      }
-    }
-  };
-
-  if (window.google && window.google.accounts && window.google.accounts.id) {
-    setupGsi();
-  } else {
-    window.addEventListener('load', setupGsi);
-    setTimeout(setupGsi, 2000);
-  }
 }
 
 function bindAuthEvents() {
@@ -4932,13 +4889,15 @@ function bindAuthEvents() {
   // Native Google Account modal events
   const closeGoogleAccountBtn = el('closeGoogleAccountBtn');
   if (closeGoogleAccountBtn) {
-    closeGoogleAccountBtn.addEventListener('click', closeGoogleAccountModal);
+    closeGoogleAccountBtn.addEventListener('click', () => {
+      closeGoogleAccountModal(true);
+    });
   }
 
   const googleAccountModal = el('googleAccountModal');
   if (googleAccountModal) {
     googleAccountModal.addEventListener('click', (e) => {
-      if (e.target === googleAccountModal) closeGoogleAccountModal();
+      if (e.target === googleAccountModal) closeGoogleAccountModal(true);
     });
   }
 
@@ -4972,10 +4931,10 @@ function bindAuthEvents() {
         toast('Please enter a valid Gmail address.');
         return;
       }
-      const newAcc = { name, email, avatar: '' };
+      const newAcc = { name, email, avatar: 'images/avatar-uday.jpg' };
       saveGoogleAccount(newAcc);
-      closeGoogleAccountModal();
-      await loginUser(name, email);
+      closeGoogleAccountModal(false);
+      await loginUser(name, email, 'images/avatar-uday.jpg');
       toast(`Signed in with Google as ${name}!`);
     });
   }
@@ -5036,11 +4995,6 @@ function bindAuthEvents() {
   if (googleQuickBtn) {
     googleQuickBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (window.google?.accounts?.id) {
-        try {
-          window.google.accounts.id.prompt();
-        } catch (err) {}
-      }
       openGoogleAccountModal();
     });
   }
@@ -5434,7 +5388,6 @@ function init() {
   updateProgress(0, 0);
   loadDownloads().then(() => render()).catch(() => {});
   syncGoogleAccountsFromDB();
-  initGoogleIdentityServices();
 
   // Set default profile name to "uday" matching Screenshot 1
   let currentUser = getStoredUser();

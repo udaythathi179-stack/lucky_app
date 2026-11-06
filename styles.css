@@ -4430,6 +4430,10 @@ body {
 }
 
 /* Native Google Account Chooser Sheet (Real Mobile Experience) */
+#googleAccountModal {
+  z-index: 1000020;
+}
+
 .google-account-card {
   max-width: 420px;
   width: 92%;
