@@ -4548,16 +4548,34 @@ function updateAuthUI(user) {
   const dropEmail = el('dropdownEmail');
   const loginActionLabel = el('loginActionLabel');
   const logoutBtn = el('logoutBtn');
+  const pDrawerAvatar = document.querySelector('.p-drawer-avatar');
+  const pDrawerName = el('pDrawerUserName');
 
   if (user && user.name) {
     const initial = user.name.trim().charAt(0).toUpperCase() || 'U';
-    if (avatarBadge) avatarBadge.textContent = initial;
+    if (avatarBadge) {
+      if (user.avatar) {
+        avatarBadge.innerHTML = `<img src="${user.avatar}" alt="${user.name}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" onerror="this.outerHTML='${initial}'" />`;
+      } else {
+        avatarBadge.textContent = initial;
+      }
+    }
     if (nameLabel) nameLabel.textContent = user.name;
-    if (dropAvatar) dropAvatar.textContent = initial;
+    if (dropAvatar) {
+      if (user.avatar) {
+        dropAvatar.innerHTML = `<img src="${user.avatar}" alt="${user.name}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" onerror="this.outerHTML='${initial}'" />`;
+      } else {
+        dropAvatar.textContent = initial;
+      }
+    }
     if (dropName) dropName.textContent = user.name;
     if (dropEmail) dropEmail.textContent = user.email || 'Logged In';
     if (loginActionLabel) loginActionLabel.textContent = 'Switch Account';
     if (logoutBtn) logoutBtn.style.display = 'flex';
+    if (pDrawerName) pDrawerName.textContent = user.name;
+    if (pDrawerAvatar) {
+      pDrawerAvatar.src = user.avatar || 'images/avatar-uday.jpg';
+    }
   } else {
     if (avatarBadge) avatarBadge.textContent = '👤';
     if (nameLabel) nameLabel.textContent = 'Sign In';
@@ -4566,11 +4584,10 @@ function updateAuthUI(user) {
     if (dropEmail) dropEmail.textContent = 'Not logged in';
     if (loginActionLabel) loginActionLabel.textContent = 'Sign In with Gmail';
     if (logoutBtn) logoutBtn.style.display = 'none';
-  }
-
-  const pDrawerName = el('pDrawerUserName');
-  if (pDrawerName) {
-    pDrawerName.textContent = user?.name || 'Guest User';
+    if (pDrawerName) pDrawerName.textContent = 'Guest User';
+    if (pDrawerAvatar) {
+      pDrawerAvatar.src = 'images/avatar-uday.jpg';
+    }
   }
 }
 
@@ -4701,13 +4718,206 @@ function openSettingsModal() {
   const avatarNode = el('settingsAvatarBadge');
   if (nameNode) nameNode.textContent = userName;
   if (emailNode) emailNode.textContent = userEmail;
-  if (avatarNode) avatarNode.textContent = userName.charAt(0).toUpperCase();
+  if (avatarNode) {
+    if (user?.avatar) {
+      avatarNode.innerHTML = `<img src="${user.avatar}" alt="${userName}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" onerror="this.outerHTML='${userName.charAt(0).toUpperCase()}'" />`;
+    } else {
+      avatarNode.textContent = userName.charAt(0).toUpperCase();
+    }
+  }
   modal.hidden = false;
 }
 
 function closeSettingsModal() {
   const modal = el('settingsModal');
   if (modal) modal.hidden = true;
+}
+
+// ==========================================================================
+// Native Google Sign-In & Saved Device Credentials
+// ==========================================================================
+const GOOGLE_ACCOUNTS_STORAGE_KEY = 'tuneus_google_saved_accounts';
+
+const DEFAULT_GOOGLE_ACCOUNTS = [
+  {
+    name: 'Uday Kumar',
+    email: 'udaythathi179@gmail.com',
+    avatar: 'images/avatar-uday.jpg',
+    color: '#4285F4'
+  },
+  {
+    name: 'uday kumar',
+    email: 'udaythathi2509@gmail.com',
+    avatar: 'images/avatar-uday.jpg',
+    color: '#34A853'
+  }
+];
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getSavedGoogleAccounts() {
+  try {
+    const raw = localStorage.getItem(GOOGLE_ACCOUNTS_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {}
+  return [...DEFAULT_GOOGLE_ACCOUNTS];
+}
+
+function saveGoogleAccount(acc) {
+  if (!acc || !acc.email) return;
+  const accounts = getSavedGoogleAccounts();
+  const cleanEmail = acc.email.trim().toLowerCase();
+  const existingIdx = accounts.findIndex(a => a.email.toLowerCase() === cleanEmail);
+  const updatedItem = {
+    name: acc.name || 'Google User',
+    email: cleanEmail,
+    avatar: acc.avatar || '',
+    color: acc.color || '#4285F4',
+    lastUsed: Date.now()
+  };
+  if (existingIdx >= 0) {
+    accounts[existingIdx] = { ...accounts[existingIdx], ...updatedItem };
+  } else {
+    accounts.push(updatedItem);
+  }
+  try {
+    localStorage.setItem(GOOGLE_ACCOUNTS_STORAGE_KEY, JSON.stringify(accounts));
+  } catch (e) {}
+}
+
+async function syncGoogleAccountsFromDB() {
+  try {
+    const res = await fetch('/api/auth/users');
+    const data = await res.json();
+    if (data && data.success && Array.isArray(data.users)) {
+      data.users.forEach(u => {
+        if (u.email && u.email.endsWith('@gmail.com')) {
+          saveGoogleAccount({
+            name: u.name,
+            email: u.email,
+            avatar: u.avatar || 'images/avatar-uday.jpg'
+          });
+        }
+      });
+    }
+  } catch (e) {}
+}
+
+function openGoogleAccountModal() {
+  const modal = el('googleAccountModal');
+  if (!modal) return;
+  renderGoogleAccountsList();
+  const form = el('googleNewAccountForm');
+  if (form) form.hidden = true;
+  modal.hidden = false;
+}
+
+function closeGoogleAccountModal() {
+  const modal = el('googleAccountModal');
+  if (modal) modal.hidden = true;
+}
+
+function renderGoogleAccountsList() {
+  const listContainer = el('googleAccountsList');
+  if (!listContainer) return;
+  const accounts = getSavedGoogleAccounts();
+
+  listContainer.innerHTML = '';
+  accounts.forEach((acc, index) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'g-account-item';
+    btn.setAttribute('data-index', String(index));
+    btn.setAttribute('data-email', acc.email);
+    btn.setAttribute('data-name', acc.name);
+
+    const initial = (acc.name || 'G').trim().charAt(0).toUpperCase();
+    const avatarHtml = acc.avatar
+      ? `<img src="${acc.avatar}" alt="${escapeHtml(acc.name)}" class="g-avatar-img" onerror="this.outerHTML='<span>${initial}</span>'" />`
+      : `<span>${initial}</span>`;
+
+    btn.innerHTML = `
+      <div class="g-avatar-circle" style="background:${acc.color || '#4285F4'};">
+        ${avatarHtml}
+      </div>
+      <div class="g-account-meta">
+        <strong class="g-account-name">${escapeHtml(acc.name)}</strong>
+        <span class="g-account-email">${escapeHtml(acc.email)}</span>
+      </div>
+      <svg class="g-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    `;
+
+    btn.addEventListener('click', async () => {
+      saveGoogleAccount(acc);
+      closeGoogleAccountModal();
+      await loginUser(acc.name, acc.email, acc.avatar || '');
+      toast(`Signed in with Google as ${acc.name}!`);
+    });
+
+    listContainer.appendChild(btn);
+  });
+}
+
+function handleGoogleCredentialResponse(response) {
+  if (!response || !response.credential) return;
+  try {
+    const base64Url = response.credential.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    const payload = JSON.parse(jsonPayload);
+    const googleName = payload.name || payload.given_name || 'Google User';
+    const googleEmail = payload.email || '';
+    const googlePicture = payload.picture || '';
+
+    saveGoogleAccount({ name: googleName, email: googleEmail, avatar: googlePicture });
+    closeGoogleAccountModal();
+    loginUser(googleName, googleEmail, googlePicture);
+    toast(`Signed in with Google as ${googleName}!`);
+  } catch (err) {
+    console.warn('Failed to decode Google JWT token:', err);
+  }
+}
+
+function initGoogleIdentityServices() {
+  if (typeof window === 'undefined') return;
+  const setupGsi = () => {
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      try {
+        window.google.accounts.id.initialize({
+          client_id: '725940166291-vks803r6q7t72v96sl5t21q6s8t2319f.apps.googleusercontent.com',
+          callback: handleGoogleCredentialResponse,
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+      } catch (err) {
+        console.warn('Google Identity Services init warning:', err);
+      }
+    }
+  };
+
+  if (window.google && window.google.accounts && window.google.accounts.id) {
+    setupGsi();
+  } else {
+    window.addEventListener('load', setupGsi);
+    setTimeout(setupGsi, 2000);
+  }
 }
 
 function bindAuthEvents() {
@@ -4718,6 +4928,57 @@ function bindAuthEvents() {
   const loginForm = el('loginForm');
   const googleQuickBtn = el('googleQuickBtn');
   const loginGuestBtn = el('loginGuestBtn');
+
+  // Native Google Account modal events
+  const closeGoogleAccountBtn = el('closeGoogleAccountBtn');
+  if (closeGoogleAccountBtn) {
+    closeGoogleAccountBtn.addEventListener('click', closeGoogleAccountModal);
+  }
+
+  const googleAccountModal = el('googleAccountModal');
+  if (googleAccountModal) {
+    googleAccountModal.addEventListener('click', (e) => {
+      if (e.target === googleAccountModal) closeGoogleAccountModal();
+    });
+  }
+
+  const googleAddAnotherBtn = el('googleAddAnotherBtn');
+  const googleNewAccountForm = el('googleNewAccountForm');
+  const cancelGoogleNewAccount = el('cancelGoogleNewAccount');
+
+  if (googleAddAnotherBtn && googleNewAccountForm) {
+    googleAddAnotherBtn.addEventListener('click', () => {
+      googleNewAccountForm.hidden = !googleNewAccountForm.hidden;
+      if (!googleNewAccountForm.hidden) {
+        const nameInput = el('gNewName');
+        if (nameInput) nameInput.focus();
+      }
+    });
+  }
+
+  if (cancelGoogleNewAccount && googleNewAccountForm) {
+    cancelGoogleNewAccount.addEventListener('click', () => {
+      googleNewAccountForm.hidden = true;
+    });
+  }
+
+  if (googleNewAccountForm) {
+    googleNewAccountForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = el('gNewName')?.value?.trim();
+      const email = el('gNewEmail')?.value?.trim().toLowerCase();
+      if (!name || !email) return;
+      if (!email.includes('@')) {
+        toast('Please enter a valid Gmail address.');
+        return;
+      }
+      const newAcc = { name, email, avatar: '' };
+      saveGoogleAccount(newAcc);
+      closeGoogleAccountModal();
+      await loginUser(name, email);
+      toast(`Signed in with Google as ${name}!`);
+    });
+  }
 
   // Settings modal events (only Sign Out option)
   const closeSettingsBtn = el('closeSettingsBtn');
@@ -4773,13 +5034,14 @@ function bindAuthEvents() {
   }
 
   if (googleQuickBtn) {
-    googleQuickBtn.addEventListener('click', () => {
-      const existing = getStoredUser();
-      const promptName = prompt('Enter your Name for Google Sign-in:', existing?.name || '');
-      if (!promptName) return;
-      const promptEmail = prompt('Enter your Gmail address:', existing?.email || `${promptName.toLowerCase().replace(/[^a-z0-9]/g, '')}@gmail.com`);
-      if (!promptEmail) return;
-      loginUser(promptName, promptEmail);
+    googleQuickBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.google?.accounts?.id) {
+        try {
+          window.google.accounts.id.prompt();
+        } catch (err) {}
+      }
+      openGoogleAccountModal();
     });
   }
 
@@ -5033,7 +5295,7 @@ function bindSpotifyNavigationEvents() {
   if (addAccountBtn) {
     addAccountBtn.addEventListener('click', () => {
       closeProfileDrawer();
-      openLoginModal();
+      openGoogleAccountModal();
     });
   }
 
@@ -5171,6 +5433,8 @@ function init() {
   applyVolume();
   updateProgress(0, 0);
   loadDownloads().then(() => render()).catch(() => {});
+  syncGoogleAccountsFromDB();
+  initGoogleIdentityServices();
 
   // Set default profile name to "uday" matching Screenshot 1
   let currentUser = getStoredUser();

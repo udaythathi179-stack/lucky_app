@@ -4429,6 +4429,211 @@ body {
   transform: translateY(-1px);
 }
 
+/* Native Google Account Chooser Sheet (Real Mobile Experience) */
+.google-account-card {
+  max-width: 420px;
+  width: 92%;
+  padding: 24px 22px 20px;
+  background: #0b1329;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 24px;
+  box-shadow: 0 25px 75px rgba(0, 0, 0, 0.9), 0 0 45px rgba(56, 189, 248, 0.22);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  animation: loginScaleUp 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.g-sheet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.g-sheet-title-meta {
+  flex: 1;
+}
+
+.g-sheet-title-meta h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.g-sheet-sub {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: #94a3b8;
+}
+
+.g-sheet-sub strong {
+  color: #38bdf8;
+}
+
+.g-sheet-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.g-accounts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.g-account-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all 0.18s ease;
+  color: inherit;
+  font-family: inherit;
+  position: relative;
+}
+
+.g-account-item:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateX(2px);
+}
+
+.g-account-item:active {
+  transform: scale(0.98);
+}
+
+.g-avatar-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4285F4, #1d4ed8);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.g-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.g-account-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.g-account-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.g-account-email {
+  font-size: 12.5px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.g-add-circle {
+  background: rgba(255, 255, 255, 0.08);
+  color: #38bdf8;
+  border: 1px dashed rgba(56, 189, 248, 0.5);
+}
+
+.g-new-account-form {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.g-input-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.g-input-field input {
+  width: 100%;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0 12px;
+  color: #f8fafc;
+  font-size: 13.5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.g-input-field input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+}
+
+.g-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.g-sheet-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.g-chevron {
+  color: #64748b;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-left: auto;
+}
+
+.g-account-item:hover .g-chevron {
+  color: #38bdf8;
+  transform: translateX(3px);
+}
+
+.g-legal-text {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #64748b;
+  margin: 0;
+}
+
 .login-divider {
   display: flex;
   align-items: center;
