@@ -2524,24 +2524,6 @@ function renderHomeDashboard() {
     }).join('');
   }
 
-  // 3. Albums featuring songs you like (Screenshot 2: Vikramasimha, Chhaava, etc.)
-  const albEl = el('albumsShelf');
-  if (albEl) {
-    albEl.innerHTML = ALBUMS_FEATURING.map((a) => `
-      <div class="shelf-card album-shelf-card" data-action="open-album" data-album="${esc(a.title)}" data-query="${esc(a.query || a.title)}" role="button" tabindex="0" title="Listen to ${esc(a.title)}">
-        <div class="shelf-art-wrap">
-          <img class="shelf-art" src="${esc(a.artwork)}" alt="${esc(a.title)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
-          <div class="shelf-play-floating" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-        <span class="shelf-type-badge">${esc(a.badge || 'Album')}</span>
-        <span class="shelf-title">${esc(a.title)}</span>
-        <span class="shelf-subtitle">${esc(a.artist)}</span>
-      </div>
-    `).join('');
-  }
-
   // 4. Popular Artists Shelf (Circular Avatars)
   const homeArtistsEl = el('homeArtistsShelf');
   if (homeArtistsEl) {
