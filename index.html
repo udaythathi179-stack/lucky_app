@@ -440,7 +440,7 @@
         </svg>
       </button>
 
-      <button id="eqToggleBtn" class="icon-btn tool-btn" type="button" aria-label="Bass &amp; Vocal Band Equalizer" title="Bass &amp; Vocal Band (Adjust Bass &amp; Increase Vocal)">
+      <button id="eqToggleBtn" class="icon-btn tool-btn" type="button" aria-label="Base &amp; Vocal Band Equalizer" title="Base &amp; Vocal Band (Adjust Base &amp; Increase Vocal)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
           <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
@@ -470,7 +470,7 @@
     </div>
     <div class="s-player-actions">
       <!-- Cast / Device / Equalizer icon -->
-      <button type="button" class="s-action-btn" id="floatingEqBtn" title="Bass &amp; Vocal Band Equalizer">
+      <button type="button" class="s-action-btn" id="floatingEqBtn" title="Base &amp; Vocal Band Equalizer">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line>
           <line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line>
@@ -714,13 +714,13 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" /></svg>
               <span>Add to Playlist</span>
             </button>
-            <button id="expEqBtn" class="pill-btn" type="button" title="Bass: Adjust bass and increase vocal in real time">
+            <button id="expEqBtn" class="pill-btn" type="button" title="Base: Adjust base and increase vocal in real time">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="4" y1="21" x2="4" y2="14" /><circle cx="4" cy="12" r="2" />
                 <line x1="12" y1="21" x2="12" y2="8" /><circle cx="12" cy="6" r="2" />
                 <line x1="20" y1="21" x2="20" y2="16" /><circle cx="20" cy="14" r="2" />
               </svg>
-              <span id="expEqName">Bass</span>
+              <span id="expEqName">Base</span>
             </button>
           </div>
         </div>
@@ -796,9 +796,9 @@
         <div class="modal-header-info">
           <div class="modal-title-wrap">
             <span class="modal-title-icon" aria-hidden="true">🎛️</span>
-            <h2 id="eqTitle">Bass &amp; Vocal Band</h2>
+            <h2 id="eqTitle">Base &amp; Vocal Band</h2>
           </div>
-          <p class="modal-sub" id="eqModalSub">Fine-tune bass thump and vocal clarity in real time while listening</p>
+          <p class="modal-sub" id="eqModalSub">Fine-tune base thump and vocal clarity in real time while listening</p>
         </div>
         <button type="button" class="icon-close" id="closeEqXBtn" aria-label="Close Equalizer">&times;</button>
       </div>
@@ -811,22 +811,22 @@
 
       <!-- Real-Time Band Sliders -->
       <div class="eq-bands-section">
-        <!-- 1. Bass Band Slider -->
+        <!-- 1. Base Band Slider -->
         <div class="eq-band-card" data-band="bass">
           <div class="eq-band-header">
             <div class="eq-band-title">
               <span class="eq-band-emoji">💥</span>
               <div>
-                <strong>Bass Band</strong>
+                <strong>Base Band</strong>
                 <span class="eq-band-desc">Low-end punch, 808s &amp; deep kicks (160 Hz)</span>
               </div>
             </div>
             <span id="eqBassVal" class="eq-band-badge">0 dB</span>
           </div>
           <div class="eq-slider-row">
-            <button type="button" class="eq-step-btn" data-target="eqBass" data-step="-1" title="Decrease Bass (1 dB)">−</button>
-            <input id="eqBassSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Adjust Bass" />
-            <button type="button" class="eq-step-btn" data-target="eqBass" data-step="1" title="Increase Bass (1 dB)">+</button>
+            <button type="button" class="eq-step-btn" data-target="eqBass" data-step="-1" title="Decrease Base (1 dB)">−</button>
+            <input id="eqBassSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Adjust Base" />
+            <button type="button" class="eq-step-btn" data-target="eqBass" data-step="1" title="Increase Base (1 dB)">+</button>
           </div>
         </div>
 
@@ -879,16 +879,16 @@
           <span>Studio master original (0 dB)</span>
         </button>
         <button type="button" class="eq-card" data-preset="bass">
-          <strong>Heavy Bass 💥</strong>
-          <span>+10 dB bass boost for thump</span>
+          <strong>Heavy Base 💥</strong>
+          <span>+10 dB base boost for thump</span>
         </button>
         <button type="button" class="eq-card" data-preset="vocal">
           <strong>Vocal Boost 🎤</strong>
           <span>+9 dB vocal clarity for singing</span>
         </button>
         <button type="button" class="eq-card" data-preset="bass_vocal">
-          <strong>Bass + Vocal 🚀</strong>
-          <span>Punchy bass &amp; prominent voice</span>
+          <strong>Base + Vocal 🚀</strong>
+          <span>Punchy base &amp; prominent voice</span>
         </button>
         <button type="button" class="eq-card" data-preset="party">
           <strong>Party Dynamic 🎧</strong>
@@ -1424,7 +1424,7 @@
   </div>
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
-  <script src="app.js?v=65"></script>
+  <script src="app.js?v=66"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

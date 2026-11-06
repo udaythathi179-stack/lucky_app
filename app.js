@@ -1629,10 +1629,10 @@ function applyBandGains(bassDb, vocalDb, trebleDb, preset = 'custom', save = tru
     card.classList.toggle('active', card.dataset.preset === preset);
   });
 
-  // Keep 3rd action pill cleanly labeled as "Bass" (not technical values like b:+14db.v:+0db)
+  // Keep 3rd action pill cleanly labeled as "Base"
   const expEqName = el('expEqName');
   if (expEqName) {
-    expEqName.textContent = 'Bass';
+    expEqName.textContent = 'Base';
   }
 
   if (save) {
