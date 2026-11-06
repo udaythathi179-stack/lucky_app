@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=57" />
+  <link rel="stylesheet" href="styles.css?v=58" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -361,8 +361,8 @@
     </section>
   </main>
 
-  <!-- Sticky Bottom Audio Player -->
-  <footer class="player" id="player" data-empty="true">
+  <!-- Sticky Bottom Audio Player (Legacy player dock completely hidden) -->
+  <footer class="player" id="player" data-empty="true" hidden aria-hidden="true" style="display: none !important;">
     <div class="player-progress-bar" id="playerProgressBar" aria-hidden="true"></div>
     <!-- Now Playing Mini Info -->
     <div class="now" id="nowCard" role="button" tabindex="0" title="Click to expand player (F)" aria-label="Open expanded now playing screen">
@@ -1424,7 +1424,7 @@
   </div>
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
-  <script src="app.js?v=62"></script>
+  <script src="app.js?v=63"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

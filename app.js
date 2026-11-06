@@ -2724,7 +2724,7 @@ function playTrack(track, forceModal = null) {
 
   syncPlayState();
 
-  const shouldOpen = forceModal !== null ? forceModal : true;
+  const shouldOpen = forceModal !== null ? forceModal : false;
   if (shouldOpen) {
     openExpandedModal();
   }
@@ -3320,12 +3320,14 @@ function resetFilters() {
 
 function openExpandedModal() {
   el('expandedModal').hidden = false;
+  document.body.classList.add('is-expanded-modal-open');
   document.body.style.overflow = 'hidden';
   renderPlayer();
 }
 
 function closeExpandedModal() {
   el('expandedModal').hidden = true;
+  document.body.classList.remove('is-expanded-modal-open');
   document.body.style.overflow = '';
 }
 

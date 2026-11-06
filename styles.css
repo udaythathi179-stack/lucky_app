@@ -2112,29 +2112,9 @@ a {
   filter: brightness(1.07);
 }
 
-/* Sticky Bottom Audio Player */
+/* Sticky Bottom Audio Player (Legacy player dock completely hidden in favor of Spotify floating mini-player) */
 .player {
-  position: fixed;
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
-  max-width: 1320px;
-  margin: 0 auto;
-  z-index: 50;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 1.8fr) minmax(0, 1.1fr);
-  align-items: center;
-  gap: 20px;
-  padding: 10px 24px;
-  border-radius: 20px;
-  background:
-    linear-gradient(135deg, rgba(8, 20, 52, 0.92) 0%, rgba(3, 10, 28, 0.96) 100%),
-    url('theme-bg.jpg') center bottom / cover no-repeat;
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
-  border: 1px solid rgba(56, 189, 248, 0.38);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.18), 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(37, 99, 235, 0.28);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, visibility 0.35s ease, box-shadow 0.3s ease;
+  display: none !important;
 }
 
 /* Now Playing Card */
@@ -2590,12 +2570,18 @@ input[type="range"].range::-moz-range-thumb {
 .expanded-modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 70;
+  z-index: 1000 !important;
   display: flex;
   flex-direction: column;
   background-color: #020617;
   overflow-y: auto;
   animation: modalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.is-expanded-modal-open .spotify-floating-player,
+body.is-expanded-modal-open .spotify-bottom-nav,
+body.is-expanded-modal-open .player {
+  display: none !important;
 }
 
 .expanded-modal-backdrop::before {
@@ -3963,25 +3949,7 @@ body {
   }
 
   .player {
-    left: 10px;
-    right: 10px;
-    bottom: calc(10px + env(safe-area-inset-bottom));
-    padding: 8px 12px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    background:
-      linear-gradient(135deg, rgba(8, 20, 52, 0.94) 0%, rgba(3, 10, 28, 0.98) 100%),
-      url('theme-bg.jpg') center bottom / cover no-repeat;
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.18), 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 35px rgba(37, 99, 235, 0.3);
-    position: fixed;
-    z-index: 50;
-    overflow: hidden;
+    display: none !important;
   }
 
   .player-progress-bar {
@@ -5078,12 +5046,9 @@ body {
   box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.55), 0 0 26px rgba(0, 229, 255, 0.4);
 }
 
-/* ----- Player dock: floating sapphire glass ----- */
+/* ----- Player dock: legacy dock hidden ----- */
 .player {
-  background: linear-gradient(180deg, rgba(6, 18, 48, 0.95) 0%, rgba(2, 9, 28, 0.97) 100%);
-  border-color: rgba(0, 229, 255, 0.38);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.18), 0 24px 70px rgba(0, 0, 0, 0.88),
-    0 0 50px rgba(0, 229, 255, 0.24), 0 -1px 0 rgba(129, 140, 248, 0.25);
+  display: none !important;
 }
 
 .play-btn {
@@ -6453,4 +6418,41 @@ body.is-create-sheet-open .s-create-icon-wrap .s-create-close {
     height: 13px;
   }
 }
+
+/* ==========================================================================
+   PERMANENT OVERRIDES: Spotify Mini-Player & Clean Expanded Modal
+   ========================================================================== */
+.player,
+footer.player,
+#player,
+footer#player,
+.player[data-empty],
+.player:not([data-empty="true"]) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  overflow: hidden !important;
+  z-index: -999 !important;
+}
+
+/* When Expanded Modal is open, hide the bottom floating mini player and bottom nav */
+body.is-expanded-modal-open .spotify-floating-player,
+body.is-expanded-modal-open .spotify-bottom-nav,
+body.is-expanded-modal-open .player,
+body.is-expanded-modal-open #player {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.expanded-modal-backdrop {
+  z-index: 99999 !important;
+}
+
 
