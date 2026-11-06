@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=52" />
+  <link rel="stylesheet" href="styles.css?v=53" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -107,29 +107,12 @@
         <img class="topbar-avatar-img" src="images/avatar-uday.jpg" alt="uday" onerror="this.onerror=null; this.src='icon-192.png';" />
       </button>
 
-      <!-- Category Filter Chips (Screenshot 2: All, Music, Podcasts + quick categories) -->
+      <!-- Category Filter Chips (Spotify Home: All, Music, Podcasts) -->
       <div class="topbar-chips-scroll" id="topbarChipsScroll">
         <button class="chip active" data-filter="All" type="button">All</button>
         <button class="chip" data-filter="Music" type="button">Music</button>
         <button class="chip" data-filter="Podcasts" type="button">Podcasts</button>
-        <button class="chip" data-filter="Telugu" type="button">Telugu</button>
-        <button class="chip" data-filter="Hindi" type="button">Hindi</button>
-        <button class="chip" data-filter="Folk" type="button">Folk</button>
-        <button class="chip" data-filter="Favorites" type="button"><span class="heart-symbol">&#9829;</span> Liked</button>
-        <button class="chip" data-filter="Playlists" type="button"><span>&#9776;</span> Playlists</button>
       </div>
-
-      <!-- Artist Menu Option (Secondary trigger) -->
-      <button id="universeMenuBtn" class="universe-menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Artist Menu (Explore Singers)">
-        <span class="universe-btn-icon">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </span>
-        <span class="universe-btn-text">Singers</span>
-      </button>
 
       <div class="brand" role="banner" id="brandHome" title="Tuneus Music Home">
         <div class="brand-mark" aria-hidden="true">
@@ -1517,7 +1500,7 @@
   </div>
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
-  <script src="app.js?v=55"></script>
+  <script src="app.js?v=56"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
