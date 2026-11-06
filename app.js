@@ -2124,7 +2124,7 @@ const RECOMMENDED_TODAY = [
     language: "Telugu",
     category: "Telugu",
     src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
-    artwork: "https://c.saavncdn.com/483/Aadavari-Matalaku-Ardhalu-Veruley-2007-500x500.jpg",
+    artwork: "https://c.saavncdn.com/896/Magadheera-2009-500x500.jpg",
     duration: 268
   },
   {
@@ -2136,8 +2136,8 @@ const RECOMMENDED_TODAY = [
     year: 2022,
     language: "Hindi",
     category: "Hindi",
-    src: "https://aac.saavncdn.com/274/3b9b4a4cbcfc28059c25aa2b4dc21d51_320.mp4",
-    artwork: "https://c.saavncdn.com/274/Brahmastra-Hindi-2022-20220717092820-500x500.jpg",
+    src: "https://aac.saavncdn.com/871/c2febd353f3a076a406fa37510f31f9f_320.mp4",
+    artwork: "https://c.saavncdn.com/871/Brahmastra-Original-Motion-Picture-Soundtrack-Hindi-2022-20221006155213-500x500.jpg",
     duration: 268
   },
   {
@@ -2149,7 +2149,7 @@ const RECOMMENDED_TODAY = [
     year: 2021,
     language: "Telugu",
     category: "Telugu",
-    src: "https://aac.saavncdn.com/056/9b4eb9d1366b266ce29037ab66d9fb7d_320.mp4",
+    src: "https://aac.saavncdn.com/000/05c5d77f6a8225d6667cf7a1fcaf37d8_320.mp4",
     artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
     duration: 221
   },
@@ -2162,7 +2162,7 @@ const RECOMMENDED_TODAY = [
     year: 2020,
     language: "Telugu",
     category: "Telugu",
-    src: "https://aac.saavncdn.com/517/a3f65fe3623cb49a42f567fbf91ee7b6_320.mp4",
+    src: "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
     artwork: "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
     duration: 271
   },
@@ -2175,9 +2175,9 @@ const RECOMMENDED_TODAY = [
     year: 2021,
     language: "Telugu",
     category: "Folk",
-    src: "https://aac.saavncdn.com/978/6a92b234ebdc50d5345719ea45187768_320.mp4",
-    artwork: "https://c.saavncdn.com/978/Love-Story-Telugu-2021-20210924151740-500x500.jpg",
-    duration: 229
+    src: "https://aac.saavncdn.com/582/499f47fee99a0809e9d2b343ac2bec8e_320.mp4",
+    artwork: "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
+    duration: 230
   },
   {
     id: "rec-fear-song",
@@ -2189,7 +2189,7 @@ const RECOMMENDED_TODAY = [
     language: "Telugu",
     category: "Telugu",
     src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
-    artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
+    artwork: "https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg",
     duration: 194
   },
   {
@@ -2202,7 +2202,7 @@ const RECOMMENDED_TODAY = [
     language: "Telugu",
     category: "Telugu",
     src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
-    artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
+    artwork: "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
     duration: 254
   },
   {
@@ -2214,9 +2214,9 @@ const RECOMMENDED_TODAY = [
     year: 2021,
     language: "Telugu",
     category: "Telugu",
-    src: "https://aac.saavncdn.com/001/Chitti-From-Jathi-Ratnalu-Telugu-2021-20210111162402-500x500.jpg",
-    artwork: "https://c.saavncdn.com/001/Chitti-From-Jathi-Ratnalu-Telugu-2021-20210111162402-500x500.jpg",
-    duration: 184
+    src: "https://aac.saavncdn.com/604/f2c7f087e4bee0bf947b0c43bc22a507_320.mp4",
+    artwork: "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
+    duration: 186
   }
 ];
 
@@ -2250,7 +2250,7 @@ const ALBUMS_FEATURING = [
     title: "Pushpa 2: The Rule",
     artist: "Devi Sri Prasad",
     badge: "Album",
-    artwork: "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
+    artwork: "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
     query: "Pushpa 2"
   },
   {
@@ -2258,7 +2258,7 @@ const ALBUMS_FEATURING = [
     title: "Devara Part 1",
     artist: "Anirudh Ravichander",
     badge: "Album",
-    artwork: "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
+    artwork: "https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg",
     query: "Devara"
   },
   {
