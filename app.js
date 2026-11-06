@@ -1261,6 +1261,12 @@ function findTrackById(id) {
   if (recent) return recent;
   const rec = (typeof RECOMMENDED_TODAY !== 'undefined' ? RECOMMENDED_TODAY : []).find((t) => t && t.id === id);
   if (rec) return rec;
+  const photo = (typeof PHOTO_REFERENCE_TRACKS !== 'undefined' ? PHOTO_REFERENCE_TRACKS : []).find((t) => t && t.id === id);
+  if (photo) return photo;
+  const alb = (typeof ALBUMS_FEATURING !== 'undefined' ? ALBUMS_FEATURING : []).find((t) => t && t.id === id);
+  if (alb) return alb;
+  const cat = (typeof catalog !== 'undefined' ? catalog : []).find((t) => t && t.id === id);
+  if (cat) return cat;
   const online = state.onlineTracks.find((t) => t.id === id);
   if (online) return online;
   const offline = downloadRecordFor(id);
@@ -1990,14 +1996,18 @@ function renderRecentGrid() {
 
   let tracks = (state.recentTracks || []).filter((t) => t && t.id && t.title);
 
-  // If fewer than 6 songs, backfill from top catalog hits so there are always 6 songs
+  // If fewer than 6 songs, backfill from photo reference tracks first, then catalog
   if (tracks.length < 6) {
     const existingIds = new Set(tracks.map((t) => t.id));
-    for (const catTrack of catalog) {
+    const pool = [
+      ...(typeof PHOTO_REFERENCE_TRACKS !== 'undefined' ? PHOTO_REFERENCE_TRACKS : []),
+      ...(typeof catalog !== 'undefined' ? catalog : [])
+    ];
+    for (const poolTrack of pool) {
       if (tracks.length >= 6) break;
-      if (!existingIds.has(catTrack.id)) {
-        tracks.push({ ...catTrack });
-        existingIds.add(catTrack.id);
+      if (!existingIds.has(poolTrack.id)) {
+        tracks.push({ ...poolTrack });
+        existingIds.add(poolTrack.id);
       }
     }
     state.recentTracks = tracks.slice(0, 6);
@@ -2091,41 +2101,80 @@ const RECOMMENDED_TODAY = [
   {
     id: "rec-agr",
     title: "AGR (Original Motion Picture Soundtrack)",
-    artist: "A.R. Rahman",
+    artist: "A.R. Rahman, Silambarasan TR",
     badge: "EP",
     movie: "Pathu Thala (AGR)",
     year: 2023,
     language: "Tamil",
     category: "Soundtrack",
-    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
-    artwork: "images/cover-agr.jpg",
+    src: "https://aac.saavncdn.com/289/ac6df32d8fd9d1b2759928b99261892f_320.mp4",
+    artwork: "https://c.saavncdn.com/289/Pathu-Thala-Original-Motion-Picture-Soundtrack-Tamil-2023-20230320144505-500x500.jpg",
     duration: 254
   },
   {
     id: "rec-boomboom",
     title: 'Boom Boom [From "Dude (Telugu)"]',
-    artist: "Sai Abhyankkar, Bhumi, Sanjana",
+    artist: "Sai Abhyankkar, Deepthi Suresh, Bebhumika",
     badge: "Single",
     movie: "Dude",
-    year: 2024,
+    year: 2025,
     language: "Telugu",
     category: "Telugu",
-    src: "https://aac.saavncdn.com/252/c086f0cf5ab8996412d8d60f52bd059b_320.mp4",
-    artwork: "images/cover-boomboom.jpg",
-    duration: 218
+    src: "https://aac.saavncdn.com/177/7f1d8dfacf14f782e07dd0597699f941_320.mp4",
+    artwork: "https://c.saavncdn.com/177/Dude-Telugu-Original-Motion-Picture-Soundtrack-Telugu-2025-20251029174900-500x500.jpg",
+    duration: 240
   },
   {
     id: "rec-magadheera",
-    title: "Magadheera",
-    artist: "M. M. Keeravaani",
+    title: "Magadheera (Panchadaara)",
+    artist: "M. M. Keeravaani, Anuj Gurwara, Rita",
     badge: "EP",
     movie: "Magadheera",
     year: 2009,
     language: "Telugu",
     category: "Telugu",
-    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
+    src: "https://aac.saavncdn.com/896/b31711f5ffc53101d52d93a5219e95da_320.mp4",
     artwork: "https://c.saavncdn.com/896/Magadheera-2009-500x500.jpg",
-    duration: 268
+    duration: 288
+  },
+  {
+    id: "rec-guru",
+    title: "Guru (Tere Bina / Ay Hairathe)",
+    artist: "A.R. Rahman, Chinmayi, Murtuza Khan",
+    badge: "Album",
+    movie: "Guru",
+    year: 2006,
+    language: "Hindi",
+    category: "Soundtrack",
+    src: "https://aac.saavncdn.com/020/6ac166981a9551c3ea2a435f938c554e_320.mp4",
+    artwork: "https://c.saavncdn.com/020/Guru-Hindi-2006-20190516131307-500x500.jpg",
+    duration: 309
+  },
+  {
+    id: "rec-yeshanagula",
+    title: "Yeshanagula (From \"The Paradise\")",
+    artist: "Anirudh Ravichander, Singer Prabha",
+    badge: "Single",
+    movie: "The Paradise",
+    year: 2026,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/218/3d34604c59ae05815f6ad40e90d970af_320.mp4",
+    artwork: "https://c.saavncdn.com/218/Yeshanagula-From-The-Paradise-Telugu-Telugu-2026-20260829173806-500x500.jpg",
+    duration: 188
+  },
+  {
+    id: "rec-namo-re",
+    title: "Namo Re (From \"Nagabandham\")",
+    artist: "Sri Harsha Emani, Junaid Kumar, AbhE",
+    badge: "Single",
+    movie: "Nagabandham",
+    year: 2026,
+    language: "Telugu",
+    category: "Telugu",
+    src: "https://aac.saavncdn.com/468/3b171fd16c313cbb882a0fb6877a8598_320.mp4",
+    artwork: "https://c.saavncdn.com/468/Namo-Re-From-Nagabandham-Telugu-Telugu-2026-20260314183156-500x500.jpg",
+    duration: 257
   },
   {
     id: "rec-kesariya",
@@ -2188,9 +2237,9 @@ const RECOMMENDED_TODAY = [
     year: 2024,
     language: "Telugu",
     category: "Telugu",
-    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
+    src: "https://aac.saavncdn.com/313/1178c7b2a16c3fd32ec5cd002b5a1ce0_320.mp4",
     artwork: "https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg",
-    duration: 194
+    duration: 195
   },
   {
     id: "rec-pushpa2",
@@ -2201,9 +2250,9 @@ const RECOMMENDED_TODAY = [
     year: 2024,
     language: "Telugu",
     category: "Telugu",
-    src: "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
+    src: "https://aac.saavncdn.com/366/0377fc358eb812da5d44b215b4bebfb3_320.mp4",
     artwork: "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
-    duration: 254
+    duration: 247
   },
   {
     id: "rec-chitti",
@@ -2226,16 +2275,18 @@ const ALBUMS_FEATURING = [
     title: "Vikramasimha",
     artist: "A.R. Rahman, Rajinikanth",
     badge: "Album",
-    artwork: "images/cover-vikramasimha.jpg",
-    query: "Vikramasimha"
+    artwork: "https://c.saavncdn.com/799/Vikramasimha-Telugu-2014-20190914112556-500x500.jpg",
+    query: "Vikramasimha",
+    src: "https://aac.saavncdn.com/799/b44f25eef4672726ebaa633bac5373da_320.mp4"
   },
   {
     id: "alb-chhaava",
     title: "Chhaava",
-    artist: "A.R. Rahman",
+    artist: "A.R. Rahman, Arijit Singh",
     badge: "Album",
     artwork: "images/cover-chhaava.jpg",
-    query: "Chhaava"
+    query: "Chhaava",
+    src: "https://aac.saavncdn.com/871/c2febd353f3a076a406fa37510f31f9f_320.mp4"
   },
   {
     id: "alb-hanuman",
@@ -2243,7 +2294,8 @@ const ALBUMS_FEATURING = [
     artist: "Hariharan, Gulshan Kumar",
     badge: "Album",
     artwork: "https://c.saavncdn.com/798/Shree-Hanuman-Chalisa-Hanuman-Ashtak-Hindi-1992-20240924151740-500x500.jpg",
-    query: "Hanuman Chalisa Hariharan"
+    query: "Hanuman Chalisa Hariharan",
+    src: "https://aac.saavncdn.com/798/Shree-Hanuman-Chalisa-Hanuman-Ashtak-Hindi-1992-20240924151740-500x500.jpg"
   },
   {
     id: "alb-pushpa2",
@@ -2251,7 +2303,8 @@ const ALBUMS_FEATURING = [
     artist: "Devi Sri Prasad",
     badge: "Album",
     artwork: "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
-    query: "Pushpa 2"
+    query: "Pushpa 2",
+    src: "https://aac.saavncdn.com/366/0377fc358eb812da5d44b215b4bebfb3_320.mp4"
   },
   {
     id: "alb-devara",
@@ -2259,7 +2312,8 @@ const ALBUMS_FEATURING = [
     artist: "Anirudh Ravichander",
     badge: "Album",
     artwork: "https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg",
-    query: "Devara"
+    query: "Devara",
+    src: "https://aac.saavncdn.com/313/1178c7b2a16c3fd32ec5cd002b5a1ce0_320.mp4"
   },
   {
     id: "alb-alavp",
@@ -2267,7 +2321,8 @@ const ALBUMS_FEATURING = [
     artist: "Thaman S",
     badge: "Album",
     artwork: "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-    query: "Ala Vaikunthapurramuloo"
+    query: "Ala Vaikunthapurramuloo",
+    src: "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4"
   },
   {
     id: "alb-animal",
@@ -2303,10 +2358,97 @@ const ALBUMS_FEATURING = [
   }
 ];
 
+// Reference tracks matching Screenshot 2 photo exactly
+const PHOTO_REFERENCE_TRACKS = [
+  {
+    id: "rec-guru",
+    title: "Guru (Original Motion Picture Soundtrack)",
+    artist: "A.R. Rahman · Ay Hairathe",
+    movie: "Guru",
+    src: "https://aac.saavncdn.com/020/609589d3ed5ac61e7cdc2766abf0a9fc_320.mp4",
+    artwork: "https://c.saavncdn.com/020/Guru-Hindi-2006-20190516131307-500x500.jpg",
+    language: "Hindi",
+    category: "Soundtrack",
+    duration: 369
+  },
+  {
+    id: "rec-yeshanagula",
+    title: "Yeshanagula (From \"The Paradise\")",
+    artist: "Anirudh Ravichander",
+    movie: "The Paradise",
+    src: "https://aac.saavncdn.com/218/3d34604c59ae05815f6ad40e90d970af_320.mp4",
+    artwork: "https://c.saavncdn.com/218/Yeshanagula-From-The-Paradise-Telugu-Telugu-2026-20260829173806-500x500.jpg",
+    language: "Telugu",
+    category: "Telugu",
+    duration: 188
+  },
+  {
+    id: "rec-inkem-inkem",
+    title: "Top Telugu Love songs",
+    artist: "Sid Sriram · Inkem Inkem",
+    movie: "Geetha Govindam",
+    src: "https://aac.saavncdn.com/237/7942edb73e64d4e35e488337e14753b7_320.mp4",
+    artwork: "https://c.saavncdn.com/237/Geetha-Govindam-Telugu-2018-20180921-500x500.jpg",
+    language: "Telugu",
+    category: "Telugu",
+    duration: 268
+  },
+  {
+    id: "rec-namo-re",
+    title: "Namo Re (From \"Nagabandham\")",
+    artist: "Sri Harsha Emani, Junaid Kumar",
+    movie: "Nagabandham",
+    src: "https://aac.saavncdn.com/468/3b171fd16c313cbb882a0fb6877a8598_320.mp4",
+    artwork: "https://c.saavncdn.com/468/Namo-Re-From-Nagabandham-Telugu-Telugu-2026-20260314183156-500x500.jpg",
+    language: "Telugu",
+    category: "Telugu",
+    duration: 257
+  },
+  {
+    id: "rec-agr",
+    title: "AGR (Original Motion Picture Soundtrack)",
+    artist: "A.R. Rahman",
+    movie: "Pathu Thala (AGR)",
+    src: "https://aac.saavncdn.com/289/ac6df32d8fd9d1b2759928b99261892f_320.mp4",
+    artwork: "https://c.saavncdn.com/289/Pathu-Thala-Original-Motion-Picture-Soundtrack-Tamil-2023-20230320144505-500x500.jpg",
+    language: "Tamil",
+    category: "Soundtrack",
+    duration: 254
+  },
+  {
+    id: "rec-boomboom",
+    title: 'Boom Boom [From "Dude (Telugu)"]',
+    artist: "Sai Abhyankkar, Deepthi Suresh",
+    movie: "Dude",
+    src: "https://aac.saavncdn.com/177/7f1d8dfacf14f782e07dd0597699f941_320.mp4",
+    artwork: "https://c.saavncdn.com/177/Dude-Telugu-Original-Motion-Picture-Soundtrack-Telugu-2025-20251029174900-500x500.jpg",
+    language: "Telugu",
+    category: "Telugu",
+    duration: 240
+  }
+];
+
 async function playAndShowAlbum(albumTitle, query) {
+  const cleanTitle = (albumTitle || '').toLowerCase().trim();
+  const albumEntry = (typeof ALBUMS_FEATURING !== 'undefined' ? ALBUMS_FEATURING : []).find(
+    (a) => a.title.toLowerCase() === cleanTitle || cleanTitle.includes(a.title.toLowerCase()) || a.title.toLowerCase().includes(cleanTitle)
+  );
+  if (albumEntry && albumEntry.src) {
+    const trackObj = {
+      id: albumEntry.id,
+      title: albumEntry.title,
+      artist: albumEntry.artist,
+      movie: albumEntry.title,
+      src: albumEntry.src,
+      artwork: albumEntry.artwork,
+      duration: 260
+    };
+    playTrack(trackObj);
+    return;
+  }
+
   const q = query || albumTitle;
   toast(`Opening album: ${albumTitle}...`);
-  const cleanTitle = albumTitle.toLowerCase().trim();
   const localMatches = state.tracks.filter((t) => {
     const m = (t.movie || '').toLowerCase();
     const tit = (t.title || '').toLowerCase();
@@ -2672,6 +2814,14 @@ function stopAll() {
   state.playing = false;
 }
 
+function getStreamProxyUrl(rawUrl) {
+  if (!rawUrl) return '';
+  if (rawUrl.startsWith('data:') || rawUrl.startsWith('blob:') || rawUrl.includes('/api/stream')) {
+    return rawUrl;
+  }
+  return `/api/stream?url=${encodeURIComponent(rawUrl)}`;
+}
+
 // Play specified track (Full Length 320kbps Audio)
 function playTrack(track, forceModal = null) {
   stopAll();
@@ -2705,17 +2855,32 @@ function playTrack(track, forceModal = null) {
         if (err && err.name === 'AbortError') {
           return; // Benign transient interruption, do not show any error
         }
-        // Quietly retry once without flashing alarming error toasts
-        setTimeout(() => {
-          if (state.current && state.current.id === track.id) {
-            audio.play().then(() => {
-              state.playing = true;
-              syncPlayState();
-              startVisualizerLoop();
-              renderRecentGrid();
-            }).catch(() => {});
-          }
-        }, 300);
+        // Resilient fallback: if direct stream was blocked by CORS or network, switch to proxy
+        if (src.startsWith('http') && !src.includes('/api/stream')) {
+          const proxyUrl = getStreamProxyUrl(src);
+          audio.src = proxyUrl;
+          setTimeout(() => {
+            if (state.current && state.current.id === track.id) {
+              audio.play().then(() => {
+                state.playing = true;
+                syncPlayState();
+                startVisualizerLoop();
+                renderRecentGrid();
+              }).catch(() => {});
+            }
+          }, 200);
+        } else {
+          setTimeout(() => {
+            if (state.current && state.current.id === track.id) {
+              audio.play().then(() => {
+                state.playing = true;
+                syncPlayState();
+                startVisualizerLoop();
+                renderRecentGrid();
+              }).catch(() => {});
+            }
+          }, 300);
+        }
       });
     }
   } else {
@@ -3321,16 +3486,32 @@ function resetFilters() {
 }
 
 function openExpandedModal() {
-  el('expandedModal').hidden = false;
+  const modal = el('expandedModal');
+  if (modal) modal.hidden = false;
   document.body.classList.add('is-expanded-modal-open');
   document.body.style.overflow = 'hidden';
+  // Completely hide bottom player & bottom nav dock
+  const floatPlayer = el('floatingMiniPlayer');
+  if (floatPlayer) floatPlayer.style.display = 'none';
+  const bottomNav = el('mobileBottomNav');
+  if (bottomNav) bottomNav.style.display = 'none';
+  const playerBar = el('player');
+  if (playerBar) playerBar.style.display = 'none';
   renderPlayer();
 }
 
 function closeExpandedModal() {
-  el('expandedModal').hidden = true;
+  const modal = el('expandedModal');
+  if (modal) modal.hidden = true;
   document.body.classList.remove('is-expanded-modal-open');
   document.body.style.overflow = '';
+  // Restore bottom player if there is a current playing/selected song
+  const floatPlayer = el('floatingMiniPlayer');
+  if (floatPlayer) floatPlayer.style.display = '';
+  const bottomNav = el('mobileBottomNav');
+  if (bottomNav) bottomNav.style.display = '';
+  const playerBar = el('player');
+  if (playerBar) playerBar.style.display = '';
 }
 
 let pendingDownloadTrack = null;
@@ -4164,7 +4345,17 @@ function bindEvents() {
   });
   audio.addEventListener('ended', handleEnded);
   audio.addEventListener('error', () => {
-    // Silent recovery: do not popup annoying toast during normal track transitions
+    const curSrc = audio.src || '';
+    if (curSrc && curSrc.startsWith('http') && !curSrc.includes('/api/stream') && !curSrc.startsWith('blob:')) {
+      const proxyUrl = getStreamProxyUrl(curSrc);
+      console.log('Audio error encountered, switching to stream proxy:', proxyUrl);
+      audio.src = proxyUrl;
+      audio.play().then(() => {
+        state.playing = true;
+        syncPlayState();
+        startVisualizerLoop();
+      }).catch(() => {});
+    }
   });
 
   // Global Keyboard Shortcuts

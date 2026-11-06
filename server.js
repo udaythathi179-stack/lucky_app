@@ -278,6 +278,72 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // High-performance streaming audio proxy with Range support for mobile & desktop
+  if (pathname === '/api/stream') {
+    const fileUrl = parsedUrl.searchParams.get('url');
+    if (!fileUrl) {
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      res.end('Missing url parameter');
+      return;
+    }
+
+    function proxyStream(targetUrl, redirectCount = 0) {
+      if (redirectCount > 4) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Too many redirects');
+        return;
+      }
+      try {
+        const client = targetUrl.startsWith('https') ? https : http;
+        const reqHeaders = {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': '*/*'
+        };
+        if (req.headers.range) {
+          reqHeaders['Range'] = req.headers.range;
+        }
+
+        client.get(targetUrl, { headers: reqHeaders }, (mediaRes) => {
+          if (mediaRes.statusCode >= 300 && mediaRes.statusCode < 400 && mediaRes.headers.location) {
+            const redirectUrl = new URL(mediaRes.headers.location, targetUrl).href;
+            proxyStream(redirectUrl, redirectCount + 1);
+            return;
+          }
+
+          const resHeaders = {
+            'Content-Type': mediaRes.headers['content-type'] || 'audio/mp4',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Range, Content-Type',
+            'Accept-Ranges': 'bytes',
+            'Cache-Control': 'public, max-age=86400'
+          };
+          if (mediaRes.headers['content-range']) {
+            resHeaders['Content-Range'] = mediaRes.headers['content-range'];
+          }
+          if (mediaRes.headers['content-length']) {
+            resHeaders['Content-Length'] = mediaRes.headers['content-length'];
+          }
+
+          res.writeHead(mediaRes.statusCode || 200, resHeaders);
+          mediaRes.pipe(res);
+        }).on('error', (err) => {
+          if (!res.headersSent) {
+            res.writeHead(502, { 'Content-Type': 'text/plain' });
+            res.end('Stream error: ' + err.message);
+          }
+        });
+      } catch (err) {
+        if (!res.headersSent) {
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.end('Stream error: ' + err.message);
+        }
+      }
+    }
+
+    proxyStream(fileUrl);
+    return;
+  }
+
   // Direct Audio Download Proxy route (Forces file save on Mobile & Laptop)
   if (pathname === '/api/download') {
     const fileUrl = parsedUrl.searchParams.get('url');

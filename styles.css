@@ -2644,7 +2644,7 @@ body.is-expanded-modal-open .player {
   max-width: 580px;
   width: 100%;
   margin: 0 auto;
-  padding: 24px 28px 40px;
+  padding: 20px 24px calc(90px + env(safe-area-inset-bottom, 24px));
   min-height: 100%;
 }
 
@@ -6441,14 +6441,59 @@ footer#player,
   z-index: -999 !important;
 }
 
-/* When Expanded Modal is open, hide the bottom floating mini player and bottom nav */
+/* When Expanded Modal is open, completely hide the bottom floating mini player and bottom nav */
 body.is-expanded-modal-open .spotify-floating-player,
+body.is-expanded-modal-open #floatingMiniPlayer,
 body.is-expanded-modal-open .spotify-bottom-nav,
+body.is-expanded-modal-open #mobileBottomNav,
 body.is-expanded-modal-open .player,
-body.is-expanded-modal-open #player {
+body.is-expanded-modal-open #player,
+body.is-expanded-modal-open footer {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+@media (max-height: 850px) {
+  .expanded-container {
+    padding: 12px 18px calc(80px + env(safe-area-inset-bottom, 20px));
+  }
+  .expanded-topbar {
+    margin-bottom: 10px;
+  }
+  .expanded-art-wrap {
+    width: 210px;
+    height: 210px;
+    margin: 4px auto 12px;
+  }
+  .expanded-vinyl {
+    width: 200px;
+    height: 200px;
+  }
+  .expanded-art-img {
+    width: 120px;
+    height: 120px;
+  }
+  .visualizer-container {
+    margin-bottom: 8px;
+  }
+  .spectrum-canvas {
+    height: 55px;
+  }
+  .expanded-meta {
+    margin-bottom: 10px;
+  }
+  .expanded-timeline {
+    margin-bottom: 12px;
+  }
+  .expanded-controls {
+    margin-bottom: 14px;
+    gap: 14px;
+  }
+  .expanded-footer-tools {
+    gap: 12px;
+  }
 }
 
 .expanded-modal-backdrop {
