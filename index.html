@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=84" />
+  <link rel="stylesheet" href="styles.css?v=85" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -873,21 +873,21 @@
 
       <!-- Real-Time Band Sliders -->
       <div class="eq-bands-section">
-        <!-- 1. Base Band Slider -->
+        <!-- 1. Base Beats Slider -->
         <div class="eq-band-card" data-band="bass">
           <div class="eq-band-header">
             <div class="eq-band-title">
               <span class="eq-band-emoji">💥</span>
               <div>
-                <strong>Base Band</strong>
-                <span class="eq-band-desc">Low-end punch, 808s &amp; deep kicks (160 Hz)</span>
+                <strong>Base Beats</strong>
+                <span class="eq-band-desc">Maximum sub-bass punch, 808s &amp; heavy kicks (up to +24 dB)</span>
               </div>
             </div>
             <span id="eqBassVal" class="eq-band-badge">0 dB</span>
           </div>
           <div class="eq-slider-row">
             <button type="button" class="eq-step-btn" data-target="eqBass" data-step="-1" title="Decrease Base (1 dB)">−</button>
-            <input id="eqBassSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Adjust Base" />
+            <input id="eqBassSlider" type="range" min="-12" max="24" step="1" value="0" class="range eq-range-input" aria-label="Adjust Base Beats to Maximum" />
             <button type="button" class="eq-step-btn" data-target="eqBass" data-step="1" title="Increase Base (1 dB)">+</button>
           </div>
         </div>
@@ -906,7 +906,7 @@
           </div>
           <div class="eq-slider-row">
             <button type="button" class="eq-step-btn" data-target="eqVocal" data-step="-1" title="Decrease Vocal (1 dB)">−</button>
-            <input id="eqVocalSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Increase Vocal" />
+            <input id="eqVocalSlider" type="range" min="-12" max="18" step="1" value="0" class="range eq-range-input" aria-label="Increase Vocal" />
             <button type="button" class="eq-step-btn" data-target="eqVocal" data-step="1" title="Increase Vocal (1 dB)">+</button>
           </div>
         </div>
@@ -925,7 +925,7 @@
           </div>
           <div class="eq-slider-row">
             <button type="button" class="eq-step-btn" data-target="eqTreble" data-step="-1" title="Decrease Treble (1 dB)">−</button>
-            <input id="eqTrebleSlider" type="range" min="-12" max="14" step="1" value="0" class="range eq-range-input" aria-label="Adjust Treble" />
+            <input id="eqTrebleSlider" type="range" min="-12" max="18" step="1" value="0" class="range eq-range-input" aria-label="Adjust Treble" />
             <button type="button" class="eq-step-btn" data-target="eqTreble" data-step="1" title="Increase Treble (1 dB)">+</button>
           </div>
         </div>
@@ -941,16 +941,16 @@
           <span>Studio master original (0 dB)</span>
         </button>
         <button type="button" class="eq-card" data-preset="bass">
-          <strong>Heavy Base 💥</strong>
-          <span>+10 dB base boost for thump</span>
+          <strong>Heavy Base Beats 💥</strong>
+          <span>Maximum +24 dB base beats for extreme thump</span>
         </button>
         <button type="button" class="eq-card" data-preset="vocal">
           <strong>Vocal Boost 🎤</strong>
-          <span>+9 dB vocal clarity for singing</span>
+          <span>+10 dB vocal clarity for singing</span>
         </button>
         <button type="button" class="eq-card" data-preset="bass_vocal">
-          <strong>Base + Vocal 🚀</strong>
-          <span>Punchy base &amp; prominent voice</span>
+          <strong>Maximum Base + Vocal 🚀</strong>
+          <span>+20 dB base beats &amp; prominent voice</span>
         </button>
         <button type="button" class="eq-card" data-preset="party">
           <strong>Party Dynamic 🎧</strong>
@@ -1522,7 +1522,7 @@
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
   <script src="data/artistDiscographies.js?v=2"></script>
-  <script src="app.js?v=86"></script>
+  <script src="app.js?v=87"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

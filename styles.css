@@ -3356,6 +3356,20 @@ body.is-expanded-modal-open footer {
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
 }
 
+.eq-band-badge.max-boost {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.28), rgba(249, 115, 22, 0.35));
+  color: #fb923c;
+  border-color: rgba(251, 146, 60, 0.7);
+  box-shadow: 0 0 16px rgba(251, 146, 60, 0.5);
+  font-weight: 800;
+  animation: pulseBassMax 1.4s ease-in-out infinite;
+}
+
+@keyframes pulseBassMax {
+  0%, 100% { box-shadow: 0 0 14px rgba(251, 146, 60, 0.4); }
+  50% { box-shadow: 0 0 24px rgba(239, 68, 68, 0.7); }
+}
+
 .eq-band-badge.cut {
   background: rgba(244, 63, 94, 0.15);
   color: #f43f5e;

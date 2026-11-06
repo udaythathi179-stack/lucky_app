@@ -1493,8 +1493,10 @@ let audioCtx = null;
 let audioSourceNode = null;
 let analyserNode = null;
 let biquadBass = null;
+let biquadSubBass = null;
 let biquadTreble = null;
 let biquadMid = null;
+let eqCompressor = null;
 let animFrameId = null;
 
 // Progress tracking
@@ -1588,10 +1590,16 @@ function initWebAudio() {
     analyserNode.fftSize = 128;
     analyserNode.smoothingTimeConstant = 0.8;
 
-    // Bass lowshelf filter (160 Hz for punchy sub-bass & kicks)
+    // Bass lowshelf filter (130 Hz for maximum deep sub-bass & 808 thump)
     biquadBass = audioCtx.createBiquadFilter();
     biquadBass.type = 'lowshelf';
-    biquadBass.frequency.value = 160;
+    biquadBass.frequency.value = 130;
+
+    // Sub-bass punch peaking filter (65 Hz for hard-hitting beat kicks)
+    biquadSubBass = audioCtx.createBiquadFilter();
+    biquadSubBass.type = 'peaking';
+    biquadSubBass.frequency.value = 65;
+    biquadSubBass.Q.value = 1.3;
 
     // Vocal presence peaking filter (2200 Hz, Q=1.2 for singer voice clarity)
     biquadMid = audioCtx.createBiquadFilter();
@@ -1604,11 +1612,21 @@ function initWebAudio() {
     biquadTreble.type = 'highshelf';
     biquadTreble.frequency.value = 4500;
 
+    // Studio dynamics compressor & limiter to ensure MAXIMUM base beats without distortion
+    eqCompressor = audioCtx.createDynamicsCompressor();
+    eqCompressor.threshold.value = -4.0;
+    eqCompressor.knee.value = 10.0;
+    eqCompressor.ratio.value = 12.0;
+    eqCompressor.attack.value = 0.003;
+    eqCompressor.release.value = 0.25;
+
     audioSourceNode = audioCtx.createMediaElementSource(audio);
     audioSourceNode.connect(biquadBass);
-    biquadBass.connect(biquadMid);
+    biquadBass.connect(biquadSubBass);
+    biquadSubBass.connect(biquadMid);
     biquadMid.connect(biquadTreble);
-    biquadTreble.connect(analyserNode);
+    biquadTreble.connect(eqCompressor);
+    eqCompressor.connect(analyserNode);
     analyserNode.connect(audioCtx.destination);
 
     // Apply stored Bass & Vocal gains
@@ -1618,9 +1636,9 @@ function initWebAudio() {
 }
 
 function applyBandGains(bassDb, vocalDb, trebleDb, preset = 'custom', save = true) {
-  const b = Math.max(-12, Math.min(14, Math.round(Number(bassDb) || 0)));
-  const v = Math.max(-12, Math.min(14, Math.round(Number(vocalDb) || 0)));
-  const t = Math.max(-12, Math.min(14, Math.round(Number(trebleDb) || 0)));
+  const b = Math.max(-12, Math.min(24, Math.round(Number(bassDb) || 0)));
+  const v = Math.max(-12, Math.min(18, Math.round(Number(vocalDb) || 0)));
+  const t = Math.max(-12, Math.min(18, Math.round(Number(trebleDb) || 0)));
 
   state.eqBass = b;
   state.eqVocal = v;
@@ -1628,6 +1646,7 @@ function applyBandGains(bassDb, vocalDb, trebleDb, preset = 'custom', save = tru
   state.eqPreset = preset;
 
   if (biquadBass) biquadBass.gain.value = b;
+  if (biquadSubBass) biquadSubBass.gain.value = b > 0 ? Math.round(b * 0.75) : b;
   if (biquadMid) biquadMid.gain.value = v;
   if (biquadTreble) biquadTreble.gain.value = t;
 
@@ -1640,14 +1659,15 @@ function applyBandGains(bassDb, vocalDb, trebleDb, preset = 'custom', save = tru
   if (trebleInput && parseFloat(trebleInput.value) !== t) trebleInput.value = t;
 
   // Sync badges
-  function updateBadge(badgeId, val) {
+  function updateBadge(badgeId, val, isBass = false) {
     const badge = el(badgeId);
     if (!badge) return;
     badge.textContent = (val > 0 ? '+' : '') + val + ' dB';
-    badge.classList.toggle('boosted', val > 0);
+    badge.classList.toggle('boosted', val > 0 && (!isBass || val < 18));
+    badge.classList.toggle('max-boost', isBass && val >= 18);
     badge.classList.toggle('cut', val < 0);
   }
-  updateBadge('eqBassVal', b);
+  updateBadge('eqBassVal', b, true);
   updateBadge('eqVocalVal', v);
   updateBadge('eqTrebleVal', t);
 
@@ -1673,19 +1693,19 @@ function applyBandGains(bassDb, vocalDb, trebleDb, preset = 'custom', save = tru
 function applyEqPreset(preset) {
   switch (preset) {
     case 'bass':
-      applyBandGains(10, 0, 1, 'bass', true);
+      applyBandGains(24, 0, 2, 'bass', true); // Maximum Base Beats (+24 dB)
       break;
     case 'vocal':
-      applyBandGains(-1, 9, 3, 'vocal', true);
+      applyBandGains(-1, 10, 3, 'vocal', true);
       break;
     case 'bass_vocal':
-      applyBandGains(8, 7, 2, 'bass_vocal', true);
+      applyBandGains(20, 8, 3, 'bass_vocal', true); // Maximum Base + Vocal
       break;
     case 'party':
-      applyBandGains(7, 3, 6, 'party', true);
+      applyBandGains(18, 4, 8, 'party', true);
       break;
     case 'treble':
-      applyBandGains(-2, 1, 8, 'treble', true);
+      applyBandGains(-2, 1, 10, 'treble', true);
       break;
     case 'normal':
     default:
@@ -4450,13 +4470,13 @@ function bindEvents() {
       const target = btn.dataset.target;
       const step = parseFloat(btn.dataset.step) || 1;
       if (target === 'eqBass') {
-        const next = Math.max(-12, Math.min(14, state.eqBass + step));
+        const next = Math.max(-12, Math.min(24, state.eqBass + step));
         applyBandGains(next, state.eqVocal, state.eqTreble, 'custom', true);
       } else if (target === 'eqVocal') {
-        const next = Math.max(-12, Math.min(14, state.eqVocal + step));
+        const next = Math.max(-12, Math.min(18, state.eqVocal + step));
         applyBandGains(state.eqBass, next, state.eqTreble, 'custom', true);
       } else if (target === 'eqTreble') {
-        const next = Math.max(-12, Math.min(14, state.eqTreble + step));
+        const next = Math.max(-12, Math.min(18, state.eqTreble + step));
         applyBandGains(state.eqBass, state.eqVocal, next, 'custom', true);
       }
     });
