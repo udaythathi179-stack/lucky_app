@@ -3853,8 +3853,29 @@ function bindEvents() {
   });
   el('closeAddToPlaylist').addEventListener('click', closeAddToPlaylist);
 
+  const atpModal = el('addToPlaylistModal');
+  if (atpModal) {
+    atpModal.addEventListener('click', (e) => {
+      if (e.target === atpModal) closeAddToPlaylist();
+    });
+  }
+
+  const npModal = el('newPlaylistModal');
+  if (npModal) {
+    npModal.addEventListener('click', (e) => {
+      if (e.target === npModal) closeNewPlaylistModal();
+    });
+  }
+
   const closeDlModal = el('closeDownloadModal');
   if (closeDlModal) closeDlModal.addEventListener('click', closeDownloadModal);
+
+  const dlModal = el('downloadModal');
+  if (dlModal) {
+    dlModal.addEventListener('click', (e) => {
+      if (e.target === dlModal) closeDownloadModal();
+    });
+  }
 
   const optDevice = el('dlOptionDevice');
   if (optDevice) optDevice.addEventListener('click', () => handleDownloadChoice('device'));
@@ -3985,15 +4006,30 @@ function bindEvents() {
     });
   }
 
-  el('expAddToPlaylistBtn').addEventListener('click', () => {
-    if (state.current) openAddToPlaylist(state.current.id);
-  });
+  const expAddPlBtn = el('expAddToPlaylistBtn');
+  if (expAddPlBtn) {
+    expAddPlBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (state.current) openAddToPlaylist(state.current.id);
+      else toast('Select a song first to add it to a playlist');
+    });
+  }
 
   const eqToggle = el('eqToggleBtn');
-  if (eqToggle) eqToggle.addEventListener('click', openEqModal);
+  if (eqToggle) {
+    eqToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openEqModal();
+    });
+  }
 
   const expEq = el('expEqBtn');
-  if (expEq) expEq.addEventListener('click', openEqModal);
+  if (expEq) {
+    expEq.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openEqModal();
+    });
+  }
 
   const closeEq = el('closeEqBtn');
   if (closeEq) closeEq.addEventListener('click', closeEqModal);
@@ -4139,15 +4175,23 @@ function bindEvents() {
     }
 
     if (event.key === 'Escape') {
-      closeUniverseDrawer();
-      el('importModal').hidden = true;
-      el('shortcutsModal').hidden = true;
-      el('eqModal').hidden = true;
-      el('newPlaylistModal').hidden = true;
-      el('addToPlaylistModal').hidden = true;
       const dlModal = el('downloadModal');
-      if (dlModal) dlModal.hidden = true;
-      el('queueDrawer').hidden = true;
+      const eqModal = el('eqModal');
+      const atpModal = el('addToPlaylistModal');
+      const npModal = el('newPlaylistModal');
+      const scModal = el('shortcutsModal');
+      const impModal = el('importModal');
+      const qDrawer = el('queueDrawer');
+
+      if (dlModal && !dlModal.hidden) { closeDownloadModal(); return; }
+      if (eqModal && !eqModal.hidden) { closeEqModal(); return; }
+      if (atpModal && !atpModal.hidden) { closeAddToPlaylist(); return; }
+      if (npModal && !npModal.hidden) { closeNewPlaylistModal(); return; }
+      if (scModal && !scModal.hidden) { scModal.hidden = true; return; }
+      if (impModal && !impModal.hidden) { impModal.hidden = true; return; }
+      if (qDrawer && !qDrawer.hidden) { qDrawer.hidden = true; return; }
+
+      closeUniverseDrawer();
       closeExpandedModal();
       if (document.activeElement === searchInput) searchInput.blur();
       return;
