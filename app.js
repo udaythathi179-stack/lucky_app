@@ -1375,20 +1375,20 @@ const storedRecentHistory = getStoredJSON(STORAGE_RECENT_HISTORY, []);
 // Initialize Recent Songs: preserve full track objects so online songs from search play seamlessly
 let initialRecentTracks = [];
 if (Array.isArray(storedRecentTracks) && storedRecentTracks.length > 0) {
-  initialRecentTracks = storedRecentTracks.filter((t) => t && t.id && t.title).slice(0, 10);
+  initialRecentTracks = storedRecentTracks.filter((t) => t && t.id && t.title).slice(0, 6);
 } else if (Array.isArray(storedRecentHistory) && storedRecentHistory.length > 0) {
   storedRecentHistory.forEach((id) => {
     const t = catalog.find((c) => c.id === id);
     if (t) initialRecentTracks.push({ ...t });
   });
-  initialRecentTracks = initialRecentTracks.slice(0, 10);
+  initialRecentTracks = initialRecentTracks.slice(0, 6);
 }
 
-// Always ensure exactly 10 songs in Recent Songs by backfilling from top catalog master hits
-if (initialRecentTracks.length < 10) {
+// Always ensure exactly 6 songs in Recent Songs by backfilling from top catalog master hits
+if (initialRecentTracks.length < 6) {
   const existingIds = new Set(initialRecentTracks.map((t) => t.id));
   for (const catTrack of catalog) {
-    if (initialRecentTracks.length >= 10) break;
+    if (initialRecentTracks.length >= 6) break;
     if (!existingIds.has(catTrack.id)) {
       initialRecentTracks.push({ ...catTrack });
       existingIds.add(catTrack.id);
@@ -1983,30 +1983,31 @@ function renderChips() {
 }
 
 // Render Recent Songs Grid (Always exactly 10 songs with equal sized cards)
+// Render Recent Songs Grid (Always exactly 6 songs in 2 columns x 3 rows)
 function renderRecentGrid() {
   const quickGrid = el('quickJumpGrid');
   if (!quickGrid) return;
 
   let tracks = (state.recentTracks || []).filter((t) => t && t.id && t.title);
 
-  // If fewer than 10 songs, backfill from top catalog hits so there are always 10 songs
-  if (tracks.length < 10) {
+  // If fewer than 6 songs, backfill from top catalog hits so there are always 6 songs
+  if (tracks.length < 6) {
     const existingIds = new Set(tracks.map((t) => t.id));
     for (const catTrack of catalog) {
-      if (tracks.length >= 10) break;
+      if (tracks.length >= 6) break;
       if (!existingIds.has(catTrack.id)) {
         tracks.push({ ...catTrack });
         existingIds.add(catTrack.id);
       }
     }
-    state.recentTracks = tracks.slice(0, 10);
+    state.recentTracks = tracks.slice(0, 6);
     state.recentHistory = state.recentTracks.map((t) => t.id);
     setStoredJSON(STORAGE_RECENT_TRACKS, state.recentTracks);
     setStoredJSON(STORAGE_RECENT_HISTORY, state.recentHistory);
   }
 
-  // Strictly display 10 unique songs
-  const displayTracks = deduplicateTrackList(tracks).slice(0, 10);
+  // Strictly display 6 unique songs
+  const displayTracks = deduplicateTrackList(tracks).slice(0, 6);
   quickGrid.innerHTML = displayTracks.map((t) => {
     const art = t.artwork || 'icon-192.png';
     const artistName = t.artist || t.movie || 'Tuneus Master';
@@ -2029,7 +2030,7 @@ function renderRecentGrid() {
   }).join('');
 }
 
-// Add listened song to Recent Songs History (Max 10 songs, FIFO eviction of 11th song)
+// Add listened song to Recent Songs History (Max 6 songs, FIFO eviction of 7th song)
 function addToRecentHistory(track) {
   if (!track || !track.id) return;
 
@@ -2067,9 +2068,9 @@ function addToRecentHistory(track) {
   // Prepend to top/front (index 0 - most recent)
   state.recentTracks.unshift(trackToSave);
 
-  // If there are more than 10 songs (e.g. 11th song added), remove the oldest song (FIFO)
-  if (state.recentTracks.length > 10) {
-    state.recentTracks = state.recentTracks.slice(0, 10);
+  // If there are more than 6 songs (e.g. 7th song added), remove the oldest song (FIFO)
+  if (state.recentTracks.length > 6) {
+    state.recentTracks = state.recentTracks.slice(0, 6);
   }
 
   // Also maintain state.recentHistory IDs for backwards compatibility
@@ -4678,7 +4679,7 @@ function bindSpotifyNavigationEvents() {
       render();
       const qj = el('quickJumpGrid');
       if (qj) qj.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      toast('Showing your 10 most recent songs');
+      toast('Showing your 6 most recent songs');
     });
   }
 
