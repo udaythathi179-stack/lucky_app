@@ -6267,3 +6267,81 @@ body.is-create-sheet-open .s-create-icon-wrap .s-create-close {
   100% { height: 14px; }
 }
 
+/* ==========================================================================
+   Clean Spotify Topbar & Dedicated Search Screen
+   ========================================================================== */
+.topbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  padding: 12px 18px !important;
+  min-height: 60px;
+}
+
+.top-left-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.spotify-search-screen {
+  padding: 20px 16px 28px;
+  animation: fadeIn 0.22s ease;
+}
+
+.search-screen-header {
+  max-width: 680px;
+  margin: 0 auto 20px;
+}
+
+.search-screen-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.spotify-search-bar-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  gap: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+.spotify-search-icon {
+  color: #121212;
+  flex-shrink: 0;
+}
+
+.spotify-search-bar-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #121212;
+  font-family: inherit;
+}
+
+.spotify-search-bar-wrap input::placeholder {
+  color: #535353;
+  font-weight: 500;
+}
+
+.spotify-search-bar-wrap .clear-search {
+  color: #121212;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+}
+

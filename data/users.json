@@ -28,5 +28,15 @@
     "createdAt": "2026-11-04T13:57:35.587Z",
     "lastLoginAt": "2026-11-04T13:57:35.587Z",
     "loginCount": 1
+  },
+  {
+    "id": "usr_mw4f0guy7l8b9",
+    "name": "uday",
+    "email": "uday@tuneus.music",
+    "avatar": "",
+    "provider": "email",
+    "createdAt": "2026-11-06T03:28:45.658Z",
+    "lastLoginAt": "2026-11-06T03:28:45.658Z",
+    "loginCount": 1
   }
 ]

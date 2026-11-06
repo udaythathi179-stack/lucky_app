@@ -3700,6 +3700,8 @@ function bindEvents() {
       tab.classList.add('active');
 
       if (tab.id === 'tabHome') {
+        const searchScreen = el('searchScreen');
+        if (searchScreen) searchScreen.hidden = true;
         state.filter = 'All';
         state.query = '';
         state.onlineSearch = false;
@@ -3710,11 +3712,19 @@ function bindEvents() {
         render();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (tab.id === 'tabSearch') {
+        const searchScreen = el('searchScreen');
+        if (searchScreen) searchScreen.hidden = false;
+        const homeDash = el('homeDashboard');
+        if (homeDash) homeDash.hidden = true;
+        const plContainer = el('playlistsContainer');
+        if (plContainer) plContainer.hidden = true;
         if (el('search')) {
           el('search').focus();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (tab.id === 'tabLibrary') {
+        const searchScreen = el('searchScreen');
+        if (searchScreen) searchScreen.hidden = true;
         state.filter = 'Playlists';
         state.activeArtist = null;
         state.onlineSearch = false;
@@ -3849,8 +3859,10 @@ function bindEvents() {
   const optBoth = el('dlOptionBoth');
   if (optBoth) optBoth.addEventListener('click', () => handleDownloadChoice('both'));
 
-  el('addMusicBtn').addEventListener('click', () => el('fileInput').click());
-  el('fileInput').addEventListener('change', (e) => openImport(e.target.files));
+  const addMusicBtn = el('addMusicBtn');
+  if (addMusicBtn) addMusicBtn.addEventListener('click', () => el('fileInput')?.click());
+  const fileInput = el('fileInput');
+  if (fileInput) fileInput.addEventListener('change', (e) => openImport(e.target.files));
 
   document.querySelectorAll('#importLanguages .choice').forEach((choice) => {
     choice.addEventListener('click', () => {
@@ -4657,6 +4669,8 @@ function bindSpotifyNavigationEvents() {
   if (pRecentsBtn) {
     pRecentsBtn.addEventListener('click', () => {
       closeProfileDrawer();
+      const searchScreen = el('searchScreen');
+      if (searchScreen) searchScreen.hidden = true;
       state.filter = 'All';
       state.query = '';
       state.onlineSearch = false;
@@ -4752,6 +4766,8 @@ function bindSpotifyNavigationEvents() {
       const chip = e.target.closest('.chip');
       if (!chip) return;
       const f = chip.dataset.filter;
+      const searchScreen = el('searchScreen');
+      if (searchScreen) searchScreen.hidden = true;
       state.activeArtist = null;
       state.onlineSearch = false;
       state.activePlaylistId = null;

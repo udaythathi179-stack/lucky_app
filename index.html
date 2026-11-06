@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=53" />
+  <link rel="stylesheet" href="styles.css?v=54" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -113,99 +113,26 @@
         <button class="chip" data-filter="Music" type="button">Music</button>
         <button class="chip" data-filter="Podcasts" type="button">Podcasts</button>
       </div>
-
-      <div class="brand" role="banner" id="brandHome" title="Tuneus Music Home">
-        <div class="brand-mark" aria-hidden="true">
-          <img class="brand-logo-img" src="logo.png" alt="Tuneus Music Logo" />
-        </div>
-        <div class="brand-text">
-          <h1>Tuneus</h1>
-        </div>
-      </div>
-    </div>
-
-    <!-- Live Search Bar -->
-    <div class="search-section">
-      <div class="search-wrap" role="search">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <circle cx="11" cy="11" r="7" />
-          <path d="m20 20-3.6-3.6" />
-        </svg>
-        <input id="search" type="search" placeholder="Search..." autocomplete="off" spellcheck="false" aria-label="Search online for songs" />
-        <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>&times;</button>
-      </div>
-    </div>
-
-    <!-- Header Actions -->
-    <div class="top-actions">
-      <!-- Data Saver / Audio Quality Toggle -->
-      <button id="dataSaverBtn" class="data-saver-btn" type="button" title="Data Saver Mode (Click to cycle quality: 96k, 160k, 320k)">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-        </svg>
-        <span id="dataSaverLabel">Data Saver ⚡ (96k)</span>
-      </button>
-
-      <button id="addMusicBtn" class="add-btn" type="button" title="Import audio files from your device">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <path d="M12 5v14M5 12h14" />
-        </svg>
-        <span>Add music</span>
-      </button>
-
-      <!-- User Profile & Details Dropdown (Right Side Corner) -->
-      <div class="user-menu-wrap" id="userMenuWrap">
-        <button id="userProfileBtn" class="user-profile-btn" type="button" title="Account & Profile Details">
-          <span class="user-avatar-badge" id="userAvatarBadge">👤</span>
-          <span class="user-name-label" id="userNameLabel">Sign In</span>
-        </button>
-        <div class="user-dropdown-panel" id="userDropdownPanel" hidden>
-          <div class="user-dropdown-head">
-            <div class="user-avatar-circle" id="dropdownAvatar">U</div>
-            <div class="user-dropdown-details">
-              <strong id="dropdownName">Guest User</strong>
-              <span id="dropdownEmail">Not logged in</span>
-            </div>
-          </div>
-          <div class="user-dropdown-meta">
-            <span class="vip-status-tag">✨ VIP Listener • Database Saved</span>
-          </div>
-          <div class="user-dropdown-divider"></div>
-          <button type="button" class="dropdown-item-btn" id="openLoginBtn">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-            <span id="loginActionLabel">Switch Account</span>
-          </button>
-          <button type="button" class="dropdown-item-btn danger" id="logoutBtn">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </div>
     </div>
     <input id="fileInput" type="file" accept="audio/*" multiple hidden />
   </header>
 
   <!-- Main Content Area -->
   <main class="content">
-    <!-- Category & View Navigation -->
-    <div class="nav-toolbar">
-      <nav class="filters" aria-label="Filter by category">
-        <button class="chip active" data-filter="All" type="button">
-          All
-        </button>
-        <button class="chip chip-special" data-filter="Favorites" type="button">
-          <span class="heart-symbol">&#9829;</span> Liked
-        </button>
-        <button class="chip chip-special" data-filter="Playlists" type="button">
-          <span>&#9776;</span> Playlists
-        </button>
-        <button class="chip chip-special" data-filter="Downloads" type="button">
-          <span>&#8681;</span> Downloads <span class="chip-count" id="countDownloads">0</span>
-        </button>
-      </nav>
-
-    </div>
-
+    <!-- Spotify Dedicated Search Screen (Toggled via Search Tab in Bottom Nav) -->
+    <section id="searchScreen" class="spotify-search-screen" hidden>
+      <div class="search-screen-header">
+        <h2 class="search-screen-title">Search</h2>
+        <div class="spotify-search-bar-wrap" role="search">
+          <svg class="spotify-search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input id="search" type="search" placeholder="What do you want to listen to?" autocomplete="off" spellcheck="false" aria-label="Search online for songs" />
+          <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>&times;</button>
+        </div>
+      </div>
+    </section>
 
     <!-- Home Dashboard (Spotify-identical ordered layout matching Screenshot 2) -->
     <div id="homeDashboard" class="home-dashboard">
@@ -1500,7 +1427,7 @@
   </div>
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
-  <script src="app.js?v=56"></script>
+  <script src="app.js?v=57"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
