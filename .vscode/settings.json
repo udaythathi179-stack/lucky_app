@@ -6,17 +6,6 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    ".vscode": true,
-    "node_modules": true,
-    "android": true,
-    ".gitignore": true,
-    "package.json": true,
-    "package-lock.json": true,
-    "README.md": true,
-    "render.yaml": true,
-    "vercel.json": true,
-    "server.js": true,
-    "Launch-Lucky.bat": true,
-    "Launch-Tuneus.bat": true
+    "node_modules": true
   }
 }

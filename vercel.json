@@ -2,11 +2,15 @@
   "version": 2,
   "builds": [
     {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "backend/api/*.js",
       "use": "@vercel/node"
     },
     {
-      "src": "frontend/**",
+      "src": "{frontend/**,index.html,styles.css,app.js,manifest.json,sw.js,logo.png,favicon.png,icon-192.png,icon-512.png,theme-bg.jpg,wave-theme.jpg,images/**,data/**}",
       "use": "@vercel/static"
     }
   ],
@@ -32,7 +36,7 @@
       "headers": {
         "Content-Type": "application/manifest+json"
       },
-      "dest": "/frontend/manifest.json"
+      "dest": "/manifest.json"
     },
     {
       "src": "/sw.js",
@@ -40,15 +44,11 @@
         "Service-Worker-Allowed": "/",
         "Cache-Control": "no-cache, no-store, must-revalidate"
       },
-      "dest": "/frontend/sw.js"
-    },
-    {
-      "src": "^/frontend/(.*)$",
-      "dest": "/frontend/$1"
+      "dest": "/sw.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "dest": "/$1"
     }
   ]
 }
