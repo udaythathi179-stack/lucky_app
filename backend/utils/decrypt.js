@@ -43,3 +43,4 @@ function decryptSaavnUrl(encrypted, quality = '320') {
 module.exports = {
   decryptSaavnUrl
 };
+

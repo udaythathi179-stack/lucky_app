@@ -7,7 +7,7 @@ echo Starting Tuneus Music Server...
 :: Start background node server if not already running
 netstat -ano | findstr :3000 | findstr LISTENING >nul
 if %errorlevel% neq 0 (
-    start /b node server.js
+    start /b node backend/server.js
     timeout /t 2 /nobreak >nul
 )
 
