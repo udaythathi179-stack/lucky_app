@@ -5768,6 +5768,25 @@ input:focus-visible:not(#search):not(.search-wrap input):not(.universe-filter-wr
   box-shadow: 0 4px 16px rgba(56, 189, 248, 0.45);
 }
 
+.topbar-chips-scroll .chip-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.topbar-chips-scroll .chip.active .chip-count {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
 /* Screenshot 1: Profile Drawer */
 .profile-drawer-backdrop {
   position: fixed;
