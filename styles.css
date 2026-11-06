@@ -6268,80 +6268,164 @@ body.is-create-sheet-open .s-create-icon-wrap .s-create-close {
 }
 
 /* ==========================================================================
-   Clean Spotify Topbar & Dedicated Search Screen
+   Clean Spotify Topbar & Dedicated Search Button / Box
    ========================================================================== */
 .topbar {
   display: flex !important;
   align-items: center !important;
-  justify-content: flex-start !important;
+  justify-content: space-between !important;
   gap: 12px !important;
-  padding: 12px 18px !important;
-  min-height: 60px;
+  padding: 10px 16px !important;
+  min-height: 56px;
+  position: relative;
 }
 
 .top-left-group {
   display: flex !important;
   align-items: center !important;
-  gap: 12px !important;
-  width: 100% !important;
+  gap: 10px !important;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
-.spotify-search-screen {
-  padding: 20px 16px 28px;
-  animation: fadeIn 0.22s ease;
-}
-
-.search-screen-header {
-  max-width: 680px;
-  margin: 0 auto 20px;
-}
-
-.search-screen-title {
-  font-size: 32px;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 16px;
-  letter-spacing: -0.02em;
-}
-
-.spotify-search-bar-wrap {
-  position: relative;
+/* Topbar Search Area */
+.topbar-search-area {
   display: flex;
   align-items: center;
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 12px 16px;
-  gap: 12px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  position: relative;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
-.spotify-search-icon {
-  color: #121212;
+.topbar-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #f1f5f9;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 12px rgba(56, 189, 248, 0.18);
+  white-space: nowrap;
+}
+
+.topbar-search-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(56, 189, 248, 0.45);
+  transform: translateY(-1px);
+}
+
+.topbar-search-btn svg {
+  color: #38bdf8;
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+
+.topbar-search-btn:hover svg {
+  transform: scale(1.15);
+}
+
+.topbar-search-box {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: #09173b;
+  border: 1px solid #38bdf8;
+  border-radius: 9999px;
+  padding: 5px 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65), 0 0 20px rgba(56, 189, 248, 0.35);
+  animation: expandSearchBox 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 220px;
+  max-width: 340px;
+}
+
+@keyframes expandSearchBox {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.topbar-search-area.is-open .topbar-search-btn {
+  display: none;
+}
+
+.topbar-search-area.is-open .topbar-search-box {
+  display: flex;
+}
+
+.topbar-search-box-icon {
+  color: #38bdf8;
   flex-shrink: 0;
 }
 
-.spotify-search-bar-wrap input {
+.topbar-search-box input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   outline: none;
-  font-size: 15px;
-  font-weight: 600;
-  color: #121212;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #ffffff;
   font-family: inherit;
 }
 
-.spotify-search-bar-wrap input::placeholder {
-  color: #535353;
-  font-weight: 500;
+.topbar-search-box input::placeholder {
+  color: #94a3b8;
 }
 
-.spotify-search-bar-wrap .clear-search {
-  color: #121212;
+.topbar-search-box .clear-search {
+  color: #94a3b8;
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar-search-box .clear-search:hover {
+  color: #ffffff;
+}
+
+.topbar-search-close {
+  color: #94a3b8;
   font-size: 20px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.topbar-search-close:hover {
+  color: #ef4444;
+}
+
+@media (max-width: 600px) {
+  .topbar-search-area.is-open {
+    position: absolute;
+    inset: 6px 10px;
+    z-index: 20;
+    margin-left: 0;
+  }
+  .topbar-search-area.is-open .topbar-search-box {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    padding: 8px 14px;
+  }
 }
 

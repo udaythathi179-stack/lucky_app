@@ -3701,8 +3701,7 @@ function bindEvents() {
       tab.classList.add('active');
 
       if (tab.id === 'tabHome') {
-        const searchScreen = el('searchScreen');
-        if (searchScreen) searchScreen.hidden = true;
+        closeTopbarSearch();
         state.filter = 'All';
         state.query = '';
         state.onlineSearch = false;
@@ -3713,19 +3712,10 @@ function bindEvents() {
         render();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (tab.id === 'tabSearch') {
-        const searchScreen = el('searchScreen');
-        if (searchScreen) searchScreen.hidden = false;
-        const homeDash = el('homeDashboard');
-        if (homeDash) homeDash.hidden = true;
-        const plContainer = el('playlistsContainer');
-        if (plContainer) plContainer.hidden = true;
-        if (el('search')) {
-          el('search').focus();
-        }
+        openTopbarSearch();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (tab.id === 'tabLibrary') {
-        const searchScreen = el('searchScreen');
-        if (searchScreen) searchScreen.hidden = true;
+        closeTopbarSearch();
         state.filter = 'Playlists';
         state.activeArtist = null;
         state.onlineSearch = false;
@@ -4635,7 +4625,44 @@ function createDailyBlendPlaylist() {
   toast('✨ Created "Daily Blend" playlist with 98% taste match!');
 }
 
+function openTopbarSearch() {
+  const container = el('topbarSearchArea');
+  if (container) container.classList.add('is-open');
+  const input = el('search');
+  if (input) {
+    input.focus();
+  }
+}
+
+function closeTopbarSearch() {
+  const container = el('topbarSearchArea');
+  if (container) container.classList.remove('is-open');
+  const input = el('search');
+  if (input && !input.value.trim()) {
+    state.query = '';
+    state.onlineSearch = false;
+    render();
+  }
+}
+
 function bindSpotifyNavigationEvents() {
+  // 0. Topbar Search Button & Box
+  const topSearchBtn = el('topbarSearchBtn');
+  if (topSearchBtn) {
+    topSearchBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openTopbarSearch();
+    });
+  }
+
+  const closeTopSearchBtn = el('closeTopbarSearch');
+  if (closeTopSearchBtn) {
+    closeTopSearchBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeTopbarSearch();
+    });
+  }
+
   // 1. Profile Drawer (Screenshot 1)
   const profileDrawerBtn = el('profileDrawerBtn');
   if (profileDrawerBtn) {
