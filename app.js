@@ -4567,6 +4567,11 @@ function updateAuthUI(user) {
     if (loginActionLabel) loginActionLabel.textContent = 'Sign In with Gmail';
     if (logoutBtn) logoutBtn.style.display = 'none';
   }
+
+  const pDrawerName = el('pDrawerUserName');
+  if (pDrawerName) {
+    pDrawerName.textContent = user?.name || 'Guest User';
+  }
 }
 
 function openLoginModal(prefillEmail = '') {
@@ -4685,6 +4690,26 @@ function logoutUser() {
   openLoginModal();
 }
 
+function openSettingsModal() {
+  const modal = el('settingsModal');
+  if (!modal) return;
+  const user = getStoredUser();
+  const userName = user?.name || 'uday';
+  const userEmail = user?.email || (user ? `${userName.toLowerCase().replace(/[^a-z0-9]/g, '')}@gmail.com` : 'uday@tuneus.music');
+  const nameNode = el('settingsUserName');
+  const emailNode = el('settingsUserEmail');
+  const avatarNode = el('settingsAvatarBadge');
+  if (nameNode) nameNode.textContent = userName;
+  if (emailNode) emailNode.textContent = userEmail;
+  if (avatarNode) avatarNode.textContent = userName.charAt(0).toUpperCase();
+  modal.hidden = false;
+}
+
+function closeSettingsModal() {
+  const modal = el('settingsModal');
+  if (modal) modal.hidden = true;
+}
+
 function bindAuthEvents() {
   const userProfileBtn = el('userProfileBtn');
   const userDropdownPanel = el('userDropdownPanel');
@@ -4693,6 +4718,25 @@ function bindAuthEvents() {
   const loginForm = el('loginForm');
   const googleQuickBtn = el('googleQuickBtn');
   const loginGuestBtn = el('loginGuestBtn');
+
+  // Settings modal events (only Sign Out option)
+  const closeSettingsBtn = el('closeSettingsBtn');
+  if (closeSettingsBtn) {
+    closeSettingsBtn.addEventListener('click', closeSettingsModal);
+  }
+  const settingsModal = el('settingsModal');
+  if (settingsModal) {
+    settingsModal.addEventListener('click', (e) => {
+      if (e.target === settingsModal) closeSettingsModal();
+    });
+  }
+  const settingsSignoutBtn = el('settingsSignoutBtn');
+  if (settingsSignoutBtn) {
+    settingsSignoutBtn.addEventListener('click', () => {
+      closeSettingsModal();
+      logoutUser();
+    });
+  }
 
   if (userProfileBtn && userDropdownPanel) {
     userProfileBtn.addEventListener('click', (e) => {
@@ -5022,7 +5066,7 @@ function bindSpotifyNavigationEvents() {
   if (pSettingsBtn) {
     pSettingsBtn.addEventListener('click', () => {
       closeProfileDrawer();
-      openEqModal();
+      openSettingsModal();
     });
   }
 

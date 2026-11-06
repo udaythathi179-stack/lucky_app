@@ -3109,6 +3109,100 @@ body.is-expanded-modal-open footer {
   gap: 10px;
 }
 
+/* Settings Modal Dialog (Sign Out Only) */
+.settings-modal-card {
+  max-width: 400px;
+  width: 92%;
+  padding: 24px 26px;
+  background: linear-gradient(180deg, #071126 0%, #030712 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 24px 70px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.15);
+  border-radius: 24px;
+}
+
+.settings-content-body {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-user-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-avatar-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+}
+
+.settings-user-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.settings-user-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.settings-user-email {
+  font-size: 12.5px;
+  color: rgba(224, 242, 254, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.settings-signout-btn {
+  width: 100%;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.9), rgba(185, 28, 28, 0.95));
+  color: #ffffff;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+}
+
+.settings-signout-btn:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 1), rgba(220, 38, 38, 1));
+  border-color: #ef4444;
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.6), 0 8px 24px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1.5px);
+}
+
+.settings-signout-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
 /* Bass & Vocal Equalizer Modal Dialog */
 .eq-modal-dialog {
   max-width: 520px;
