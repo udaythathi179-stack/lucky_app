@@ -2724,7 +2724,7 @@ function playTrack(track, forceModal = null) {
 
   syncPlayState();
 
-  const shouldOpen = forceModal !== null ? forceModal : false;
+  const shouldOpen = forceModal !== null ? forceModal : true;
   if (shouldOpen) {
     openExpandedModal();
   }
@@ -2785,21 +2785,23 @@ function seekTo(ratio) {
 function nextTrack() {
   const list = queueTracks();
   if (!list.length) return;
+  const keepModalState = !el('expandedModal').hidden;
 
   if (state.shuffle) {
     const pool = list.filter((track) => !state.current || track.id !== state.current.id);
     const source = pool.length ? pool : list;
-    playTrack(source[Math.floor(Math.random() * source.length)]);
+    playTrack(source[Math.floor(Math.random() * source.length)], keepModalState);
     return;
   }
 
   const index = state.current ? list.findIndex((track) => track.id === state.current.id) : -1;
-  playTrack(list[index === -1 ? 0 : (index + 1) % list.length]);
+  playTrack(list[index === -1 ? 0 : (index + 1) % list.length], keepModalState);
 }
 
 function prevTrack() {
   const list = queueTracks();
   if (!list.length) return;
+  const keepModalState = !el('expandedModal').hidden;
 
   if (progress.current > 3 && trackSource(state.current)) {
     audio.currentTime = 0;
@@ -2808,7 +2810,7 @@ function prevTrack() {
   }
 
   const index = state.current ? list.findIndex((track) => track.id === state.current.id) : -1;
-  playTrack(list[index <= 0 ? list.length - 1 : index - 1]);
+  playTrack(list[index <= 0 ? list.length - 1 : index - 1], keepModalState);
 }
 
 function handleEnded() {
@@ -3674,7 +3676,8 @@ function bindEvents() {
       if (!track) return;
 
       if (state.current && state.current.id === track.id) {
-        togglePlayback();
+        if (!state.playing) resumePlayback();
+        openExpandedModal();
       } else {
         playTrack(track);
       }
@@ -3774,7 +3777,8 @@ function bindEvents() {
     if (!track) return;
 
     if (state.current && state.current.id === track.id) {
-      togglePlayback();
+      if (!state.playing) resumePlayback();
+      openExpandedModal();
     } else {
       playTrack(track);
     }
