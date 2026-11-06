@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuneus-music-v59';
+const CACHE_NAME = 'tuneus-music-v60';
 const IMAGE_CACHE_NAME = 'tuneus-artwork-v2';
 
 const ASSETS_TO_CACHE = [

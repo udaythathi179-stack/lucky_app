@@ -3169,7 +3169,21 @@ function matchesArtist(track, artistName, query = '') {
     ['spb', 'balasubrahmanyam'],
     ['dsp', 'devi sri prasad'],
     ['chithra', 'ks chithra'],
-    ['chitra', 'ks chithra']
+    ['chitra', 'ks chithra'],
+    ['sid sriram', 'sriram'],
+    ['arijit', 'arijit singh'],
+    ['shreya', 'shreya ghoshal'],
+    ['anurag', 'anurag kulkarni'],
+    ['sonu', 'sonu nigam'],
+    ['lata', 'lata mangeshkar'],
+    ['kishore', 'kishore kumar'],
+    ['armaan', 'armaan malik'],
+    ['haricharan', 'hari charan'],
+    ['ram miriyala', 'miriyala'],
+    ['sunitha', 'sunitha upadrasta'],
+    ['thaman', 's thaman'],
+    ['anirudh', 'anirudh ravichander'],
+    ['rahman', 'a r rahman']
   ];
   for (const [k, v] of aliases) {
     if ((target.includes(k) || target.includes(v)) && (tArtist.includes(k) || tArtist.includes(v))) return true;
@@ -3184,6 +3198,47 @@ function matchesArtist(track, artistName, query = '') {
   if (qParts.length > 0 && qParts.some((p) => tArtist.includes(p))) return true;
 
   return false;
+}
+
+let artistDiscographyPage = 1;
+let isLoadingArtistMore = false;
+
+// Load more lifetime songs for the currently active artist
+async function loadMoreArtistDiscography() {
+  if (!state.activeArtist || isLoadingArtistMore) return;
+  const loadBtn = el('artistLoadMoreBtn');
+  const loadText = el('artistLoadMoreText');
+  isLoadingArtistMore = true;
+  if (loadBtn) loadBtn.classList.add('is-loading');
+  if (loadText) loadText.textContent = 'Loading more songs...';
+
+  artistDiscographyPage += 1;
+  const qQuality = state.streamingQuality || '320';
+  try {
+    const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(state.activeArtist)}&page=${artistDiscographyPage}&quality=${qQuality}`);
+    const data = await res.json();
+    const newResults = (data.success && Array.isArray(data.results)) ? data.results : [];
+
+    if (newResults.length > 0 && state.activeArtist) {
+      const merged = deduplicateTrackList([...state.onlineTracks, ...newResults]);
+      const addedCount = merged.length - state.onlineTracks.length;
+      state.onlineTracks = merged;
+      const songCountBadge = el('artistSongCountBadge');
+      if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
+      render();
+      toast(`Added ${addedCount} more songs by ${state.activeArtist} (${merged.length} total)`);
+    } else {
+      toast(`All lifetime songs loaded for ${state.activeArtist}`);
+      const container = el('artistLoadMoreContainer');
+      if (container) container.hidden = true;
+    }
+  } catch (err) {
+    toast('Could not fetch more songs at this moment');
+  } finally {
+    isLoadingArtistMore = false;
+    if (loadBtn) loadBtn.classList.remove('is-loading');
+    if (loadText) loadText.textContent = 'Load More Songs from Discography';
+  }
 }
 
 // Open dedicated artist discography and display all songs sung by artist
@@ -3216,6 +3271,11 @@ async function openArtistHero(artistName, query) {
     return;
   }
 
+  // Reset discography pagination
+  artistDiscographyPage = 1;
+  const loadMoreContainer = el('artistLoadMoreContainer');
+  if (loadMoreContainer) loadMoreContainer.hidden = true;
+
   // 3. Set application state to dedicated artist view
   state.activeArtist = artistData.name;
   state.query = '';
@@ -3241,17 +3301,17 @@ async function openArtistHero(artistName, query) {
   if (heroAvatar) heroAvatar.src = artistData.img || 'icon-192.png';
   if (heroBackdrop) heroBackdrop.style.backgroundImage = `url('${artistData.img || 'icon-192.png'}')`;
   if (heroName) heroName.textContent = artistData.name;
-  if (heroBio) heroBio.innerHTML = `Iconic studio master recordings &bull; ${artistData.tag}`;
+  if (heroBio) heroBio.innerHTML = `Complete Lifetime Discography &bull; ${artistData.tag}`;
   if (heroGenre) heroGenre.textContent = artistData.tag.split('&bull;')[0]?.trim() || 'Legendary Singer';
 
-  // 5. Gather songs: First pull pre-curated tracks + local library tracks
+  // 5. Gather songs: First pull pre-curated tracks + local library tracks for 0ms instant display
   const curatedMap = window.ARTIST_CURATED_TRACKS || {};
   const curated = (curatedMap[artistData.name] || []).slice();
   const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name, artistData.query));
   let initialTracks = deduplicateTrackList([...curated, ...localLibraryMatches]);
 
   state.onlineTracks = initialTracks;
-  if (songCountBadge) songCountBadge.textContent = `${initialTracks.length} Songs`;
+  if (songCountBadge) songCountBadge.textContent = `${initialTracks.length} Songs (Loading discography...)`;
 
   // Render immediately with instant curated songs
   render();
@@ -3289,27 +3349,28 @@ async function openArtistHero(artistName, query) {
 
   // Smooth scroll to top of artist view
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  toast(`Opened ${artistData.name} (${initialTracks.length} songs)`);
+  toast(`Loading lifetime songs by ${artistData.name}...`);
 
-  // 6. Concurrently augment with online JioSaavn search catalog if server is reachable
+  // 6. Concurrently augment with extensive lifetime discography from JioSaavn
   try {
-    const qQuality = state.streamingQuality || '96';
-    const primaryQuery = artistData.query || artistData.name;
-    const res = await fetch(`/api/search?q=${encodeURIComponent(primaryQuery)}&quality=${qQuality}`);
+    const qQuality = state.streamingQuality || '320';
+    const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
     const data = await res.json();
     let onlineResults = (data.success && Array.isArray(data.results)) ? data.results : [];
 
     if (onlineResults.length > 0 && state.activeArtist === artistData.name) {
       onlineResults.sort((a, b) => {
-        const aMatch = matchesArtist(a, artistData.name, primaryQuery) ? 1 : 0;
-        const bMatch = matchesArtist(b, artistData.name, primaryQuery) ? 1 : 0;
+        const aMatch = matchesArtist(a, artistData.name, searchQuery) ? 1 : 0;
+        const bMatch = matchesArtist(b, artistData.name, searchQuery) ? 1 : 0;
         return bMatch - aMatch;
       });
 
       const merged = deduplicateTrackList([...initialTracks, ...onlineResults]);
       state.onlineTracks = merged;
-      if (songCountBadge) songCountBadge.textContent = `${merged.length} Songs`;
+      if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
       render();
+      if (loadMoreContainer) loadMoreContainer.hidden = false;
+      toast(`Loaded ${merged.length} lifetime songs by ${artistData.name}`);
     }
   } catch (err) {
     // Offline or server not active - perfectly fine since initialTracks are rich and instant!
@@ -3324,6 +3385,8 @@ function closeArtistHero() {
   state.filter = 'All';
   const hero = el('artistHeroSection');
   if (hero) hero.hidden = true;
+  const loadMoreContainer = el('artistLoadMoreContainer');
+  if (loadMoreContainer) loadMoreContainer.hidden = true;
   const searchInput = el('search');
   if (searchInput) searchInput.value = '';
   const clearBtn = el('clearSearch');
@@ -3794,6 +3857,11 @@ function bindEvents() {
       state.sort = e.target.value;
       render();
     });
+  }
+
+  const artistLoadMoreBtn = el('artistLoadMoreBtn');
+  if (artistLoadMoreBtn) {
+    artistLoadMoreBtn.addEventListener('click', loadMoreArtistDiscography);
   }
 
   // Home Dashboard interactions (Quick Jump cards, Shelves, Artists, Spotlight)

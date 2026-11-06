@@ -135,6 +135,93 @@ function searchFullSongs(query, res, quality = '96') {
   });
 }
 
+// Lifetime Artist Discography Aggregator (Fetches comprehensive catalog across languages, hits, and decades)
+function fetchArtistDiscography(artistName, page, quality, res) {
+  const clean = (artistName || '').replace(/[\.\,\(\)]/g, ' ').replace(/\s+/g, ' ').trim();
+  const queries = [
+    clean,
+    `${clean} hits`,
+    `${clean} Telugu`,
+    `${clean} Tamil`,
+    `${clean} Hindi`,
+    `${clean} classics`
+  ];
+
+  const pageOffset = (Math.max(1, page) - 1) * 2;
+  const requests = [];
+
+  function fetchUrl(targetUrl) {
+    return new Promise((resolve) => {
+      https.get(targetUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+      }, (apiRes) => {
+        let data = '';
+        apiRes.on('data', chunk => data += chunk);
+        apiRes.on('end', () => {
+          try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+        });
+      }).on('error', () => resolve(null));
+    });
+  }
+
+  for (const q of queries) {
+    for (let p = 1 + pageOffset; p <= 2 + pageOffset; p++) {
+      const u = `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${p}&n=40&q=${encodeURIComponent(q)}`;
+      requests.push(fetchUrl(u));
+    }
+  }
+
+  Promise.all(requests).then((responses) => {
+    const seenTitles = new Set();
+    const results = [];
+
+    for (const data of responses) {
+      if (!data || !Array.isArray(data.results)) continue;
+      for (const song of data.results) {
+        const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
+        const streamUrl = decryptSaavnUrl(encMedia, quality);
+        if (!streamUrl) continue;
+
+        const title = cleanHTML(song.song || song.title);
+        const artist = cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || clean);
+        const movie = cleanHTML(song.album || song.more_info?.album || 'Single');
+        const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
+        const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
+        const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
+
+        // Dedup by normalized title + movie
+        const dedupKey = (title + '__' + movie).toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (dedupKey && !seenTitles.has(dedupKey)) {
+          seenTitles.add(dedupKey);
+          results.push({
+            id: `saavn-${song.id || Math.random().toString(36).slice(2, 8)}`,
+            title,
+            artist,
+            movie,
+            year: song.year ? parseInt(song.year, 10) : new Date().getFullYear(),
+            language: cleanLang,
+            src: streamUrl,
+            artwork: artwork,
+            duration: parseInt(song.duration, 10) || 240,
+            isOnline: true
+          });
+        }
+      }
+    }
+
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify({ success: true, page, total: results.length, results }));
+  }).catch((err) => {
+    res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8' });
+    res.end(JSON.stringify({ success: false, error: err.message }));
+  });
+}
+
 // --- User Database Management (Persistent JSON Database) ---
 const USERS_DB_PATH = path.join(ROOT, 'data', 'users.json');
 
@@ -262,6 +349,20 @@ const server = http.createServer((req, res) => {
     }));
     res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
     res.end(JSON.stringify({ success: true, total: users.length, users }));
+    return;
+  }
+
+  // Lifetime Artist Discography route
+  if (pathname === '/api/artist-discography') {
+    const name = parsedUrl.searchParams.get('name') || '';
+    const page = parseInt(parsedUrl.searchParams.get('page') || '1', 10);
+    const quality = parsedUrl.searchParams.get('quality') || '320';
+    if (!name) {
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+      res.end(JSON.stringify({ success: true, page: 1, total: 0, results: [] }));
+      return;
+    }
+    fetchArtistDiscography(name, page, quality, res);
     return;
   }
 
