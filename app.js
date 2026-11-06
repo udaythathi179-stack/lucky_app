@@ -2666,11 +2666,9 @@ function updateProgress(current, duration) {
   if (fpb) fpb.style.width = percent;
 }
 
-// Stop all playback
+// Stop all playback cleanly
 function stopAll() {
   audio.pause();
-  audio.removeAttribute('src');
-  audio.load();
   state.playing = false;
 }
 
@@ -2687,28 +2685,39 @@ function playTrack(track, forceModal = null) {
 
   const src = trackSource(track);
   if (src) {
-    audio.src = src;
+    if (audio.src !== src) {
+      audio.src = src;
+    }
+    audio.currentTime = 0;
     audio.volume = state.muted ? 0 : state.volume;
     updateProgress(0, track.duration || 210);
 
-    audio.play().then(() => {
-      if (state.current && state.current.id === track.id) {
-        state.playing = true;
-        syncPlayState();
-        startVisualizerLoop();
-        renderRecentGrid();
-      }
-    }).catch((err) => {
-      toast(`Error playing ${track.title}. Retrying...`);
-      setTimeout(() => {
-        audio.play().then(() => {
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        if (state.current && state.current.id === track.id) {
           state.playing = true;
           syncPlayState();
           startVisualizerLoop();
           renderRecentGrid();
-        }).catch(() => {});
-      }, 500);
-    });
+        }
+      }).catch((err) => {
+        if (err && err.name === 'AbortError') {
+          return; // Benign transient interruption, do not show any error
+        }
+        // Quietly retry once without flashing alarming error toasts
+        setTimeout(() => {
+          if (state.current && state.current.id === track.id) {
+            audio.play().then(() => {
+              state.playing = true;
+              syncPlayState();
+              startVisualizerLoop();
+              renderRecentGrid();
+            }).catch(() => {});
+          }
+        }, 300);
+      });
+    }
   } else {
     toast(`No audio source found for ${track.title}`);
   }
@@ -4113,8 +4122,7 @@ function bindEvents() {
   });
   audio.addEventListener('ended', handleEnded);
   audio.addEventListener('error', () => {
-    if (!audio.getAttribute('src')) return;
-    toast('Audio playback error. Retrying stream...');
+    // Silent recovery: do not popup annoying toast during normal track transitions
   });
 
   // Global Keyboard Shortcuts
