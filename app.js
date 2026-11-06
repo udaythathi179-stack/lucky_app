@@ -3140,11 +3140,18 @@ function matchesArtist(track, artistName, query = '') {
   const target = clean(artistName);
   const qClean = clean(query).replace(/\b(telugu|hindi|english|hits|songs|classic|romantic|party|legendary|masters|icons)\b/g, '').trim();
 
-  // Substring or exact match
-  if (target && (tArtist.includes(target) || target.includes(tArtist))) return true;
-  if (qClean && (tArtist.includes(qClean) || qClean.includes(tArtist))) return true;
+  const hasWord = (haystack, needle) => {
+    if (!haystack || !needle) return false;
+    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`(^|\\s)${escaped}(\\s|$)`, 'i').test(haystack);
+  };
 
-  // Well-known artist aliases
+  // Substring or exact match with word boundaries
+  if (target && (tArtist === target || hasWord(tArtist, target))) return true;
+  if (target && target.length > 5 && tArtist.includes(target)) return true;
+  if (qClean && qClean.length > 5 && tArtist.includes(qClean)) return true;
+
+  // Well-known artist aliases (safe word-boundary matching)
   const aliases = [
     ['spb', 'balasubrahmanyam'],
     ['dsp', 'devi sri prasad'],
@@ -3183,16 +3190,18 @@ function matchesArtist(track, artistName, query = '') {
     ['rahul sipligunj', 'sipligunj']
   ];
   for (const [k, v] of aliases) {
-    if ((target.includes(k) || target.includes(v)) && (tArtist.includes(k) || tArtist.includes(v))) return true;
-    if ((qClean.includes(k) || qClean.includes(v)) && (tArtist.includes(k) || tArtist.includes(v))) return true;
+    const targetHasAlias = hasWord(target, k) || hasWord(target, v) || target === k || target === v;
+    const qHasAlias = hasWord(qClean, k) || hasWord(qClean, v) || qClean === k || qClean === v;
+    const trackHasAlias = hasWord(tArtist, k) || hasWord(tArtist, v) || tArtist === k || tArtist === v;
+    if ((targetHasAlias || qHasAlias) && trackHasAlias) return true;
   }
 
-  // Token match (tokens with length >= 4)
-  const parts = target.split(' ').filter((p) => p.length >= 4);
-  if (parts.length > 0 && parts.some((p) => tArtist.includes(p))) return true;
+  // Token match (tokens with length >= 4, word-boundary checked)
+  const parts = target.split(/\s+/).filter((p) => p.length >= 4);
+  if (parts.length > 0 && parts.some((p) => hasWord(tArtist, p))) return true;
 
-  const qParts = qClean.split(' ').filter((p) => p.length >= 4);
-  if (qParts.length > 0 && qParts.some((p) => tArtist.includes(p))) return true;
+  const qParts = qClean.split(/\s+/).filter((p) => p.length >= 4);
+  if (qParts.length > 0 && qParts.some((p) => hasWord(tArtist, p))) return true;
 
   return false;
 }
@@ -3213,9 +3222,31 @@ async function loadMoreArtistDiscography() {
   artistDiscographyPage += 1;
   const qQuality = state.streamingQuality || '320';
   try {
-    const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(state.activeArtist)}&page=${artistDiscographyPage}&quality=${qQuality}`);
-    const data = await res.json();
-    const newResults = (data.success && Array.isArray(data.results)) ? data.results : [];
+    let newResults = [];
+
+    // Attempt 1: Fetch from dedicated artist-discography endpoint
+    try {
+      const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(state.activeArtist)}&page=${artistDiscographyPage}&quality=${qQuality}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.results)) {
+          newResults = data.results;
+        }
+      }
+    } catch (e) {}
+
+    // Attempt 2: Fallback to /api/search with artist query
+    if (newResults.length === 0) {
+      try {
+        const res2 = await fetch(`/api/search?q=${encodeURIComponent(state.activeArtist + ' hits')}&quality=${qQuality}`);
+        if (res2.ok) {
+          const data2 = await res2.json();
+          if (data2.success && Array.isArray(data2.results)) {
+            newResults = data2.results;
+          }
+        }
+      } catch (e) {}
+    }
 
     if (newResults.length > 0 && state.activeArtist) {
       const merged = deduplicateTrackList([...state.onlineTracks, ...newResults]);
@@ -3345,7 +3376,17 @@ async function openArtistHero(artistName, query) {
     return;
   }
 
-  // 5. Instantly gather complete lifetime discography (4,800+ studio tracks available in 0ms)
+  // 5. If window.ALL_ARTIST_DISCOGRAPHIES is missing or empty, dynamically fetch discographies JSON
+  if (!window.ALL_ARTIST_DISCOGRAPHIES || Object.keys(window.ALL_ARTIST_DISCOGRAPHIES).length === 0) {
+    try {
+      const resp = await fetch('data/artistDiscographies.json');
+      if (resp.ok) {
+        window.ALL_ARTIST_DISCOGRAPHIES = await resp.json();
+      }
+    } catch (e) {}
+  }
+
+  // Instantly gather complete lifetime discography (4,800+ studio tracks available in 0ms)
   const fullDiscographies = window.ALL_ARTIST_DISCOGRAPHIES || {};
   let lifetimeSongs = (fullDiscographies[artistData.name] || []).slice();
 
@@ -3372,19 +3413,44 @@ async function openArtistHero(artistName, query) {
   if (songCountBadge) {
     songCountBadge.textContent = allArtistTracks.length > 0
       ? `${allArtistTracks.length} Lifetime Studio Songs`
-      : 'Loading Universe Songs...';
+      : 'Loading Online Songs...';
   }
 
-  // Render immediately with all lifetime songs (0ms instant response)
+  // Render immediately with all available songs
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // 6. Seamless query for all online songs from JioSaavn Universe
+  // 6. Seamless query for online songs related to artist from JioSaavn Universe
   try {
     const qQuality = state.streamingQuality || '320';
-    const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
-    const data = await res.json();
-    let onlineResults = (data.success && Array.isArray(data.results)) ? data.results : [];
+    let onlineResults = [];
+
+    // Attempt 1: Dedicated artist discography endpoint
+    try {
+      const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.results) && data.results.length > 0) {
+          onlineResults = data.results;
+        }
+      }
+    } catch (e) {}
+
+    // Attempt 2: If discography endpoint returned empty or failed, fetch via search API with multiple artist queries
+    if (onlineResults.length === 0) {
+      try {
+        const queries = [
+          `/api/search?q=${encodeURIComponent(artistData.query || (artistData.name + ' Telugu hits'))}&quality=${qQuality}`,
+          `/api/search?q=${encodeURIComponent(artistData.name + ' songs')}&quality=${qQuality}`
+        ];
+        const responses = await Promise.all(queries.map(q => fetch(q).then(r => r.ok ? r.json() : null).catch(() => null)));
+        for (const sData of responses) {
+          if (sData && sData.success && Array.isArray(sData.results)) {
+            onlineResults.push(...sData.results);
+          }
+        }
+      } catch (e) {}
+    }
 
     if (onlineResults.length > 0 && state.activeArtist === artistData.name) {
       const merged = deduplicateTrackList([...allArtistTracks, ...onlineResults]);
@@ -3395,7 +3461,7 @@ async function openArtistHero(artistName, query) {
       if (loadMoreContainer) loadMoreContainer.hidden = false;
     }
   } catch (err) {
-    // Offline or server error - any local tracks are already fully rendered!
+    // Offline or server error - local tracks are already fully rendered!
   }
 }
 

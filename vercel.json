@@ -6,11 +6,15 @@
       "use": "@vercel/node"
     },
     {
-      "src": "{index.html,styles.css,app.js,manifest.json,sw.js,logo.png,favicon.png,icon-192.png,icon-512.png,theme-bg.jpg,wave-theme.jpg,images/**}",
+      "src": "{index.html,styles.css,app.js,manifest.json,sw.js,logo.png,favicon.png,icon-192.png,icon-512.png,theme-bg.jpg,wave-theme.jpg,images/**,data/**}",
       "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/api/artist-discography",
+      "dest": "/api/artist-discography.js"
+    },
     {
       "src": "/api/search",
       "dest": "/api/search.js"

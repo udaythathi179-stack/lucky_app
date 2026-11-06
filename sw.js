@@ -1,5 +1,5 @@
-const CACHE_NAME = 'tuneus-music-v76';
-const IMAGE_CACHE_NAME = 'tuneus-artwork-v3';
+const CACHE_NAME = 'tuneus-music-v77';
+const IMAGE_CACHE_NAME = 'tuneus-artwork-v4';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -8,6 +8,7 @@ const ASSETS_TO_CACHE = [
   '/app.js',
   '/data/artistCuratedTracks.js',
   '/data/artistDiscographies.js',
+  '/data/artistDiscographies.json',
   '/theme-bg.jpg',
   '/wave-theme.jpg',
   '/manifest.json',
