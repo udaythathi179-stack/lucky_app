@@ -62,65 +62,80 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ success: true, results: [] });
   }
 
-  const saavnUrl = `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=40&q=${encodeURIComponent(query)}`;
+  const urls = [
+    `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(query)}`,
+    `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(query)}`
+  ];
 
-  return new Promise((resolve) => {
-    https.get(saavnUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
-    }, (apiRes) => {
-      let data = '';
-      apiRes.on('data', chunk => data += chunk);
-      apiRes.on('end', () => {
-        try {
-          const json = JSON.parse(data);
-          const seenKeys = new Set();
-          const results = (json && json.results ? json.results : []).map((song) => {
-            const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
-            const streamUrl = decryptSaavnUrl(encMedia);
-            const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
-            const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
-            const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
-            return {
-              id: `saavn-${song.id || Math.random().toString(36).slice(2, 8)}`,
-              title: cleanHTML(song.song || song.title),
-              artist: cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || 'Unknown'),
-              movie: cleanHTML(song.album || song.more_info?.album || 'Single'),
-              year: song.year ? parseInt(song.year, 10) : new Date().getFullYear(),
-              language: cleanLang,
-              src: streamUrl,
-              artwork: artwork,
-              duration: parseInt(song.duration, 10) || 240,
-              isOnline: true
-            };
-          }).filter(s => {
-            if (!s.src || !s.title) return false;
-            const cleanTitle = s.title
-              .toLowerCase()
-              .replace(/\s*\(.*?\)/g, '')
-              .replace(/\s*\[.*?\]/g, '')
-              .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original).*$/i, '')
-              .replace(/[^a-z0-9]/g, '')
-              .trim();
-            const cleanLang = (s.language || 'all').toLowerCase().trim();
-            const key = `${cleanTitle}__${cleanLang}`;
-            if (cleanTitle && seenKeys.has(key)) return false;
-            if (cleanTitle) seenKeys.add(key);
-            return true;
-          });
-
-          res.status(200).json({ success: true, results });
-          resolve();
-        } catch (e) {
-          res.status(500).json({ success: false, error: 'Parse error' });
-          resolve();
+  function fetchUrl(targetUrl) {
+    return new Promise((resolve) => {
+      const req = https.get(targetUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         }
+      }, (apiRes) => {
+        let data = '';
+        apiRes.on('data', chunk => data += chunk);
+        apiRes.on('end', () => {
+          try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+        });
       });
-    }).on('error', (e) => {
-      res.status(502).json({ success: false, error: e.message });
-      resolve();
+      req.on('error', () => resolve(null));
+      req.setTimeout(4500, () => {
+        req.destroy();
+        resolve(null);
+      });
     });
-  });
+  }
+
+  try {
+    const responses = await Promise.all(urls.map(u => fetchUrl(u)));
+    const seenKeys = new Set();
+    const results = [];
+
+    for (const json of responses) {
+      if (!json || !Array.isArray(json.results)) continue;
+      for (const song of json.results) {
+        const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
+        const streamUrl = decryptSaavnUrl(encMedia);
+        if (!streamUrl) continue;
+        const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
+        const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
+        const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
+
+        const title = cleanHTML(song.song || song.title);
+        const artist = cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || 'Unknown');
+        const movie = cleanHTML(song.album || song.more_info?.album || 'Single');
+
+        const cleanTitle = title
+          .toLowerCase()
+          .replace(/\s*\(.*?\)/g, '')
+          .replace(/\s*\[.*?\]/g, '')
+          .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original).*$/i, '')
+          .replace(/[^a-z0-9]/g, '')
+          .trim();
+        const key = `${cleanTitle}__${movie.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+        if (cleanTitle && !seenKeys.has(key)) {
+          seenKeys.add(key);
+          results.push({
+            id: `saavn-${song.id || Math.random().toString(36).slice(2, 8)}`,
+            title,
+            artist,
+            movie,
+            year: song.year ? parseInt(song.year, 10) : new Date().getFullYear(),
+            language: cleanLang,
+            src: streamUrl,
+            artwork: artwork,
+            duration: parseInt(song.duration, 10) || 240,
+            isOnline: true
+          });
+        }
+      }
+    }
+
+    return res.status(200).json({ success: true, results });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message, results: [] });
+  }
 };
 

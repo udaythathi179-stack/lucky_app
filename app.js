@@ -1463,6 +1463,27 @@ const state = {
   streamingQuality: getStoredJSON(STORAGE_STREAMING_QUALITY, '96')
 };
 
+// Expand and populate full Universe library with hundreds of top songs across Telugu, Hindi, Folk & Global
+function hydrateLibraryWithUniverseSongs() {
+  const extraSongs = [];
+  if (typeof window !== 'undefined' && window.ARTIST_CURATED_TRACKS) {
+    for (const key of Object.keys(window.ARTIST_CURATED_TRACKS)) {
+      const list = window.ARTIST_CURATED_TRACKS[key];
+      if (Array.isArray(list)) extraSongs.push(...list);
+    }
+  }
+  if (typeof window !== 'undefined' && window.ALL_ARTIST_DISCOGRAPHIES) {
+    for (const key of Object.keys(window.ALL_ARTIST_DISCOGRAPHIES)) {
+      const list = window.ALL_ARTIST_DISCOGRAPHIES[key];
+      if (Array.isArray(list)) extraSongs.push(...list.slice(0, 20));
+    }
+  }
+  if (extraSongs.length > 0) {
+    state.tracks = deduplicateTrackList([...state.tracks, ...extraSongs]);
+  }
+}
+hydrateLibraryWithUniverseSongs();
+
 // HTML5 Audio Engine & Web Audio Visualizer / EQ
 const audio = new Audio();
 audio.preload = 'none';
@@ -3459,6 +3480,26 @@ async function openArtistHero(artistName, query) {
       if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
       render();
       if (loadMoreContainer) loadMoreContainer.hidden = false;
+
+      // Automatically prefetch page 2 in background to add even more songs without clicking
+      setTimeout(async () => {
+        if (state.activeArtist !== artistData.name) return;
+        try {
+          const res2 = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=2&quality=${qQuality}`);
+          if (res2.ok) {
+            const data2 = await res2.json();
+            if (data2.success && Array.isArray(data2.results) && data2.results.length > 0) {
+              const moreMerged = deduplicateTrackList([...state.onlineTracks, ...data2.results]);
+              if (moreMerged.length > state.onlineTracks.length && state.activeArtist === artistData.name) {
+                state.onlineTracks = moreMerged;
+                ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, moreMerged);
+                if (songCountBadge) songCountBadge.textContent = `${moreMerged.length} Lifetime Studio Songs`;
+                render();
+              }
+            }
+          }
+        } catch (e) {}
+      }, 700);
     }
   } catch (err) {
     // Offline or server error - local tracks are already fully rendered!
@@ -5452,11 +5493,26 @@ function init() {
   bindUniverseDrawerEvents();
   bindSpotifyNavigationEvents();
   updateQualityButton();
+  hydrateLibraryWithUniverseSongs();
   render();
   applyVolume();
   updateProgress(0, 0);
   loadDownloads().then(() => render()).catch(() => {});
   syncGoogleAccountsFromDB();
+
+  // Dynamically load complete artist discographies if not already loaded into memory
+  if (typeof window !== 'undefined' && (!window.ALL_ARTIST_DISCOGRAPHIES || Object.keys(window.ALL_ARTIST_DISCOGRAPHIES).length === 0)) {
+    fetch('data/artistDiscographies.json')
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data) {
+          window.ALL_ARTIST_DISCOGRAPHIES = data;
+          hydrateLibraryWithUniverseSongs();
+          render();
+        }
+      })
+      .catch(() => {});
+  }
 
   // Set default profile to Uday Kumar with user's selected cosmic profile picture
   let currentUser = getStoredUser();

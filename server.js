@@ -73,65 +73,79 @@ function cleanHTML(str) {
 
 // Proxy Search for full-length songs (Universe of Music: English, Bollywood, Tollywood, Global)
 function searchFullSongs(query, res, quality = '96') {
-  const url = `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=40&q=${encodeURIComponent(query)}`;
-  https.get(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
-  }, (apiRes) => {
-    let data = '';
-    apiRes.on('data', chunk => data += chunk);
-    apiRes.on('end', () => {
-      try {
-        const json = JSON.parse(data);
-        const seenKeys = new Set();
-        const results = (json && json.results ? json.results : []).map((song) => {
-          const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
-          const streamUrl = decryptSaavnUrl(encMedia, quality);
-          const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
-          const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
-          const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
-          return {
+  const urls = [
+    `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(query)}`,
+    `https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(query)}`
+  ];
+
+  function fetchUrl(targetUrl) {
+    return new Promise((resolve) => {
+      https.get(targetUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+      }, (apiRes) => {
+        let data = '';
+        apiRes.on('data', chunk => data += chunk);
+        apiRes.on('end', () => {
+          try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+        });
+      }).on('error', () => resolve(null));
+    });
+  }
+
+  Promise.all(urls.map(u => fetchUrl(u))).then((responses) => {
+    const seenKeys = new Set();
+    const results = [];
+
+    for (const json of responses) {
+      if (!json || !Array.isArray(json.results)) continue;
+      for (const song of json.results) {
+        const encMedia = song.encrypted_media_url || (song.more_info && song.more_info.encrypted_media_url);
+        const streamUrl = decryptSaavnUrl(encMedia, quality);
+        if (!streamUrl) continue;
+        const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
+        const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
+        const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
+
+        const title = cleanHTML(song.song || song.title);
+        const artist = cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || 'Unknown');
+        const movie = cleanHTML(song.album || song.more_info?.album || 'Single');
+
+        const cleanTitle = title
+          .toLowerCase()
+          .replace(/\s*\(.*?\)/g, '')
+          .replace(/\s*\[.*?\]/g, '')
+          .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original).*$/i, '')
+          .replace(/[^a-z0-9]/g, '')
+          .trim();
+        const key = `${cleanTitle}__${movie.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+        if (cleanTitle && !seenKeys.has(key)) {
+          seenKeys.add(key);
+          results.push({
             id: `saavn-${song.id || Math.random().toString(36).slice(2, 8)}`,
-            title: cleanHTML(song.song || song.title),
-            artist: cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || 'Unknown'),
-            movie: cleanHTML(song.album || song.more_info?.album || 'Single'),
+            title,
+            artist,
+            movie,
             year: song.year ? parseInt(song.year, 10) : new Date().getFullYear(),
             language: cleanLang,
             src: streamUrl,
             artwork: artwork,
             duration: parseInt(song.duration, 10) || 240,
             isOnline: true
-          };
-        }).filter(s => {
-          if (!s.src || !s.title) return false;
-          const cleanTitle = s.title
-            .toLowerCase()
-            .replace(/\s*\(.*?\)/g, '')
-            .replace(/\s*\[.*?\]/g, '')
-            .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original).*$/i, '')
-            .replace(/[^a-z0-9]/g, '')
-            .trim();
-          const cleanLang = (s.language || 'all').toLowerCase().trim();
-          const key = `${cleanTitle}__${cleanLang}`;
-          if (cleanTitle && seenKeys.has(key)) return false;
-          if (cleanTitle) seenKeys.add(key);
-          return true;
-        });
-
-        res.writeHead(200, {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Access-Control-Allow-Origin': '*'
-        });
-        res.end(JSON.stringify({ success: true, results }));
-      } catch (e) {
-        res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8' });
-        res.end(JSON.stringify({ success: false, error: 'Parse error' }));
+          });
+        }
       }
+    }
+
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
     });
-  }).on('error', (e) => {
-    res.writeHead(502, { 'Content-Type': 'application/json; charset=UTF-8' });
-    res.end(JSON.stringify({ success: false, error: e.message }));
+    res.end(JSON.stringify({ success: true, results }));
+  }).catch((err) => {
+    res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8' });
+    res.end(JSON.stringify({ success: false, error: err.message, results: [] }));
   });
 }
 
@@ -157,28 +171,33 @@ function fetchArtistDiscography(artistName, page, quality, res) {
   const isGlobal = /taylor|sheeran|bieber|jackson|weeknd|eminem|gomez|grande|adele|coldplay|drake|rihanna|beyonce|perry/i.test(clean);
   if (page === 1) {
     queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean)}`);
-    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' hits')}`);
-    if (isGlobal) {
-      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' songs')}`);
-      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean)}`);
-    } else {
-      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Telugu')}`);
-      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Hindi')}`);
-    }
-  } else if (page === 2) {
     queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' hits')}`);
     queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean + ' hits')}`);
     if (isGlobal) {
-      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=3&n=50&q=${encodeURIComponent(clean)}`);
+      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' songs')}`);
       queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean + ' songs')}`);
+      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=3&n=50&q=${encodeURIComponent(clean)}`);
     } else {
+      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Telugu')}`);
+      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean + ' Telugu')}`);
+      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Hindi')}`);
       queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' Tamil')}`);
+      queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' melody')}`);
       queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' classics')}`);
     }
+  } else if (page === 2) {
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=3&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=4&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=3&n=50&q=${encodeURIComponent(clean + ' hits')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=2&n=50&q=${encodeURIComponent(clean + ' songs')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' duets')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=1&n=50&q=${encodeURIComponent(clean + ' romantic')}`);
   } else {
-    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page}&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page * 2}&n=50&q=${encodeURIComponent(clean)}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page * 2 + 1}&n=50&q=${encodeURIComponent(clean)}`);
     queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page}&n=50&q=${encodeURIComponent(clean + ' hits')}`);
-    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page - 1}&n=50&q=${encodeURIComponent(clean + ' songs')}`);
+    queries.push(`https://www.jiosaavn.com/api.php?__call=search.getResults&_format=json&_marker=0&cc=in&p=${page}&n=50&q=${encodeURIComponent(clean + ' songs')}`);
   }
 
   function fetchUrl(targetUrl, timeoutMs = 4500) {
