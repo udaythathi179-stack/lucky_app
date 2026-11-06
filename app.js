@@ -4550,6 +4550,15 @@ function updateAuthUI(user) {
   const logoutBtn = el('logoutBtn');
   const pDrawerAvatar = document.querySelector('.p-drawer-avatar');
   const pDrawerName = el('pDrawerUserName');
+  const topbarAvatar = document.querySelector('.topbar-avatar-img');
+  const avatarUrl = (user && user.avatar) ? user.avatar : 'images/avatar-uday.jpg';
+
+  if (topbarAvatar) {
+    topbarAvatar.src = avatarUrl;
+  }
+  if (pDrawerAvatar) {
+    pDrawerAvatar.src = avatarUrl;
+  }
 
   if (user && user.name) {
     const initial = user.name.trim().charAt(0).toUpperCase() || 'U';
@@ -4573,9 +4582,6 @@ function updateAuthUI(user) {
     if (loginActionLabel) loginActionLabel.textContent = 'Switch Account';
     if (logoutBtn) logoutBtn.style.display = 'flex';
     if (pDrawerName) pDrawerName.textContent = user.name;
-    if (pDrawerAvatar) {
-      pDrawerAvatar.src = user.avatar || 'images/avatar-uday.jpg';
-    }
   } else {
     if (avatarBadge) avatarBadge.textContent = '👤';
     if (nameLabel) nameLabel.textContent = 'Sign In';
@@ -4585,9 +4591,6 @@ function updateAuthUI(user) {
     if (loginActionLabel) loginActionLabel.textContent = 'Sign In with Gmail';
     if (logoutBtn) logoutBtn.style.display = 'none';
     if (pDrawerName) pDrawerName.textContent = 'Guest User';
-    if (pDrawerAvatar) {
-      pDrawerAvatar.src = 'images/avatar-uday.jpg';
-    }
   }
 }
 
@@ -5389,10 +5392,13 @@ function init() {
   loadDownloads().then(() => render()).catch(() => {});
   syncGoogleAccountsFromDB();
 
-  // Set default profile name to "uday" matching Screenshot 1
+  // Set default profile to Uday Kumar with user's selected cosmic profile picture
   let currentUser = getStoredUser();
   if (!currentUser) {
-    currentUser = { name: 'uday', email: 'uday@tuneus.music', avatar: 'images/avatar-uday.jpg' };
+    currentUser = { name: 'Uday Kumar', email: 'udaythathi179@gmail.com', avatar: 'images/avatar-uday.jpg' };
+    saveUserSession(currentUser);
+  } else {
+    currentUser.avatar = 'images/avatar-uday.jpg';
     saveUserSession(currentUser);
   }
   updateAuthUI(currentUser);
