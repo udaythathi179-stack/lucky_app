@@ -3712,7 +3712,11 @@ function bindEvents() {
         render();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (tab.id === 'tabSearch') {
-        openTopbarSearch();
+        const input = el('search');
+        if (input) {
+          input.focus();
+          input.select();
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (tab.id === 'tabLibrary') {
         closeTopbarSearch();
@@ -4626,43 +4630,18 @@ function createDailyBlendPlaylist() {
 }
 
 function openTopbarSearch() {
-  const container = el('topbarSearchArea');
-  if (container) container.classList.add('is-open');
   const input = el('search');
   if (input) {
     input.focus();
+    input.select();
   }
 }
 
 function closeTopbarSearch() {
-  const container = el('topbarSearchArea');
-  if (container) container.classList.remove('is-open');
-  const input = el('search');
-  if (input && !input.value.trim()) {
-    state.query = '';
-    state.onlineSearch = false;
-    render();
-  }
+  // Fitted search bar remains permanently integrated in topbar
 }
 
 function bindSpotifyNavigationEvents() {
-  // 0. Topbar Search Button & Box
-  const topSearchBtn = el('topbarSearchBtn');
-  if (topSearchBtn) {
-    topSearchBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openTopbarSearch();
-    });
-  }
-
-  const closeTopSearchBtn = el('closeTopbarSearch');
-  if (closeTopSearchBtn) {
-    closeTopSearchBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      closeTopbarSearch();
-    });
-  }
-
   // 1. Profile Drawer (Screenshot 1)
   const profileDrawerBtn = el('profileDrawerBtn');
   if (profileDrawerBtn) {
