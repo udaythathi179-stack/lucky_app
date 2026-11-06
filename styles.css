@@ -2570,18 +2570,29 @@ input[type="range"].range::-moz-range-thumb {
 .expanded-modal-backdrop {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   z-index: 1000 !important;
   display: flex;
   flex-direction: column;
   background-color: #020617;
-  overflow-y: auto;
+  overflow: hidden;
   animation: modalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 body.is-expanded-modal-open .spotify-floating-player,
+body.is-expanded-modal-open #floatingMiniPlayer,
 body.is-expanded-modal-open .spotify-bottom-nav,
-body.is-expanded-modal-open .player {
+body.is-expanded-modal-open #mobileBottomNav,
+body.is-expanded-modal-open .player,
+body.is-expanded-modal-open #player,
+body.is-expanded-modal-open footer {
   display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
 }
 
 .expanded-modal-backdrop::before {
@@ -2641,31 +2652,36 @@ body.is-expanded-modal-open .player {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  max-width: 580px;
+  justify-content: space-between;
+  max-width: 520px;
   width: 100%;
+  height: 100%;
+  max-height: 100dvh;
   margin: 0 auto;
-  padding: 20px 24px calc(90px + env(safe-area-inset-bottom, 24px));
-  min-height: 100%;
+  padding: 12px 18px calc(14px + env(safe-area-inset-bottom, 8px));
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .expanded-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .expanded-back-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  height: 38px;
-  padding: 0 16px 0 12px;
+  height: 36px;
+  padding: 0 14px 0 10px;
   border-radius: 20px;
   background: rgba(14, 38, 92, 0.82);
   border: 1px solid rgba(56, 189, 248, 0.5);
   color: #ffffff;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -2707,14 +2723,14 @@ body.is-expanded-modal-open .player {
 
 .playing-from-tag {
   display: block;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 800;
   letter-spacing: 0.1em;
   color: var(--muted-dark);
 }
 
 .expanded-header-title strong {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text);
 }
@@ -2723,32 +2739,37 @@ body.is-expanded-modal-open .player {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
+  flex: 1;
+  min-height: 0;
 }
 
 /* Vinyl & Art Cover */
 .expanded-art-wrap {
   position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 6px auto 26px;
+  width: clamp(130px, 25vh, 220px);
+  height: clamp(130px, 25vh, 220px);
+  margin: 2px auto 6px;
   display: grid;
   place-items: center;
+  flex-shrink: 1;
+  min-height: 0;
 }
 
 .expanded-vinyl {
-  width: 290px;
-  height: 290px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background:
     radial-gradient(circle at center, transparent 32%, rgba(0, 0, 0, 0.5) 33%, transparent 34%),
     repeating-radial-gradient(circle at center, #060c18 0, #060c18 2.5px, #0e1930 3.5px, #060c18 5px, #142444 6.5px, #060c18 8px);
-  border: 4px solid rgba(56, 189, 248, 0.65);
+  border: 3.5px solid rgba(56, 189, 248, 0.65);
   box-shadow:
-    0 25px 70px rgba(0, 0, 0, 0.95),
-    0 0 55px rgba(37, 99, 235, 0.55),
-    0 0 110px rgba(56, 189, 248, 0.4),
-    inset 0 0 35px rgba(0, 0, 0, 0.85);
+    0 20px 60px rgba(0, 0, 0, 0.95),
+    0 0 45px rgba(37, 99, 235, 0.55),
+    0 0 90px rgba(56, 189, 248, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.85);
   display: grid;
   place-items: center;
   position: relative;
@@ -2760,10 +2781,10 @@ body.is-expanded-modal-open .player {
 .expanded-vinyl.spinning {
   animation-play-state: running;
   box-shadow:
-    0 25px 75px rgba(0, 0, 0, 0.95),
-    0 0 70px rgba(56, 189, 248, 0.75),
-    0 0 130px rgba(37, 99, 235, 0.5),
-    inset 0 0 35px rgba(0, 0, 0, 0.85);
+    0 20px 65px rgba(0, 0, 0, 0.95),
+    0 0 60px rgba(56, 189, 248, 0.75),
+    0 0 110px rgba(37, 99, 235, 0.5),
+    inset 0 0 30px rgba(0, 0, 0, 0.85);
 }
 
 @keyframes spinVinyl {
@@ -2777,18 +2798,18 @@ body.is-expanded-modal-open .player {
 }
 
 .expanded-art-img {
-  width: 172px;
-  height: 172px;
+  width: 58%;
+  height: 58%;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
   box-shadow:
     inset 0 0 0 2px rgba(255, 255, 255, 0.3),
-    0 0 0 6px #030814,
-    0 0 20px rgba(0, 0, 0, 0.8);
+    0 0 0 5px #030814,
+    0 0 18px rgba(0, 0, 0, 0.8);
   display: grid;
   place-items: center;
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 800;
   color: #fff;
   position: relative;
@@ -2798,11 +2819,11 @@ body.is-expanded-modal-open .player {
 .expanded-art-img::after {
   content: '';
   position: absolute;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: radial-gradient(circle, #e2e8f0 25%, #475569 60%, #0b1329 100%);
-  border: 2.5px solid #000;
+  border: 2px solid #000;
   box-shadow: 0 0 8px rgba(0, 229, 255, 0.7);
   z-index: 2;
 }
@@ -2810,17 +2831,18 @@ body.is-expanded-modal-open .player {
 /* Full Width Canvas Visualizer */
 .visualizer-container {
   width: 100%;
-  height: 70px;
-  margin-bottom: 18px;
+  height: clamp(28px, 4.8vh, 44px);
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .spectrum-canvas {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 /* Metadata */
@@ -2829,7 +2851,8 @@ body.is-expanded-modal-open .player {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .expanded-titles {
@@ -2838,8 +2861,8 @@ body.is-expanded-modal-open .player {
 }
 
 .expanded-titles h2 {
-  margin: 0 0 4px;
-  font-size: 21px;
+  margin: 0 0 2px;
+  font-size: clamp(16px, 2.2vh, 19px);
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
@@ -2848,7 +2871,7 @@ body.is-expanded-modal-open .player {
 
 .expanded-titles p {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
@@ -2858,15 +2881,16 @@ body.is-expanded-modal-open .player {
 /* Timeline */
 .expanded-timeline {
   width: 100%;
-  margin-bottom: 22px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
 .timeline-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--muted);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -2879,29 +2903,30 @@ body.is-expanded-modal-open .player {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
-  margin-bottom: 26px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
 }
 
 .icon-btn-lg {
-  width: 46px;
-  height: 46px;
+  width: clamp(38px, 4.8vh, 44px);
+  height: clamp(38px, 4.8vh, 44px);
 }
 
 .icon-btn-lg svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .play-btn-lg {
-  width: 62px;
-  height: 62px;
+  width: clamp(48px, 6.2vh, 56px);
+  height: clamp(48px, 6.2vh, 56px);
 }
 
 .play-btn-lg svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 /* Footer Tools in Expanded View */
@@ -2909,13 +2934,14 @@ body.is-expanded-modal-open .player {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .exp-volume-wrap {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -2926,10 +2952,10 @@ body.is-expanded-modal-open .player {
 .exp-action-pills {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 8px;
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -2940,17 +2966,18 @@ body.is-expanded-modal-open .player {
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 8px;
-  padding: 10px 14px;
+  gap: 6px;
+  padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: 0.18s;
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .pill-btn span {
@@ -6484,6 +6511,28 @@ footer#player,
   z-index: -999 !important;
 }
 
+/* Complete hiding of bottom floating mini player and desktop player after playing song */
+.spotify-floating-player,
+#floatingMiniPlayer,
+footer#player,
+.player,
+body.is-playing-music .spotify-floating-player,
+body.is-playing-music #floatingMiniPlayer,
+body.is-playing-music footer#player,
+body.is-playing-music .player {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  overflow: hidden !important;
+  z-index: -999 !important;
+}
+
 /* When Expanded Modal is open, completely hide the bottom floating mini player and bottom nav */
 body.is-expanded-modal-open .spotify-floating-player,
 body.is-expanded-modal-open #floatingMiniPlayer,
@@ -6498,44 +6547,43 @@ body.is-expanded-modal-open footer {
   opacity: 0 !important;
 }
 
-@media (max-height: 850px) {
+@media (max-height: 700px) {
   .expanded-container {
-    padding: 12px 18px calc(80px + env(safe-area-inset-bottom, 20px));
-  }
-  .expanded-topbar {
-    margin-bottom: 10px;
+    padding: 8px 14px calc(10px + env(safe-area-inset-bottom, 6px)) !important;
   }
   .expanded-art-wrap {
-    width: 210px;
-    height: 210px;
-    margin: 4px auto 12px;
-  }
-  .expanded-vinyl {
-    width: 200px;
-    height: 200px;
-  }
-  .expanded-art-img {
-    width: 120px;
-    height: 120px;
+    width: clamp(100px, 20vh, 160px) !important;
+    height: clamp(100px, 20vh, 160px) !important;
+    margin: 2px auto 4px !important;
   }
   .visualizer-container {
-    margin-bottom: 8px;
+    height: clamp(24px, 4vh, 34px) !important;
+    margin-bottom: 4px !important;
   }
-  .spectrum-canvas {
-    height: 55px;
-  }
-  .expanded-meta {
-    margin-bottom: 10px;
+  .expanded-titles h2 {
+    font-size: 15px !important;
   }
   .expanded-timeline {
-    margin-bottom: 12px;
+    margin-bottom: 6px !important;
   }
   .expanded-controls {
-    margin-bottom: 14px;
-    gap: 14px;
+    margin-bottom: 6px !important;
+    gap: 12px !important;
+  }
+  .play-btn-lg {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .icon-btn-lg {
+    width: 34px !important;
+    height: 34px !important;
   }
   .expanded-footer-tools {
-    gap: 12px;
+    gap: 6px !important;
+  }
+  .pill-btn {
+    padding: 6px 8px !important;
+    font-size: 11px !important;
   }
 }
 
@@ -6543,7 +6591,7 @@ body.is-expanded-modal-open footer {
   z-index: 1000 !important;
 }
 
-/* Modals (Download MP3, Add to Playlist, Bass & Vocal Band EQ) appear directly on top of the expanded player */
+/* Modals (Download MP3, Add to Playlist, Base & Vocal Band EQ) appear directly on top of the expanded player */
 .modal-backdrop,
 .login-modal-backdrop {
   z-index: 1000000 !important;

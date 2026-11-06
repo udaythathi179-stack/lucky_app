@@ -2720,34 +2720,14 @@ function renderPlayer() {
   el('expRepeatBtn').classList.toggle('is-on', isRepeat);
   el('expRepeatBtn').classList.toggle('repeat-one', state.repeat === 'one');
 
-  // Update floating Spotify mini player (Screenshot 2)
+  // Keep floating and bottom players permanently hidden as requested
   const floatPlayer = el('floatingMiniPlayer');
   if (floatPlayer) {
-    floatPlayer.dataset.empty = track ? 'false' : 'true';
-    const fTitle = el('floatingTitle');
-    if (fTitle) fTitle.textContent = track ? track.title : 'Select a track';
-    const fArtist = el('floatingArtist');
-    if (fArtist) fArtist.textContent = track ? `${track.artist} \u00b7 ${track.movie || track.language || 'Tuneus'}` : 'Tuneus Cosmic Master';
-    const fArt = el('floatingArt');
-    if (fArt) {
-      if (track && track.artwork) {
-        fArt.style.backgroundImage = `url('${track.artwork}')`;
-        fArt.style.backgroundSize = 'cover';
-        fArt.innerHTML = '';
-      } else if (track) {
-        fArt.style.background = artStyle(track);
-        fArt.innerHTML = esc(initials(track.title));
-      } else {
-        fArt.style.backgroundImage = "url('logo.png')";
-        fArt.style.backgroundSize = 'cover';
-        fArt.innerHTML = '';
-      }
-    }
-    const fPlayBtn = el('floatingPlayBtn');
-    if (fPlayBtn) {
-      fPlayBtn.classList.toggle('is-playing', isPlaying);
-      fPlayBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
-    }
+    floatPlayer.style.display = 'none';
+  }
+  const deskPlayer = el('player');
+  if (deskPlayer) {
+    deskPlayer.style.display = 'none';
   }
 }
 
@@ -3183,7 +3163,24 @@ function matchesArtist(track, artistName, query = '') {
     ['sunitha', 'sunitha upadrasta'],
     ['thaman', 's thaman'],
     ['anirudh', 'anirudh ravichander'],
-    ['rahman', 'a r rahman']
+    ['rahman', 'a r rahman'],
+    ['harris', 'harris jayaraj'],
+    ['yuvan', 'yuvan shankar raja'],
+    ['taylor', 'taylor swift'],
+    ['ed sheeran', 'sheeran'],
+    ['justin bieber', 'bieber'],
+    ['michael jackson', 'jackson'],
+    ['weeknd', 'the weeknd'],
+    ['neha', 'neha kakkar'],
+    ['shaan', 'shaan mukherjee'],
+    ['vishal', 'vishal mishra'],
+    ['mika', 'mika singh'],
+    ['alka', 'alka yagnik'],
+    ['rafi', 'mohammed rafi'],
+    ['shankar', 'shankar mahadevan'],
+    ['vijay yesudas', 'yesudas'],
+    ['revanth', 'l v revanth'],
+    ['rahul sipligunj', 'sipligunj']
   ];
   for (const [k, v] of aliases) {
     if ((target.includes(k) || target.includes(v)) && (tArtist.includes(k) || tArtist.includes(v))) return true;
@@ -3368,17 +3365,21 @@ async function openArtistHero(artistName, query) {
   let allArtistTracks = deduplicateTrackList([...lifetimeSongs, ...curated, ...localLibraryMatches]);
 
   state.onlineTracks = allArtistTracks;
-  ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, allArtistTracks);
+  if (allArtistTracks.length > 0) {
+    ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, allArtistTracks);
+  }
 
   if (songCountBadge) {
-    songCountBadge.textContent = `${allArtistTracks.length} Lifetime Studio Songs`;
+    songCountBadge.textContent = allArtistTracks.length > 0
+      ? `${allArtistTracks.length} Lifetime Studio Songs`
+      : 'Loading Universe Songs...';
   }
 
   // Render immediately with all lifetime songs (0ms instant response)
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // 6. Seamless background query for any newly released online songs
+  // 6. Seamless query for all online songs from JioSaavn Universe
   try {
     const qQuality = state.streamingQuality || '320';
     const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
@@ -3387,15 +3388,14 @@ async function openArtistHero(artistName, query) {
 
     if (onlineResults.length > 0 && state.activeArtist === artistData.name) {
       const merged = deduplicateTrackList([...allArtistTracks, ...onlineResults]);
-      if (merged.length > allArtistTracks.length) {
-        state.onlineTracks = merged;
-        ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, merged);
-        if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
-        render();
-      }
+      state.onlineTracks = merged;
+      ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, merged);
+      if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
+      render();
+      if (loadMoreContainer) loadMoreContainer.hidden = false;
     }
   } catch (err) {
-    // Offline or server not active - all lifetime songs are already fully rendered!
+    // Offline or server error - any local tracks are already fully rendered!
   }
 }
 
@@ -3572,13 +3572,13 @@ function closeExpandedModal() {
   if (modal) modal.hidden = true;
   document.body.classList.remove('is-expanded-modal-open');
   document.body.style.overflow = '';
-  // Restore bottom player if there is a current playing/selected song
+  // Restore mobile bottom navigation only; keep bottom mini player hidden as requested
   const floatPlayer = el('floatingMiniPlayer');
-  if (floatPlayer) floatPlayer.style.display = '';
+  if (floatPlayer) floatPlayer.style.display = 'none';
   const bottomNav = el('mobileBottomNav');
   if (bottomNav) bottomNav.style.display = '';
   const playerBar = el('player');
-  if (playerBar) playerBar.style.display = '';
+  if (playerBar) playerBar.style.display = 'none';
 }
 
 let pendingDownloadTrack = null;

@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=72" />
+  <link rel="stylesheet" href="styles.css?v=75" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -452,8 +452,8 @@
     </div>
   </footer>
 
-  <!-- Floating Spotify-Style Docked Mini Player (Screenshot 2) -->
-  <div class="spotify-floating-player" id="floatingMiniPlayer" data-empty="true">
+  <!-- Floating Spotify-Style Docked Mini Player (Hidden - user requested bottom not visible after playing song) -->
+  <div class="spotify-floating-player" id="floatingMiniPlayer" data-empty="true" hidden style="display: none !important;">
     <div class="s-player-progress-bar" id="floatingProgressBar"></div>
     <div class="s-player-main" id="floatingPlayerBody" role="button" tabindex="0" title="Tap to expand player (F)">
       <div class="s-player-art" id="floatingArt">&#9834;</div>
@@ -1419,7 +1419,7 @@
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
   <script src="data/artistDiscographies.js?v=1"></script>
-  <script src="app.js?v=72"></script>
+  <script src="app.js?v=75"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
