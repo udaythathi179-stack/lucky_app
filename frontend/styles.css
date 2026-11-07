@@ -2737,7 +2737,7 @@ body.is-expanded-modal-open footer {
 }
 
 .expanded-back-btn:hover svg {
-  transform: translateY(2px);
+  transform: translateX(-3px);
 }
 
 .expanded-back-text {
