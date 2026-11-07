@@ -2663,6 +2663,33 @@ body.is-expanded-modal-open footer {
   overflow: hidden;
 }
 
+.expanded-drag-pill-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 0 8px 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+.expanded-drag-pill {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+
+.expanded-drag-pill-wrap:active .expanded-drag-pill,
+.expanded-drag-pill-wrap:hover .expanded-drag-pill {
+  background: #38bdf8;
+  transform: scaleX(1.2);
+}
+
 .expanded-topbar {
   display: flex;
   align-items: center;
@@ -2674,34 +2701,34 @@ body.is-expanded-modal-open footer {
 .expanded-back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  height: 36px;
-  padding: 0 14px 0 10px;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px 0 10px;
   border-radius: 20px;
-  background: rgba(14, 38, 92, 0.82);
-  border: 1px solid rgba(56, 189, 248, 0.5);
+  background: rgba(14, 38, 92, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.65);
   color: #ffffff;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 4px 16px rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 4px 16px rgba(0, 0, 0, 0.45);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
 
 .expanded-back-btn:hover {
-  background: rgba(24, 60, 140, 0.96);
+  background: rgba(24, 60, 140, 0.98);
   border-color: #38bdf8;
   color: #38bdf8;
-  transform: translateX(-3px);
+  transform: translateY(-1px);
   box-shadow: 0 0 22px rgba(56, 189, 248, 0.6), 0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
 .expanded-back-btn:active {
-  transform: translateX(-1px) scale(0.97);
+  transform: scale(0.96);
 }
 
 .expanded-back-btn svg {
@@ -2710,7 +2737,7 @@ body.is-expanded-modal-open footer {
 }
 
 .expanded-back-btn:hover svg {
-  transform: translateX(-3px);
+  transform: translateY(2px);
 }
 
 .expanded-back-text {

@@ -3694,7 +3694,7 @@ function openExpandedModal() {
   renderPlayer();
 }
 
-function closeExpandedModal() {
+function closeExpandedModal(landHome = true) {
   const modal = el('expandedModal');
   if (modal) modal.hidden = true;
   document.body.classList.remove('is-expanded-modal-open');
@@ -3706,6 +3706,40 @@ function closeExpandedModal() {
   if (bottomNav) bottomNav.style.display = '';
   const playerBar = el('player');
   if (playerBar) playerBar.style.display = 'none';
+
+  if (landHome) {
+    // Land cleanly on first page (Home Dashboard)
+    closeArtistHero();
+    closeUniverseDrawer();
+    closeProfileDrawer();
+    const createSheet = el('createBottomSheet');
+    if (createSheet) createSheet.hidden = true;
+
+    state.filter = 'All';
+    state.activeArtist = null;
+    state.activePlaylistId = null;
+    state.onlineSearch = false;
+    state.query = '';
+    const searchInput = el('search');
+    if (searchInput) searchInput.value = '';
+
+    // Switch active bottom nav to Home
+    document.querySelectorAll('.s-nav-item').forEach(btn => btn.classList.remove('active'));
+    const tabHome = el('tabHome');
+    if (tabHome) tabHome.classList.add('active');
+
+    // Switch library tabs to All
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const tabAll = el('tabAll');
+    if (tabAll) tabAll.classList.add('active');
+
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function closeExpandedModalAndLandHome() {
+  closeExpandedModal(true);
 }
 
 let pendingDownloadTrack = null;
@@ -4348,7 +4382,14 @@ function bindEvents() {
 
   el('nowCard').addEventListener('click', openExpandedModal);
   el('expandPlayerBtn').addEventListener('click', openExpandedModal);
-  el('closeExpandedBtn').addEventListener('click', closeExpandedModal);
+  el('closeExpandedBtn').addEventListener('click', closeExpandedModalAndLandHome);
+
+  const expDragWrap = el('expandedDragWrap');
+  if (expDragWrap) expDragWrap.addEventListener('click', closeExpandedModalAndLandHome);
+
+  const expHeaderTitle = el('expandedHeaderTitle');
+  if (expHeaderTitle) expHeaderTitle.addEventListener('click', closeExpandedModalAndLandHome);
+
   el('expandedLikeBtn').addEventListener('click', () => {
     if (state.current) toggleLike(state.current.id);
   });
@@ -5634,7 +5675,7 @@ function initMobileBackTrap() {
     if (profDrawer && !profDrawer.hidden) { closeProfileDrawer(); return; }
     if (uniDrawer && !uniDrawer.hidden) { closeUniverseDrawer(); return; }
     if (createSheet && !createSheet.hidden) { createSheet.hidden = true; return; }
-    if (expModal && !expModal.hidden) { closeExpandedModal(); return; }
+    if (expModal && !expModal.hidden) { closeExpandedModalAndLandHome(); return; }
     if (artistHero && !artistHero.hidden) { closeArtistHero(); return; }
 
     // 3. Main home view: track consecutive back button clicks
