@@ -4569,6 +4569,9 @@ function bindEvents() {
     }
 
     if (event.key === 'Escape') {
+      const exitModal = el('exitConfirmModal');
+      if (exitModal && !exitModal.hidden) { closeExitConfirmModal(); return; }
+
       const dlModal = el('downloadModal');
       const eqModal = el('eqModal');
       const atpModal = el('addToPlaylistModal');
@@ -4641,6 +4644,22 @@ function bindEvents() {
       toggleQueue();
     }
   });
+
+  // Mobile Back Button Exit Confirmation Modal Handlers
+  const exitNoBtn = el('exitNoBtn');
+  if (exitNoBtn) exitNoBtn.addEventListener('click', closeExitConfirmModal);
+
+  const exitYesBtn = el('exitYesBtn');
+  if (exitYesBtn) exitYesBtn.addEventListener('click', handleExitConfirmed);
+
+  const exitConfirmModal = el('exitConfirmModal');
+  if (exitConfirmModal) {
+    exitConfirmModal.addEventListener('click', (e) => {
+      if (e.target === exitConfirmModal) {
+        closeExitConfirmModal();
+      }
+    });
+  }
 }
 
 // ==========================================================================
@@ -5506,12 +5525,145 @@ function bindSpotifyNavigationEvents() {
   }
 }
 
+// ==========================================================================
+// Mobile Back Button Protection & Double-Tap Exit Confirmation
+// ==========================================================================
+let backPressCount = 0;
+let backPressTimer = null;
+
+function showExitConfirmModal() {
+  const modal = el('exitConfirmModal');
+  if (modal) {
+    modal.hidden = false;
+    const noBtn = el('exitNoBtn');
+    if (noBtn) noBtn.focus();
+  }
+}
+
+function closeExitConfirmModal() {
+  const modal = el('exitConfirmModal');
+  if (modal) modal.hidden = true;
+  backPressCount = 0;
+  clearTimeout(backPressTimer);
+}
+
+function handleExitConfirmed() {
+  closeExitConfirmModal();
+  toast('Exiting Tuneus...');
+  setTimeout(() => {
+    try {
+      window.close();
+    } catch (_) {}
+    try {
+      if (window.navigator && window.navigator.app && typeof window.navigator.app.exitApp === 'function') {
+        window.navigator.app.exitApp();
+        return;
+      }
+    } catch (_) {}
+    try {
+      window.history.go(-10);
+    } catch (_) {}
+    setTimeout(() => {
+      try {
+        window.location.replace('about:blank');
+      } catch (_) {}
+    }, 200);
+  }, 150);
+}
+
+function initMobileBackTrap() {
+  // Push an initial history trap so mobile back button doesn't exit immediately
+  try {
+    if (window.history && window.history.pushState) {
+      window.history.pushState({ tuneusApp: true, depth: 1 }, '', window.location.href);
+    }
+  } catch (_) {}
+
+  // Keep history trap armed on touch or click
+  const rearmHistory = () => {
+    try {
+      if (window.history && window.history.pushState && (!window.history.state || !window.history.state.tuneusApp)) {
+        window.history.pushState({ tuneusApp: true, depth: 1 }, '', window.location.href);
+      }
+    } catch (_) {}
+  };
+  window.addEventListener('click', rearmHistory, { passive: true });
+  window.addEventListener('touchstart', rearmHistory, { passive: true });
+
+  // Handle hardware / gesture / browser back button
+  window.addEventListener('popstate', () => {
+    // Immediately re-push history state to stay trapped in Tuneus
+    try {
+      window.history.pushState({ tuneusApp: true, depth: 1 }, '', window.location.href);
+    } catch (_) {}
+
+    // 1. If Exit Modal is open, back button acts as "No" (dismisses it)
+    const exitModal = el('exitConfirmModal');
+    if (exitModal && !exitModal.hidden) {
+      closeExitConfirmModal();
+      return;
+    }
+
+    // 2. If any subview/modal/drawer/expanded player is open, close that first
+    const dlModal = el('downloadModal');
+    const eqModal = el('eqModal');
+    const atpModal = el('addToPlaylistModal');
+    const npModal = el('newPlaylistModal');
+    const scModal = el('shortcutsModal');
+    const impModal = el('importModal');
+    const setModal = el('settingsModal');
+    const logModal = el('loginModal');
+    const googModal = el('googleAccountModal');
+    const qDrawer = el('queueDrawer');
+    const profDrawer = el('profileDrawer');
+    const uniDrawer = el('universeDrawer');
+    const createSheet = el('createBottomSheet');
+    const expModal = el('expandedModal');
+    const artistHero = el('artistHeroSection');
+
+    if (dlModal && !dlModal.hidden) { closeDownloadModal(); return; }
+    if (eqModal && !eqModal.hidden) { closeEqModal(); return; }
+    if (atpModal && !atpModal.hidden) { closeAddToPlaylist(); return; }
+    if (npModal && !npModal.hidden) { closeNewPlaylistModal(); return; }
+    if (scModal && !scModal.hidden) { scModal.hidden = true; return; }
+    if (impModal && !impModal.hidden) { impModal.hidden = true; return; }
+    if (setModal && !setModal.hidden) { setModal.hidden = true; return; }
+    if (logModal && !logModal.hidden) { logModal.hidden = true; return; }
+    if (googModal && !googModal.hidden) { googModal.hidden = true; return; }
+    if (qDrawer && !qDrawer.hidden) { qDrawer.hidden = true; return; }
+    if (profDrawer && !profDrawer.hidden) { closeProfileDrawer(); return; }
+    if (uniDrawer && !uniDrawer.hidden) { closeUniverseDrawer(); return; }
+    if (createSheet && !createSheet.hidden) { createSheet.hidden = true; return; }
+    if (expModal && !expModal.hidden) { closeExpandedModal(); return; }
+    if (artistHero && !artistHero.hidden) { closeArtistHero(); return; }
+
+    // 3. Main home view: track consecutive back button clicks
+    backPressCount += 1;
+
+    if (backPressCount === 1) {
+      // 1st click: Do NOT exit directly!
+      toast('Press back again to exit');
+      clearTimeout(backPressTimer);
+      backPressTimer = setTimeout(() => {
+        backPressCount = 0;
+      }, 2500);
+    } else if (backPressCount >= 2) {
+      // 2nd click: Show confirmation prompt:
+      // "Are you sure wanted to exit" with Yes and No options
+      clearTimeout(backPressTimer);
+      backPressCount = 0;
+      showExitConfirmModal();
+    }
+  });
+}
+
 // App Initialization
 function init() {
   bindEvents();
   bindAuthEvents();
   bindUniverseDrawerEvents();
   bindSpotifyNavigationEvents();
+  initMobileBackTrap();
   updateQualityButton();
   hydrateLibraryWithUniverseSongs();
   render();
