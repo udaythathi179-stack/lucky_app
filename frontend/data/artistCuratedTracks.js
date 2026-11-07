@@ -1,4 +1,4 @@
-// Auto-generated 100% verified unique curated tracks from genuine discography
+// Verified Artist-Curated Master Audio Library
 window.ARTIST_CURATED_TRACKS = {
   "S. P. Balasubrahmanyam": [
     {
@@ -116,7 +116,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/517/339d76dce4db4f43f4721eec2d8f03ef_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 222,
       "isOnline": true
     },
@@ -129,7 +129,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/000/05c5d77f6a8225d6667cf7a1fcaf37d8_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 224,
       "isOnline": true
     },
@@ -222,7 +222,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Hindi",
       "category": "Hindi",
       "src": "https://aac.saavncdn.com/312/b7f6f9bb21067eb568f3ac1b3af7ed8d_320.mp4",
-      "artwork": "https://c.saavncdn.com/312/Brahmastra-Hindi-2022-20220803120612-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/871/Brahmastra-Original-Motion-Picture-Soundtrack-Hindi-2022-20221006155213-500x500.jpg",
       "duration": 268,
       "isOnline": true
     },
@@ -235,7 +235,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Hindi",
       "category": "Hindi",
       "src": "https://aac.saavncdn.com/187/cd44883b7bef19f22178977a770fea76_320.mp4",
-      "artwork": "https://c.saavncdn.com/187/Aashiqui-2-Hindi-2013-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/430/Aashiqui-2-Hindi-2013-500x500.jpg",
       "duration": 262,
       "isOnline": true
     },
@@ -248,7 +248,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Hindi",
       "category": "Hindi",
       "src": "https://aac.saavncdn.com/712/03f0b2f5b84c8cf4ea4e9c704f0f0c05_320.mp4",
-      "artwork": "https://c.saavncdn.com/712/Bhediya-Hindi-2022-20221107185012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -261,7 +261,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Hindi",
       "category": "Hindi",
       "src": "https://aac.saavncdn.com/604/f2c7f087e4bee0bf947b0c43bc22a507_320.mp4",
-      "artwork": "https://c.saavncdn.com/604/Ae-Dil-Hai-Mushkil-Hindi-2016-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/257/Ae-Dil-Hai-Mushkil-Hindi-2016-500x500.jpg",
       "duration": 289,
       "isOnline": true
     },
@@ -434,7 +434,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -447,7 +447,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/008/663f6bb75d853aa700bffbebcb4e74fc_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/008/RX-100-Telugu-2018-20180608-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/172/RX-100-Telugu-2018-20230207103253-500x500.jpg",
       "duration": 237,
       "isOnline": true
     },
@@ -460,7 +460,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/172/4c364289c4c896e2a87012f74ba4a11d_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/172/Shyam-Singha-Roy-Telugu-2021-20211224160438-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/008/Shyam-Singha-Roy-Telugu-Telugu-2021-20220113123204-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -540,7 +540,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/393/d12d09bb2bc6ea75407cbfe910931eb6_320.mp4",
-      "artwork": "https://c.saavncdn.com/393/Love-Story-Telugu-2021-20210924151752-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 226,
       "isOnline": true
     },
@@ -553,7 +553,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/351/96f8c67927ddb0fa2aeeae1f6ad68dcf_320.mp4",
-      "artwork": "https://c.saavncdn.com/351/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/274/Main-Khiladi-Tu-Anari-With-Jhankar-Beats-Hindi-2024-20240125184145-500x500.jpg",
       "duration": 228,
       "isOnline": true
     },
@@ -566,7 +566,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/712/e616231da7e27dd8a8aa67732d8471b6_320.mp4",
-      "artwork": "images/artists/mangli.jpg",
+      "artwork": "https://c.saavncdn.com/213/Ismart-Shankar-Telugu-2019-20190711134004-500x500.jpg",
       "duration": 268,
       "isOnline": true
     },
@@ -1191,7 +1191,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/109/67b57d6b8abcf3f2780e817a3a831eb0_320.mp4",
-      "artwork": "https://c.saavncdn.com/109/DJ-Tillu-Telugu-2022-20220202165243-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/430/DJ-Tillu-Telugu-2022-20220210033850-500x500.jpg",
       "duration": 216,
       "isOnline": true
     },
@@ -1204,7 +1204,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Telugu",
       "src": "https://aac.saavncdn.com/978/f7a0dc15a51351119bfaaaee1bfdc3d4_320.mp4",
-      "artwork": "https://c.saavncdn.com/978/Jathi-Ratnalu-Telugu-2021-20210309174548-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
