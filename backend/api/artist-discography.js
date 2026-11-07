@@ -102,6 +102,18 @@ module.exports = async function handler(req, res) {
         if (!streamUrl) continue;
 
         const title = cleanHTML(song.song || song.title);
+        // Strict spam and mashup filter
+        if (/mashup|dj mix|remix by|ambient|calming cadence|lofi|karaoke|instrumental cover|meditation|lullaby/i.test(title)) {
+          continue;
+        }
+
+        const creds = `${song.singers || ''} ${song.primary_artists || ''} ${song.more_info?.singers || ''} ${song.more_info?.music || ''}`.toLowerCase();
+        const artistParts = clean.toLowerCase().split(/\s+/).filter((p) => p.length > 2);
+        const matchesArtistCred = artistParts.length > 0 && artistParts.some((p) => creds.includes(p));
+        if (!matchesArtistCred) {
+          continue; // Skip tracks where the requested artist is not actually credited!
+        }
+
         const artist = cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || clean);
         const movie = cleanHTML(song.album || song.more_info?.album || 'Single');
         const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');

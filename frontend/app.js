@@ -1255,20 +1255,42 @@ function trackSource(track) {
 
 function findTrackById(id) {
   if (!id) return null;
-  const local = state.tracks.find((t) => t.id === id);
+  // 1. If currently displaying a view (artist discography, search results, or playlist), look up in visible tracks FIRST
+  if (typeof visibleTracks === 'function') {
+    const visible = visibleTracks().find((t) => t && t.id === id);
+    if (visible) return visible;
+  }
+  // 2. Online/artist tracks
+  if (Array.isArray(state.onlineTracks) && state.onlineTracks.length > 0) {
+    const online = state.onlineTracks.find((t) => t && t.id === id);
+    if (online) return online;
+  }
+  // 3. Main library tracks
+  const local = state.tracks.find((t) => t && t.id === id);
   if (local) return local;
-  const recent = (state.recentTracks || []).find((t) => t && t.id === id);
-  if (recent) return recent;
+  // 4. Shelf and recommendation tracks
   const rec = (typeof RECOMMENDED_TODAY !== 'undefined' ? RECOMMENDED_TODAY : []).find((t) => t && t.id === id);
   if (rec) return rec;
   const photo = (typeof PHOTO_REFERENCE_TRACKS !== 'undefined' ? PHOTO_REFERENCE_TRACKS : []).find((t) => t && t.id === id);
   if (photo) return photo;
   const alb = (typeof ALBUMS_FEATURING !== 'undefined' ? ALBUMS_FEATURING : []).find((t) => t && t.id === id);
   if (alb) return alb;
+  // 5. Recent tracks
+  const recent = (state.recentTracks || []).find((t) => t && t.id === id);
+  if (recent) return recent;
+  // 6. Curated catalog
   const cat = (typeof catalog !== 'undefined' ? catalog : []).find((t) => t && t.id === id);
   if (cat) return cat;
-  const online = state.onlineTracks.find((t) => t.id === id);
-  if (online) return online;
+  // 7. Custom playlists
+  if (Array.isArray(state.playlists)) {
+    for (const pl of state.playlists) {
+      if (Array.isArray(pl.tracks)) {
+        const found = pl.tracks.find((t) => t && t.id === id);
+        if (found) return found;
+      }
+    }
+  }
+  // 8. Offline downloads
   const offline = downloadRecordFor(id);
   return offline ? offline.track : null;
 }
@@ -1402,7 +1424,7 @@ if (initialRecentTracks.length < 6) {
   }
 }
 
-// Clean and deduplicate any list of tracks by normalized title and language
+// Clean and deduplicate any list of tracks by normalized title, artist and movie
 function deduplicateTrackList(tracks) {
   if (!Array.isArray(tracks)) return [];
   const seenKeys = new Set();
@@ -1420,8 +1442,18 @@ function deduplicateTrackList(tracks) {
       .replace(/[^a-z0-9]/g, '')
       .trim();
 
-    const normLang = String(track.language || 'all').toLowerCase().trim();
-    const key = `${normTitle}__${normLang}`;
+    const normMovie = String(track.movie || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '')
+      .trim();
+
+    const normArtist = String(track.artist || '')
+      .toLowerCase()
+      .split(',')[0]
+      .replace(/[^a-z0-9]/g, '')
+      .trim();
+
+    const key = `${normTitle}__${normArtist}__${normMovie}`;
     const cleanUrl = track.src ? String(track.src).trim().toLowerCase().split('?')[0] : '';
 
     if (normTitle && seenKeys.has(key)) continue;
@@ -3444,7 +3476,7 @@ async function openArtistHero(artistName, query) {
   const curatedMap = window.ARTIST_CURATED_TRACKS || {};
   const curated = (curatedMap[artistData.name] || []).slice();
   const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name, artistData.query));
-  let allArtistTracks = deduplicateTrackList([...lifetimeSongs, ...curated, ...localLibraryMatches]);
+  let allArtistTracks = deduplicateTrackList([...curated, ...lifetimeSongs, ...localLibraryMatches]);
 
   state.onlineTracks = allArtistTracks;
   if (allArtistTracks.length > 0) {
@@ -4086,7 +4118,16 @@ function bindEvents() {
       const card = event.target.closest('[data-action="play-track"]');
       if (!card) return;
       const trackId = card.dataset.id;
-      const track = findTrackById(trackId);
+      let track = null;
+      if (card.closest('#quickJumpGrid') && Array.isArray(state.recentTracks)) {
+        track = state.recentTracks.find((t) => t && t.id === trackId);
+      }
+      if (!track && card.closest('#recommendedShelf') && typeof RECOMMENDED_TODAY !== 'undefined') {
+        track = RECOMMENDED_TODAY.find((t) => t && t.id === trackId);
+      }
+      if (!track) {
+        track = findTrackById(trackId);
+      }
       if (!track) return;
 
       if (state.current && state.current.id === track.id) {
@@ -4187,7 +4228,8 @@ function bindEvents() {
     const card = event.target.closest('.song-card');
     if (!card) return;
     const trackId = card.dataset.id;
-    const track = findTrackById(trackId);
+    const list = typeof visibleTracks === 'function' ? visibleTracks() : state.tracks;
+    const track = list.find((t) => t && t.id === trackId) || findTrackById(trackId);
     if (!track) return;
 
     if (state.current && state.current.id === track.id) {
