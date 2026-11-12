@@ -4223,10 +4223,26 @@ function openExpandedModal() {
   if (bottomNav) bottomNav.style.display = 'none';
   const playerBar = el('player');
   if (playerBar) playerBar.style.display = 'none';
+
+  // Update dynamic playing source context
+  const srcTitle = el('expandedSourceTitle');
+  if (srcTitle) {
+    if (state.activeArtist) {
+      srcTitle.textContent = `${state.activeArtist} Discography`;
+    } else if (state.activePlaylistId) {
+      const pl = (state.playlists || []).find((p) => p && p.id === state.activePlaylistId);
+      srcTitle.textContent = pl ? pl.name : 'Playlist';
+    } else if (state.onlineSearch || state.query) {
+      srcTitle.textContent = `Search: ${state.query || 'Online'}`;
+    } else {
+      srcTitle.textContent = 'Tuneus Music Library';
+    }
+  }
+
   renderPlayer();
 }
 
-function closeExpandedModal(landHome = true) {
+function closeExpandedModal(landHome = false) {
   const modal = el('expandedModal');
   if (modal) modal.hidden = true;
   document.body.classList.remove('is-expanded-modal-open');
@@ -4921,13 +4937,18 @@ function bindEvents() {
 
   el('nowCard').addEventListener('click', openExpandedModal);
   el('expandPlayerBtn').addEventListener('click', openExpandedModal);
-  el('closeExpandedBtn').addEventListener('click', closeExpandedModalAndLandHome);
+  el('closeExpandedBtn').addEventListener('click', () => closeExpandedModal(false));
 
   const expDragWrap = el('expandedDragWrap');
-  if (expDragWrap) expDragWrap.addEventListener('click', closeExpandedModalAndLandHome);
+  if (expDragWrap) expDragWrap.addEventListener('click', () => closeExpandedModal(false));
 
   const expHeaderTitle = el('expandedHeaderTitle');
-  if (expHeaderTitle) expHeaderTitle.addEventListener('click', closeExpandedModalAndLandHome);
+  if (expHeaderTitle) expHeaderTitle.addEventListener('click', () => closeExpandedModal(false));
+
+  const artistBackBtn = el('artistBackBtn');
+  if (artistBackBtn) {
+    artistBackBtn.addEventListener('click', closeArtistHero);
+  }
 
   el('expandedLikeBtn').addEventListener('click', () => {
     if (state.current) toggleLike(state.current.id);
@@ -6214,8 +6235,27 @@ function initMobileBackTrap() {
     if (profDrawer && !profDrawer.hidden) { closeProfileDrawer(); return; }
     if (uniDrawer && !uniDrawer.hidden) { closeUniverseDrawer(); return; }
     if (createSheet && !createSheet.hidden) { createSheet.hidden = true; return; }
-    if (expModal && !expModal.hidden) { closeExpandedModalAndLandHome(); return; }
+    if (expModal && !expModal.hidden) { closeExpandedModal(false); return; }
     if (artistHero && !artistHero.hidden) { closeArtistHero(); return; }
+    if (state.activePlaylistId) {
+      state.activePlaylistId = null;
+      render();
+      return;
+    }
+    if (state.onlineSearch || state.query) {
+      state.onlineSearch = false;
+      state.query = '';
+      const searchInput = el('search');
+      if (searchInput) searchInput.value = '';
+      const clearBtn = el('clearSearch');
+      if (clearBtn) clearBtn.hidden = true;
+      render();
+      return;
+    }
+    if (state.filter !== 'All') {
+      setFilter('All');
+      return;
+    }
 
     // 3. Main home view: track consecutive back button clicks
     backPressCount += 1;
