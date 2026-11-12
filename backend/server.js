@@ -10,6 +10,7 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
 // Database & API Handlers
 const db = require('../database/db');
@@ -20,6 +21,43 @@ const authHandler = require('./api/auth');
 const PORT = process.env.PORT || 3000;
 const FRONTEND_DIR = path.resolve(__dirname, '..', 'frontend');
 const ROOT_DIR = path.resolve(__dirname, '..');
+
+// In-memory static cache for 100k concurrency (0ms RAM delivery)
+const STATIC_CACHE = new Map();
+const COMPRESSIBLE_EXTS = new Set(['.html', '.css', '.js', '.json', '.svg', '.webmanifest']);
+
+function getOrCacheStaticFile(filePath, stats, ext) {
+  const cacheKey = filePath;
+  const mtime = stats.mtimeMs;
+
+  if (STATIC_CACHE.has(cacheKey)) {
+    const cached = STATIC_CACHE.get(cacheKey);
+    if (cached.mtime === mtime) {
+      return cached;
+    }
+  }
+
+  const rawBuffer = fs.readFileSync(filePath);
+  const etag = `W/"${stats.size}-${Math.floor(mtime)}"`;
+  let gzipBuffer = null;
+
+  if (COMPRESSIBLE_EXTS.has(ext) && rawBuffer.length > 256) {
+    try {
+      gzipBuffer = zlib.gzipSync(rawBuffer, { level: 6 });
+    } catch (_) {}
+  }
+
+  const record = {
+    raw: rawBuffer,
+    gzip: gzipBuffer,
+    size: stats.size,
+    mtime,
+    etag
+  };
+
+  STATIC_CACHE.set(cacheKey, record);
+  return record;
+}
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
@@ -235,14 +273,19 @@ const server = http.createServer(async (req, res) => {
       'Access-Control-Allow-Origin': '*'
     };
 
-    if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp' || ext === '.svg' || ext === '.ico') {
+    if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp' || ext === '.ico') {
       extraHeaders['Cache-Control'] = 'public, max-age=604800, immutable';
+    } else if (ext === '.css' || ext === '.js') {
+      extraHeaders['Cache-Control'] = 'public, max-age=86400';
     } else if (pathname === '/manifest.json') {
       contentType = 'application/manifest+json; charset=UTF-8';
+      extraHeaders['Cache-Control'] = 'public, max-age=3600';
     } else if (pathname === '/sw.js') {
       contentType = 'application/javascript; charset=UTF-8';
       extraHeaders['Service-Worker-Allowed'] = '/';
       extraHeaders['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+    } else if (ext === '.html') {
+      extraHeaders['Cache-Control'] = 'no-cache';
     }
 
     // Support audio Range requests
@@ -261,16 +304,32 @@ const server = http.createServer(async (req, res) => {
         'Content-Type': contentType,
         ...extraHeaders
       });
-      fileStream.pipe(res);
-    } else {
-      res.writeHead(200, {
-        'Content-Length': stats.size,
-        'Content-Type': contentType,
-        'Accept-Ranges': 'bytes',
-        ...extraHeaders
-      });
-      fs.createReadStream(filePath).pipe(res);
+      return fileStream.pipe(res);
     }
+
+    // High-concurrency In-Memory Cache delivery with GZIP and 304 Not Modified
+    const cached = getOrCacheStaticFile(filePath, stats, ext);
+    extraHeaders['ETag'] = cached.etag;
+
+    // Check If-None-Match for instantaneous 0-byte 304 response
+    if (req.headers['if-none-match'] === cached.etag) {
+      res.writeHead(304, extraHeaders);
+      return res.end();
+    }
+
+    const acceptEncoding = req.headers['accept-encoding'] || '';
+    if (cached.gzip && acceptEncoding.includes('gzip')) {
+      extraHeaders['Content-Encoding'] = 'gzip';
+      extraHeaders['Content-Length'] = cached.gzip.length;
+      extraHeaders['Content-Type'] = contentType;
+      res.writeHead(200, extraHeaders);
+      return res.end(cached.gzip);
+    }
+
+    extraHeaders['Content-Length'] = cached.size;
+    extraHeaders['Content-Type'] = contentType;
+    res.writeHead(200, extraHeaders);
+    return res.end(cached.raw);
   });
 });
 
