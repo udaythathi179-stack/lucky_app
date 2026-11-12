@@ -68,28 +68,38 @@ body {
   padding-bottom: 150px;
   overflow-x: hidden;
   background-color: #020617;
+  color: var(--text);
+  font-family: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* GPU Composited Background Layer (Eliminates scroll repaint lag) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-color: #020617;
   background-image:
     radial-gradient(ellipse 130% 90% at 50% -15%, rgba(14, 52, 140, 0.45) 0%, rgba(2, 6, 23, 0.78) 45%, #020617 95%),
     url('theme-bg.jpg');
   background-size: 100% auto, cover;
   background-position: center top, center 12%;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: var(--text);
-  font-family: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  pointer-events: none;
+  transform: translateZ(0);
 }
 
 body.is-playing-music .glow-a {
-  opacity: 0.62;
-  transform: scale(1.1);
-  transition: all 1.2s ease;
+  opacity: 0.58;
+  transform: scale(1.08) translateZ(0);
+  transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 body.is-playing-music .glow-b {
-  opacity: 0.65;
-  transform: scale(1.1);
-  transition: all 1.2s ease;
+  opacity: 0.60;
+  transform: scale(1.08) translateZ(0);
+  transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 button,
@@ -108,14 +118,13 @@ a {
   text-decoration: none;
 }
 
-/* Dynamic Glow Orbs (GPU Accelerated) */
+/* Dynamic Glow Orbs (GPU Accelerated, Soft Gradients without expensive blur filter) */
 .glow {
   position: fixed;
   border-radius: 50%;
-  filter: blur(60px);
   pointer-events: none;
-  z-index: 0;
-  will-change: opacity;
+  z-index: -1;
+  transform: translateZ(0);
   transition: opacity 0.4s ease;
 }
 
@@ -124,7 +133,7 @@ a {
   height: 740px;
   top: -240px;
   left: -180px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(59, 130, 246, 0.22) 50%, transparent 75%) !important;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(59, 130, 246, 0.16) 45%, transparent 70%) !important;
   opacity: 0.45;
 }
 
@@ -133,7 +142,7 @@ a {
   height: 840px;
   right: -220px;
   bottom: -280px;
-  background: radial-gradient(circle, rgba(29, 78, 216, 0.48) 0%, rgba(96, 165, 250, 0.22) 55%, transparent 75%) !important;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.40) 0%, rgba(96, 165, 250, 0.16) 48%, transparent 70%) !important;
   opacity: 0.48;
 }
 
@@ -147,11 +156,12 @@ a {
   justify-content: space-between;
   gap: 20px;
   padding: 14px 32px;
-  background: rgba(4, 12, 32, 0.88);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  background: rgba(4, 12, 32, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(59, 130, 246, 0.25);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 1px 25px rgba(37, 99, 235, 0.16);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55);
+  transform: translateZ(0);
 }
 
 /* Top Left Zone: Explore Universe Button + Brand Logo */
@@ -1410,6 +1420,8 @@ a {
   padding: 6px 2px 14px;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
 }
 
 /* Home Popular Artists / Singers Shelf */
@@ -1432,6 +1444,9 @@ a {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   outline: none;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 120px;
+  transform: translateZ(0);
 }
 
 .artist-shelf-card:hover {
@@ -1497,6 +1512,9 @@ a {
   padding: 12px;
   border-radius: 16px;
   background: linear-gradient(160deg, rgba(12, 28, 70, 0.94) 0%, rgba(6, 16, 44, 0.98) 100%);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 254px;
+  transform: translateZ(0);
   border: 1px solid rgba(56, 189, 248, 0.22);
   cursor: pointer;
   transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
@@ -1685,6 +1703,9 @@ a {
   transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 78px;
+  transform: translateZ(0);
 }
 
 .song-card:hover {
@@ -5183,22 +5204,18 @@ body {
   height: 2px;
   pointer-events: none;
   background: linear-gradient(90deg, transparent 0%, #00e5ff 18%, #3b82f6 42%, #818cf8 58%, #00e5ff 82%, transparent 100%);
-  background-size: 220% 100%;
   opacity: 0.85;
-  animation: borderFlow 7s linear infinite;
-  box-shadow: 0 0 18px rgba(0, 229, 255, 0.65);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.45);
 }
 
-/* ----- Animated gradient brand wordmark ----- */
+/* ----- Crisp gradient brand wordmark (Hardware Cached) ----- */
 .brand-text h1 {
-  background: linear-gradient(100deg, #e0f2fe 0%, #67e8f9 25%, #60a5fa 50%, #a5b4fc 72%, #e0f2fe 100%);
-  background-size: 240% auto;
+  background: linear-gradient(100deg, #e0f2fe 0%, #67e8f9 30%, #60a5fa 70%, #93c5fd 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.35));
-  animation: gradientTextShift 7s linear infinite;
+  text-shadow: 0 0 18px rgba(0, 229, 255, 0.35);
 }
 
 .brand:hover .brand-mark {
@@ -5206,19 +5223,17 @@ body {
     inset 0 0 0 1px rgba(0, 229, 255, 0.95);
 }
 
-/* ----- Glowing section headings ----- */
+/* ----- Glowing section headings (Hardware Cached) ----- */
 .section-heading-sm,
 #sectionTitle,
 .playlists-head h2,
 .universe-head-brand h2 {
-  background: linear-gradient(95deg, #e6f6ff 0%, #7dd3fc 38%, #60a5fa 70%, #c7d2fe 100%);
-  background-size: 200% auto;
+  background: linear-gradient(95deg, #e6f6ff 0%, #7dd3fc 40%, #60a5fa 75%, #c7d2fe 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.28));
-  animation: gradientTextShift 9s linear infinite;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.28);
 }
 
 .shelf-head h2,
@@ -5285,8 +5300,15 @@ body {
   height: 140%;
   background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
   transform: skewX(-22deg);
-  animation: sheenSweep 4.2s ease-in-out infinite;
   pointer-events: none;
+}
+
+.add-btn:hover::after,
+.primary-btn:hover::after,
+.primary-btn-sm:hover::after,
+.login-submit-btn:hover::after,
+.spotlight-play-btn:hover::after {
+  animation: sheenSweep 1.2s ease-in-out forwards;
 }
 
 .primary-btn,
@@ -5376,9 +5398,8 @@ body {
 .song-card.is-active {
   background-image: linear-gradient(155deg, rgba(37, 99, 235, 0.42) 0%, rgba(0, 229, 255, 0.22) 100%);
   border-color: rgba(0, 229, 255, 0.95);
-  box-shadow: inset 0 1px 2px rgba(0, 229, 255, 0.45), 0 0 38px rgba(0, 229, 255, 0.45),
-    0 10px 30px rgba(0, 0, 0, 0.6);
-  animation: activeCardBreath 3.4s ease-in-out infinite;
+  box-shadow: inset 0 1px 2px rgba(0, 229, 255, 0.45), 0 0 24px rgba(0, 229, 255, 0.4),
+    0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .spotlight-card {
@@ -6354,8 +6375,8 @@ input:focus-visible:not(#search):not(.search-wrap input):not(.universe-filter-wr
   z-index: 95;
   height: 58px;
   background: linear-gradient(135deg, rgba(14, 28, 62, 0.96), rgba(8, 20, 48, 0.96));
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(56, 189, 248, 0.35);
   border-radius: 12px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 24px rgba(37, 99, 235, 0.3);
@@ -6364,7 +6385,8 @@ input:focus-visible:not(#search):not(.search-wrap input):not(.universe-filter-wr
   padding: 0 12px 0 6px;
   gap: 12px;
   overflow: hidden;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
 }
 
 .spotify-floating-player[data-empty="true"] {
@@ -6496,15 +6518,16 @@ input:focus-visible:not(#search):not(.search-wrap input):not(.universe-filter-wr
   right: 0;
   height: 64px;
   z-index: 98;
-  background: linear-gradient(180deg, rgba(6, 14, 34, 0.97) 0%, rgba(3, 9, 24, 0.99) 100%);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: linear-gradient(180deg, rgba(6, 14, 34, 0.98) 0%, rgba(3, 9, 24, 0.99) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(56, 189, 248, 0.18);
   box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 0 4px calc(env(safe-area-inset-bottom, 0px) / 2);
+  transform: translateZ(0);
 }
 
 .s-nav-item {

@@ -1815,13 +1815,14 @@ function startVisualizerLoop() {
       miniCtx.clearRect(0, 0, miniCanvas.width, miniCanvas.height);
       const barCount = 36;
       const barWidth = miniCanvas.width / barCount;
+      const grad = miniCtx.createLinearGradient(0, 0, 0, miniCanvas.height);
+      grad.addColorStop(0, '#38bdf8');
+      grad.addColorStop(1, '#1d4ed8');
+      miniCtx.fillStyle = grad;
+
       for (let i = 0; i < barCount; i++) {
         const val = dataArray[i % bufferLength] / 255;
         const h = Math.max(2, val * miniCanvas.height);
-        const grad = miniCtx.createLinearGradient(0, miniCanvas.height - h, 0, miniCanvas.height);
-        grad.addColorStop(0, '#38bdf8');
-        grad.addColorStop(1, '#1d4ed8');
-        miniCtx.fillStyle = grad;
         miniCtx.fillRect(i * barWidth, miniCanvas.height - h, barWidth - 2, h);
       }
     }
@@ -1830,6 +1831,13 @@ function startVisualizerLoop() {
       expCtx.clearRect(0, 0, expCanvas.width, expCanvas.height);
       const barCount = 48;
       const barWidth = expCanvas.width / barCount;
+      const expGrad = expCtx.createLinearGradient(0, 0, 0, expCanvas.height);
+      expGrad.addColorStop(0, '#e0f2fe');
+      expGrad.addColorStop(0.25, '#38bdf8');
+      expGrad.addColorStop(0.65, '#2563eb');
+      expGrad.addColorStop(1, 'rgba(29, 78, 216, 0.45)');
+      expCtx.fillStyle = expGrad;
+
       for (let i = 0; i < barCount; i++) {
         const val = dataArray[i % bufferLength] / 255;
         const h = Math.max(3, val * (expCanvas.height - 6));
@@ -1838,12 +1846,6 @@ function startVisualizerLoop() {
         const y = expCanvas.height - h;
 
         // Glowing electric blue acoustic soundwave bar matching theme image
-        const gradient = expCtx.createLinearGradient(0, y, 0, expCanvas.height);
-        gradient.addColorStop(0, '#e0f2fe');
-        gradient.addColorStop(0.25, '#38bdf8');
-        gradient.addColorStop(0.65, '#2563eb');
-        gradient.addColorStop(1, 'rgba(29, 78, 216, 0.45)');
-        expCtx.fillStyle = gradient;
         expCtx.beginPath();
         expCtx.roundRect(x, y, w, h, [3, 3, 0, 0]);
         expCtx.fill();
@@ -1854,6 +1856,7 @@ function startVisualizerLoop() {
           expCtx.beginPath();
           expCtx.arc(x + w / 2, y, 1.8, 0, Math.PI * 2);
           expCtx.fill();
+          expCtx.fillStyle = expGrad;
         }
       }
     }
@@ -3137,6 +3140,79 @@ function renderHomeDashboard() {
   renderShelf('folkShelf', FOLK_MASTERPIECES);
 }
 
+// Progressive Song Grid Rendering (Ultra-Smooth 60FPS Virtual Pagination)
+let songGridLimit = 36;
+const SONG_GRID_CHUNK_SIZE = 36;
+let currentSongList = [];
+let lastRenderedContextKey = '';
+let songGridObserver = null;
+
+function renderSongGrid(resetLimit = false) {
+  const songGridEl = el('songGrid');
+  if (!songGridEl) return;
+
+  if (resetLimit) {
+    songGridLimit = SONG_GRID_CHUNK_SIZE;
+  }
+
+  const total = currentSongList.length;
+  const isLimited = total > songGridLimit;
+  const displayTracks = isLimited ? currentSongList.slice(0, songGridLimit) : currentSongList;
+
+  songGridEl.innerHTML = displayTracks.map(cardHTML).join('');
+
+  const loadMoreWrap = el('songGridLoadMoreContainer');
+  const loadMoreBtn = el('songGridLoadMoreBtn');
+  const loadMoreText = el('songGridLoadMoreText');
+  const isArtistView = Boolean(state.activeArtist);
+
+  if (loadMoreWrap) {
+    loadMoreWrap.hidden = isArtistView || !isLimited;
+    if (loadMoreText && isLimited) {
+      loadMoreText.textContent = `Show More Songs (${displayTracks.length} of ${total})`;
+    }
+  }
+
+  if (loadMoreBtn && !loadMoreBtn._hasBoundClick) {
+    loadMoreBtn._hasBoundClick = true;
+    loadMoreBtn.onclick = () => {
+      if (songGridLimit >= currentSongList.length) return;
+      const prevLimit = songGridLimit;
+      songGridLimit += SONG_GRID_CHUNK_SIZE;
+      const nextChunk = currentSongList.slice(prevLimit, songGridLimit);
+      if (nextChunk.length > 0) {
+        songGridEl.insertAdjacentHTML('beforeend', nextChunk.map(cardHTML).join(''));
+        const newCount = Math.min(songGridLimit, currentSongList.length);
+        if (loadMoreText) {
+          loadMoreText.textContent = `Show More Songs (${newCount} of ${currentSongList.length})`;
+        }
+        if (newCount >= currentSongList.length && loadMoreWrap) {
+          loadMoreWrap.hidden = true;
+        }
+      } else if (loadMoreWrap) {
+        loadMoreWrap.hidden = true;
+      }
+    };
+  }
+
+  initSongGridObserver();
+}
+
+function initSongGridObserver() {
+  if (songGridObserver) return;
+  const target = el('songGridLoadMoreContainer');
+  if (!target || !('IntersectionObserver' in window)) return;
+  songGridObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !target.hidden) {
+        const btn = el('songGridLoadMoreBtn');
+        if (btn) btn.click();
+      }
+    });
+  }, { rootMargin: '300px' });
+  songGridObserver.observe(target);
+}
+
 // Main Render Function
 function render() {
   renderChips();
@@ -3170,7 +3246,13 @@ function render() {
   }
 
   const list = visibleTracks();
-  el('songGrid').innerHTML = list.map(cardHTML).join('');
+  currentSongList = list;
+
+  const currentContextKey = `${state.filter}__${state.query}__${state.activeArtist}__${state.onlineSearch}__${state.activePlaylistId}`;
+  const contextChanged = currentContextKey !== lastRenderedContextKey;
+  lastRenderedContextKey = currentContextKey;
+
+  renderSongGrid(contextChanged);
   el('emptyState').hidden = list.length > 0;
 
   const libHead = el('libraryHeaderSection');
@@ -3304,13 +3386,23 @@ function renderPlayer() {
   }
 }
 
-// Synchronize song card states
+// Synchronize song card states (Targeted update for high performance)
 function syncPlayState() {
-  document.querySelectorAll('.song-card').forEach((card) => {
-    const isActive = Boolean(state.current) && card.dataset.id === state.current.id;
-    card.classList.toggle('is-active', isActive);
-    card.classList.toggle('is-playing', isActive && state.playing);
+  const currentId = state.current ? String(state.current.id) : null;
+  const isPlaying = Boolean(state.playing && state.current);
+
+  document.querySelectorAll('.song-card.is-active, .song-card.is-playing').forEach((c) => {
+    if (c.dataset.id !== currentId) {
+      c.classList.remove('is-active', 'is-playing');
+    }
   });
+
+  if (currentId) {
+    document.querySelectorAll(`.song-card[data-id="${CSS.escape(currentId)}"]`).forEach((c) => {
+      c.classList.add('is-active');
+      c.classList.toggle('is-playing', isPlaying);
+    });
+  }
   renderPlayer();
 }
 
@@ -6292,18 +6384,20 @@ function init() {
   loadDownloads().then(() => render()).catch(() => {});
   syncGoogleAccountsFromDB();
 
-  // Dynamically load complete artist discographies if not already loaded into memory
+  // Idle background load for full discographies JSON (0ms impact on initial load and rendering)
   if (typeof window !== 'undefined' && (!window.ALL_ARTIST_DISCOGRAPHIES || Object.keys(window.ALL_ARTIST_DISCOGRAPHIES).length === 0)) {
-    fetch('data/artistDiscographies.json')
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => {
-        if (data) {
-          window.ALL_ARTIST_DISCOGRAPHIES = data;
-          hydrateLibraryWithUniverseSongs();
-          render();
-        }
-      })
-      .catch(() => {});
+    const idleFn = window.requestIdleCallback || ((cb) => setTimeout(cb, 1000));
+    idleFn(() => {
+      fetch('data/artistDiscographies.json')
+        .then((r) => r.ok ? r.json() : null)
+        .then((data) => {
+          if (data) {
+            window.ALL_ARTIST_DISCOGRAPHIES = data;
+            hydrateLibraryWithUniverseSongs();
+          }
+        })
+        .catch(() => {});
+    });
   }
 
   // Set default profile to Uday Kumar with user's selected cosmic profile picture

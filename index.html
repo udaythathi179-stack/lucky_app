@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=85" />
+  <link rel="stylesheet" href="styles.css?v=88" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -314,6 +314,14 @@
       <button type="button" id="artistLoadMoreBtn" class="artist-load-more-btn">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         <span id="artistLoadMoreText">Load More Songs from Discography</span>
+      </button>
+    </div>
+
+    <!-- Library Load More Controls (Smooth progressive pagination) -->
+    <div id="songGridLoadMoreContainer" class="artist-load-more-wrap" hidden>
+      <button type="button" id="songGridLoadMoreBtn" class="artist-load-more-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span id="songGridLoadMoreText">Show More Songs</span>
       </button>
     </div>
 
@@ -1515,8 +1523,7 @@
   </div>
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
-  <script src="data/artistDiscographies.js?v=2"></script>
-  <script src="app.js?v=87"></script>
+  <script src="app.js?v=88"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
