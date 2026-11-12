@@ -8,11 +8,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Aadavari Matalaku Ardhalu Veruley",
       "year": 2007,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
       "artwork": "https://c.saavncdn.com/483/Aadavari-Matalaku-Ardhalu-Veruley-2007-500x500.jpg",
-      "duration": 274,
-      "isOnline": true
+      "duration": 274
     },
     {
       "id": "cur-cur-s-p-balasubrahmanyam-ee-manase-se-se",
@@ -21,89 +20,82 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Tholiprema",
       "year": 1998,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/252/c086f0cf5ab8996412d8d60f52bd059b_320.mp4",
       "artwork": "https://c.saavncdn.com/252/Tholiprema-Telugu-2014-20251011224607-500x500.jpg",
-      "duration": 265,
-      "isOnline": true
+      "duration": 265
     },
     {
-      "id": "cur-art-s-p-balasubrahmanyam-s-p-balasubrahmanyam-BBLYc4mS",
+      "id": "cur-cur-s-p-balasubrahmanyam-mera-dil-bhi-kitna-p",
       "title": "Mera Dil Bhi Kitna Pagal Hai",
       "artist": "Kumar Sanu, S. P. Balasubrahmanyam, Alka Yagnik",
       "movie": "Saajan",
       "year": 1991,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/461/e5ec72fde6980ef6fc434aae3c02fe3d_320.mp4",
       "artwork": "https://c.saavncdn.com/blob/461/Saajan-Hindi-1991-20220616044407-500x500.jpg",
-      "duration": 324,
-      "isOnline": true
+      "duration": 324
     },
     {
-      "id": "cur-art-s-p-balasubrahmanyam-s-p-balasubrahmanyam-oG9Vex3t",
+      "id": "cur-cur-s-p-balasubrahmanyam-dekha-hai-pehli-baar",
       "title": "Dekha Hai Pehli Baar (From \"Saajan\")",
       "artist": "Kumar Sanu, S. P. Balasubrahmanyam, Alka Yagnik",
       "movie": "Yaadon Ki Baarat",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/400/b9fec770c2d4f6cb37770e72ee937f13_320.mp4",
       "artwork": "https://c.saavncdn.com/400/Yaadon-Ki-Baarat-Hindi-2026-20260918162420-500x500.jpg",
-      "duration": 365,
-      "isOnline": true
+      "duration": 365
     },
     {
-      "id": "cur-art-s-p-balasubrahmanyam-s-p-balasubrahmanyam-zPveQaXu",
+      "id": "cur-cur-s-p-balasubrahmanyam-dekha-hai-pehli-baar",
       "title": "Dekha Hai Pehli Baar Duet (From \"Saajan\")",
       "artist": "Kumar Sanu, S. P. Balasubrahmanyam, Alka Yagnik",
       "movie": "Bollywood Moments",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/451/7310bb4628f14adeb15522dca0729516_320.mp4",
       "artwork": "https://c.saavncdn.com/451/Bollywood-Moments-Hindi-2026-20261030163453-500x500.jpg",
-      "duration": 365,
-      "isOnline": true
+      "duration": 365
     },
     {
-      "id": "cur-art-s-p-balasubrahmanyam-s-p-balasubrahmanyam-dhyPSK3b",
+      "id": "cur-cur-s-p-balasubrahmanyam-dekha-hai-pehli-baar",
       "title": "Dekha Hai Pehli Baar (From \"Saajan\")",
       "artist": "Kumar Sanu, S. P. Balasubrahmanyam, Alka Yagnik",
       "movie": "Dil Se Yaadon Tak",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/325/d90efcf6cf45038329f6c7bb7a925457_320.mp4",
       "artwork": "https://c.saavncdn.com/325/Dil-Se-Yaadon-Tak-Hindi-2026-20260918162227-500x500.jpg",
-      "duration": 365,
-      "isOnline": true
+      "duration": 365
     },
     {
-      "id": "cur-art-s-p-balasubrahmanyam-s-p-balasubrahmanyam-Xqu7rXWV",
+      "id": "cur-cur-s-p-balasubrahmanyam-dekha-hai-pehli-baar",
       "title": "Dekha Hai Pehli Baar",
       "artist": "Alka Yagnik, S. P. Balasubrahmanyam",
       "movie": "Saajan",
       "year": 1991,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/461/9473c2f5a21cef15e5501a7621e6d97b_320.mp4",
       "artwork": "https://c.saavncdn.com/blob/461/Saajan-Hindi-1991-20220616044407-500x500.jpg",
-      "duration": 372,
-      "isOnline": true
+      "duration": 372
     },
     {
-      "id": "cur-art-s-p-balasubrahmanyam-s-p-balasubrahmanyam-lDnlQgKc",
+      "id": "cur-cur-s-p-balasubrahmanyam-priya-raagale",
       "title": "Priya Raagale",
       "artist": "K. S. Chithra, S.P. Balasubrahmanyam",
       "movie": "Hello Brother",
       "year": 1994,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/814/d935f8487c84a01827c76a2db066ae68_320.mp4",
       "artwork": "https://c.saavncdn.com/814/Hello-Brother-2000-500x500.jpg",
-      "duration": 366,
-      "isOnline": true
+      "duration": 366
     }
   ],
   "Sid Sriram": [
@@ -114,11 +106,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Ala Vaikunthapurramuloo",
       "year": 2019,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/517/339d76dce4db4f43f4721eec2d8f03ef_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-      "duration": 222,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "duration": 222
     },
     {
       "id": "cur-cur-sid-sriram-srivalli",
@@ -127,89 +118,82 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Pushpa: The Rise",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/000/05c5d77f6a8225d6667cf7a1fcaf37d8_320.mp4",
-      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
-      "duration": 224,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "duration": 224
     },
     {
-      "id": "cur-art-sid-sriram-sid-sriram-A7AAUlh8",
+      "id": "cur-cur-sid-sriram-nijame-ne-chebutunna",
       "title": "Nijame Ne Chebutunna",
       "artist": "Sid Sriram",
       "movie": "Ooru Peru Bhairavakona",
       "year": 2023,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/000/507ac0876cbea201b822123ed81ea3fc_320.mp4",
       "artwork": "https://c.saavncdn.com/000/Ooru-Peru-Bhairavakona-Telugu-2023-20240215171825-500x500.jpg",
-      "duration": 214,
-      "isOnline": true
+      "duration": 214
     },
     {
-      "id": "cur-art-sid-sriram-sid-sriram-KTxkVwWk",
+      "id": "cur-cur-sid-sriram-urike-urike",
       "title": "Urike Urike",
       "artist": "Sid Sriram",
       "movie": "Urike Urike (From \"Hit 2\")",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/088/c55df5f8dc78a21c0541ca8962d8e5be_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/088/Urike-Urike-From-Hit-2-Telugu-2022-20221109104107-500x500.jpg",
-      "duration": 275,
-      "isOnline": true
+      "duration": 275
     },
     {
-      "id": "cur-art-sid-sriram-sid-sriram-1xj-eQct",
+      "id": "cur-cur-sid-sriram-baguntundhi-nuvvu-na",
       "title": "Baguntundhi Nuvvu Navvithe",
       "artist": "Sekhar Chandra, Sid Sriram, Nutana Mohan, Bhaskarbhatla Ravikumar",
       "movie": "Atithi Devobhava",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/257/a62e37bc8207cc11bc1c3850fc920807_320.mp4",
       "artwork": "https://c.saavncdn.com/257/Atithi-Devobhava-Original-Motion-Picture-Soundtrack--Telugu-2022-20220107133410-500x500.jpg",
-      "duration": 222,
-      "isOnline": true
+      "duration": 222
     },
     {
-      "id": "cur-art-sid-sriram-sid-sriram-6PXDJ5N7",
+      "id": "cur-cur-sid-sriram-naane-neenanthe-from",
       "title": "Naane Neenanthe (From \"BRAT\")",
       "artist": "Sid Sriram, Lahari Mahesh",
       "movie": "Naane Neenanthe (From \"BRAT\")",
       "year": 2025,
       "language": "Kannada",
-      "category": "Kannada",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/313/bb9b4ba20fa4072783afd437744b773b_320.mp4",
       "artwork": "https://c.saavncdn.com/313/Naane-Neenanthe-From-BRAT-Kannada-2025-20250724171743-500x500.jpg",
-      "duration": 246,
-      "isOnline": true
+      "duration": 246
     },
     {
-      "id": "cur-art-sid-sriram-sid-sriram-BKMtFWnn",
+      "id": "cur-cur-sid-sriram-naane-neenanthe",
       "title": "Naane Neenanthe",
       "artist": "Sid Sriram, Lahari Mahesh",
       "movie": "BRAT (Original Motion Picture Soundtrack)",
       "year": 2026,
       "language": "Kannada",
-      "category": "Kannada",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/277/925eee5d0e41ccbb136e5aa1cd03ef2f_320.mp4",
       "artwork": "https://c.saavncdn.com/277/BRAT-Original-Motion-Picture-Soundtrack-Kannada-2026-20260305061419-500x500.jpg",
-      "duration": 246,
-      "isOnline": true
+      "duration": 246
     },
     {
-      "id": "cur-art-sid-sriram-sid-sriram-gauKpPS3",
+      "id": "cur-cur-sid-sriram-vazhithunaiye",
       "title": "Vazhithunaiye",
       "artist": "Sid Sriram, Sanjana Kalmanje",
       "movie": "Dragon (Original Motion Picture Soundtrack)",
       "year": 2025,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/581/2006e8cf21921c6094c28410ba9d5cbe_320.mp4",
       "artwork": "https://c.saavncdn.com/581/Dragon-Original-Motion-Picture-Soundtrack-Tamil-2025-20250905071906-500x500.jpg",
-      "duration": 218,
-      "isOnline": true
+      "duration": 218
     }
   ],
   "Arijit Singh": [
@@ -220,11 +204,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Brahmastra",
       "year": 2022,
       "language": "Hindi",
-      "category": "Hindi",
-      "src": "https://aac.saavncdn.com/312/b7f6f9bb21067eb568f3ac1b3af7ed8d_320.mp4",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/871/c2febd353f3a076a406fa37510f31f9f_320.mp4",
       "artwork": "https://c.saavncdn.com/871/Brahmastra-Original-Motion-Picture-Soundtrack-Hindi-2022-20221006155213-500x500.jpg",
-      "duration": 268,
-      "isOnline": true
+      "duration": 268
     },
     {
       "id": "cur-cur-arijit-singh-tum-hi-ho",
@@ -233,11 +216,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Aashiqui 2",
       "year": 2013,
       "language": "Hindi",
-      "category": "Hindi",
-      "src": "https://aac.saavncdn.com/187/cd44883b7bef19f22178977a770fea76_320.mp4",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/430/5c5ea5cc00e3bff45616013226f376fe_320.mp4",
       "artwork": "https://c.saavncdn.com/430/Aashiqui-2-Hindi-2013-500x500.jpg",
-      "duration": 262,
-      "isOnline": true
+      "duration": 262
     },
     {
       "id": "cur-cur-arijit-singh-apna-bana-le",
@@ -246,11 +228,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Bhediya",
       "year": 2022,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/712/03f0b2f5b84c8cf4ea4e9c704f0f0c05_320.mp4",
-      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
-      "duration": 261,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/712/Bhediya-Hindi-2022-20221107185012-500x500.jpg",
+      "duration": 261
     },
     {
       "id": "cur-cur-arijit-singh-channa-mereya",
@@ -259,169 +240,156 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Ae Dil Hai Mushkil",
       "year": 2016,
       "language": "Hindi",
-      "category": "Hindi",
-      "src": "https://aac.saavncdn.com/604/f2c7f087e4bee0bf947b0c43bc22a507_320.mp4",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/597/6da0627cfcc4b937160f664841e4572d_320.mp4",
       "artwork": "https://c.saavncdn.com/257/Ae-Dil-Hai-Mushkil-Hindi-2016-500x500.jpg",
-      "duration": 289,
-      "isOnline": true
+      "duration": 289
     },
     {
-      "id": "cur-art-arijit-singh-arijit-singh-QcfFd62t",
+      "id": "cur-cur-arijit-singh-tu-mil-jaaye-from-ki",
       "title": "Tu Mil Jaaye (From \"KING\")",
       "artist": "Sachin-Jigar, Ed Sheeran, Arijit Singh, Kumaar, Madhubanti Bagchi",
       "movie": "Tu Mil Jaaye (From \"KING\")",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/320/4d91932291471256b3c9313360ebb834_320.mp4",
       "artwork": "https://c.saavncdn.com/320/Tu-Mil-Jaaye-From-KING-Hindi-2026-20261031131042-500x500.jpg",
-      "duration": 315,
-      "isOnline": true
+      "duration": 315
     },
     {
-      "id": "cur-art-arijit-singh-arijit-singh-1gHtmQ3x",
+      "id": "cur-cur-arijit-singh-gehra-hua",
       "title": "Gehra Hua",
       "artist": "Arijit Singh, Armaan Khan",
       "movie": "Dhurandhar",
       "year": 2025,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/475/04cc3b6ccd915df473947d932f094545_320.mp4",
       "artwork": "https://c.saavncdn.com/475/Dhurandhar-Hindi-2025-20260203083204-500x500.jpg",
-      "duration": 362,
-      "isOnline": true
+      "duration": 362
     },
     {
-      "id": "cur-art-arijit-singh-arijit-singh-YiVML4Zo",
+      "id": "cur-cur-arijit-singh-gehra-hua-from-dhura",
       "title": "Gehra Hua (From \"Dhurandhar\")",
       "artist": "Arijit Singh, Armaan Khan",
       "movie": "Gehra Hua (From \"Dhurandhar\")",
       "year": 2025,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/450/f467e05e2825cec2203546333e0d0550_320.mp4",
       "artwork": "https://c.saavncdn.com/450/Gehra-Hua-From-Dhurandhar-Hindi-2025-20251205154217-500x500.jpg",
-      "duration": 362,
-      "isOnline": true
+      "duration": 362
     },
     {
-      "id": "cur-art-arijit-singh-arijit-singh-yXCLyL-9",
+      "id": "cur-cur-arijit-singh-tum-hi-ho-from-aashi",
       "title": "Tum Hi Ho (From \"Aashiqui 2\")",
       "artist": "Arijit Singh",
       "movie": "World Music Day - Best Of Bollywood Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/179/ee99b14844e2699aad400fa1e946c0ed_320.mp4",
       "artwork": "https://c.saavncdn.com/179/World-Music-Day-Best-Of-Bollywood-Hits-Hindi-2026-20260622111029-500x500.jpg",
-      "duration": 261,
-      "isOnline": true
+      "duration": 261
     }
   ],
   "Shreya Ghoshal": [
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal-DHA4PFZA",
+      "id": "cur-cur-shreya-ghoshal-mangal-rang-from-ram",
       "title": "Mangal Rang (From \"Ramayana\")",
       "artist": "A.R. Rahman, Arijit Singh, Shreya Ghoshal, Kumar Vishwas",
       "movie": "Mangal Rang (From \"Ramayana\")",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/316/87fd692b534c9f725a782432c20823e0_320.mp4",
       "artwork": "https://c.saavncdn.com/316/Mangal-Rang-From-Ramayana-Hindi-2026-20261024141033-500x500.jpg",
-      "duration": 277,
-      "isOnline": true
+      "duration": 277
     },
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal-B6d7Dnf9",
+      "id": "cur-cur-shreya-ghoshal-kalyani-remix",
       "title": "KALYANI (Remix)",
       "artist": "ARJN, KDS, FIFTY4, Shreya Ghoshal",
       "movie": "KALYANI (Remix)",
       "year": 2026,
       "language": "Malayalam",
-      "category": "Malayalam",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/475/5fc341ce2ad68492fce5ed0bf4655f8f_320.mp4",
       "artwork": "https://c.saavncdn.com/475/KALYANI-Remix-Malayalam-2026-20260622131127-500x500.jpg",
-      "duration": 269,
-      "isOnline": true
+      "duration": 269
     },
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal--RVaIJdW",
+      "id": "cur-cur-shreya-ghoshal-kalyani-remix",
       "title": "KALYANI (Remix)",
       "artist": "ARJN, KDS, FIFTY4, Shreya Ghoshal",
       "movie": "Hit Songs Malayalam",
       "year": 2026,
       "language": "Malayalam",
-      "category": "Malayalam",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/050/245ee3bec433407c38ba2fd4d86b8d8b_320.mp4",
       "artwork": "https://c.saavncdn.com/050/Hit-Songs-Malayalam-Malayalam-2026-20260724210707-500x500.jpg",
-      "duration": 269,
-      "isOnline": true
+      "duration": 269
     },
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal-PTNX7k-6",
+      "id": "cur-cur-shreya-ghoshal-vaaroon-forever-from",
       "title": "Vaaroon Forever (From “Mirzapur The Movie”)",
       "artist": "Anand Bhaskar, Romy, Shreya Ghoshal, Ginny Diwan",
       "movie": "Vaaroon Forever (From “Mirzapur The Movie”)",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/381/02ffb399df66aec14cbebb1a0ced6fd5_320.mp4",
       "artwork": "https://c.saavncdn.com/381/Vaaroon-Forever-From-Mirzapur-The-Movie-Hindi-2026-20260817160523-500x500.jpg",
-      "duration": 252,
-      "isOnline": true
+      "duration": 252
     },
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal-VqaMVhms",
+      "id": "cur-cur-shreya-ghoshal-vaaroon-forever-from",
       "title": "Vaaroon Forever (From “Mirzapur The Movie”)",
       "artist": "Anand Bhaskar, Romy, Shreya Ghoshal, Ginny Diwan",
       "movie": "Ghoom Ghoom (From “Mirzapur The Movie”)",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/988/998d99ad4be8e20987e199114a2ae3cc_320.mp4",
       "artwork": "https://c.saavncdn.com/988/Ghoom-Ghoom-From-Mirzapur-The-Movie-Hindi-2026-20260830233048-500x500.jpg",
-      "duration": 252,
-      "isOnline": true
+      "duration": 252
     },
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal-iRuf3Y-D",
+      "id": "cur-cur-shreya-ghoshal-vaaroon-forever-from",
       "title": "Vaaroon Forever (From “Mirzapur The Movie”)",
       "artist": "Anand Bhaskar, Romy, Shreya Ghoshal, Ginny Diwan",
       "movie": "Mirzapur The Movie",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/738/4b14b64b1ca87edb68254db66244f4b6_320.mp4",
       "artwork": "https://c.saavncdn.com/738/Mirzapur-The-Movie-Hindi-2026-20260830233548-500x500.jpg",
-      "duration": 252,
-      "isOnline": true
+      "duration": 252
     },
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal-DMoLdwJ7",
+      "id": "cur-cur-shreya-ghoshal-samjhawan",
       "title": "Samjhawan",
       "artist": "Jawad Ahmad, Sharib Toshi, Arijit Singh, Shreya Ghoshal",
       "movie": "Humpty Sharma Ki Dulhania",
       "year": 2014,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/540/f807aad8e5c60a87334231f72267c725_320.mp4",
       "artwork": "https://c.saavncdn.com/540/Humpty-Sharma-Ki-Dulhania-Hindi-2014-20190618095042-500x500.jpg",
-      "duration": 269,
-      "isOnline": true
+      "duration": 269
     },
     {
-      "id": "cur-art-shreya-ghoshal-shreya-ghoshal-c2McgKeC",
+      "id": "cur-cur-shreya-ghoshal-jai-jai-ram",
       "title": "Jai Jai Ram",
       "artist": "Jawad Ahmad, Sharib Toshi, Arijit Singh, Shreya Ghoshal",
       "movie": "Namit Malhotra's Ramayana [Hindi]",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/013/17c89b4c1c2ff602d2d018d96ed8c929_320.mp4",
       "artwork": "https://c.saavncdn.com/013/Ramayana-Hindi-Hindi-2026-20261021183530-500x500.jpg",
-      "duration": 320,
-      "isOnline": true
+      "duration": 320
     }
   ],
   "Anurag Kulkarni": [
@@ -432,11 +400,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Ala Vaikunthapurramuloo",
       "year": 2019,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-      "duration": 245,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "duration": 245
     },
     {
       "id": "cur-cur-anurag-kulkarni-pilla-raa",
@@ -445,11 +412,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "RX 100",
       "year": 2018,
       "language": "Telugu",
-      "category": "Telugu",
-      "src": "https://aac.saavncdn.com/008/663f6bb75d853aa700bffbebcb4e74fc_sar_320.mp4",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/172/4c364289c4c896e2a87012f74ba4a11d_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/172/RX-100-Telugu-2018-20230207103253-500x500.jpg",
-      "duration": 237,
-      "isOnline": true
+      "duration": 237
     },
     {
       "id": "cur-cur-anurag-kulkarni-sirivennela",
@@ -458,76 +424,70 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Shyam Singha Roy",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
-      "src": "https://aac.saavncdn.com/172/4c364289c4c896e2a87012f74ba4a11d_sar_320.mp4",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/008/663f6bb75d853aa700bffbebcb4e74fc_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/008/Shyam-Singha-Roy-Telugu-Telugu-2021-20220113123204-500x500.jpg",
-      "duration": 245,
-      "isOnline": true
+      "duration": 245
     },
     {
-      "id": "cur-art-anurag-kulkarni-anurag-kulkarni-XpxUW2id",
+      "id": "cur-cur-anurag-kulkarni-ruku-ruku-rukmini-fr",
       "title": "Ruku Ruku Rukmini (From \"Alias Rukmini\")",
       "artist": "Anurag Kulkarni",
       "movie": "Ruku Ruku Rukmini (From \"Alias Rukmini\")",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/573/24aca30b12d9484aadf879f43380f66d_320.mp4",
       "artwork": "https://c.saavncdn.com/573/Ruku-Ruku-Rukmini-From-Alias-Rukmini-Telugu-2026-20261027174004-500x500.jpg",
-      "duration": 227,
-      "isOnline": true
+      "duration": 227
     },
     {
-      "id": "cur-art-anurag-kulkarni-anurag-kulkarni-OT_catxH",
+      "id": "cur-cur-anurag-kulkarni-choosi-chudangane",
       "title": "Choosi Chudangane",
       "artist": "Mahati Swara Sagar, Anurag Kulkarni",
       "movie": "Chalo",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/931/aeb63336166a092f8cea3ea51fdc2eb2_320.mp4",
       "artwork": "https://c.saavncdn.com/931/Chalo-Telugu-2017-20180125-500x500.jpg",
-      "duration": 202,
-      "isOnline": true
+      "duration": 202
     },
     {
-      "id": "cur-art-anurag-kulkarni-anurag-kulkarni-eOfasIzp",
+      "id": "cur-cur-anurag-kulkarni-rambai-neemeeda-naku",
       "title": "Rambai Neemeeda Naku (From \"Raju Weds Rambai\")",
       "artist": "Mahati Swara Sagar, Anurag Kulkarni",
       "movie": "Rambai Neemeeda Naku (From \"Raju Weds Rambai\")",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/701/d07826cb7f2f3f84c7d0d5ddcaa0f83f_320.mp4",
       "artwork": "https://c.saavncdn.com/701/Rambai-Neemeeda-Naku-From-Raju-Weds-Rambai-Telugu-2025-20251105161201-500x500.jpg",
-      "duration": 204,
-      "isOnline": true
+      "duration": 204
     },
     {
-      "id": "cur-art-anurag-kulkarni-anurag-kulkarni-XMUpWDjC",
+      "id": "cur-cur-anurag-kulkarni-rambai-neemeeda-naku",
       "title": "Rambai Neemeeda Naku",
       "artist": "Mahati Swara Sagar, Anurag Kulkarni",
       "movie": "Raju Weds Rambai",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/287/266788e3a38147d383a807d0b96fa6f7_320.mp4",
       "artwork": "https://c.saavncdn.com/287/Raju-Weds-Rambai-Telugu-2025-20251216175605-500x500.jpg",
-      "duration": 204,
-      "isOnline": true
+      "duration": 204
     },
     {
-      "id": "cur-art-anurag-kulkarni-anurag-kulkarni-ncBHw-c5",
+      "id": "cur-cur-anurag-kulkarni-suttamla-soosi",
       "title": "Suttamla Soosi",
       "artist": "Anurag Kulkarni, Yuvan Shankar Raja",
       "movie": "Gangs Of Godavari",
       "year": 2024,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/000/c922662ca59e61d93c86b8aa20007bea_320.mp4",
       "artwork": "https://c.saavncdn.com/000/Gangs-Of-Godavari-Telugu-2024-20240530193901-500x500.jpg",
-      "duration": 202,
-      "isOnline": true
+      "duration": 202
     }
   ],
   "Mangli": [
@@ -538,11 +498,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Love Story",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/393/d12d09bb2bc6ea75407cbfe910931eb6_320.mp4",
-      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
-      "duration": 226,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/393/Love-Story-Telugu-2021-20210924151752-500x500.jpg",
+      "duration": 226
     },
     {
       "id": "cur-cur-mangli-oo-anthava-oo-oo-ant",
@@ -551,11 +510,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Pushpa Folk Beats",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/351/96f8c67927ddb0fa2aeeae1f6ad68dcf_320.mp4",
-      "artwork": "https://c.saavncdn.com/274/Main-Khiladi-Tu-Anari-With-Jhankar-Beats-Hindi-2024-20240125184145-500x500.jpg",
-      "duration": 228,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/351/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "duration": 228
     },
     {
       "id": "cur-cur-mangli-bonalu-song-chethilo",
@@ -564,621 +522,622 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Telangana Bonalu Beats",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/712/e616231da7e27dd8a8aa67732d8471b6_320.mp4",
-      "artwork": "https://c.saavncdn.com/213/Ismart-Shankar-Telugu-2019-20190711134004-500x500.jpg",
-      "duration": 268,
-      "isOnline": true
+      "artwork": "images/artists/mangli.jpg",
+      "duration": 268
     },
     {
-      "id": "cur-art-mangli-mangli-x9s3Uf9e",
+      "id": "cur-cur-mangli-bayilone-ballipalike",
       "title": "Bayilone Ballipalike",
       "artist": "Mangli",
       "movie": "Bayilone Ballipalike",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/604/2ef1404906dcb0e534340d2f3cfa3e33_320.mp4",
       "artwork": "https://c.saavncdn.com/604/Bayilone-Ballipalike-Telugu-2025-20251121155720-500x500.jpg",
-      "duration": 247,
-      "isOnline": true
+      "duration": 247
     },
     {
-      "id": "cur-art-mangli-mangli-F_DdZm06",
+      "id": "cur-cur-mangli-dhumavati",
       "title": "Dhumavati",
       "artist": "Anurag Kulkarni, Mangli",
       "movie": "The Paradise (Telugu)",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/377/2ad610a4ce3cc20a0954f31628ccc0a1_320.mp4",
       "artwork": "https://c.saavncdn.com/377/The-Paradise-Telugu-Telugu-2026-20261009114029-500x500.jpg",
-      "duration": 364,
-      "isOnline": true
+      "duration": 364
     },
     {
-      "id": "cur-art-mangli-mangli-zFOQf_Fz",
+      "id": "cur-cur-mangli-shivaratri-song-2020",
       "title": "Shivaratri Song 2020",
       "artist": "Anurag Kulkarni, Mangli",
       "movie": "Shivaratri Song 2020",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/844/ad65d575425417934098086915e571df_320.mp4",
       "artwork": "https://c.saavncdn.com/844/Shivaratri-Song-2020-Telugu-2021-20211113092815-500x500.jpg",
-      "duration": 292,
-      "isOnline": true
+      "duration": 292
     },
     {
-      "id": "cur-art-mangli-mangli-NR_OeuEV",
+      "id": "cur-cur-mangli-bonalu-song-2024",
       "title": "Bonalu Song 2024",
       "artist": "Anurag Kulkarni, Mangli",
       "movie": "Bonalu Song 2024",
       "year": 2024,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/246/51e86753266aa1f2b16f324baab76f85_320.mp4",
       "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
-      "duration": 264,
-      "isOnline": true
+      "duration": 264
     },
     {
-      "id": "cur-art-mangli-mangli-DFd9xY97",
+      "id": "cur-cur-mangli-dandakadiyal-from-dh",
       "title": "Dandakadiyal (From \"Dhamaka\")",
       "artist": "Mangli",
       "movie": "Dhamaka",
       "year": 2023,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/792/82ada3282927c360f0f3058934cf3442_320.mp4",
       "artwork": "https://c.saavncdn.com/792/Dhamaka-Telugu-2023-20260114193445-500x500.jpg",
-      "duration": 261,
-      "isOnline": true
+      "duration": 261
     }
   ],
   "Sonu Nigam": [
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-tK8LDnu-",
+      "id": "cur-cur-sonu-nigam-aisa-deewana",
       "title": "Aisa Deewana",
       "artist": "Sonu Nigam, Alka Yagnik",
       "movie": "Dil Maange More",
       "year": 2004,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/406/79e3c487d7b4656baa29bc0b983cc048_320.mp4",
       "artwork": "https://c.saavncdn.com/406/Dil-Maange-More-Hindi-2004-20221124142445-500x500.jpg",
-      "duration": 313,
-      "isOnline": true
+      "duration": 313
     },
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-KbqCvOn0",
+      "id": "cur-cur-sonu-nigam-main-agar-kahoon-fro",
       "title": "Main Agar Kahoon (From \"Om Shanti Om\")",
       "artist": "Sonu Nigam, Shreya Ghoshal",
       "movie": "Shah Rukh Khan Romance & Rhythm",
       "year": 2025,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/199/e2e0147dd78f172643110ee997438fcd_320.mp4",
       "artwork": "https://c.saavncdn.com/199/Shah-Rukh-Khan-Romance-Rhythm-Hindi-2025-20251114171238-500x500.jpg",
-      "duration": 308,
-      "isOnline": true
+      "duration": 308
     },
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-pbrv5Xm3",
+      "id": "cur-cur-sonu-nigam-allah-maaf-kare",
       "title": "Allah Maaf Kare",
       "artist": "Pritam, Sonu Nigam, Shilpa Rao",
       "movie": "Desi Boyz",
       "year": 2011,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/743/9a98a2e84763207644a4be239fdb6013_320.mp4",
       "artwork": "https://c.saavncdn.com/743/Desi-Boyz-Hindi-2011-20241223142123-500x500.jpg",
-      "duration": 230,
-      "isOnline": true
+      "duration": 230
     },
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-XF_fDU7l",
+      "id": "cur-cur-sonu-nigam-chori-kiya-re-jiya",
       "title": "Chori Kiya Re Jiya",
       "artist": "Sonu Nigam, Shreya Ghoshal",
       "movie": "Dabangg",
       "year": 2010,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/765/367d390c0c3c272fabefc6da8a81b305_320.mp4",
       "artwork": "https://c.saavncdn.com/765/Dabangg-Hindi-2010-20221211114032-500x500.jpg",
-      "duration": 286,
-      "isOnline": true
+      "duration": 286
     },
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-pwVs3qjq",
+      "id": "cur-cur-sonu-nigam-ada",
       "title": "Ada",
       "artist": "Sonu Nigam",
       "movie": "Garam Masala",
       "year": 2005,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/575/92c1f884aa60bf2417e50449344c11b6_320.mp4",
       "artwork": "https://c.saavncdn.com/575/Garam-Masala-Hindi-2005-20210226131435-500x500.jpg",
-      "duration": 287,
-      "isOnline": true
+      "duration": 287
     },
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-sKNIe8LE",
+      "id": "cur-cur-sonu-nigam-ada-from-garam-masal",
       "title": "Ada (From \"Garam Masala\")",
       "artist": "Sonu Nigam",
       "movie": "Bollywood's Musical Extravaganza - Sonu Nigam & Sukhwinder Singh",
       "year": 2016,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/415/3681a73b56661fd4f5d6b8cf51a08ad2_320.mp4",
       "artwork": "https://c.saavncdn.com/415/Bollywood-s-Musical-Extravaganza-Sonu-Nigam-Sukhwinder-Singh-Hindi-2016-20251203123006-500x500.jpg",
-      "duration": 287,
-      "isOnline": true
+      "duration": 287
     },
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-yn8YLUpe",
+      "id": "cur-cur-sonu-nigam-pyar-dilon-ka-mela-h",
       "title": "Pyar Dilon Ka Mela Hai",
       "artist": "Sonu Nigam",
       "movie": "Dulhan Hum Le Jayenge",
       "year": 2000,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/664/74bb181c2c78a0c2f4efa7648d0d101a_320.mp4",
       "artwork": "https://c.saavncdn.com/664/Dulhan-Hum-Le-Jayenge-Hindi-2000-20240408213751-500x500.jpg",
-      "duration": 297,
-      "isOnline": true
+      "duration": 297
     },
     {
-      "id": "cur-art-sonu-nigam-sonu-nigam-pkPP2DLn",
+      "id": "cur-cur-sonu-nigam-soniyo",
       "title": "Soniyo",
       "artist": "Raju Singh, Sonu Nigam, Shreya Ghoshal",
       "movie": "RAAZ - The Mystery Continues",
       "year": 2008,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/542/34e05537cc5017bfd6fdba3c6cfedf2d_320.mp4",
       "artwork": "https://c.saavncdn.com/542/RAAZ-The-Mystery-Continues-Hindi-2008-20190617160418-500x500.jpg",
-      "duration": 329,
-      "isOnline": true
+      "duration": 329
     }
   ],
   "Karthik": [
     {
-      "id": "cur-art-karthik-karthik-bPFI_Oil",
+      "id": "cur-cur-karthik-oororo-yogi",
       "title": "Oororo Yogi",
       "artist": "Karthik, Sunitha Upadrasta",
       "movie": "Yogi",
       "year": 2006,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/630/5ccf8d8b97866459ca0b66b7584a5887_320.mp4",
       "artwork": "https://c.saavncdn.com/630/Yogi-Telugu-2006-20190723074525-500x500.jpg",
-      "duration": 277,
-      "isOnline": true
+      "duration": 277
     },
     {
-      "id": "cur-art-karthik-karthik-WEQu2WTS",
+      "id": "cur-cur-karthik-oka-maru-kalisina-an",
       "title": "Oka Maru Kalisina Andam",
       "artist": "Karthik",
       "movie": "Ghajini",
       "year": 2005,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/871/4dbe792b9c05172ed8a8fffe3561e9cd_320.mp4",
       "artwork": "https://c.saavncdn.com/871/Ghajini-2005-500x500.jpg",
-      "duration": 353,
-      "isOnline": true
+      "duration": 353
     },
     {
-      "id": "cur-art-karthik-karthik-goMAn0Db",
+      "id": "cur-cur-karthik-unnatundi-gundey",
       "title": "Unnatundi Gundey",
       "artist": "Karthik, Sumangali",
       "movie": "Ninnu Kori",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/070/849c3797043fcf796106fef5b76b99a9_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/070/Ninnu-Kori-Telugu-2017-20220323073319-500x500.jpg",
-      "duration": 278,
-      "isOnline": true
+      "duration": 278
     },
     {
-      "id": "cur-art-karthik-karthik-ZgI_A-gp",
+      "id": "cur-cur-karthik-choododhu",
       "title": "Choododhu",
       "artist": "Karthik, Maha Lakshmi",
       "movie": "Pokiri",
       "year": 2006,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/082/6fd18ef4641dd229306e240265d80ad8_320.mp4",
       "artwork": "https://c.saavncdn.com/082/Pokiri-2006-500x500.jpg",
-      "duration": 303,
-      "isOnline": true
+      "duration": 303
     },
     {
-      "id": "cur-art-karthik-karthik-bG2cqN_x",
+      "id": "cur-cur-karthik-asale-pilla",
       "title": "Asale Pilla",
       "artist": "Harris Jayaraj, Karthik, Harini, Benny Dayal",
       "movie": "Ghatikudu",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/636/d7ccb629e80f31259141e3b5aff2de70_320.mp4",
       "artwork": "https://c.saavncdn.com/636/Ghatikudu-Telugu-2012-500x500.jpg",
-      "duration": 320,
-      "isOnline": true
+      "duration": 320
     },
     {
-      "id": "cur-art-karthik-karthik-0SkZP4R8",
+      "id": "cur-cur-karthik-nuvve-naku-lokam",
       "title": "Nuvve Naku Lokam",
       "artist": "Karthik",
       "movie": "Janaka Ayithe Ganaka",
       "year": 2024,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/258/813ca39016402ed138adcc8328cf6c18_320.mp4",
       "artwork": "https://c.saavncdn.com/258/Janaka-Ayithe-Ganaka-Telugu-2024-20241025181002-500x500.jpg",
-      "duration": 246,
-      "isOnline": true
+      "duration": 246
     },
     {
-      "id": "cur-art-karthik-karthik-qWV-T4lF",
+      "id": "cur-cur-karthik-dil-se",
       "title": "Dil Se",
       "artist": "Karthik, Shwetha Mohan",
       "movie": "Gabbar Singh",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/450/09e19109fc0524923e431824acefe118_320.mp4",
       "artwork": "https://c.saavncdn.com/450/Gabbar-Singh-2012-500x500.jpg",
-      "duration": 262,
-      "isOnline": true
+      "duration": 262
     },
     {
-      "id": "cur-art-karthik-karthik-bMBV9Yr1",
+      "id": "cur-cur-karthik-athiloka-sundari-fro",
       "title": "Athiloka Sundari (From \"Sarrainodu\")",
       "artist": "Vishal Dadlani, Karthik",
       "movie": "Lets Celebrate With Superhit Songs",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/939/a4af3fe235f388e0ed6a8492885f9907_320.mp4",
       "artwork": "https://c.saavncdn.com/939/Lets-Celebrate-With-Superhit-Songs-Telugu-2025-20251015181129-500x500.jpg",
-      "duration": 254,
-      "isOnline": true
+      "duration": 254
     }
   ],
   "K. S. Chithra": [
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra-cVQR6Pf7",
+      "id": "cur-cur-k-s-chithra-chinnaga-chinnaga",
       "title": "Chinnaga Chinnaga",
       "artist": "K. S. Chithra, Hariharan",
       "movie": "Tagore",
       "year": 2003,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/769/d36fdc955f7539b56e5f62bcd11bad74_320.mp4",
       "artwork": "https://c.saavncdn.com/769/Tagore-2003-500x500.jpg",
-      "duration": 325,
-      "isOnline": true
+      "duration": 325
     },
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra-o9su8Mt4",
+      "id": "cur-cur-k-s-chithra-manmadha",
       "title": "Manmadha",
       "artist": "K. S. Chithra",
       "movie": "Manmadha",
       "year": 2005,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/244/666217d0b60d7e329340d745d111aa65_320.mp4",
       "artwork": "https://c.saavncdn.com/244/Manmadha-Telugu-2005-20180718-500x500.jpg",
-      "duration": 269,
-      "isOnline": true
+      "duration": 269
     },
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra-ae17USCG",
+      "id": "cur-cur-k-s-chithra-mynaa-emynave",
       "title": "Mynaa Emynave",
       "artist": "K. S. Chithra, Unni Krishnan",
       "movie": "Maa Annayya",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/441/f70e7a0771f9a0ba9a736d396a256920_320.mp4",
       "artwork": "https://c.saavncdn.com/441/Maa-Annayya-2000-500x500.jpg",
-      "duration": 302,
-      "isOnline": true
+      "duration": 302
     },
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra--yOl8EKW",
+      "id": "cur-cur-k-s-chithra-naa-chupe-ninu",
       "title": "Naa Chupe Ninu",
       "artist": "K. S. Chithra, Shreeram Lagoo, Prabhu",
       "movie": "Nuvvu Naaku Nachchav",
       "year": 2001,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/315/ddf26e42137c446caefe0b5942e55ba7_320.mp4",
       "artwork": "https://c.saavncdn.com/315/Nuvvu-Naaku-Nachchav-2001-500x500.jpg",
-      "duration": 254,
-      "isOnline": true
+      "duration": 254
     },
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra-eyWGrZB0",
+      "id": "cur-cur-k-s-chithra-kastha-ninu",
       "title": "Kastha Ninu",
       "artist": "S. P. Balasubrahmanyam, K. S. Chithra",
       "movie": "Student No. 1",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/127/a666403a1c3f0451e063c0f9cca9cc23_320.mp4",
       "artwork": "https://c.saavncdn.com/127/Student-No-1-2000-500x500.jpg",
-      "duration": 281,
-      "isOnline": true
+      "duration": 281
     },
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra-2CDYPNKQ",
+      "id": "cur-cur-k-s-chithra-alloneredu-kalla",
       "title": "Alloneredu Kalla",
       "artist": "K. S. Chithra, Parthasarathy",
       "movie": "Seenu",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/406/aef4dc3d3a3243012efedd166ac49dcb_320.mp4",
       "artwork": "https://c.saavncdn.com/406/Seenu-2000-500x500.jpg",
-      "duration": 278,
-      "isOnline": true
+      "duration": 278
     },
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra-EK81O10p",
+      "id": "cur-cur-k-s-chithra-manasa-palakave",
       "title": "Manasa Palakave",
       "artist": "S. P. Balasubrahmanyam, K. S. Chithra",
       "movie": "Subhakankshalu",
       "year": 2003,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/161/62bb5afb10f1ecb57ffe332d722eda2d_320.mp4",
       "artwork": "https://c.saavncdn.com/161/Subhakankshalu-2003-500x500.jpg",
-      "duration": 311,
-      "isOnline": true
+      "duration": 311
     },
     {
-      "id": "cur-art-k-s-chithra-k-s-chithra-6kzxWMW2",
+      "id": "cur-cur-k-s-chithra-muvvala-navakala",
       "title": "Muvvala Navakala",
       "artist": "K. S. Chithra, S.P. Balasubrahmanyam",
       "movie": "Pournamy",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/288/7df6e8e175fc619181726db3f7074cde_320.mp4",
       "artwork": "https://c.saavncdn.com/288/Pournamy-2000-500x500.jpg",
-      "duration": 308,
-      "isOnline": true
+      "duration": 308
     }
   ],
   "KK": [
     {
-      "id": "cur-art-kk-kk-mDrbhktA",
+      "id": "cur-cur-kk-lealakku-lealakku-fr",
       "title": "Lealakku Lealakku (From \"Aathi\")",
       "artist": "Pa. Vijay, Vidyasagar, KK, Sujatha Mohan",
       "movie": "Super Singer Sujatha Special (Vol. 2)",
       "year": 2026,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/911/6cb657eacb6c05b276649595a4339521_320.mp4",
       "artwork": "https://c.saavncdn.com/911/Super-Singer-Sujatha-Special-Vol-2-Tamil-2026-20260207053716-500x500.jpg",
-      "duration": 280,
-      "isOnline": true
+      "duration": 280
     },
     {
-      "id": "cur-art-kk-kk-mv7fL9oJ",
+      "id": "cur-cur-kk-kundu-kundu-from-dho",
       "title": "Kundu Kundu (From \"Dhol\")",
       "artist": "Vidyasagar, KK, Sunidhi Chauhan, Arivumathi",
       "movie": "Pop Shalini - Singer Special",
       "year": 2026,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/356/a9e5a4137488c81e84ca089727c0002a_320.mp4",
       "artwork": "https://c.saavncdn.com/356/Pop-Shalini-Singer-Special-Tamil-2026-20260207054537-500x500.jpg",
-      "duration": 294,
-      "isOnline": true
+      "duration": 294
     },
     {
-      "id": "cur-art-kk-kk-GeVam_bd",
+      "id": "cur-cur-kk-deepavali-deepavali-",
       "title": "Deepavali Deepavali (From \"Sivakasi\")",
       "artist": "Sri, KK, Vasundhara Das, Perarasu",
       "movie": "Vasundradas - Playback Singer",
       "year": 2026,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/764/93b7dd9056cd0c30d123ae3fcfbe6b6c_320.mp4",
       "artwork": "https://c.saavncdn.com/764/Vasundradas-Playback-Singer-Tamil-2026-20260207053823-500x500.jpg",
-      "duration": 275,
-      "isOnline": true
+      "duration": 275
     },
     {
-      "id": "cur-art-kk-kk-HBjiJm7I",
+      "id": "cur-cur-kk-pangu-podu-from-oru-",
       "title": "Pangu Podu (From \"Oru Kalluriyin Kadhai\")",
       "artist": "Yuvan Shankar Raja, KK, Ranjith, Na.Muthukumar",
       "movie": "Ranjith - Playback Singer",
       "year": 2026,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/523/9f2a5c41ca1952654826b95a1fa3ddc4_320.mp4",
       "artwork": "https://c.saavncdn.com/523/Ranjith-Playback-Singer-Tamil-2026-20260207054506-500x500.jpg",
-      "duration": 243,
-      "isOnline": true
+      "duration": 243
     },
     {
-      "id": "cur-art-kk-kk-Sd-A3aET",
+      "id": "cur-cur-kk-kangal-kandadhuu-fro",
       "title": "Kangal Kandadhuu (From \"Oru Kalluriyin Kadhai\")",
       "artist": "Yuvan Shankar Raja, KK, Ranjith, Na.Muthukumar",
       "movie": "Super Singer Sujatha Special (Vol. 2)",
       "year": 2026,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/911/a1ea3c356ba3063eeac0053724a32b40_320.mp4",
       "artwork": "https://c.saavncdn.com/911/Super-Singer-Sujatha-Special-Vol-2-Tamil-2026-20260207053716-500x500.jpg",
-      "duration": 287,
-      "isOnline": true
+      "duration": 287
     },
     {
-      "id": "cur-art-kk-kk-_jnOl96I",
+      "id": "cur-cur-kk-mumbai-mein-from-ans",
       "title": "Mumbai Mein (From \"Ansh\")",
       "artist": "KK, Shaan, Hozef, Tausif",
       "movie": "Fascinating Singer Shaan",
       "year": 2021,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/600/4b246643284d886e648f6f924a8fd341_320.mp4",
       "artwork": "https://c.saavncdn.com/600/Fascinating-Singer-Shaan-Hindi-2021-20210923094332-500x500.jpg",
-      "duration": 328,
-      "isOnline": true
+      "duration": 328
     },
     {
-      "id": "cur-art-kk-kk-U2aUQvi9",
+      "id": "cur-cur-kk-om-jai-jagadish-from",
       "title": "Om Jai Jagadish (From \"Om Jai Jagadish\")",
       "artist": "Abhijeet, Hariharan, KK, Alka Yagnik, Shaan",
       "movie": "Fascinating Singer Shaan",
       "year": 2021,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/600/96dc73e621c0409b99d5e3f63b01e2b6_320.mp4",
       "artwork": "https://c.saavncdn.com/600/Fascinating-Singer-Shaan-Hindi-2021-20210923094332-500x500.jpg",
-      "duration": 351,
-      "isOnline": true
+      "duration": 351
     },
     {
-      "id": "cur-art-kk-kk-ek8kWUlA",
+      "id": "cur-cur-kk-nuvve-naku-pranam",
       "title": "Nuvve Naku Pranam",
       "artist": "KK, Singer Usha",
       "movie": "Nuvvu Nenu",
       "year": 2001,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/316/1973bc23173af428f206810b19284c39_320.mp4",
       "artwork": "https://c.saavncdn.com/316/Nuvvu-Nenu-2001-500x500.jpg",
-      "duration": 231,
-      "isOnline": true
+      "duration": 231
     }
   ],
   "Devi Sri Prasad": [
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-fxuoxZ18",
+      "id": "cur-cur-devi-sri-prasad-peelings-telugu",
       "title": "Peelings (Telugu)",
       "artist": "Devi Sri Prasad, Shankarr Babu Kandukoori, Laxmi Dasa, Chandrabose, Siju Thuravoor",
       "movie": "Pushpa 2 The Rule - (Telugu)",
       "year": 2024,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/366/2eb21d94241ba0d9e970d808a7dc015d_320.mp4",
       "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
-      "duration": 247,
-      "isOnline": true
+      "duration": 247
     },
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-0eqUIkMp",
+      "id": "cur-cur-devi-sri-prasad-uppenantha",
       "title": "Uppenantha",
       "artist": "Devi Sri Prasad, KK, Balaji",
       "movie": "Aarya - 2",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/298/eb880c4cd78d1b29d128d430d4be0dcb_320.mp4",
       "artwork": "https://c.saavncdn.com/298/Aarya-2-Telugu-2009-20190822135933-500x500.jpg",
-      "duration": 327,
-      "isOnline": true
+      "duration": 327
     },
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-ITE4UZn9",
+      "id": "cur-cur-devi-sri-prasad-my-love-is-gone",
       "title": "My Love Is Gone",
       "artist": "Devi Sri Prasad, K.G. Ranjith, Chandra Bose",
       "movie": "Aarya - 2",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/298/cffe18ccd6a7e35518353cf497def5d4_320.mp4",
       "artwork": "https://c.saavncdn.com/298/Aarya-2-Telugu-2009-20190822135933-500x500.jpg",
-      "duration": 289,
-      "isOnline": true
+      "duration": 289
     },
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-6mk7jQ9P",
+      "id": "cur-cur-devi-sri-prasad-daddy-mummy",
       "title": "Daddy Mummy",
       "artist": "Devi Sri Prasad, M.M. Manasi",
       "movie": "Bhaag Johnny",
       "year": 2015,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/924/1bf5f7f2dfdfaf26a4497357835b13aa_320.mp4",
       "artwork": "https://c.saavncdn.com/924/Bhaag-Johnny-Hindi-2015-500x500.jpg",
-      "duration": 265,
-      "isOnline": true
+      "duration": 265
     },
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-26ZdsX1e",
+      "id": "cur-cur-devi-sri-prasad-mr-perfect",
       "title": "Mr. Perfect",
       "artist": "Devi Sri Prasad, Baba Sehgal, Rita, Kedar",
       "movie": "Aarya - 2",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/298/f59220bb6eb2f89afb48391c4e72743b_320.mp4",
       "artwork": "https://c.saavncdn.com/298/Aarya-2-Telugu-2009-20190822135933-500x500.jpg",
-      "duration": 276,
-      "isOnline": true
+      "duration": 276
     },
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-mXhwLwHw",
+      "id": "cur-cur-devi-sri-prasad-ringa-ringa",
       "title": "Ringa Ringa",
       "artist": "Devi Sri Prasad, Priya Hemesh, Chandra Bose",
       "movie": "Aarya - 2",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/298/f5f60a9cd1bb19c0a71bc09e73d4f696_320.mp4",
       "artwork": "https://c.saavncdn.com/298/Aarya-2-Telugu-2009-20190822135933-500x500.jpg",
-      "duration": 333,
-      "isOnline": true
+      "duration": 333
     },
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-hxOqJxw4",
+      "id": "cur-cur-devi-sri-prasad-viral-vayyari",
       "title": "Viral Vayyari",
       "artist": "Devi Sri Prasad, Haripriya",
       "movie": "Junior",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/115/f7bc9c37f609b0abe248fd8e5c437982_320.mp4",
       "artwork": "https://c.saavncdn.com/115/Junior-Telugu-2025-20250724183703-500x500.jpg",
-      "duration": 264,
-      "isOnline": true
+      "duration": 264
     },
     {
-      "id": "cur-art-devi-sri-prasad-devi-sri-prasad-3hkGU6Bc",
+      "id": "cur-cur-devi-sri-prasad-karige-loga",
       "title": "Karige Loga",
       "artist": "Devi Sri Prasad, Kunal Ganjawala, Megha, Vanamali",
       "movie": "Aarya - 2",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/298/019372208b7876a707deaa65f3715aa7_320.mp4",
       "artwork": "https://c.saavncdn.com/298/Aarya-2-Telugu-2009-20190822135933-500x500.jpg",
-      "duration": 365,
-      "isOnline": true
+      "duration": 365
     }
   ],
   "Atif Aslam": [
     {
-      "id": "cur-art-atif-aslam-atif-aslam-73irDCAf",
+      "id": "cur-cur-atif-aslam-o-meri-laila",
       "title": "O'Meri Laila",
       "artist": "Atif Aslam, Jyotica Tangri",
       "movie": "Monsoon Bollywood Hits",
       "year": 2023,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/169/164b572a0e2f8962d9012c644c246287_320.mp4",
       "artwork": "https://c.saavncdn.com/169/Monsoon-Bollywood-Hits-Hindi-2023-20230616161232-500x500.jpg",
-      "duration": 281,
-      "isOnline": true
+      "duration": 281
+    },
+    {
+      "id": "cur-art-atif-aslam-cur-atif-aslam-tera-hone-laga-hoon",
+      "title": "Tera Hone Laga Hoon",
+      "artist": "Atif Aslam, Alisha Chinai",
+      "movie": "Ajab Prem Ki Ghazab Kahani",
+      "year": 2009,
+      "language": "Hindi",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/582/bb3192512fcd2bb462f26278f97e90c9_320.mp4",
+      "artwork": "https://c.saavncdn.com/582/Tera-Hone-Laga-Hoon-English-2020-20201104204818-500x500.jpg",
+      "duration": 300
+    },
+    {
+      "id": "cur-art-atif-aslam-cur-atif-aslam-dil-diyan-gallan",
+      "title": "Dil Diyan Gallan",
+      "artist": "Atif Aslam",
+      "movie": "Tiger Zinda Hai",
+      "year": 2017,
+      "language": "Hindi",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/351/0bce3f575165dba73b5f04b53170ce96_320.mp4",
+      "artwork": "https://c.saavncdn.com/351/Tiger-Zinda-Hai-Hindi-2017-20171212-500x500.jpg",
+      "duration": 340
+    },
+    {
+      "id": "cur-art-atif-aslam-cur-atif-aslam-jeena-jeena",
+      "title": "Jeena Jeena",
+      "artist": "Atif Aslam",
+      "movie": "Badlapur",
+      "year": 2015,
+      "language": "Hindi",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/747/0e303ab7fbe5fbe0cd055bbc62c91c85_320.mp4",
+      "artwork": "https://c.saavncdn.com/747/Jeena-Jeena-Bannet-Dosanjh-Remix-Hindi-2025-20250930144029-500x500.jpg",
+      "duration": 229
+    },
+    {
+      "id": "cur-art-atif-aslam-cur-atif-aslam-pehli-nazar-mein",
+      "title": "Pehli Nazar Mein",
+      "artist": "Atif Aslam",
+      "movie": "Race",
+      "year": 2008,
+      "language": "Hindi",
+      "category": "Curated",
+      "src": "https://aac.saavncdn.com/311/0fc72f6da875878c511133affbe4d665_320.mp4",
+      "artwork": "https://c.saavncdn.com/311/Pyar-Hua-Badnaam-English-1992-500x500.jpg",
+      "duration": 312
     }
   ],
   "Ram Miriyala": [
@@ -1189,11 +1148,10 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "DJ Tillu",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/109/67b57d6b8abcf3f2780e817a3a831eb0_320.mp4",
-      "artwork": "https://c.saavncdn.com/430/DJ-Tillu-Telugu-2022-20220210033850-500x500.jpg",
-      "duration": 216,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/109/DJ-Tillu-Telugu-2022-20220202165243-500x500.jpg",
+      "duration": 216
     },
     {
       "id": "cur-cur-ram-miriyala-chitti",
@@ -1202,2845 +1160,2630 @@ window.ARTIST_CURATED_TRACKS = {
       "movie": "Jathi Ratnalu",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/978/f7a0dc15a51351119bfaaaee1bfdc3d4_320.mp4",
-      "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
-      "duration": 219,
-      "isOnline": true
+      "artwork": "https://c.saavncdn.com/978/Jathi-Ratnalu-Telugu-2021-20210309174548-500x500.jpg",
+      "duration": 219
     },
     {
-      "id": "cur-art-ram-miriyala-ram-miriyala-dK4BN-VN",
+      "id": "cur-cur-ram-miriyala-rama-krishna-from-ag",
       "title": "Rama Krishna (From \"Agent\")",
       "artist": "Ram Miriyala, Hiphop Tamizha, Chandrabose",
       "movie": "2026 - Tollywood - The Valentine Special",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/223/c0be34c7ba52fe088c592e2c065b2d82_320.mp4",
       "artwork": "https://c.saavncdn.com/223/2026-Tollywood-The-Valentine-Special-Telugu-2026-20260207191005-500x500.jpg",
-      "duration": 195,
-      "isOnline": true
+      "duration": 195
     },
     {
-      "id": "cur-art-ram-miriyala-ram-miriyala-1PxPp6c3",
+      "id": "cur-cur-ram-miriyala-rama-krishna",
       "title": "Rama Krishna",
       "artist": "Ram Miriyala",
       "movie": "Agent",
       "year": 2023,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/344/f29f0428c90eaacb2e93e122a39bdf05_320.mp4",
       "artwork": "https://c.saavncdn.com/344/Agent-Telugu-2023-20250814182644-500x500.jpg",
-      "duration": 195,
-      "isOnline": true
+      "duration": 195
     },
     {
-      "id": "cur-art-ram-miriyala-ram-miriyala-vKiRnZhS",
+      "id": "cur-cur-ram-miriyala-bad-time-band-baaja-",
       "title": "Bad Time Band Baaja (From \"Ramba Oorvasi Menaka\")",
       "artist": "Ram Miriyala",
       "movie": "Bad Time Band Baaja (From \"Ramba Oorvasi Menaka\")",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/702/5f268105ca8482a59903d329dccaddf4_320.mp4",
       "artwork": "https://c.saavncdn.com/702/Bad-Time-Band-Baaja-From-Ramba-Oorvasi-Menaka-Telugu-2026-20260819161205-500x500.jpg",
-      "duration": 175,
-      "isOnline": true
+      "duration": 175
     },
     {
-      "id": "cur-art-ram-miriyala-ram-miriyala-PIiyzvJV",
+      "id": "cur-cur-ram-miriyala-etla-runamu-theerchu",
       "title": "Etla Runamu Theerchukomu (Live at Isha Mahashivratri 2023)",
       "artist": "Ram Miriyala",
       "movie": "Ram Miriyala (Live at Isha Mahashivratri 2023)",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/197/5ec3c920a133073e5a5c8c812ea52856_320.mp4",
       "artwork": "https://c.saavncdn.com/197/Ram-Miriyala-Live-at-Isha-Mahashivratri-2023-Telugu-2026-20260609143545-500x500.jpg",
-      "duration": 283,
-      "isOnline": true
+      "duration": 283
     },
     {
-      "id": "cur-art-ram-miriyala-ram-miriyala-fPA6TD0y",
+      "id": "cur-cur-ram-miriyala-anandame-live-at-ish",
       "title": "Anandame (Live at Isha Mahashivratri 2023)",
       "artist": "Ram Miriyala",
       "movie": "Ram Miriyala (Live at Isha Mahashivratri 2023)",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/197/63405709c0b256a695e211ddb5bd7b2e_320.mp4",
       "artwork": "https://c.saavncdn.com/197/Ram-Miriyala-Live-at-Isha-Mahashivratri-2023-Telugu-2026-20260609143545-500x500.jpg",
-      "duration": 313,
-      "isOnline": true
+      "duration": 313
     },
     {
-      "id": "cur-art-ram-miriyala-ram-miriyala-f9lRjUky",
+      "id": "cur-cur-ram-miriyala-ra-rammandhi-uru",
       "title": "Ra Rammandhi Uru",
       "artist": "Ram Miriyala",
       "movie": "Godse",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/000/34f850ad4556b5d972f604c40fa50109_320.mp4",
       "artwork": "https://c.saavncdn.com/000/Godse-Telugu-2022-20220728151838-500x500.jpg",
-      "duration": 138,
-      "isOnline": true
+      "duration": 138
     }
   ],
   "Sunitha": [
     {
-      "id": "cur-art-sunitha-sunitha-54S2cA8W",
+      "id": "cur-cur-sunitha-chiguraku-chatu",
       "title": "Chiguraku Chatu",
       "artist": "S.P.B. Charan, Sunitha Upadrasta",
       "movie": "Gudumba Shankar",
       "year": 2004,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/495/4cc4389e2496d93a1b21d87478cdf372_320.mp4",
       "artwork": "https://c.saavncdn.com/495/Gudumba-Shankar-2004-500x500.jpg",
-      "duration": 311,
-      "isOnline": true
+      "duration": 311
     },
     {
-      "id": "cur-art-sunitha-sunitha--s1Gl4qT",
+      "id": "cur-cur-sunitha-ivala",
       "title": "Ivala",
       "artist": "KK, Sunitha",
       "movie": "Chirutha",
       "year": 2007,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/959/1371c0e6e4fe009a1c17cc55e335e679_320.mp4",
       "artwork": "https://c.saavncdn.com/959/Chirutha-2007-500x500.jpg",
-      "duration": 270,
-      "isOnline": true
+      "duration": 270
     },
     {
-      "id": "cur-art-sunitha-sunitha-PmQKzyFy",
+      "id": "cur-cur-sunitha-hai-hai",
       "title": "Hai Hai",
       "artist": "S.P. Balasubrahmanyam, Sunitha",
       "movie": "Chennakesava Reddy",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/714/fed2fd9c5c4c42c87848f045528fe4e0_320.mp4",
       "artwork": "https://c.saavncdn.com/714/Chennakesava-Reddy-2000-500x500.jpg",
-      "duration": 329,
-      "isOnline": true
+      "duration": 329
     },
     {
-      "id": "cur-art-sunitha-sunitha-KVao3jqx",
+      "id": "cur-cur-sunitha-avunu-nijam",
       "title": "Avunu Nijam",
       "artist": "KK, Sunitha Upadrasta",
       "movie": "Athadu",
       "year": 2005,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/373/1d1c12de5b17d60b74b47834f7af8f2d_320.mp4",
       "artwork": "https://c.saavncdn.com/373/Athadu-2000-500x500.jpg",
-      "duration": 305,
-      "isOnline": true
+      "duration": 305
     },
     {
-      "id": "cur-art-sunitha-sunitha-2c6xFK5m",
+      "id": "cur-cur-sunitha-em-sandeham-ledu",
       "title": "Em Sandeham Ledu",
       "artist": "KK, Sunitha Upadrasta",
       "movie": "Oohalu Gusagusalade (Original Motion Picture Soundtrack)",
       "year": 2014,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/243/c1e3c893e19e706cc87c8ff7ca7ba8b1_320.mp4",
       "artwork": "https://c.saavncdn.com/243/Oohalu-Gusagusalade-Telugu-2014-20240802162328-500x500.jpg",
-      "duration": 232,
-      "isOnline": true
+      "duration": 232
     },
     {
-      "id": "cur-art-sunitha-sunitha-1V7mbyTn",
+      "id": "cur-cur-sunitha-gundu-sudhi",
       "title": "Gundu Sudhi",
       "artist": "Sunitha, M. M. Keeravani",
       "movie": "Chatrapathi",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/653/25b35096c9570c45e4421bf966478c72_320.mp4",
       "artwork": "https://c.saavncdn.com/653/Chatrapathi-2000-500x500.jpg",
-      "duration": 257,
-      "isOnline": true
+      "duration": 257
     },
     {
-      "id": "cur-art-sunitha-sunitha-AohT85ua",
+      "id": "cur-cur-sunitha-alanati-ramachandrud",
       "title": "Alanati Ramachandrudu",
       "artist": "Jikki, Sunitha, Sandhya",
       "movie": "Murari",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/678/30048a9714fca104ad6db843b235c0bc_320.mp4",
       "artwork": "https://c.saavncdn.com/678/Murari-2000-500x500.jpg",
-      "duration": 321,
-      "isOnline": true
+      "duration": 321
     },
     {
-      "id": "cur-art-sunitha-sunitha-H1TgDy98",
+      "id": "cur-cur-sunitha-pedavi-datani",
       "title": "Pedavi Datani",
       "artist": "Sunitha Upadrasta, Ramana Gogula",
       "movie": "Thammudu",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/399/c18b764c5894acda636bae8741756321_320.mp4",
       "artwork": "https://c.saavncdn.com/399/Thammudu-2000-500x500.jpg",
-      "duration": 277,
-      "isOnline": true
+      "duration": 277
     }
   ],
   "Jubin Nautiyal": [
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-Q72cSWjq",
+      "id": "cur-cur-jubin-nautiyal-barbaad",
       "title": "Barbaad",
       "artist": "Jubin Nautiyal",
       "movie": "Saiyaara",
       "year": 2025,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/598/9117397be2712fb843b268a7c16b941a_320.mp4",
       "artwork": "https://c.saavncdn.com/598/Saiyaara-Hindi-2025-20250703061754-500x500.jpg",
-      "duration": 357,
-      "isOnline": true
+      "duration": 357
     },
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-fTjge4Yw",
+      "id": "cur-cur-jubin-nautiyal-barbaad-from-saiyaar",
       "title": "Barbaad (From \"Saiyaara\")",
       "artist": "The Rish, Jubin Nautiyal",
       "movie": "Pyaar, Forever and Ever",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/347/9f8cc86307ea2b1c018288af33b38edf_320.mp4",
       "artwork": "https://c.saavncdn.com/347/Pyaar-Forever-and-Ever-Hindi-2026-20260205082719-500x500.jpg",
-      "duration": 357,
-      "isOnline": true
+      "duration": 357
     },
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-oXxBZPvP",
+      "id": "cur-cur-jubin-nautiyal-humnava-mere-from-hu",
       "title": "Humnava Mere (From \"Humnava Mere\")",
       "artist": "The Rish, Jubin Nautiyal",
       "movie": "World Music Day - Best Of Bollywood Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/179/5cc7ae75a02b33371bdb3e5cd895311d_320.mp4",
       "artwork": "https://c.saavncdn.com/179/World-Music-Day-Best-Of-Bollywood-Hits-Hindi-2026-20260622111029-500x500.jpg",
-      "duration": 328,
-      "isOnline": true
+      "duration": 328
     },
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-Gi77ybsS",
+      "id": "cur-cur-jubin-nautiyal-tum-hi-aana-from-mar",
       "title": "Tum Hi Aana (From \"Marjaavaan\")",
       "artist": "Jubin Nautiyal",
       "movie": "World Music Day - Best Of Bollywood Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/179/a385868cd632f51de6bc0dcf7c4cb650_320.mp4",
       "artwork": "https://c.saavncdn.com/179/World-Music-Day-Best-Of-Bollywood-Hits-Hindi-2026-20260622111029-500x500.jpg",
-      "duration": 249,
-      "isOnline": true
+      "duration": 249
     },
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-IPYbcAPa",
+      "id": "cur-cur-jubin-nautiyal-narayan-mil-jayega",
       "title": "Narayan Mil Jayega",
       "artist": "Jubin Nautiyal, Payal Dev, Manoj Muntashir",
       "movie": "Narayan Mil Jayega",
       "year": 2023,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/515/4e146578a745dc2b152d3af1b0ab7ea4_320.mp4",
       "artwork": "https://c.saavncdn.com/515/Narayan-Mil-Jayega-Hindi-2023-20231219171003-500x500.jpg",
-      "duration": 280,
-      "isOnline": true
+      "duration": 280
     },
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-q3ElTqvW",
+      "id": "cur-cur-jubin-nautiyal-mere-ghar-ram-aaye-h",
       "title": "Mere Ghar Ram Aaye Hain",
       "artist": "Jubin Nautiyal",
       "movie": "Mere Ghar Ram Aaye Hain",
       "year": 2022,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/946/9639eff1be049ac7f92683fc44dc9131_320.mp4",
       "artwork": "https://c.saavncdn.com/946/Mere-Ghar-Ram-Aaye-Hain-Hindi-2022-20221019191009-500x500.jpg",
-      "duration": 234,
-      "isOnline": true
+      "duration": 234
     },
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-qPB2SEmk",
+      "id": "cur-cur-jubin-nautiyal-bewafa-tera-masoom-c",
       "title": "Bewafa Tera Masoom Chehra",
       "artist": "Jubin Nautiyal, Rochak Kohli",
       "movie": "Bewafa Tera Masoom Chehra",
       "year": 2020,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/383/1fe48de4cca0e1a49a57bf84289ec859_320.mp4",
       "artwork": "https://c.saavncdn.com/383/Bewafa-Tera-Masoom-Chehra-Hindi-2020-20201116051001-500x500.jpg",
-      "duration": 242,
-      "isOnline": true
+      "duration": 242
     },
     {
-      "id": "cur-art-jubin-nautiyal-jubin-nautiyal-ezglgOzg",
+      "id": "cur-cur-jubin-nautiyal-shri-krishna-govind-",
       "title": "Shri Krishna Govind Hare Murari (From \"Shri Krishna Govind Hare Murari\")",
       "artist": "Jubin Nautiyal, Rochak Kohli",
       "movie": "Shri Krishna Janmashtami Special Bhajans",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/666/fc87006e24fc929c4cffa1091d3e55c6_320.mp4",
       "artwork": "https://c.saavncdn.com/666/Shri-Krishna-Janmashtami-Special-Bhajans-Hindi-2026-20260903201021-500x500.jpg",
-      "duration": 153,
-      "isOnline": true
+      "duration": 153
     }
   ],
   "Geetha Madhuri": [
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-1S6VGbCH",
+      "id": "cur-cur-geetha-madhuri-chamka-chamka",
       "title": "Chamka Chamka",
       "artist": "Ranjith, Geetha Madhuri",
       "movie": "Chirutha",
       "year": 2007,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/959/ea6c72762b402462dfd1819113a9bdbf_320.mp4",
       "artwork": "https://c.saavncdn.com/959/Chirutha-2007-500x500.jpg",
-      "duration": 308,
-      "isOnline": true
+      "duration": 308
     },
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-pETnCteW",
+      "id": "cur-cur-geetha-madhuri-bad-boyz",
       "title": "Bad Boyz",
       "artist": "Priya Hemesh, Geetha Madhuri",
       "movie": "Businessman",
       "year": 2011,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/033/d52ff35e27b616a1266e875d7ba7e936_320.mp4",
       "artwork": "https://c.saavncdn.com/033/Businessman-Telugu-2011-500x500.jpg",
-      "duration": 228,
-      "isOnline": true
+      "duration": 228
     },
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-VphfatjL",
+      "id": "cur-cur-geetha-madhuri-dillaku-dillaku",
       "title": "Dillaku Dillaku",
       "artist": "Tippu, Geetha Madhuri",
       "movie": "Racha",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/142/0b27d5a7641ddf747959e5f246ae6525_320.mp4",
       "artwork": "https://c.saavncdn.com/142/Racha-2012-500x500.jpg",
-      "duration": 276,
-      "isOnline": true
+      "duration": 276
     },
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-d95w0tj7",
+      "id": "cur-cur-geetha-madhuri-jorse-jorse",
       "title": "Jorse Jorse",
       "artist": "Daler Mehndi, Geetha Madhuri",
       "movie": "Magadheera",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/896/a9dee52b4d9066567b4c907fb5eb5a17_320.mp4",
       "artwork": "https://c.saavncdn.com/896/Magadheera-2009-500x500.jpg",
-      "duration": 281,
-      "isOnline": true
+      "duration": 281
     },
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-ES1ToCWU",
+      "id": "cur-cur-geetha-madhuri-melikalu",
       "title": "Melikalu",
       "artist": "Narendra, Geetha Madhuri",
       "movie": "Cameraman Gangatho Rambabu",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/947/166f8a7e830dc9bc5fc7ecf3f9dbdcfd_320.mp4",
       "artwork": "https://c.saavncdn.com/947/Cameraman-Gangatho-Rambabu-2012-500x500.jpg",
-      "duration": 263,
-      "isOnline": true
+      "duration": 263
     },
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-2Dm1hKYg",
+      "id": "cur-cur-geetha-madhuri-naakosam",
       "title": "Naakosam",
       "artist": "Deepu, Geetha Madhuri",
       "movie": "Magadheera",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/896/702fd07795da4e1983562c6f45c8f617_320.mp4",
       "artwork": "https://c.saavncdn.com/896/Magadheera-2009-500x500.jpg",
-      "duration": 235,
-      "isOnline": true
+      "duration": 235
     },
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-_1KLAnts",
+      "id": "cur-cur-geetha-madhuri-gadhithalupula",
       "title": "Gadhithalupula",
       "artist": "Karthik, Geetha Madhuri",
       "movie": "Mirapakay",
       "year": 2010,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/912/6fc0a1eb4b21e3f67119f293a371e47a_320.mp4",
       "artwork": "https://c.saavncdn.com/912/Mirapakay-2010-500x500.jpg",
-      "duration": 287,
-      "isOnline": true
+      "duration": 287
     },
     {
-      "id": "cur-art-geetha-madhuri-geetha-madhuri-17vq_DjF",
+      "id": "cur-cur-geetha-madhuri-kala-kala-kalamandir",
       "title": "Kala Kala Kalamandir",
       "artist": "Nakash Aziz, Geetha Madhuri",
       "movie": "Inttelligent",
       "year": 2018,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/000/36a42423c309732a12947958ef376a90_320.mp4",
       "artwork": "https://c.saavncdn.com/000/Inttelligent-Telugu-2018-20180131-500x500.jpg",
-      "duration": 246,
-      "isOnline": true
+      "duration": 246
     }
   ],
   "Haricharan": [
     {
-      "id": "cur-art-haricharan-haricharan-LLF5ZxnQ",
+      "id": "cur-cur-haricharan-chiru-chiru",
       "title": "Chiru Chiru",
       "artist": "Yuvan Shankar Raja, Haricharan, Sagar Desai, Chandra Bose",
       "movie": "Awaara",
       "year": 2013,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/612/9c7b1b948242534344ea7acf3da553dc_320.mp4",
       "artwork": "https://c.saavncdn.com/612/Awaara-Telugu-2013-500x500.jpg",
-      "duration": 286,
-      "isOnline": true
+      "duration": 286
     },
     {
-      "id": "cur-art-haricharan-haricharan-059HTRVM",
+      "id": "cur-cur-haricharan-manassa",
       "title": "Manassa",
       "artist": "Haricharan",
       "movie": "Munna",
       "year": 2007,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/626/488e23d95413ff6fdeee8f382eaf6da6_320.mp4",
       "artwork": "https://c.saavncdn.com/626/Munna-2000-500x500.jpg",
-      "duration": 351,
-      "isOnline": true
+      "duration": 351
     },
     {
-      "id": "cur-art-haricharan-haricharan-ktoxjjsQ",
+      "id": "cur-cur-haricharan-poolane-kunukeyamant",
       "title": "Poolane Kunukeyamantaa",
       "artist": "A.R. Rahman, Haricharan, Shreya Ghoshal, Anantha Sriram",
       "movie": "I - Manoharudu",
       "year": 2014,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/364/952499ea0aea6a7fe66cb37e88fa29a5_320.mp4",
       "artwork": "https://c.saavncdn.com/364/I-Manoharudu-Telugu-2014-20190914115023-500x500.jpg",
-      "duration": 308,
-      "isOnline": true
+      "duration": 308
     },
     {
-      "id": "cur-art-haricharan-haricharan-Clatuuyf",
+      "id": "cur-cur-haricharan-poolane-kunukeyamant",
       "title": "Poolane Kunukeyamantaa (From \"I-Manoharudu\")",
       "artist": "A.R. Rahman, Haricharan, Shreya Ghoshal, Anantha Sriram",
       "movie": "A.R. Rahman Telugu Classics",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/436/a3a4f9ef1add64513ef94d46b83287a1_320.mp4",
       "artwork": "https://c.saavncdn.com/436/A-R-Rahman-Telugu-Classics-Telugu-2026-20260709222459-500x500.jpg",
-      "duration": 308,
-      "isOnline": true
+      "duration": 308
     },
     {
-      "id": "cur-art-haricharan-haricharan-9u27pLM5",
+      "id": "cur-cur-haricharan-yemito",
       "title": "Yemito",
       "artist": "A.R. Rahman, Haricharan, Shreya Ghoshal, Anantha Sriram",
       "movie": "Andala Rakshasi",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/654/0c4e62b6d16394f33e8e42290e4c8499_320.mp4",
       "artwork": "https://c.saavncdn.com/654/Andala-Rakshasi-Telugu-2012-20240802161530-500x500.jpg",
-      "duration": 268,
-      "isOnline": true
+      "duration": 268
     },
     {
-      "id": "cur-art-haricharan-haricharan-o5zkli63",
+      "id": "cur-cur-haricharan-pilla-padesaave",
       "title": "Pilla Padesaave",
       "artist": "Yuvan Shankar Raja, Haricharan",
       "movie": "Love Today (Telugu)",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/323/db09bfc127fbbc59163b4c6bb6ad5c78_320.mp4",
       "artwork": "https://c.saavncdn.com/323/Love-Today-Telugu-Original-Motion-Picture-Soundtrack-Telugu-2022-20221121125710-500x500.jpg",
-      "duration": 237,
-      "isOnline": true
+      "duration": 237
     },
     {
-      "id": "cur-art-haricharan-haricharan-Hvvkfw-j",
+      "id": "cur-cur-haricharan-guruthunda-from-chen",
       "title": "Guruthunda (From \"Chennai Love Story\")",
       "artist": "Yuvan Shankar Raja, Haricharan",
       "movie": "Guruthunda (From \"Chennai Love Story\")",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/298/e762e16c19e101a8f6e3d293c2a6877b_320.mp4",
       "artwork": "https://c.saavncdn.com/298/Guruthunda-From-Chennai-Love-Story-Telugu-2026-20260330161003-500x500.jpg",
-      "duration": 325,
-      "isOnline": true
+      "duration": 325
     },
     {
-      "id": "cur-art-haricharan-haricharan-EB0-1KnT",
+      "id": "cur-cur-haricharan-nee-choopule",
       "title": "Nee Choopule",
       "artist": "K. S. Chithra, Haricharan",
       "movie": "Endukante Premanta",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/882/66eb78e15a92cfc3f0baa8c21f0acb1e_320.mp4",
       "artwork": "https://c.saavncdn.com/882/Endukante-Premanta-2012-500x500.jpg",
-      "duration": 361,
-      "isOnline": true
+      "duration": 361
     }
   ],
   "Lata Mangeshkar": [
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar-_SWs_DZp",
+      "id": "cur-cur-lata-mangeshkar-chandni-raaten-pyar-",
       "title": "Chandni Raaten Pyar Ki Baaten",
       "artist": "Lata Mangeshkar",
       "movie": "Timeless",
       "year": 2010,
       "language": "Unknown",
-      "category": "Unknown",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/123/1cc8bd5ebdb3a88e1cfa438a14f81fff_320.mp4",
       "artwork": "https://c.saavncdn.com/123/Timeless-English-2010-500x500.jpg",
-      "duration": 204,
-      "isOnline": true
+      "duration": 204
     },
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar-oJCTNat1",
+      "id": "cur-cur-lata-mangeshkar-kya-yahi-pyar-hai-fr",
       "title": "Kya Yahi Pyar Hai (From \"Rocky\")",
       "artist": "Lata Mangeshkar",
       "movie": "Timeless Kishore",
       "year": 2013,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/628/3d49a76df812202dfd030360bad37a3f_320.mp4",
       "artwork": "https://c.saavncdn.com/628/Timeless-Kishore-Hindi-2013-20241005041122-500x500.jpg",
-      "duration": 384,
-      "isOnline": true
+      "duration": 384
     },
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar-kRiNgEWN",
+      "id": "cur-cur-lata-mangeshkar-saagar-kinare-from-s",
       "title": "Saagar Kinare (From \"Saagar\")",
       "artist": "Lata Mangeshkar",
       "movie": "Timeless Kishore",
       "year": 2013,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/628/42522c20878dc9a9c5cb37dba14f12c2_320.mp4",
       "artwork": "https://c.saavncdn.com/628/Timeless-Kishore-Hindi-2013-20241005041122-500x500.jpg",
-      "duration": 258,
-      "isOnline": true
+      "duration": 258
     },
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar-k3SXkAWB",
+      "id": "cur-cur-lata-mangeshkar-kya-yahi-pyar-hai-fr",
       "title": "Kya Yahi Pyar Hai (From \"Rocky\")",
       "artist": "Lata Mangeshkar",
       "movie": "Valentine’s Way - Timeless Love Classics",
       "year": 2015,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/413/c6c6eb04c1c75bc34d6cd805b4d643bf_320.mp4",
       "artwork": "https://c.saavncdn.com/413/Valentine-s-Way-Timeless-Love-Classics-Hindi-2015-20250729195555-500x500.jpg",
-      "duration": 384,
-      "isOnline": true
+      "duration": 384
     },
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar-Pw6XpXS0",
+      "id": "cur-cur-lata-mangeshkar-wada-na-tod-from-dil",
       "title": "Wada Na Tod (From \"Dil Tujhko Diya\")",
       "artist": "Lata Mangeshkar",
       "movie": "Timeless Lata",
       "year": 2013,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/363/7706baebcac667113a203b6cf35a0b57_320.mp4",
       "artwork": "https://c.saavncdn.com/363/Timeless-Lata-Hindi-2013-20240902140620-500x500.jpg",
-      "duration": 357,
-      "isOnline": true
+      "duration": 357
     },
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar--1ZNAzUC",
+      "id": "cur-cur-lata-mangeshkar-zeehale-muskin-from-",
       "title": "Zeehale Muskin (From \"Ghulami\")",
       "artist": "Lata Mangeshkar",
       "movie": "Lata Di's Timeless Hits",
       "year": 2023,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/596/ad78364675b85b65e3bb9d580c8d262f_320.mp4",
       "artwork": "https://c.saavncdn.com/596/Lata-Di-s-Timeless-Hits-Hindi-2023-20260630213848-500x500.jpg",
-      "duration": 446,
-      "isOnline": true
+      "duration": 446
     },
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar-pWFzq7XZ",
+      "id": "cur-cur-lata-mangeshkar-hum-tere-pyar-mein-f",
       "title": "Hum Tere Pyar Mein (From \"Dil Ek Mandir\")",
       "artist": "Lata Mangeshkar",
       "movie": "Timeless Beauty Meena Kumari",
       "year": 2013,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/997/0dc5f2f90504adb0e3c9c8d083cd7484_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/997/Timeless-Beauty-Meena-Kumari-2013-500x500.jpg",
-      "duration": 287,
-      "isOnline": true
+      "duration": 287
     },
     {
-      "id": "cur-art-lata-mangeshkar-lata-mangeshkar-DjEWbEOw",
+      "id": "cur-cur-lata-mangeshkar-ham-tere-pyar-mein-f",
       "title": "Ham Tere Pyar Mein (From \"Dil Ek Mandir\")",
       "artist": "Lata Mangeshkar",
       "movie": "Timeless Beauty - Meena Kumari",
       "year": 2019,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/828/4321737554b1c84dd8006f2da923e4e2_320.mp4",
       "artwork": "https://c.saavncdn.com/828/Timeless-Beauty-Meena-Kumari-Hindi-2019-20190820060305-500x500.jpg",
-      "duration": 286,
-      "isOnline": true
+      "duration": 286
     }
   ],
   "Kishore Kumar": [
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-QgMzAC_z",
+      "id": "cur-cur-kishore-kumar-dil-mein-aag-lagaye-",
       "title": "Dil Mein Aag Lagaye (From \"Alag Alag\")",
       "artist": "Anand Bakshi, R.D. Burman, Kishore Kumar",
       "movie": "Bollywood Classic Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/066/7160dd52cdd06148e2fca113623e7d3a_320.mp4",
       "artwork": "https://c.saavncdn.com/066/Bollywood-Classic-Hits-Hindi-2026-20260423161003-500x500.jpg",
-      "duration": 258,
-      "isOnline": true
+      "duration": 258
     },
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-7-x0nhEJ",
+      "id": "cur-cur-kishore-kumar-panna-ki-tamanna-hai",
       "title": "Panna Ki Tamanna Hai",
       "artist": "Kishore Kumar, Lata Mangeshkar",
       "movie": "Classic Love Songs - Vol. 4",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/198/f4eef690f0bc3b05774cfa944b46e1d0_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 350,
-      "isOnline": true
+      "duration": 350
     },
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-z9w7Yl9U",
+      "id": "cur-cur-kishore-kumar-pyar-diwana-hota-hai",
       "title": "Pyar Diwana Hota Hai",
       "artist": "Kishore Kumar",
       "movie": "Classic Love Songs - Vol. 4",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/198/bbbace210ab0d0fabf488568565da1f7_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 285,
-      "isOnline": true
+      "duration": 285
     },
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-l2XXQujs",
+      "id": "cur-cur-kishore-kumar-tum-aa-gaye-ho-noor-",
       "title": "Tum Aa Gaye Ho Noor Aa Gaya",
       "artist": "Kishore Kumar, Lata Mangeshkar",
       "movie": "Classic Love Songs - Vol. 4",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/198/fccfd071398bd7e9675ab75abc3512c8_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 253,
-      "isOnline": true
+      "duration": 253
     },
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-SGJHvt-C",
+      "id": "cur-cur-kishore-kumar-gaata-rahe-mera-dil",
       "title": "Gaata Rahe Mera Dil",
       "artist": "Kishore Kumar, Lata Mangeshkar",
       "movie": "Classic Love Songs - Vol. 3",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/197/e1811de29d75f7e8251c85a7a47dfa0a_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 296,
-      "isOnline": true
+      "duration": 296
     },
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-af25MvfA",
+      "id": "cur-cur-kishore-kumar-mere-mehboob-qayamat",
       "title": "Mere Mehboob Qayamat Hogi",
       "artist": "Kishore Kumar, Lata Mangeshkar",
       "movie": "Classic Revival Ni Sultana Re",
       "year": 2000,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/247/8b126aeb2c0691fbd0631823e0e93e66_320.mp4",
       "artwork": "https://c.saavncdn.com/247/Classic-Revival-Ni-Sultana-Re-Hindi-2000-20201009154006-500x500.jpg",
-      "duration": 243,
-      "isOnline": true
+      "duration": 243
     },
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-4FYzssQa",
+      "id": "cur-cur-kishore-kumar-the-classic-series-u",
       "title": "The Classic Series - Uttam Kumar Special",
       "artist": "Kishore Kumar, Uttam Kumar, Manna Dey, Asha Bhosle",
       "movie": "The Classic Series - Uttam Kumar Special",
       "year": 2020,
       "language": "Bengali",
-      "category": "Bengali",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/834/ae588e8f2832af417430faa532afac8b_320.mp4",
       "artwork": "https://c.saavncdn.com/834/The-Classic-Series-Uttam-Kumar-Special-Bengali-2020-20200723183111-500x500.jpg",
-      "duration": 1402,
-      "isOnline": true
+      "duration": 1402
     },
     {
-      "id": "cur-art-kishore-kumar-kishore-kumar-ScO8sNsn",
+      "id": "cur-cur-kishore-kumar-the-classic-series-k",
       "title": "The Classic Series - Kishore Kumar Immortal Melodies",
       "artist": "Kishore Kumar, Lata Mangeshkar, Asha Bhosle",
       "movie": "The Classic Series - Kishore Kumar Immortal Melodies",
       "year": 2020,
       "language": "Bengali",
-      "category": "Bengali",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/069/1d8dd26527a1cea0932e8c8a6e28cf15_320.mp4",
       "artwork": "https://c.saavncdn.com/069/The-Classic-Series-Kishore-Kumar-Immortal-Melodies-Bengali-2020-20200804234016-500x500.jpg",
-      "duration": 1857,
-      "isOnline": true
+      "duration": 1857
     }
   ],
   "Armaan Malik": [
     {
-      "id": "cur-art-armaan-malik-armaan-malik-SM-rvz75",
+      "id": "cur-cur-armaan-malik-jab-tak",
       "title": "Jab Tak",
       "artist": "Armaan Malik",
       "movie": "M.S. Dhoni - The Untold Story",
       "year": 2016,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/569/007b8edcbbaba8c5e68a71dbc8c04496_320.mp4",
       "artwork": "https://c.saavncdn.com/569/M-S-Dhoni-The-Untold-Story-3-Hindi-2016-500x500.jpg",
-      "duration": 174,
-      "isOnline": true
+      "duration": 174
     },
     {
-      "id": "cur-art-armaan-malik-armaan-malik-fme85vQj",
+      "id": "cur-cur-armaan-malik-sab-tera",
       "title": "Sab Tera",
       "artist": "Armaan Malik",
       "movie": "Baaghi",
       "year": 2016,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/944/86c88d3dcd317bc854fdc0925c6c845a_320.mp4",
       "artwork": "https://c.saavncdn.com/944/Baaghi-Hindi-2016-20220420171003-500x500.jpg",
-      "duration": 228,
-      "isOnline": true
+      "duration": 228
     },
     {
-      "id": "cur-art-armaan-malik-armaan-malik-oJB8TtJZ",
+      "id": "cur-cur-armaan-malik-bol-do-na-zara-from-",
       "title": "Bol Do Na Zara (From \"Azhar\")",
       "artist": "Armaan Malik",
       "movie": "Emraan Hashmi Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/106/38e1079b2e864e9adaf894c21d8a8588_320.mp4",
       "artwork": "https://c.saavncdn.com/106/Emraan-Hashmi-Hits-Hindi-2026-20260905191028-500x500.jpg",
-      "duration": 292,
-      "isOnline": true
+      "duration": 292
     },
     {
-      "id": "cur-art-armaan-malik-armaan-malik-UuGteRjX",
+      "id": "cur-cur-armaan-malik-main-rahoon-ya-na-ra",
       "title": "Main Rahoon Ya Na Rahoon",
       "artist": "Armaan Malik",
       "movie": "Main Rahoon Ya Na Rahoon",
       "year": 2015,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/395/1e3c94b9a575aa2887f47bd38e9dc3ac_320.mp4",
       "artwork": "https://c.saavncdn.com/395/Main-Rahoon-Ya-Na-Rahoon-Hindi-2015-500x500.jpg",
-      "duration": 310,
-      "isOnline": true
+      "duration": 310
     },
     {
-      "id": "cur-art-armaan-malik-armaan-malik-iN-TuQat",
+      "id": "cur-cur-armaan-malik-main-rahoon-ya-na-ra",
       "title": "Main Rahoon Ya Na Rahoon (From \"Main Rahoon Ya Na Rahoon\")",
       "artist": "Armaan Malik",
       "movie": "Emraan Hashmi Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/106/8960b002c5cd5be26bea42c695a2e872_320.mp4",
       "artwork": "https://c.saavncdn.com/106/Emraan-Hashmi-Hits-Hindi-2026-20260905191028-500x500.jpg",
-      "duration": 309,
-      "isOnline": true
+      "duration": 309
     },
     {
-      "id": "cur-art-armaan-malik-armaan-malik-KuEq2A2E",
+      "id": "cur-cur-armaan-malik-chale-aana",
       "title": "Chale Aana",
       "artist": "Armaan Malik",
       "movie": "De De Pyaar De",
       "year": 2019,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/777/be5ad77101034eb01f874e7cf9a5a825_320.mp4",
       "artwork": "https://c.saavncdn.com/777/De-De-Pyaar-De-Hindi-2019-20231017161947-500x500.jpg",
-      "duration": 271,
-      "isOnline": true
+      "duration": 271
     },
     {
-      "id": "cur-art-armaan-malik-armaan-malik-nXoABtkj",
+      "id": "cur-cur-armaan-malik-hua-hain-aaj-pehli-b",
       "title": "Hua Hain Aaj Pehli Baar",
       "artist": "Amaal Mallik, Armaan Malik, Palak Muchhal",
       "movie": "Sanam Re",
       "year": 2016,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/829/2b61f8b4be3166b8d7b9a135a6d29f87_320.mp4",
       "artwork": "https://c.saavncdn.com/829/Sanam-Re-Hindi-2015-500x500.jpg",
-      "duration": 309,
-      "isOnline": true
+      "duration": 309
     },
     {
-      "id": "cur-art-armaan-malik-armaan-malik-mNPBINjD",
+      "id": "cur-cur-armaan-malik-kuch-to-hai",
       "title": "Kuch To Hai",
       "artist": "Armaan Malik",
       "movie": "Do Lafzon Ki Kahani",
       "year": 2016,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/677/ef3b308afa19a01b4eb49e52affa175a_320.mp4",
       "artwork": "https://c.saavncdn.com/677/Do-Lafzon-Ki-Kahani-Hindi-2016-500x500.jpg",
-      "duration": 248,
-      "isOnline": true
+      "duration": 248
     }
   ],
   "Udit Narayan": [
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-f3mVFMUF",
+      "id": "cur-cur-udit-narayan-jo-bhi-kasmein",
       "title": "Jo Bhi Kasmein",
       "artist": "Sameer Anjaan, Nadeem-Shravan, Alka Yagnik, Udit Narayan",
       "movie": "Raaz",
       "year": 2002,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/998/0bf5698dc25f242f3c2c56b74a27b4f2_320.mp4",
       "artwork": "https://c.saavncdn.com/998/Raaz-Hindi-2002-20260309193542-500x500.jpg",
-      "duration": 339,
-      "isOnline": true
+      "duration": 339
     },
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-PNHIkJPr",
+      "id": "cur-cur-udit-narayan-dil-to-pagal-hai",
       "title": "Dil To Pagal Hai",
       "artist": "Lata Mangeshkar, Udit Narayan",
       "movie": "Dil To Pagal Hai",
       "year": 1997,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/410/b5be2bac8157611cc97d399cf27a5783_320.mp4",
       "artwork": "https://c.saavncdn.com/410/Dil-To-Pagal-Hai-Hindi-1997-20190329145756-500x500.jpg",
-      "duration": 336,
-      "isOnline": true
+      "duration": 336
     },
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-usjYRaz3",
+      "id": "cur-cur-udit-narayan-dil-laga-liya-maine",
       "title": "Dil Laga Liya Maine",
       "artist": "Lata Mangeshkar, Udit Narayan",
       "movie": "Dil Hai Tumhaara",
       "year": 2002,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/541/4151e0f8970526d7e380ffbb84edf97e_320.mp4",
       "artwork": "https://c.saavncdn.com/541/Dil-Hai-Tumhaara-Hindi-2002-20261105195256-500x500.jpg",
-      "duration": 271,
-      "isOnline": true
+      "duration": 271
     },
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-1pxpgV6l",
+      "id": "cur-cur-udit-narayan-dil-ne-yeh-kaha-hain",
       "title": "Dil Ne Yeh Kaha Hain Dil Se (From \"Dhadkan\")",
       "artist": "Lata Mangeshkar, Udit Narayan",
       "movie": "Sunil Shetty - 12 Superhit Songs",
       "year": 2017,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/417/344297c2d580dd6bbbaee6b68ec50a0d_320.mp4",
       "artwork": "https://c.saavncdn.com/417/Sunil-Shetty-12-Superhit-Songs-Hindi-2017-20260318081918-500x500.jpg",
-      "duration": 357,
-      "isOnline": true
+      "duration": 357
     },
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-wGhGhyVh",
+      "id": "cur-cur-udit-narayan-dil-ne-yeh-kaha-hain",
       "title": "Dil Ne Yeh Kaha Hain Dil Se (From \"Dhadkan\")",
       "artist": "Lata Mangeshkar, Udit Narayan",
       "movie": "Director Special Dharmesh Darshan Hits",
       "year": 2021,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/922/305d813638992d3767e508572954b4a9_320.mp4",
       "artwork": "https://c.saavncdn.com/922/Director-Special-Dharmesh-Darshan-Hits-Hindi-2021-20260331205726-500x500.jpg",
-      "duration": 426,
-      "isOnline": true
+      "duration": 426
     },
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-EfsTgKZD",
+      "id": "cur-cur-udit-narayan-dil-ne-yeh-kaha-hain",
       "title": "Dil Ne Yeh Kaha Hain Dil Se",
       "artist": "Udit Narayan, Alka Yagnik, Kumar Sanu",
       "movie": "Dhadkan",
       "year": 2000,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/454/c27601522d4588a6ac94ce49460e7d70_320.mp4",
       "artwork": "https://c.saavncdn.com/454/Dhadkan-Hindi-2000-20210226131403-500x500.jpg",
-      "duration": 450,
-      "isOnline": true
+      "duration": 450
     },
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-4nQ6bbTZ",
+      "id": "cur-cur-udit-narayan-tu-jo-hans-hans-ke-f",
       "title": "Tu Jo Hans Hans Ke (From \"Raja Bhaiya\")",
       "artist": "Udit Narayan, Alka Yagnik, Kumar Sanu",
       "movie": "Raja Bhaiya",
       "year": 2008,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/560/4c00c7590e7995aed3a5ace9af1e652d_320.mp4",
       "artwork": "https://c.saavncdn.com/560/Raja-Bhaiya-Hindi-2003-20190924060930-500x500.jpg",
-      "duration": 302,
-      "isOnline": true
+      "duration": 302
     },
     {
-      "id": "cur-art-udit-narayan-udit-narayan-saavn-5u8z0ujq",
+      "id": "cur-cur-udit-narayan-tu-jo-hans-hans-ke-f",
       "title": "Tu Jo Hans Hans Ke (From \"Raja Bhaiya\")",
       "artist": "Udit Narayan, Alka Yagnik, Kumar Sanu",
       "movie": "Best Of Kavita Krishnamurthy",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/100/c0339ab914fe203048eac05fd90b50c8_320.mp4",
       "artwork": "https://c.saavncdn.com/100/Best-Of-Kavita-Krishnamurthy-Hindi-2026-20260704013514-500x500.jpg",
-      "duration": 302,
-      "isOnline": true
+      "duration": 302
     }
   ],
   "Kumar Sanu": [
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn-U3wEEo6F",
+      "id": "cur-cur-kumar-sanu-tujhe-dekha-to",
       "title": "Tujhe Dekha To",
       "artist": "Lata Mangeshkar, Kumar Sanu",
       "movie": "Dilwale Dulhania Le Jayenge",
       "year": 1995,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/588/1915cd0934f79eeb646ffebde384e59d_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/588/Dilwale-Dulhania-Le-Jayenge-Hindi-1995-20171114-500x500.jpg",
-      "duration": 303,
-      "isOnline": true
+      "duration": 303
     },
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn-TC5PSqsJ",
+      "id": "cur-cur-kumar-sanu-chura-ke-dil-mera",
       "title": "Chura Ke Dil Mera",
       "artist": "Lata Mangeshkar, Kumar Sanu",
       "movie": "Main Khiladi Tu Anari (Original Motion Picture Soundtrack)",
       "year": 1994,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/474/fc90bd930001b9e5eb98ac005cce18ba_320.mp4",
       "artwork": "https://c.saavncdn.com/474/Main-Khiladi-Tu-Anari-Original-Motion-Picture-Soundtrack-Hindi-1994-20250912131553-500x500.jpg",
-      "duration": 468,
-      "isOnline": true
+      "duration": 468
     },
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn-EOwkcCf1",
+      "id": "cur-cur-kumar-sanu-pehli-pehli-baar-moh",
       "title": "Pehli Pehli Baar Mohabbat Ki Hai (Remix)",
       "artist": "Kumar Sanu, Alka Yagnik",
       "movie": "Dilbar Remix",
       "year": 1999,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/738/9f4bc87d2931c971407960a01b6a4a33_320.mp4",
       "artwork": "https://c.saavncdn.com/738/Dilbar-Remix-Hindi-1999-20241226131101-500x500.jpg",
-      "duration": 461,
-      "isOnline": true
+      "duration": 461
     },
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn--vNMHZD1",
+      "id": "cur-cur-kumar-sanu-pehli-pehli-baar-moh",
       "title": "Pehli Pehli Baar Mohabbat Ki Hai",
       "artist": "Kumar Sanu, Alka Yagnik",
       "movie": "Sirf Tum",
       "year": 1999,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/318/ce90eb0ea34ddcdb70948c179f6bcba5_320.mp4",
       "artwork": "https://c.saavncdn.com/318/Sirf-Tum-Hindi-1999-20241226131027-500x500.jpg",
-      "duration": 458,
-      "isOnline": true
+      "duration": 458
     },
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn-oQ6SIBP4",
+      "id": "cur-cur-kumar-sanu-tumse-milne-ko-dil",
       "title": "Tumse Milne Ko Dil",
       "artist": "Kumar Sanu, Alka Yagnik",
       "movie": "Phool Aur Kaante",
       "year": 1991,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/882/53f10ed42eda671b2f809925dcc27e58_320.mp4",
       "artwork": "https://c.saavncdn.com/882/Phool-Aur-Kaante-Hindi-1991-20240408213850-500x500.jpg",
-      "duration": 300,
-      "isOnline": true
+      "duration": 300
     },
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn-SsjrQQRr",
+      "id": "cur-cur-kumar-sanu-chori-chori-dil-tera",
       "title": "Chori Chori Dil Tera",
       "artist": "Kumar Sanu, Sujata Goswami",
       "movie": "Phool Aur Angaar",
       "year": 1993,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/234/569708dcc588b256a32c14d9a658b181_320.mp4",
       "artwork": "https://c.saavncdn.com/blob/234/Phool-Aur-Angaar-Hindi-1993-20220620182612-500x500.jpg",
-      "duration": 401,
-      "isOnline": true
+      "duration": 401
     },
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn-9SH-2xxX",
+      "id": "cur-cur-kumar-sanu-tumhein-dekhen-meri-",
       "title": "Tumhein Dekhen Meri Aankhen",
       "artist": "Kumar Sanu, Sujata Goswami",
       "movie": "Rang",
       "year": 1993,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/056/3624f22e2de0225d81f77acd35f328b6_320.mp4",
       "artwork": "https://c.saavncdn.com/056/Rang-Hindi-1993-20240408213822-500x500.jpg",
-      "duration": 410,
-      "isOnline": true
+      "duration": 410
     },
     {
-      "id": "cur-art-kumar-sanu-kumar-sanu-saavn-XDnO4LHG",
+      "id": "cur-cur-kumar-sanu-chand-se-parda",
       "title": "Chand Se Parda",
       "artist": "Kumar Sanu, Sujata Goswami",
       "movie": "Aao Pyar Karen",
       "year": 1994,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/717/f40a13465fd6cc441b1141e4e3db1fb2_320.mp4",
       "artwork": "https://c.saavncdn.com/717/Aao-Pyar-Karen-Hindi-1994-20261103220449-500x500.jpg",
-      "duration": 381,
-      "isOnline": true
+      "duration": 381
     }
   ],
   "Alka Yagnik": [
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-9cCPZgWV",
+      "id": "cur-cur-alka-yagnik-dilbar-dilbar",
       "title": "Dilbar Dilbar",
       "artist": "Alka Yagnik",
       "movie": "Sirf Tum",
       "year": 1999,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/318/e9df3d6347f65bae53b368c2202a5a5c_320.mp4",
       "artwork": "https://c.saavncdn.com/318/Sirf-Tum-Hindi-1999-20241226131027-500x500.jpg",
-      "duration": 341,
-      "isOnline": true
+      "duration": 341
     },
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-r_Bx8bxm",
+      "id": "cur-cur-alka-yagnik-dilbar-dilbar-remix",
       "title": "Dilbar Dilbar (Remix)",
       "artist": "Alka Yagnik",
       "movie": "Dilbar Remix",
       "year": 1999,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/738/9f2d4a5d72bda591ac10c5818feb88f9_320.mp4",
       "artwork": "https://c.saavncdn.com/738/Dilbar-Remix-Hindi-1999-20241226131101-500x500.jpg",
-      "duration": 345,
-      "isOnline": true
+      "duration": 345
     },
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-YdmgPtZ3",
+      "id": "cur-cur-alka-yagnik-baazigar-o-baazigar",
       "title": "Baazigar O Baazigar",
       "artist": "Kumar Sanu, Alka Yagnik",
       "movie": "Baazigar",
       "year": 1993,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/409/b05d8a94d4347e8093228d9f1fca3f07_320.mp4",
       "artwork": "https://c.saavncdn.com/409/Baazigar-Hindi-1993-20210226141521-500x500.jpg",
-      "duration": 459,
-      "isOnline": true
+      "duration": 459
     },
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-07-p_0M9",
+      "id": "cur-cur-alka-yagnik-kisi-din-banoongi-ma",
       "title": "Kisi Din Banoongi Main",
       "artist": "Kumar Sanu, Alka Yagnik",
       "movie": "Raja",
       "year": 1995,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/018/b00abb7d5cb00a7d866af02fb08f2776_320.mp4",
       "artwork": "https://c.saavncdn.com/018/Raja-Hindi-1995-20240408213739-500x500.jpg",
-      "duration": 438,
-      "isOnline": true
+      "duration": 438
     },
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-9FyJ4a7w",
+      "id": "cur-cur-alka-yagnik-chamma-chamma-baaje-",
       "title": "Chamma Chamma Baaje Re",
       "artist": "Kumar Sanu, Alka Yagnik",
       "movie": "China - Gate",
       "year": 1998,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/380/ba447c04fce1ca06ba3ed30a1bbcb8d0_320.mp4",
       "artwork": "https://c.saavncdn.com/380/China-Gate-Hindi-1998-20240408213735-500x500.jpg",
-      "duration": 357,
-      "isOnline": true
+      "duration": 357
     },
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-lNWjnWNW",
+      "id": "cur-cur-alka-yagnik-tip-tip-barsa-paani",
       "title": "Tip Tip Barsa Paani",
       "artist": "Alka Yagnik, Udit Narayan",
       "movie": "Mohra",
       "year": 1994,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/041/c9c7533375a46d285bc156a2212fdbb5_320.mp4",
       "artwork": "https://c.saavncdn.com/041/Mohra-Hindi-1994-20210226141759-500x500.jpg",
-      "duration": 363,
-      "isOnline": true
+      "duration": 363
     },
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-cKPYXoDl",
+      "id": "cur-cur-alka-yagnik-aisi-deewangi",
       "title": "Aisi Deewangi",
       "artist": "Alka Yagnik, Udit Narayan",
       "movie": "Deewana",
       "year": 1992,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/793/1950c7ddeb7eaaf0991893b9aaed7543_320.mp4",
       "artwork": "https://c.saavncdn.com/793/Deewana-Hindi-1992-20221215163751-500x500.jpg",
-      "duration": 415,
-      "isOnline": true
+      "duration": 415
     },
     {
-      "id": "cur-art-alka-yagnik-alka-yagnik-saavn-ekoikZNB",
+      "id": "cur-cur-alka-yagnik-tumsa-koi-pyaara",
       "title": "Tumsa Koi Pyaara",
       "artist": "Alka Yagnik, Udit Narayan",
       "movie": "Khuddar",
       "year": 1994,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/462/40f7d9ccf1749f07b6a723f96730ac78_320.mp4",
       "artwork": "https://c.saavncdn.com/462/Khuddar-Hindi-1994-20240408213910-500x500.jpg",
-      "duration": 342,
-      "isOnline": true
+      "duration": 342
     }
   ],
   "Mohammed Rafi": [
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-pAh0WRUR",
+      "id": "cur-cur-mohammed-rafi-chura-liya-hai-tumne",
       "title": "Chura Liya Hai Tumne Jo Dil Ko",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Classic Love Songs - Vol. 4",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/198/6a5f564d7c5831b6e83f0e2d07849617_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 289,
-      "isOnline": true
+      "duration": 289
     },
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-1JXTEubY",
+      "id": "cur-cur-mohammed-rafi-abhi-na-jao-chhod-ka",
       "title": "Abhi Na Jao Chhod Kar",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Classic Love Songs - Vol. 3",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/197/062d64f77b6f59cc6d44a807ad920790_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 259,
-      "isOnline": true
+      "duration": 259
     },
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-ClD_4Tmz",
+      "id": "cur-cur-mohammed-rafi-rim-jhim-ke-geet",
       "title": "Rim Jhim Ke Geet",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Classic Revival Ni Sultana Re",
       "year": 2000,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/247/04cd71398b704a98804af1137eebb036_320.mp4",
       "artwork": "https://c.saavncdn.com/247/Classic-Revival-Ni-Sultana-Re-Hindi-2000-20201009154006-500x500.jpg",
-      "duration": 280,
-      "isOnline": true
+      "duration": 280
     },
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-5tEBwB3w",
+      "id": "cur-cur-mohammed-rafi-isharon-isharon-men-",
       "title": "Isharon Isharon Men Dil Lenewale",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Classic Love Songs - Vol. 3",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/197/5eed03f356d56ba62b8745cf8705bdb8_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 308,
-      "isOnline": true
+      "duration": 308
     },
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-4CC5MOOu",
+      "id": "cur-cur-mohammed-rafi-aajkal-tere-mere-pya",
       "title": "Aajkal Tere Mere Pyar Ke Charche",
       "artist": "Suman Kalyanpur, Mohammed Rafi",
       "movie": "Classic Love Songs - Vol. 3",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/197/7e945eff4504c3ee0a49800450819aec_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 310,
-      "isOnline": true
+      "duration": 310
     },
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-U4w5FfpH",
+      "id": "cur-cur-mohammed-rafi-sau-saal-pahle",
       "title": "Sau Saal Pahle",
       "artist": "Lata Mangeshkar, Mohammed Rafi",
       "movie": "Classic Love Songs - Vol. 3",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/197/83b0566a8772d0ee57144fc0a851394e_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 210,
-      "isOnline": true
+      "duration": 210
     },
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-l9_YduEv",
+      "id": "cur-cur-mohammed-rafi-chand-mera-dil-chand",
       "title": "Chand Mera Dil Chandni Ho Tum",
       "artist": "Mohammed Rafi",
       "movie": "Classic Love Songs - Vol. 4",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/198/6091b05b45504c8baf9f3566b6e71110_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 178,
-      "isOnline": true
+      "duration": 178
     },
     {
-      "id": "cur-art-mohammed-rafi-mohammed-rafi-saavn-HSJ_SUJ_",
+      "id": "cur-cur-mohammed-rafi-ik-pardesi-mera-dil-",
       "title": "Ik Pardesi Mera Dil Le Gaya",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Classic Love Songs - Vol. 2",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/196/cfc432c6bd7c745a9cfee4ea8cdc25ae_320.mp4",
       "artwork": "https://c.saavncdn.com/196/Classic-Love-Songs-Vol-2-Hindi-2012-500x500.jpg",
-      "duration": 243,
-      "isOnline": true
+      "duration": 243
     }
   ],
   "Mohit Chauhan": [
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-zIPKC8PK",
+      "id": "cur-cur-mohit-chauhan-tum-se-hi",
       "title": "Tum Se Hi",
       "artist": "Pritam, Mohit Chauhan, Irshad Kamil",
       "movie": "Jab We Met",
       "year": 2007,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/223/7eddc0f9b56f110ae39a145752fabb34_320.mp4",
       "artwork": "https://c.saavncdn.com/223/Jab-We-Met-Hindi-2007-20231016162009-500x500.jpg",
-      "duration": 321,
-      "isOnline": true
+      "duration": 321
     },
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-PCOr94Xj",
+      "id": "cur-cur-mohit-chauhan-pee-loon-from-once-u",
       "title": "Pee Loon (From \"Once Upon A Time In Mumbaai\")",
       "artist": "Mohit Chauhan, Pritam, Irshad Kamil",
       "movie": "Emraan Hashmi Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/106/c7c9cdfc2ea4dcd3388fe15e3eae06c2_320.mp4",
       "artwork": "https://c.saavncdn.com/106/Emraan-Hashmi-Hits-Hindi-2026-20260905191028-500x500.jpg",
-      "duration": 285,
-      "isOnline": true
+      "duration": 285
     },
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-llxluOsu",
+      "id": "cur-cur-mohit-chauhan-pee-loon",
       "title": "Pee Loon",
       "artist": "Pritam, Mohit Chauhan",
       "movie": "Once Upon A Time In Mumbaai",
       "year": 2010,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/512/95ff31ff7ae963c417ec207d7de91f5c_320.mp4",
       "artwork": "https://c.saavncdn.com/512/Once-Upon-A-Time-In-Mumbaai-Hindi-2010-20241223141749-500x500.jpg",
-      "duration": 285,
-      "isOnline": true
+      "duration": 285
     },
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-MElzftLj",
+      "id": "cur-cur-mohit-chauhan-bheegi-si-bhaagi-si",
       "title": "Bheegi Si Bhaagi Si",
       "artist": "Pritam, Mohit Chauhan",
       "movie": "Raajneeti",
       "year": 2010,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/403/64c068bd8bcf21dc29a0e2a165e4b554_320.mp4",
       "artwork": "https://c.saavncdn.com/403/Raajneeti-Hindi-2010-20190617133038-500x500.jpg",
-      "duration": 277,
-      "isOnline": true
+      "duration": 277
     },
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-7gAvqCYP",
+      "id": "cur-cur-mohit-chauhan-bheegi-si-bhaagi-si-",
       "title": "Bheegi Si Bhaagi Si (From \"Raajneeti\")",
       "artist": "Pritam, Mohit Chauhan, Antara Mitra",
       "movie": "Love",
       "year": 2014,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/164/8295ca2858f37a34245c9de5a703aca7_320.mp4",
       "artwork": "https://c.saavncdn.com/164/Love-Hindi-2012-20181211204338-500x500.jpg",
-      "duration": 277,
-      "isOnline": true
+      "duration": 277
     },
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-6ltaX2li",
+      "id": "cur-cur-mohit-chauhan-rang-lageya",
       "title": "Rang Lageya",
       "artist": "Mohit Chauhan, Rochak Kohli",
       "movie": "Rang Lageya",
       "year": 2021,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/861/5eeb61506d78189000c55c0337db4c15_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/861/Rang-Lageya-Hindi-2021-20210315162921-500x500.jpg",
-      "duration": 227,
-      "isOnline": true
+      "duration": 227
     },
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-1025Ddrw",
+      "id": "cur-cur-mohit-chauhan-shree-hanuman-chalis",
       "title": "Shree Hanuman Chalisa (From \"Ramayana\")",
       "artist": "Mohit Chauhan, Rochak Kohli",
       "movie": "Shree Hanuman Chalisa (From \"Ramayana\")",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/856/d4fe055ee37b15832d06388ea4efa533_320.mp4",
       "artwork": "https://c.saavncdn.com/856/Shree-Hanuman-Chalisa-From-Ramayana-Hindi-2026-20261105181326-500x500.jpg",
-      "duration": 418,
-      "isOnline": true
+      "duration": 418
     },
     {
-      "id": "cur-art-mohit-chauhan-mohit-chauhan-saavn-j9-fIMvb",
+      "id": "cur-cur-mohit-chauhan-khuda-bhi",
       "title": "Khuda Bhi",
       "artist": "Tony Kakkar, Mohit Chauhan",
       "movie": "Ek Paheli Leela",
       "year": 2015,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/916/ac5562374c5c9280030019a489ba46ec_320.mp4",
       "artwork": "https://c.saavncdn.com/916/Ek-Paheli-Leela-Hindi-2015-20241211141003-500x500.jpg",
-      "duration": 300,
-      "isOnline": true
+      "duration": 300
     }
   ],
   "Vishal Mishra": [
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-00z4PL4p",
+      "id": "cur-cur-vishal-mishra-deewaniyat-from-ek-d",
       "title": "Deewaniyat (From \"Ek Deewane Ki Deewaniyat\") (Original Motion Picture Soundtrack)",
       "artist": "Vishal Mishra, Kaushik-Guddu, Kunaal Vermaa",
       "movie": "Deewaniyat (From \"Ek Deewane Ki Deewaniyat\") (Original Motion Picture Soundtrack)",
       "year": 2025,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/532/d7593d8cfed94a27457641648bf3dc73_320.mp4",
       "artwork": "https://c.saavncdn.com/532/Deewaniyat-From-Ek-Deewane-Ki-Deewaniyat-Original-Motion-Picture-Soundtrack-Hindi-2025-20250827010315-500x500.jpg",
-      "duration": 257,
-      "isOnline": true
+      "duration": 257
     },
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-dsuUbnye",
+      "id": "cur-cur-vishal-mishra-deewaniyat-from-ek-d",
       "title": "Deewaniyat (From \"Ek Deewane Ki Deewaniyat\") (Original Motion Picture Soundtrack)",
       "artist": "Kunaal Vermaa, Vishal Mishra, Kaushik-Guddu",
       "movie": "Ek Deewane Ki Deewaniyat",
       "year": 2025,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/458/8918f4a82dffd8e7bee7d8eeaf83e7ad_320.mp4",
       "artwork": "https://c.saavncdn.com/458/Ek-Deewane-Ki-Deewaniyat-Hindi-2025-20251028193335-500x500.jpg",
-      "duration": 257,
-      "isOnline": true
+      "duration": 257
     },
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-rnY6_16K",
+      "id": "cur-cur-vishal-mishra-tum-ho-toh-from-saiy",
       "title": "Tum Ho Toh (From \"Saiyaara\")",
       "artist": "Vishal Mishra, Hansika Pareek, Raj Shekhar",
       "movie": "Pyaar, Forever and Ever",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/347/c2095e11b1af20c834087797c012f746_320.mp4",
       "artwork": "https://c.saavncdn.com/347/Pyaar-Forever-and-Ever-Hindi-2026-20260205082719-500x500.jpg",
-      "duration": 318,
-      "isOnline": true
+      "duration": 318
     },
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-lAiLvVyf",
+      "id": "cur-cur-vishal-mishra-jaan-ban-gaye",
       "title": "Jaan Ban Gaye",
       "artist": "Mithoon, Vishal Mishra, Asees Kaur",
       "movie": "Khuda Haafiz",
       "year": 2020,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/480/ae1e6f971bf77319afd0d64afe6aab7d_320.mp4",
       "artwork": "https://c.saavncdn.com/086/Khuda-Haafiz-Hindi-2020-20230620104621-500x500.jpg",
-      "duration": 211,
-      "isOnline": true
+      "duration": 211
     },
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-vRwpHMMg",
+      "id": "cur-cur-vishal-mishra-jaan-ban-gaye",
       "title": "Jaan Ban Gaye",
       "artist": "Mithoon, Vishal Mishra, Asees Kaur",
       "movie": "Soft Romance Bollywood",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/546/bf52319eaa32f3e38ebb2852e1f831b5_320.mp4",
       "artwork": "https://c.saavncdn.com/546/Soft-Romance-Bollywood-Hindi-2026-20260818072225-500x500.jpg",
-      "duration": 211,
-      "isOnline": true
+      "duration": 211
     },
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-_YBF0gg7",
+      "id": "cur-cur-vishal-mishra-jaan-ban-gaye",
       "title": "Jaan Ban Gaye",
       "artist": "Mithoon, Vishal Mishra, Asees Kaur",
       "movie": "Romantic Dance Floor Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/537/010d83e2d72105d3886c3c8ee96af4c7_320.mp4",
       "artwork": "https://c.saavncdn.com/537/Romantic-Dance-Floor-Hits-Hindi-2026-20261021182857-500x500.jpg",
-      "duration": 211,
-      "isOnline": true
+      "duration": 211
     },
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-g5A2caOB",
+      "id": "cur-cur-vishal-mishra-jaan-ban-gaye",
       "title": "Jaan Ban Gaye",
       "artist": "Mithoon, Vishal Mishra, Asees Kaur",
       "movie": "Vishal Mishra Bollywood Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/116/f7ddca1d7984e14846e92f266fb5b75a_320.mp4",
       "artwork": "https://c.saavncdn.com/116/Vishal-Mishra-Bollywood-Hits-Hindi-2026-20260710005256-500x500.jpg",
-      "duration": 211,
-      "isOnline": true
+      "duration": 211
     },
     {
-      "id": "cur-art-vishal-mishra-vishal-mishra-saavn-upO3eGjR",
+      "id": "cur-cur-vishal-mishra-jaan-ban-gaye",
       "title": "Jaan Ban Gaye",
       "artist": "Mithoon, Vishal Mishra, Asees Kaur",
       "movie": "Love Anthems",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/731/b257f3700741225f79d30c7eb9300a2a_320.mp4",
       "artwork": "https://c.saavncdn.com/731/Love-Anthems-Hindi-2026-20260928153113-500x500.jpg",
-      "duration": 211,
-      "isOnline": true
+      "duration": 211
     }
   ],
   "Shaan": [
     {
-      "id": "cur-art-shaan-shaan-saavn-ZU64XusQ",
+      "id": "cur-cur-shaan-chand-sifarish-from-",
       "title": "Chand Sifarish (From \"Fanaa\")",
       "artist": "Jatin-Lalit, Shaan, Kailash Kher, Prasoon Joshi",
       "movie": "Pyaar, Forever and Ever",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/347/b66ce431920b9448e2847f0bd65f16c2_320.mp4",
       "artwork": "https://c.saavncdn.com/347/Pyaar-Forever-and-Ever-Hindi-2026-20260205082719-500x500.jpg",
-      "duration": 275,
-      "isOnline": true
+      "duration": 275
     },
     {
-      "id": "cur-art-shaan-shaan-saavn-WdqMxZ6u",
+      "id": "cur-cur-shaan-chand-sifarish",
       "title": "Chand Sifarish",
       "artist": "Shaan, Kailash Kher",
       "movie": "Fanaa",
       "year": 2006,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/146/53c9ccea6717dc94d957d1f1f5163723_320.mp4",
       "artwork": "https://c.saavncdn.com/146/Fanaa-Hindi-2006-20190329181154-500x500.jpg",
-      "duration": 275,
-      "isOnline": true
+      "duration": 275
     },
     {
-      "id": "cur-art-shaan-shaan-saavn-tr4NvZ3e",
+      "id": "cur-cur-shaan-hey-shona-from-ta-ra",
       "title": "Hey Shona (From \"Ta Ra Rum Pum\")",
       "artist": "Vishal & Shekhar, Shaan, Sunidhi Chauhan, Javed Akhtar",
       "movie": "Pyaar, Forever and Ever",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/347/9cb6f7aca4b37dbc752e8f09b45a2307_320.mp4",
       "artwork": "https://c.saavncdn.com/347/Pyaar-Forever-and-Ever-Hindi-2026-20260205082719-500x500.jpg",
-      "duration": 319,
-      "isOnline": true
+      "duration": 319
     },
     {
-      "id": "cur-art-shaan-shaan-saavn-lXo4UzfQ",
+      "id": "cur-cur-shaan-hey-shona",
       "title": "Hey Shona",
       "artist": "Sunidhi Chauhan, Shaan",
       "movie": "Ta Ra Rum Pum",
       "year": 2007,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/719/7e075daeaad3020a0688c878ee448bbf_320.mp4",
       "artwork": "https://c.saavncdn.com/719/Ta-Ra-Rum-Pum-Hindi-2007-20190329183150-500x500.jpg",
-      "duration": 319,
-      "isOnline": true
+      "duration": 319
     },
     {
-      "id": "cur-art-shaan-shaan-saavn-iq7161Dg",
+      "id": "cur-cur-shaan-mujhe-tumse-mohabbat",
       "title": "Mujhe Tumse Mohabbat Hai (Remix)",
       "artist": "Shreya Ghoshal, Shaan",
       "movie": "Jack N Jill Mix ( Remix )",
       "year": 2004,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/055/4f5ac6d528464e3ea3840263245cbdb0_320.mp4",
       "artwork": "https://c.saavncdn.com/055/Jack-N-Jill-Mix-Remix-2004-500x500.jpg",
-      "duration": 365,
-      "isOnline": true
+      "duration": 365
     },
     {
-      "id": "cur-art-shaan-shaan-saavn-KV6WAkK2",
+      "id": "cur-cur-shaan-mujhe-tumse-mohabbat",
       "title": "Mujhe Tumse Mohabbat Hai (Remix)",
       "artist": "Shreya Ghoshal, Shaan",
       "movie": "Tumsa Nahin Dekha - A Love Story",
       "year": 2004,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/560/54b4f9108b4e88866f31d49fdf60e2f8_sar_320.mp4",
       "artwork": "https://c.saavncdn.com/560/Tumsa-Nahin-Dekha-A-Love-Story-Hindi-2004-500x500.jpg",
-      "duration": 365,
-      "isOnline": true
+      "duration": 365
     },
     {
-      "id": "cur-art-shaan-shaan-saavn-9ZNQqBMi",
+      "id": "cur-cur-shaan-mujhe-tumse-mohabbat",
       "title": "Mujhe Tumse Mohabbat Hai (Remix)",
       "artist": "Shreya Ghoshal, Shaan",
       "movie": "Murder - The Killer Mix",
       "year": 2004,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/595/576f11a4a63189b70fde90f55026b1f1_320.mp4",
       "artwork": "https://c.saavncdn.com/595/Murder-The-Killer-Mix-2004-500x500.jpg",
-      "duration": 365,
-      "isOnline": true
+      "duration": 365
     },
     {
-      "id": "cur-art-shaan-shaan-saavn-VXEssg-w",
+      "id": "cur-cur-shaan-tere-naina-maar-hi-d",
       "title": "Tere Naina Maar Hi Daalenge",
       "artist": "Shaan, Shreya Ghoshal, Shabab Sabri",
       "movie": "Jai Ho",
       "year": 2013,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/876/75cccaab15b169430d140fc4c34b34b4_320.mp4",
       "artwork": "https://c.saavncdn.com/876/Jai-Ho-2013-500x500.jpg",
-      "duration": 300,
-      "isOnline": true
+      "duration": 300
     }
   ],
   "Shankar Mahadevan": [
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-ZIMh-Qq7",
+      "id": "cur-cur-shankar-mahadevan-hanuman-chalisa-by-s",
       "title": "Hanuman Chalisa by Shankar Mahadevan",
       "artist": "Shankar Mahadevan",
       "movie": "Hanuman Chalisa",
       "year": 2022,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/780/bc91e8b98e217169b2d2d9afbacf525d_320.mp4",
       "artwork": "https://c.saavncdn.com/780/Hanuman-Chalisa-Hindi-2022-20220614215623-500x500.jpg",
-      "duration": 613,
-      "isOnline": true
+      "duration": 613
     },
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-f7T139yP",
+      "id": "cur-cur-shankar-mahadevan-hanuman-chalisa-fast",
       "title": "Hanuman Chalisa Fast by Shankar Mahadevan",
       "artist": "Shankar Mahadevan",
       "movie": "Hanuman Chalisa Fast",
       "year": 2022,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/375/54d2db43159c9579d5197e636788a5e5_320.mp4",
       "artwork": "https://c.saavncdn.com/375/Hanuman-Chalisa-Fast-Hindi-2022-20230103112016-500x500.jpg",
-      "duration": 301,
-      "isOnline": true
+      "duration": 301
     },
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-SYB3qZML",
+      "id": "cur-cur-shankar-mahadevan-gayatri-mantra-loung",
       "title": "Gayatri Mantra (Lounge Mix)",
       "artist": "Shankar Mahadevan",
       "movie": "Shankar Mahadevan Devotional Songs",
       "year": 2024,
       "language": "Sanskrit",
-      "category": "Sanskrit",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/495/e3592ac0c697594140afd34b45b3bfed_320.mp4",
       "artwork": "https://c.saavncdn.com/495/Shankar-Mahadevan-Devotional-Songs-Hindi-2024-20241210122152-500x500.jpg",
-      "duration": 326,
-      "isOnline": true
+      "duration": 326
     },
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-qn50ItUC",
+      "id": "cur-cur-shankar-mahadevan-om-namah-shivay",
       "title": "Om Namah Shivay",
       "artist": "Shankar Mahadevan",
       "movie": "My Devotional Favourites - Shankar Mahadevan",
       "year": 2014,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/769/a1351efd9aa40eb1d9e18a0dd4fec08f_320.mp4",
       "artwork": "https://c.saavncdn.com/769/My-Devotional-Favourites-Shankar-Mahadevan-Hindi-2014-500x500.jpg",
-      "duration": 509,
-      "isOnline": true
+      "duration": 509
     },
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-iRRU62x-",
+      "id": "cur-cur-shankar-mahadevan-aasai-aasai-from-dho",
       "title": "Aasai Aasai (From \"Dhol\")",
       "artist": "Vidyasagar, Shankar Mahadevan, Sujatha Mohan, Kabilan",
       "movie": "Hits Of Shankar Mahadevan",
       "year": 2026,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/186/02089fe7d305ab6de5f86d46fbc0693a_320.mp4",
       "artwork": "https://c.saavncdn.com/186/Hits-Of-Shankar-Mahadevan-Tamil-2026-20260207053937-500x500.jpg",
-      "duration": 320,
-      "isOnline": true
+      "duration": 320
     },
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-Z0uZdEsX",
+      "id": "cur-cur-shankar-mahadevan-gayatri-mantra-loung",
       "title": "Gayatri Mantra Lounge Mix",
       "artist": "Shankar Mahadevan",
       "movie": "My Devotional Favourites 2 - Shankar Mahadevan",
       "year": 2015,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/260/81e91c2ec9f6821152e7793e4d231159_320.mp4",
       "artwork": "https://c.saavncdn.com/260/My-Devotional-Favourites-2-Shankar-Mahadevan-Hindi-2015-500x500.jpg",
-      "duration": 327,
-      "isOnline": true
+      "duration": 327
     },
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-stjjkO3y",
+      "id": "cur-cur-shankar-mahadevan-mun-paniya-from-nand",
       "title": "Mun Paniya (From \"Nandhaa\")",
       "artist": "Yuvan Shankar Raja, S. P. Balasubrahmanyam, Malgudi Shubha, Pazhani Bharathi",
       "movie": "S.P.B And Shankar Mahadevan Hits",
       "year": 2026,
       "language": "Tamil",
-      "category": "Tamil",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/214/746ba47de6f108dd04faffb56ba1e98c_320.mp4",
       "artwork": "https://c.saavncdn.com/214/S-P-B-And-Shankar-Mahadevan-Hits-Tamil-2026-20260207054605-500x500.jpg",
-      "duration": 340,
-      "isOnline": true
+      "duration": 340
     },
     {
-      "id": "cur-art-shankar-mahadevan-shankar-mahadevan-saavn-KThnXnzu",
+      "id": "cur-cur-shankar-mahadevan-aarti-kije-hanuman-l",
       "title": "Aarti Kije Hanuman Lala Ki - Hanuman Aarti",
       "artist": "Shankar Mahadevan",
       "movie": "Devotional Hits - Shankar Mahadevan",
       "year": 2024,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/198/886d472c61d3e549beb565356651261f_320.mp4",
       "artwork": "https://c.saavncdn.com/198/Devotional-Hits-Shankar-Mahadevan-Sanskrit-2024-20240530123255-500x500.jpg",
-      "duration": 378,
-      "isOnline": true
+      "duration": 378
     }
   ],
   "Asha Bhosle": [
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-Cy77H8bt",
+      "id": "cur-cur-asha-bhosle-kisi-nazar-ko-tera-i",
       "title": "Kisi Nazar Ko Tera Intezar (From \"Aitbaar\")",
       "artist": "Hasan Kamal, Bappi Lahiri, Asha Bhosle, Bhupinder",
       "movie": "Bollywood Classic Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/066/36e7213eb93a868b001398ecc58e5c0e_320.mp4",
       "artwork": "https://c.saavncdn.com/066/Bollywood-Classic-Hits-Hindi-2026-20260423161003-500x500.jpg",
-      "duration": 401,
-      "isOnline": true
+      "duration": 401
     },
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-AZjOOEyI",
+      "id": "cur-cur-asha-bhosle-pyar-kabhi-kam-nahi-",
       "title": "Pyar Kabhi Kam Nahi Karna (From \"Prem Pratigyaa\")",
       "artist": "Indeevar, Bappi Lahiri, Asha Bhosle",
       "movie": "Bollywood Classic Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/066/265024120ab7f44336ab634f085b01df_320.mp4",
       "artwork": "https://c.saavncdn.com/066/Bollywood-Classic-Hits-Hindi-2026-20260423161003-500x500.jpg",
-      "duration": 429,
-      "isOnline": true
+      "duration": 429
     },
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-LQauHSRT",
+      "id": "cur-cur-asha-bhosle-nach-baby-nach-kudi-",
       "title": "Nach Baby Nach Kudi (From \"Khauff\")",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Bollywood Classic Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/066/a385f66d7fbff384f3047b120786c44e_320.mp4",
       "artwork": "https://c.saavncdn.com/066/Bollywood-Classic-Hits-Hindi-2026-20260423161003-500x500.jpg",
-      "duration": 448,
-      "isOnline": true
+      "duration": 448
     },
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-J8pNP7K9",
+      "id": "cur-cur-asha-bhosle-the-classic-series-a",
       "title": "The Classic Series - Anand Bakshi Special",
       "artist": "Lata Mangeshkar, Kishore Kumar, Asha Bhosle, Anuradha Paudwal",
       "movie": "The Classic Series - Anand Bakshi Special",
       "year": 2020,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/711/cfb3cdd0fc6ec88ca5d67e364401f2eb_320.mp4",
       "artwork": "https://c.saavncdn.com/711/The-Classic-Series-Anand-Bakshi-Special-Hindi-2020-20200721021510-500x500.jpg",
-      "duration": 1872,
-      "isOnline": true
+      "duration": 1872
     },
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-21dGNylC",
+      "id": "cur-cur-asha-bhosle-kehdoon-tumhen-from-",
       "title": "Kehdoon Tumhen (From \"Deewaar\")",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Classic Bollywood",
       "year": 2023,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/076/97e9f8d3011c383ad6a6c8afeabb0d52_320.mp4",
       "artwork": "https://c.saavncdn.com/076/Classic-Bollywood-Hindi-2023-20260626144043-500x500.jpg",
-      "duration": 221,
-      "isOnline": true
+      "duration": 221
     },
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-CXJWQYrP",
+      "id": "cur-cur-asha-bhosle-yeh-vaada-raha-tu-tu",
       "title": "Yeh Vaada Raha (Tu Tu Hai Wahi / From “Yeh Vaada Raha”)",
       "artist": "Asha Bhosle, Mohammed Rafi",
       "movie": "Classic Bollywood",
       "year": 2023,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/076/9f412f8a38740a8cff457996372a8b09_320.mp4",
       "artwork": "https://c.saavncdn.com/076/Classic-Bollywood-Hindi-2023-20260626144043-500x500.jpg",
-      "duration": 409,
-      "isOnline": true
+      "duration": 409
     },
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-zaUfgl52",
+      "id": "cur-cur-asha-bhosle-meri-sanson-mein-tum",
       "title": "Meri Sanson Mein Tum",
       "artist": "Asha Bhosle, Kumar Sanu",
       "movie": "Classic Love Songs - Vol. 6",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/200/78b5bf596bd263be40bdb15b2bf54cbf_320.mp4",
       "artwork": "https://c.saavncdn.com/200/Classic-Love-Songs-Vol-6-Hindi-2012-500x500.jpg",
-      "duration": 268,
-      "isOnline": true
+      "duration": 268
     },
     {
-      "id": "cur-art-asha-bhosle-asha-bhosle-saavn-HstOu0wt",
+      "id": "cur-cur-asha-bhosle-jeevan-ke-har-mod-pe",
       "title": "Jeevan Ke Har Mod Pe Mil Jayenge",
       "artist": "Asha Bhosle, Kishore Kumar",
       "movie": "Classic Love Songs - Vol. 4",
       "year": 2012,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/198/c6419aa382fb8e9829471ffd1c453e9e_320.mp4",
       "artwork": "https://c.saavncdn.com/000/default_Saregama-500x500.jpg",
-      "duration": 400,
-      "isOnline": true
+      "duration": 400
     }
   ],
   "Neha Kakkar": [
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-UwJyV3xC",
+      "id": "cur-cur-neha-kakkar-party-shoes",
       "title": "Party Shoes",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "Bindaas (Original Motion Picture Soundtrack)",
       "year": 2014,
       "language": "Bengali",
-      "category": "Bengali",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/650/6b2997ca5802a89d03634d972e867583_320.mp4",
       "artwork": "https://c.saavncdn.com/650/Bindaas-Original-Motion-Picture-Soundtrack-Bengali-2014-20251216013603-500x500.jpg",
-      "duration": 225,
-      "isOnline": true
+      "duration": 225
     },
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-abkzJas5",
+      "id": "cur-cur-neha-kakkar-kala-chashma",
       "title": "Kala Chashma",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "Party Starters",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/137/f36d12c38d3284a96b178dd988596656_320.mp4",
       "artwork": "https://c.saavncdn.com/137/Party-Starters-Hindi-2026-20260730190753-500x500.jpg",
-      "duration": 187,
-      "isOnline": true
+      "duration": 187
     },
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-v5GtbXhI",
+      "id": "cur-cur-neha-kakkar-kala-chashma",
       "title": "Kala Chashma",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "Weekend Party",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/762/e13e44613373999f130b095640a5d017_320.mp4",
       "artwork": "https://c.saavncdn.com/762/Weekend-Party-Hindi-2026-20260925004331-500x500.jpg",
-      "duration": 187,
-      "isOnline": true
+      "duration": 187
     },
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-_FFQyrKf",
+      "id": "cur-cur-neha-kakkar-kala-chashma",
       "title": "Kala Chashma",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "Ultimate Dandiya Party",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/752/cff60802f3c8af7008801778907b57d1_320.mp4",
       "artwork": "https://c.saavncdn.com/752/Ultimate-Dandiya-Party-Hindi-2026-20261009084103-500x500.jpg",
-      "duration": 187,
-      "isOnline": true
+      "duration": 187
     },
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-oK1NKyCm",
+      "id": "cur-cur-neha-kakkar-kala-chashma",
       "title": "Kala Chashma",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "House Party Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/811/57652b40dffd44e32cbd886f4f5f6f2b_320.mp4",
       "artwork": "https://c.saavncdn.com/811/House-Party-Hits-Hindi-2026-20260508130720-500x500.jpg",
-      "duration": 187,
-      "isOnline": true
+      "duration": 187
     },
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-iiIfOFtY",
+      "id": "cur-cur-neha-kakkar-kala-chashma",
       "title": "Kala Chashma",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "Holi Party Mix",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/455/343d8d7e601e08ea3a41d7cf539a1e91_320.mp4",
       "artwork": "https://c.saavncdn.com/455/Holi-Party-Mix-Hindi-2026-20260226192255-500x500.jpg",
-      "duration": 187,
-      "isOnline": true
+      "duration": 187
     },
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-fhgSh9QQ",
+      "id": "cur-cur-neha-kakkar-kala-chashma",
       "title": "Kala Chashma",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "Diwali Party Mix",
       "year": 2025,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/872/3e42a911db2339dcf92694572ea1b495_320.mp4",
       "artwork": "https://c.saavncdn.com/872/Diwali-Party-Mix-Hindi-2025-20251226211740-500x500.jpg",
-      "duration": 187,
-      "isOnline": true
+      "duration": 187
     },
     {
-      "id": "cur-art-neha-kakkar-neha-kakkar-saavn-Em_wYu6A",
+      "id": "cur-cur-neha-kakkar-kala-chashma",
       "title": "Kala Chashma",
       "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
       "movie": "Bollywood Zumba Party",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/303/61e55ce1608293f7b00914df28b62f0f_320.mp4",
       "artwork": "https://c.saavncdn.com/303/Bollywood-Zumba-Party-Hindi-2026-20260623182740-500x500.jpg",
-      "duration": 187,
-      "isOnline": true
+      "duration": 187
     }
   ],
   "Mika Singh": [
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-G-9NPBCh",
+      "id": "cur-cur-mika-singh-party-to-banti-hai",
       "title": "Party To Banti Hai",
       "artist": "Mika Singh, Meet Bros Anjjan",
       "movie": "Bhoothnath Returns",
       "year": 2014,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/401/d610f8287c5f3cfabb85c2d37ae5e1b3_320.mp4",
       "artwork": "https://c.saavncdn.com/401/Bhoothnath-Returns-2014-500x500.jpg",
-      "duration": 260,
-      "isOnline": true
+      "duration": 260
     },
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-r15uFj_2",
+      "id": "cur-cur-mika-singh-aaj-ki-party",
       "title": "Aaj Ki Party",
       "artist": "Jassie Gill, Badshah, Mika Singh, Kanika Kapoor, Yo Yo Honey Singh, Simar Kaur, Ishers, Sharry Mann, Gupz Sehra, Ravneet Singh, Neeti Mohan, Arjun, Sukh-E Muzical Doctorz, Guru Randhawa, B Praak, Superbia Gourov-Roshin-Shaan, Abhijit Vaghani, Jaidev Kumar, Sajid-Wajid, Anand Raaj Anand, Mista Baaz, Vee, Rajat Nagpal, Intense, Manj Musik",
       "movie": "Bajrangi Bhaijaan",
       "year": 2015,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/128/ed732f0c2707799758caad00eeb7d92d_320.mp4",
       "artwork": "https://c.saavncdn.com/128/Bajrangi-Bhaijaan-Hindi-2015-20260724191009-500x500.jpg",
-      "duration": 280,
-      "isOnline": true
+      "duration": 280
     },
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-AFZgweBi",
+      "id": "cur-cur-mika-singh-party-chale-on",
       "title": "Party Chale On",
       "artist": "Jassie Gill, Badshah, Mika Singh, Kanika Kapoor, Yo Yo Honey Singh, Simar Kaur, Ishers, Sharry Mann, Gupz Sehra, Ravneet Singh, Neeti Mohan, Arjun, Sukh-E Muzical Doctorz, Guru Randhawa, B Praak, Superbia Gourov-Roshin-Shaan, Abhijit Vaghani, Jaidev Kumar, Sajid-Wajid, Anand Raaj Anand, Mista Baaz, Vee, Rajat Nagpal, Intense, Manj Musik",
       "movie": "Race 3",
       "year": 2018,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/628/fa0874ef9de3397e92816a84cce4ffcf_320.mp4",
       "artwork": "https://c.saavncdn.com/628/Race-3-Hindi-2018-20240408213810-500x500.jpg",
-      "duration": 240,
-      "isOnline": true
+      "duration": 240
     },
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-4g9f_300",
+      "id": "cur-cur-mika-singh-bhasad-macha",
       "title": "Bhasad Macha",
       "artist": "Meet Bros Anjjan, Mika Singh",
       "movie": "Weekend Party",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/762/aa79e2b03b8475bdd9fecf7cace6da70_320.mp4",
       "artwork": "https://c.saavncdn.com/762/Weekend-Party-Hindi-2026-20260925004331-500x500.jpg",
-      "duration": 201,
-      "isOnline": true
+      "duration": 201
     },
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-oAmENzDx",
+      "id": "cur-cur-mika-singh-bhasad-macha",
       "title": "Bhasad Macha",
       "artist": "Meet Bros Anjjan, Mika Singh",
       "movie": "Holi Party Mix",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/455/dac7ffaa9f90456d4bd6027331fb6caa_320.mp4",
       "artwork": "https://c.saavncdn.com/455/Holi-Party-Mix-Hindi-2026-20260226192255-500x500.jpg",
-      "duration": 201,
-      "isOnline": true
+      "duration": 201
     },
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-3PL6TkDM",
+      "id": "cur-cur-mika-singh-bhasad-macha",
       "title": "Bhasad Macha",
       "artist": "Meet Bros Anjjan, Mika Singh",
       "movie": "Hindi Party Vibes",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/313/0aba412df232c485d155b64e0b155cfc_320.mp4",
       "artwork": "https://c.saavncdn.com/313/Hindi-Party-Vibes-Hindi-2026-20260521184952-500x500.jpg",
-      "duration": 201,
-      "isOnline": true
+      "duration": 201
     },
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-F6w4WEi-",
+      "id": "cur-cur-mika-singh-dhingana",
       "title": "Dhingana",
       "artist": "Meet Bros Anjjan, Mika Singh",
       "movie": "Eid Mubarak - Party Hits",
       "year": 2026,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/121/e74ba3f20bd4ff21ee7a8c1842780ae8_320.mp4",
       "artwork": "https://c.saavncdn.com/121/Eid-Mubarak-Party-Hits-Hindi-2026-20260313183145-500x500.jpg",
-      "duration": 166,
-      "isOnline": true
+      "duration": 166
     },
     {
-      "id": "cur-art-mika-singh-mika-singh-saavn-nv5gKUwP",
+      "id": "cur-cur-mika-singh-house-party-mix-2022",
       "title": "House Party Mix (2022)",
       "artist": "DJ Kiran Kamath, OAFF, Savera, Lothika, Tanishk Bagchi, Rashmi-Virag, Shalmali, Jaani, Lijo George-Dj Chetas, Lisa Mishra, Sukh-E Muzical Doctorz, Mika Singh, Neha Kakkar, Sachin-Jigar, Mitraz, Darshan Raval",
       "movie": "House Party Mix (2022)",
       "year": 2022,
       "language": "Hindi",
-      "category": "Hindi",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/858/5852cf61da0dd96cd0ed5ca5c4b948f3_320.mp4",
       "artwork": "https://c.saavncdn.com/858/House-Party-Mix-2022-Hindi-2022-20221221171334-500x500.jpg",
-      "duration": 236,
-      "isOnline": true
+      "duration": 236
     }
   ],
   "Revanth": [
     {
-      "id": "cur-art-revanth-revanth-saavn-INCrQSKw",
+      "id": "cur-cur-revanth-manohari-from-baahub",
       "title": "Manohari (From \"Baahubali - The Beginning\")",
       "artist": "Mohana Bhogaraju, Revanth",
       "movie": "Telugu Party Songs",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/703/70377aa69a058c565f1dddad972ea015_320.mp4",
       "artwork": "https://c.saavncdn.com/703/Telugu-Party-Songs-Telugu-2025-20251230130001-500x500.jpg",
-      "duration": 216,
-      "isOnline": true
+      "duration": 216
     },
     {
-      "id": "cur-art-revanth-revanth-saavn-bCkBg2yO",
+      "id": "cur-cur-revanth-manohari-from-baahub",
       "title": "Manohari (From \"Baahubali - The Beginning\")",
       "artist": "Mohana Bhogaraju, Revanth",
       "movie": "Prabhas Birthday Special Songs",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/492/8f4a7280c7137cfe24a0b1cd4310f2a9_320.mp4",
       "artwork": "https://c.saavncdn.com/492/Prabhas-Birthday-Special-Songs-Telugu-2025-20251023173001-500x500.jpg",
-      "duration": 216,
-      "isOnline": true
+      "duration": 216
     },
     {
-      "id": "cur-art-revanth-revanth-saavn-WOVjbSrV",
+      "id": "cur-cur-revanth-manohari",
       "title": "Manohari",
       "artist": "Mohana Bhogaraju, Revanth",
       "movie": "Baahubali - The Beginning (Telugu)",
       "year": 2015,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/301/0f681e3f10be2861001857ac9fc4da56_320.mp4",
       "artwork": "https://c.saavncdn.com/301/Baahubali-The-Beginning-Telugu-2015-20251028160018-500x500.jpg",
-      "duration": 216,
-      "isOnline": true
+      "duration": 216
     },
     {
-      "id": "cur-art-revanth-revanth-saavn-3c-Mne-5",
+      "id": "cur-cur-revanth-telisiney-na-nuvvey",
       "title": "Telisiney Na Nuvvey",
       "artist": "Revanth",
       "movie": "Arjun Reddy",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/630/7655fe13643d8f86292c36aa2c2d3898_320.mp4",
       "artwork": "https://c.saavncdn.com/630/Arjun-Reddy-Telugu-2017-20200817233242-500x500.jpg",
-      "duration": 252,
-      "isOnline": true
+      "duration": 252
     },
     {
-      "id": "cur-art-revanth-revanth-saavn-94kkz-1c",
+      "id": "cur-cur-revanth-luckkanna-mate-nillu",
       "title": "Luckkanna Mate Nillu",
       "artist": "Revanth",
       "movie": "Raghuvaran B.Tech",
       "year": 2014,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/252/d8d606f840981fc44ecb5b039fef8cbd_320.mp4",
       "artwork": "https://c.saavncdn.com/252/Raghuvaran-B-Tech-Telugu-2014-500x500.jpg",
-      "duration": 211,
-      "isOnline": true
+      "duration": 211
     },
     {
-      "id": "cur-art-revanth-revanth-saavn-Nix5un4o",
+      "id": "cur-cur-revanth-i-wanna-fly-from-kri",
       "title": "I Wanna Fly (From \"Krishnarjuna Yudham\")",
       "artist": "Revanth, Sanjith Hegde, Hiphop Tamizha, Sreejo",
       "movie": "Joshful Hits Of Singer Revanth",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/278/f69aa170b447799981e352258830799f_320.mp4",
       "artwork": "https://c.saavncdn.com/278/Joshful-Hits-Of-Singer-Revanth-Telugu-2026-20260207181135-500x500.jpg",
-      "duration": 238,
-      "isOnline": true
+      "duration": 238
     },
     {
-      "id": "cur-art-revanth-revanth-saavn-POc2r3c5",
+      "id": "cur-cur-revanth-i-wanna-fly",
       "title": "I Wanna Fly",
       "artist": "Revanth, Sanjith Hegde, Hiphop Tamizha",
       "movie": "Krishnarjuna Yudham",
       "year": 2018,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/093/5645e3886d3459fe7ccd4a60fc5c5341_320.mp4",
       "artwork": "https://c.saavncdn.com/093/Krishnarjuna-Yudham-Telugu-2018-20250815001004-500x500.jpg",
-      "duration": 238,
-      "isOnline": true
+      "duration": 238
     },
     {
-      "id": "cur-art-revanth-revanth-saavn-JSfRnWEm",
+      "id": "cur-cur-revanth-love-song-telugu",
       "title": "Love Song - Telugu",
       "artist": "Revanth, Sahithi Chaganti",
       "movie": "Kannappa (Telugu)",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/161/c0166efb4e55b698d6277234b9f1f3cc_320.mp4",
       "artwork": "https://c.saavncdn.com/161/Kannappa-Telugu-Telugu-2025-20250628001120-500x500.jpg",
-      "duration": 254,
-      "isOnline": true
+      "duration": 254
     }
   ],
   "Rahul Sipligunj": [
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-xmHqgZnz",
+      "id": "cur-cur-rahul-sipligunj-vaastu-bagunde",
       "title": "Vaastu Bagunde",
       "artist": "M.M. Keeravani, Rahul Sipligunj, Sravana Bhargavi, Shivani, Chandra Bose",
       "movie": "Dhammu",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/381/40a4bcc5664a84d5586459554d617fd0_320.mp4",
       "artwork": "https://c.saavncdn.com/381/Dhammu-Original-Motion-Picture-Soundtrack--Telugu-2012-20211102183925-500x500.jpg",
-      "duration": 272,
-      "isOnline": true
+      "duration": 272
     },
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-3Pzypbvr",
+      "id": "cur-cur-rahul-sipligunj-mawaa-enthaina",
       "title": "Mawaa Enthaina",
       "artist": "Thaman S, Sri Krishna, Ramachari, Rahul Sipligunj",
       "movie": "Guntur Kaaram",
       "year": 2023,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/000/b7ff00116f93467739164b39d1200783_320.mp4",
       "artwork": "https://c.saavncdn.com/000/Guntur-Kaaram-Telugu-2023-20240126145901-500x500.jpg",
-      "duration": 151,
-      "isOnline": true
+      "duration": 151
     },
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-AKlqM6AM",
+      "id": "cur-cur-rahul-sipligunj-bombhaat",
       "title": "Bombhaat",
       "artist": "Rahul Sipligunj, Ramya Behara",
       "movie": "LIE",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/484/af039cf333b0092aab8e5ad8151e9765_320.mp4",
       "artwork": "https://c.saavncdn.com/484/LIE-Telugu-2017-20170805135427-500x500.jpg",
-      "duration": 243,
-      "isOnline": true
+      "duration": 243
     },
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-eQj6McL4",
+      "id": "cur-cur-rahul-sipligunj-naatu-naatu-from-rrr",
       "title": "Naatu Naatu (From \"Rrr\")",
       "artist": "Rahul Sipligunj, Kaala Bhairava, M.M. Keeravaani, Chandrabose",
       "movie": "Tollywood Patriotic Songs 2026",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/860/e29c4baeee8304e808f69413de4264d0_320.mp4",
       "artwork": "https://c.saavncdn.com/860/Tollywood-Patriotic-Songs-2026-Telugu-2026-20260122191005-500x500.jpg",
-      "duration": 214,
-      "isOnline": true
+      "duration": 214
     },
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-EHi1S4Su",
+      "id": "cur-cur-rahul-sipligunj-naatu-naatu-from-rrr",
       "title": "Naatu Naatu (From \"Rrr\")",
       "artist": "Rahul Sipligunj, Kaala Bhairava",
       "movie": "Lets Celebrate With Superhit Songs",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/939/8e48082eb8f4b40d0851f10c5e828025_320.mp4",
       "artwork": "https://c.saavncdn.com/939/Lets-Celebrate-With-Superhit-Songs-Telugu-2025-20251015181129-500x500.jpg",
-      "duration": 214,
-      "isOnline": true
+      "duration": 214
     },
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-faS3xnb0",
+      "id": "cur-cur-rahul-sipligunj-naatu-naatu-from-rrr",
       "title": "Naatu Naatu (From \"Rrr\")",
       "artist": "Rahul Sipligunj, Kaala Bhairava, M.M. Keeravaani, Chandrabose",
       "movie": "Global Star  - Ram Charan Superhit Song Collection",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/806/baf8fca46e011773009247ba89c1784b_320.mp4",
       "artwork": "https://c.saavncdn.com/806/Global-Star-Ram-Charan-Superhit-Song-Collection-Telugu-2026-20260324181027-500x500.jpg",
-      "duration": 214,
-      "isOnline": true
+      "duration": 214
     },
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-TuIiVvYo",
+      "id": "cur-cur-rahul-sipligunj-naatu-naatu-from-rrr",
       "title": "Naatu Naatu (From \"Rrr\")",
       "artist": "Rahul Sipligunj, Kaala Bhairava, M.M. Keeravaani, Chandrabose",
       "movie": "Master Class M.M. Keeravaani Superhit Hits",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/111/03fb53c4d3630e7572783d52c6003620_320.mp4",
       "artwork": "https://c.saavncdn.com/111/Master-Class-M-M-Keeravaani-Superhit-Hits-Telugu-2026-20260708191144-500x500.jpg",
-      "duration": 214,
-      "isOnline": true
+      "duration": 214
     },
     {
-      "id": "cur-art-rahul-sipligunj-rahul-sipligunj-saavn-YtjHMtBS",
+      "id": "cur-cur-rahul-sipligunj-naatu-naatu-from-rrr",
       "title": "Naatu Naatu (From \"Rrr\")",
       "artist": "Rahul Sipligunj, Kaala Bhairava",
       "movie": "Top 10 Dance Dhamaka Hits",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/915/748c782c98a5163bd5c5423fae30dadb_320.mp4",
       "artwork": "https://c.saavncdn.com/915/Top-10-Dance-Dhamaka-Hits-Telugu-2025-20251014181041-500x500.jpg",
-      "duration": 214,
-      "isOnline": true
+      "duration": 214
     }
   ],
   "Ramya Behara": [
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-fs2KYPk9",
+      "id": "cur-cur-ramya-behara-hey-rangule",
       "title": "Hey Rangule",
       "artist": "Ramajogayya Sastry, G.V. Prakash Kumar, Ramya Behara",
       "movie": "Amaran (Telugu)",
       "year": 2024,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/993/cb5a67f801f5710e78867b57798b93b1_320.mp4",
       "artwork": "https://c.saavncdn.com/993/Amaran-Telugu-Tamil-2024-20241203174234-500x500.jpg",
-      "duration": 229,
-      "isOnline": true
+      "duration": 229
     },
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-9rWEA-Y1",
+      "id": "cur-cur-ramya-behara-kung-fu-kumaari",
       "title": "Kung Fu Kumaari",
       "artist": "Deepak, Ramya Behara",
       "movie": "Telugu Dance Mix",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/785/f2dee9b054313e06e662417bd8f674e2_320.mp4",
       "artwork": "https://c.saavncdn.com/785/Telugu-Dance-Mix-Telugu-2026-20260730190748-500x500.jpg",
-      "duration": 266,
-      "isOnline": true
+      "duration": 266
     },
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-g3bY-sbr",
+      "id": "cur-cur-ramya-behara-kung-fu-kumaari",
       "title": "Kung Fu Kumaari",
       "artist": "Deepak, Ramya Behara",
       "movie": "Trending Telugu Vibes",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/420/203f9c8fe5f01b88d5620ec978766752_320.mp4",
       "artwork": "https://c.saavncdn.com/420/Trending-Telugu-Vibes-Telugu-2026-20260901053710-500x500.jpg",
-      "duration": 266,
-      "isOnline": true
+      "duration": 266
     },
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-_W7SsD_M",
+      "id": "cur-cur-ramya-behara-kung-fu-kumaari",
       "title": "Kung Fu Kumaari",
       "artist": "Deepak, Ramya Behara",
       "movie": "Bruce Lee",
       "year": 2018,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/023/7c831d5bbb539753fda26618c03cabbc_320.mp4",
       "artwork": "https://c.saavncdn.com/023/Bruce-Lee-Telugu-2018-20180516-500x500.jpg",
-      "duration": 266,
-      "isOnline": true
+      "duration": 266
     },
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-p6Vig68a",
+      "id": "cur-cur-ramya-behara-veyi-naamaala-vaada",
       "title": "Veyi Naamaala Vaada",
       "artist": "Ramya Behara",
       "movie": "Om Namo Venkatesaya",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/269/a6382464f0ed08ab3fef863be46c9d80_320.mp4",
       "artwork": "https://c.saavncdn.com/269/Om-Namo-Venkatesaya-Telugu-2017-20250819144315-500x500.jpg",
-      "duration": 290,
-      "isOnline": true
+      "duration": 290
     },
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-FEkLm7Yl",
+      "id": "cur-cur-ramya-behara-hey-manasendukila",
       "title": "Hey Manasendukila",
       "artist": "Armaan Malik, Ramya Behara",
       "movie": "Ichata Vahanumulu Niluparadu",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/null/4933390e27c0284fdf728b31fee73543_320.mp4",
       "artwork": "https://c.saavncdn.com/000/Ichata-Vahanumulu-Niluparadu-Telugu-2021-20210820211922-500x500.jpg",
-      "duration": 256,
-      "isOnline": true
+      "duration": 256
     },
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-vbfvwR6K",
+      "id": "cur-cur-ramya-behara-oh-sita-hey-rama",
       "title": "Oh Sita Hey Rama",
       "artist": "Vishal Chandrashekhar, S.P. Charan, Ramya Behara, Anantha Sriram",
       "movie": "Sita Ramam (Telugu)",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/041/b23ca4567cf297346700b5135c0f0bfe_320.mp4",
       "artwork": "https://c.saavncdn.com/041/Sita-Ramam-Telugu-Original-Motion-Picture-Soundtrack-Telugu-2022-20220802140738-500x500.jpg",
-      "duration": 246,
-      "isOnline": true
+      "duration": 246
     },
     {
-      "id": "cur-art-ramya-behara-ramya-behara-saavn-qL7iNa6k",
+      "id": "cur-cur-ramya-behara-emo-emo-idi-from-emo",
       "title": "Emo Emo Idi (From \"Emo Emo Idi\")",
       "artist": "Vishal Chandrashekhar, S.P. Charan, Ramya Behara, Anantha Sriram",
       "movie": "Emo Emo Idi (From \"Emo Emo Idi\")",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/901/d63f95fedb6df153c4774cdae4eb58ef_320.mp4",
       "artwork": "https://c.saavncdn.com/901/Emo-Emo-Idi-From-Emo-Emo-Idi-Telugu-2026-20260929115347-500x500.jpg",
-      "duration": 244,
-      "isOnline": true
+      "duration": 244
     }
   ],
   "Vijay Yesudas": [
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-NCRg87a1",
+      "id": "cur-cur-vijay-yesudas-evare",
       "title": "Evare",
       "artist": "Vijay Yesudas",
       "movie": "Premam",
       "year": 2016,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/121/474e2fa83b583a9a4ccee850e0fd5bc1_320.mp4",
       "artwork": "https://c.saavncdn.com/121/Premam2-Telugu-2016-500x500.jpg",
-      "duration": 309,
-      "isOnline": true
+      "duration": 309
     },
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-fJn4P1Si",
+      "id": "cur-cur-vijay-yesudas-e-therugananu",
       "title": "E Therugananu",
       "artist": "Vijay Yesudas",
       "movie": "Sri Ramadasu",
       "year": 2006,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/836/a8dc7baac37ffba2000c2f7ecdaa2b57_320.mp4",
       "artwork": "https://c.saavncdn.com/836/Sri-Ramadasu-2006-500x500.jpg",
-      "duration": 127,
-      "isOnline": true
+      "duration": 127
     },
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-siCUBYoc",
+      "id": "cur-cur-vijay-yesudas-allah",
       "title": "Allah",
       "artist": "Shankar Mahadevan, Vijay Yesudas",
       "movie": "Sri Ramadasu",
       "year": 2006,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/836/303391c23f2c118ac0e74bcae2099529_320.mp4",
       "artwork": "https://c.saavncdn.com/836/Sri-Ramadasu-2006-500x500.jpg",
-      "duration": 259,
-      "isOnline": true
+      "duration": 259
     },
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-ukBOORbP",
+      "id": "cur-cur-vijay-yesudas-nee-kanti-choopullo-",
       "title": "Nee Kanti Choopullo (From \"Legend\")",
       "artist": "Shankar Mahadevan, Vijay Yesudas",
       "movie": "Valentine Week Promise Day Telugu Hits",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/307/16615ac96dd87e4f45d317218ed895da_320.mp4",
       "artwork": "https://c.saavncdn.com/307/Valentine-Week-Promise-Day-Telugu-Hits-Telugu-2026-20260213113001-500x500.jpg",
-      "duration": 244,
-      "isOnline": true
+      "duration": 244
     },
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-iKf3ygJC",
+      "id": "cur-cur-vijay-yesudas-nee-kanti-choopullo",
       "title": "Nee Kanti Choopullo",
       "artist": "Shankar Mahadevan, Vijay Yesudas",
       "movie": "Legend",
       "year": 2014,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/480/3b632a33f4998dff54e692697cc72fea_320.mp4",
       "artwork": "https://c.saavncdn.com/480/Legend-Telugu-2014-20231017182810-500x500.jpg",
-      "duration": 244,
-      "isOnline": true
+      "duration": 244
     },
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-hue72ol_",
+      "id": "cur-cur-vijay-yesudas-nuvvante-pranamani",
       "title": "Nuvvante Pranamani",
       "artist": "Vijay Yesudas",
       "movie": "Naa Autograph",
       "year": 2004,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/890/a6fded5023c48b548453f099b1a93130_320.mp4",
       "artwork": "https://c.saavncdn.com/890/Naa-Autograph-2004-500x500.jpg",
-      "duration": 237,
-      "isOnline": true
+      "duration": 237
     },
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-a223fW00",
+      "id": "cur-cur-vijay-yesudas-shatamanam-bhavati",
       "title": "Shatamanam Bhavati",
       "artist": "K. S. Chithra, Vijay Yesudas",
       "movie": "Shatamanam Bhavati",
       "year": 2016,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/558/361178070ad0e1d78b9a4651ec3955ce_320.mp4",
       "artwork": "https://c.saavncdn.com/558/Shatamanam-Bhavati-Telugu-2016-500x500.jpg",
-      "duration": 201,
-      "isOnline": true
+      "duration": 201
     },
     {
-      "id": "cur-art-vijay-yesudas-vijay-yesudas-saavn-XYGaO13b",
+      "id": "cur-cur-vijay-yesudas-sahara",
       "title": "Sahara",
       "artist": "Vijay Yesudas, Gomathi Sree, Chorus",
       "movie": "Sivaji The Boss",
       "year": 2007,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/520/0b4bef7f0dc4cf7bc674fbf7caeb8883_320.mp4",
       "artwork": "https://c.saavncdn.com/520/Sivaji-The-Boss-Telugu-2023-20230915172049-500x500.jpg",
-      "duration": 270,
-      "isOnline": true
+      "duration": 270
     }
   ],
   "Madhu Priya": [
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-A4yp49AA",
+      "id": "cur-cur-madhu-priya-godari-gattu-meedha",
       "title": "Godari Gattu Meedha",
       "artist": "Ramana Gogula, Madhu Priya",
       "movie": "Sankranthiki Vasthunam",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/508/43a097ee1ec1e6c097c4dfa591a447fb_320.mp4",
       "artwork": "https://c.saavncdn.com/508/Sankranthiki-Vasthunam-Telugu-2025-20250114191008-500x500.jpg",
-      "duration": 250,
-      "isOnline": true
+      "duration": 250
     },
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-4W0R6K9p",
+      "id": "cur-cur-madhu-priya-hara-hara-eshwara",
       "title": "Hara Hara Eshwara",
       "artist": "Ramana Gogula, Madhu Priya",
       "movie": "Hara Hara Eshwara",
       "year": 2020,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/462/6714101225c7548bb9bf8e9d4f740e30_320.mp4",
       "artwork": "https://c.saavncdn.com/462/Hara-Hara-Eshwara-Telugu-2020-20200219183924-500x500.jpg",
-      "duration": 263,
-      "isOnline": true
+      "duration": 263
     },
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-vdf6pLBR",
+      "id": "cur-cur-madhu-priya-bangula",
       "title": "Bangula",
       "artist": "Ramana Gogula, Madhu Priya",
       "movie": "Bangula",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/259/d1126109fb4177e2751928897f946c14_320.mp4",
       "artwork": "https://c.saavncdn.com/259/Bangula-Telugu-2026-20260929173949-500x500.jpg",
-      "duration": 254,
-      "isOnline": true
+      "duration": 254
     },
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-RNbtbz4L",
+      "id": "cur-cur-madhu-priya-vachinde",
       "title": "Vachinde",
       "artist": "Madhu Priya, Ramki",
       "movie": "Fidaa",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/904/991725e264a6af3ac3d10a0c8bd3164c_320.mp4",
       "artwork": "https://c.saavncdn.com/904/Fidaa-Telugu-2017-500x500.jpg",
-      "duration": 322,
-      "isOnline": true
+      "duration": 322
     },
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-MImeHYHp",
+      "id": "cur-cur-madhu-priya-kodukaa-naa-mudhu-ko",
       "title": "Kodukaa Naa Mudhu Koduka",
       "artist": "Madhu Priya",
       "movie": "Kodukaa Naa Mudhu Koduka",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/301/6e3c1d0941b15f3a57c646166f8919bc_320.mp4",
       "artwork": "https://c.saavncdn.com/301/Kodukaa-Naa-Mudhu-Koduka-Telugu-2022-20221118214016-500x500.jpg",
-      "duration": 352,
-      "isOnline": true
+      "duration": 352
     },
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-zE-IwDn_",
+      "id": "cur-cur-madhu-priya-bangaara",
       "title": "Bangaara",
       "artist": "Madhu Priya, Anoop Rubens",
       "movie": "Bangarraju",
       "year": 2021,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/727/52eed5e3db489675e2305cefb9b07545_320.mp4",
       "artwork": "https://c.saavncdn.com/727/Bangarraju-Telugu-2021-20220129102134-500x500.jpg",
-      "duration": 166,
-      "isOnline": true
+      "duration": 166
     },
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-pCc5dH_Y",
+      "id": "cur-cur-madhu-priya-bangaara",
       "title": "Bangaara",
       "artist": "Madhu Priya, Anoop Rubens",
       "movie": "Telugu Dance Mix",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/785/26c7e8bbf334c3769324af6d851f789a_320.mp4",
       "artwork": "https://c.saavncdn.com/785/Telugu-Dance-Mix-Telugu-2026-20260730190748-500x500.jpg",
-      "duration": 166,
-      "isOnline": true
+      "duration": 166
     },
     {
-      "id": "cur-art-madhu-priya-madhu-priya-saavn-h7I4DvMR",
+      "id": "cur-cur-madhu-priya-he-s-soo-cute",
       "title": "He’S Soo Cute",
       "artist": "Madhu Priya",
       "movie": "Sarileru Neekevvaru",
       "year": 2020,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/432/5e0e65567a9e5a379efb5f7fa7a6cd6f_320.mp4",
       "artwork": "https://c.saavncdn.com/432/Sarileru-Neekevvaru-Telugu-2020-20250818111038-500x500.jpg",
-      "duration": 209,
-      "isOnline": true
+      "duration": 209
     }
   ],
   "Hemachandra": [
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-PkXLzuH9",
+      "id": "cur-cur-hemachandra-bommali",
       "title": "Bommali",
       "artist": "Hema Chandra, Malavika",
       "movie": "Billa",
       "year": 2009,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/889/563aa2dd3a8a6a04b84569035b258043_320.mp4",
       "artwork": "https://c.saavncdn.com/889/Billa-Telugu-2014-20251012042238-500x500.jpg",
-      "duration": 315,
-      "isOnline": true
+      "duration": 315
     },
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-K4tVwHs4",
+      "id": "cur-cur-hemachandra-bommali-from-billa",
       "title": "Bommali (From \"Billa\")",
       "artist": "Hema Chandra, Malavika",
       "movie": "Prabhas Birthday Special Songs",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/492/fb1709a05d59b315d2ea705a0d412452_320.mp4",
       "artwork": "https://c.saavncdn.com/492/Prabhas-Birthday-Special-Songs-Telugu-2025-20251023173001-500x500.jpg",
-      "duration": 315,
-      "isOnline": true
+      "duration": 315
     },
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-rnkk7iC6",
+      "id": "cur-cur-hemachandra-bommali-from-billa",
       "title": "Bommali (From \"Billa\")",
       "artist": "Hema Chandra, Malavika",
       "movie": "Telugu Party Songs",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/703/c8807c352c77077bece0143b63ed72ee_320.mp4",
       "artwork": "https://c.saavncdn.com/703/Telugu-Party-Songs-Telugu-2025-20251230130001-500x500.jpg",
-      "duration": 315,
-      "isOnline": true
+      "duration": 315
     },
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-Oyae-yji",
+      "id": "cur-cur-hemachandra-bommali-from-billa",
       "title": "Bommali (From \"Billa\")",
       "artist": "Hema Chandra, Malavika",
       "movie": "Valentine Week Teddy Day Telugu Hits",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/571/81e83edce482e77feb7bcf1b1b7bd102_320.mp4",
       "artwork": "https://c.saavncdn.com/571/Valentine-Week-Teddy-Day-Telugu-Hits-Telugu-2026-20260210150023-500x500.jpg",
-      "duration": 315,
-      "isOnline": true
+      "duration": 315
     },
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-FMdDyYmT",
+      "id": "cur-cur-hemachandra-oosupodu",
       "title": "Oosupodu",
       "artist": "Vedala Hemachandra",
       "movie": "Fidaa",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/904/934d6220f8f997d15af0760bcf5c7287_320.mp4",
       "artwork": "https://c.saavncdn.com/904/Fidaa-Telugu-2017-500x500.jpg",
-      "duration": 273,
-      "isOnline": true
+      "duration": 273
     },
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-r3DIDFIQ",
+      "id": "cur-cur-hemachandra-pileche",
       "title": "Pileche",
       "artist": "Mani Sharma, Hemachandra, Shweta Mohan, Sirivennela Seetharama Sastry",
       "movie": "Khaleja",
       "year": 2010,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/616/29bd409625822a7ba5cc15997fa7bae1_320.mp4",
       "artwork": "https://c.saavncdn.com/616/Khaleja-Telugu-2010-20250606101049-500x500.jpg",
-      "duration": 342,
-      "isOnline": true
+      "duration": 342
     },
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-kXD62y_C",
+      "id": "cur-cur-hemachandra-prema-desam",
       "title": "Prema Desam",
       "artist": "Saindhavi, Hemachandra",
       "movie": "Shakti",
       "year": 2011,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/756/2ed36752d3643b3d7de0385ebc2d754d_320.mp4",
       "artwork": "https://c.saavncdn.com/756/Shakti-2011-500x500.jpg",
-      "duration": 275,
-      "isOnline": true
+      "duration": 275
     },
     {
-      "id": "cur-art-hemachandra-hemachandra-saavn-h7_z2lsU",
+      "id": "cur-cur-hemachandra-nee-kallalona",
       "title": "Nee Kallalona",
       "artist": "Hemachandra",
       "movie": "Jai Lava Kusa",
       "year": 2017,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/430/341bd7e99374e52546e206cec2873883_320.mp4",
       "artwork": "https://c.saavncdn.com/430/Jai-Lava-Kusa-Telugu-2017-20250814181609-500x500.jpg",
-      "duration": 235,
-      "isOnline": true
+      "duration": 235
     }
   ],
   "S. P. Charan": [
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn---YuvS1T",
+      "id": "cur-cur-s-p-charan-mellaga",
       "title": "Mellaga",
       "artist": "S.P. Charan, Sumangali",
       "movie": "Varsham",
       "year": 2003,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/449/b717def9c5f121922438f64724791d20_320.mp4",
       "artwork": "https://c.saavncdn.com/449/Varsham-2003-500x500.jpg",
-      "duration": 321,
-      "isOnline": true
+      "duration": 321
     },
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn-MJ_ENddv",
+      "id": "cur-cur-s-p-charan-cheema-cheema",
       "title": "Cheema Cheema",
       "artist": "S.P.B. Charan, Ganga",
       "movie": "Simhadri",
       "year": 2003,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/748/69894fefc4b642f2c4a6808d3cf50794_320.mp4",
       "artwork": "https://c.saavncdn.com/748/Simhadri-Telugu-2003-500x500.jpg",
-      "duration": 271,
-      "isOnline": true
+      "duration": 271
     },
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn-mt4PV_5H",
+      "id": "cur-cur-s-p-charan-kailove-chedugudu",
       "title": "Kailove Chedugudu",
       "artist": "Vishal Chandrashekhar, S.P. Charan, Ramya Behara, Anantha Sriram",
       "movie": "Sakhi",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/586/f1d1882bb8c17529d9ff5de22180c632_320.mp4",
       "artwork": "https://c.saavncdn.com/586/Sakhi-Telugu-2000-20250410083435-500x500.jpg",
-      "duration": 278,
-      "isOnline": true
+      "duration": 278
     },
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn-xxmBOTCY",
+      "id": "cur-cur-s-p-charan-inthandham",
       "title": "Inthandham",
       "artist": "Vishal Chandrashekhar, S.P. Charan, Krishna Kanth",
       "movie": "Sita Ramam (Telugu)",
       "year": 2022,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/041/5083b857ea214d9795e18eb5671787cf_320.mp4",
       "artwork": "https://c.saavncdn.com/041/Sita-Ramam-Telugu-Original-Motion-Picture-Soundtrack-Telugu-2022-20220802140738-500x500.jpg",
-      "duration": 218,
-      "isOnline": true
+      "duration": 218
     },
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn-Ee7F-nM4",
+      "id": "cur-cur-s-p-charan-em-chessavo",
       "title": "Em Chessavo",
       "artist": "S.P. Charan, Shreya Ghoshal",
       "movie": "Yagnam",
       "year": 2004,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/397/c220efc0997e6b9fb323a90a4b5962ef_320.mp4",
       "artwork": "https://c.saavncdn.com/397/Yagnam-2000-500x500.jpg",
-      "duration": 338,
-      "isOnline": true
+      "duration": 338
     },
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn-ISa8eB2y",
+      "id": "cur-cur-s-p-charan-ekkada-ekkada",
       "title": "Ekkada Ekkada",
       "artist": "Harini, S.P. Charan",
       "movie": "Murari",
       "year": 2000,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/678/5e174c04664f17e87af1443cb3a8690b_320.mp4",
       "artwork": "https://c.saavncdn.com/678/Murari-2000-500x500.jpg",
-      "duration": 372,
-      "isOnline": true
+      "duration": 372
     },
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn-TEFCVTit",
+      "id": "cur-cur-s-p-charan-jaya-mangalam-from-l",
       "title": "Jaya Mangalam (From \"Lenin\")",
       "artist": "Harini, S.P. Charan",
       "movie": "Jaya Mangalam (From \"Lenin\")",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/961/e6561e3de6d7b8f61d80a9e6c29b9eea_320.mp4",
       "artwork": "https://c.saavncdn.com/961/Jaya-Mangalam-From-Lenin-Telugu-2026-20260705101033-500x500.jpg",
-      "duration": 207,
-      "isOnline": true
+      "duration": 207
     },
     {
-      "id": "cur-art-s-p-charan-s-p-charan-saavn-88guUqEG",
+      "id": "cur-cur-s-p-charan-manasanta-nuvve",
       "title": "Manasanta Nuvve",
       "artist": "Sujatha Mohan, S.P. Charan",
       "movie": "Manasantha Nuvve",
       "year": 2001,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/641/90309b35c9594a35591cba4437f80b82_320.mp4",
       "artwork": "https://c.saavncdn.com/641/Manasantha-Nuvve-2001-500x500.jpg",
-      "duration": 282,
-      "isOnline": true
+      "duration": 282
     }
   ],
   "Saketh Komanduri": [
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-AZ0AfMXi",
+      "id": "cur-cur-saketh-komanduri-nammavemo",
       "title": "Nammavemo",
       "artist": "Saketh",
       "movie": "Parugu",
       "year": 2008,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/489/13a32b70acd27207912b2100e3e88718_320.mp4",
       "artwork": "https://c.saavncdn.com/489/Parugu-2008-500x500.jpg",
-      "duration": 287,
-      "isOnline": true
+      "duration": 287
     },
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-WhbPcnde",
+      "id": "cur-cur-saketh-komanduri-bhagavan-sharanam",
       "title": "Bhagavan sharanam",
       "artist": "Ramu, Muralidhar, Saketh",
       "movie": "Bhagavan Saranam",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/897/2f0241db8a95049ae06fc422b30fadcd_320.mp4",
       "artwork": "https://c.saavncdn.com/897/Bhagavan-Saranam-Telugu-2012-20251128163212-500x500.jpg",
-      "duration": 408,
-      "isOnline": true
+      "duration": 408
     },
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-_ChhueCk",
+      "id": "cur-cur-saketh-komanduri-pallikattu-shabarima",
       "title": "Pallikattu shabarimalaiku",
       "artist": "Ramu, Muralidhar, Saketh",
       "movie": "Bhagavan Saranam",
       "year": 2012,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/897/6a98976a896ca32447dc18199b999757_320.mp4",
       "artwork": "https://c.saavncdn.com/897/Bhagavan-Saranam-Telugu-2012-20251128163212-500x500.jpg",
-      "duration": 425,
-      "isOnline": true
+      "duration": 425
     },
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-WT7_zd9W",
+      "id": "cur-cur-saketh-komanduri-dimaak-kharaab",
       "title": "Dimaak Kharaab",
       "artist": "Ramu, Muralidhar, Saketh",
       "movie": "Telugu Dance Mix",
       "year": 2026,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/785/1c39fe542e2da60b14bb4206fa3aa7bb_320.mp4",
       "artwork": "https://c.saavncdn.com/785/Telugu-Dance-Mix-Telugu-2026-20260730190748-500x500.jpg",
-      "duration": 280,
-      "isOnline": true
+      "duration": 280
     },
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-bhTogmhU",
+      "id": "cur-cur-saketh-komanduri-dimaak-kharaab",
       "title": "Dimaak Kharaab",
       "artist": "Keerthana Sharma, Saketh",
       "movie": "Ismart Shankar",
       "year": 2019,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/137/46d89092df497d0c85e8d627bd08f612_320.mp4",
       "artwork": "https://c.saavncdn.com/213/Ismart-Shankar-Telugu-2019-20190711134004-500x500.jpg",
-      "duration": 280,
-      "isOnline": true
+      "duration": 280
     },
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-e1PxinO-",
+      "id": "cur-cur-saketh-komanduri-sittharala-sirapadu",
       "title": "Sittharala Sirapadu",
       "artist": "Sooranna, Saketh Komanduri",
       "movie": "Ala Vaikunthapurramuloo",
       "year": 2019,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/517/52e38ccb523a02ce05b95bd831f3c53e_320.mp4",
       "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-      "duration": 186,
-      "isOnline": true
+      "duration": 186
     },
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-ThLtZWS2",
+      "id": "cur-cur-saketh-komanduri-ku-ku-kumari",
       "title": "Ku Ku Kumari",
       "artist": "Sooranna, Saketh Komanduri",
       "movie": "Ku Ku Kumari",
       "year": 2025,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/119/6783a16b83f1b74019d5d3802053f8cb_320.mp4",
       "artwork": "https://c.saavncdn.com/119/Ku-Ku-Kumari-Telugu-2025-20250109121803-500x500.jpg",
-      "duration": 247,
-      "isOnline": true
+      "duration": 247
     },
     {
-      "id": "cur-art-saketh-komanduri-saketh-komanduri-saavn-Rck2OvuQ",
+      "id": "cur-cur-saketh-komanduri-osi-pellama",
       "title": "Osi Pellama",
       "artist": "Sooranna, Saketh Komanduri",
       "movie": "Kushi (Telugu)",
       "year": 2023,
       "language": "Telugu",
-      "category": "Telugu",
+      "category": "Curated",
       "src": "https://aac.saavncdn.com/679/ebe11da010e94c4b4c72192829841b03_320.mp4",
       "artwork": "https://c.saavncdn.com/679/Kushi-Telugu-Telugu-2023-20250130073127-500x500.jpg",
-      "duration": 218,
-      "isOnline": true
+      "duration": 218
     }
   ]
 };
