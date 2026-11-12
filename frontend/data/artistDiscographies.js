@@ -105,7 +105,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 1998,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/424/4a7f88c9c82ebdeb5954e18c28f8e410_320.mp4",
-      "artwork": "https://c.saavncdn.com/424/Ee-Manase-Se-Se-From-Tholiprema-Telugu-2014-20260430113015-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/252/Tholiprema-Telugu-2014-20251011224607-500x500.jpg",
       "duration": 265,
       "isOnline": true
     },
@@ -1545,7 +1545,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 1993,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/b73f769fe148e33870efc672be7919bc_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Tholi-Muddu-Telugu-1993-20220512221752-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
       "duration": 305,
       "isOnline": true
     },
@@ -7355,7 +7355,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/517/339d76dce4db4f43f4721eec2d8f03ef_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 222,
       "isOnline": true
     },
@@ -7367,7 +7367,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/05c5d77f6a8225d6667cf7a1fcaf37d8_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 224,
       "isOnline": true
     },
@@ -8255,7 +8255,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/90b2754df8ae6314c055d4fff72e926b_320.mp4",
-      "artwork": "https://c.saavncdn.com/blob/605/Ishq-Not-A-Love-Story-Telugu-2021-20220201143252-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 218,
       "isOnline": true
     },
@@ -10571,7 +10571,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/549/1f4e5cc775a07f6634f6fec36601ba8f_320.mp4",
-      "artwork": "https://c.saavncdn.com/549/Romantic-Hits-of-2019-Telugu-2019-20191209142048-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10655,7 +10655,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/77622f48c6aadb11dc449d6ef6f80f37_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Romantic-Hits-Of-2021-Telugu-2021-20211228152245-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 221,
       "isOnline": true
     },
@@ -10751,7 +10751,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/450/2ddb39d5d151f2e8613e3e7e8d1d537d_320.mp4",
-      "artwork": "https://c.saavncdn.com/450/Pushpaka-Vimanam-Telugu-2021-20211112115106-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 181,
       "isOnline": true
     },
@@ -10763,7 +10763,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/551/d3a890a1733a8a51fb07bbc4b94a6e66_320.mp4",
-      "artwork": "https://c.saavncdn.com/551/A-Million-Beats-Telugu-2020-20200104183334-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10775,7 +10775,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/518/382ba1d0cb4848dc19b2030a40ccb887_320.mp4",
-      "artwork": "https://c.saavncdn.com/518/Gorgeous-Pooja-Hegde-Telugu-2019-20191012090649-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10787,7 +10787,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/aa312a451443597e9da6a138056b1be2_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Maguva-Maguva-Women-s-Day-2021-Special-Telugu-2021-20210306031751-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10799,7 +10799,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/597/652f35cd277a7b089e6a3225ded55f39_320.mp4",
-      "artwork": "https://c.saavncdn.com/597/High-Voltage-Songs-Of-Allu-Arjun-Telugu-2020-20200321134120-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10811,7 +10811,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/09d0bd396688e73fbb742fd5181e74f9_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Sid-Sriram-Swag-Telugu-2021-20210309010814-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10823,7 +10823,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/606/f1cefef081a5bd6fb9f2403e6de9891b_320.mp4",
-      "artwork": "https://c.saavncdn.com/606/Thunder-Thursday-Telugu-2020-20200618025118-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10835,7 +10835,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/f9545b1f92446c013c89515e62b63f71_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Soulful-Hits-Of-Sid-Sriram-Telugu-2022-20220514015458-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10847,7 +10847,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/1e424e3725652d445a08586436c67fb1_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Director-Cut-Trivikram-Hits-Telugu-2020-20201106151019-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10859,7 +10859,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/537/345bd8b48b5a869cf135e6afbe471e80_320.mp4",
-      "artwork": "https://c.saavncdn.com/537/Tremendous-Tunes-Of-Thaman-Telugu-2019-20191113135643-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10871,7 +10871,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/566/d85a53d09df31651a998b6dad2cb6622_320.mp4",
-      "artwork": "https://c.saavncdn.com/566/Fresh-Arrivals-Telugu-2020-20200123135518-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10883,7 +10883,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/0a31a284ff7fcee09ea2a57f2502429e_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Social-Media-Sensations-Telugu-2020-20200908014126-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10895,7 +10895,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/555/78f5d0858533a126d95c8ec98ce32e0c_320.mp4",
-      "artwork": "https://c.saavncdn.com/555/Block-Buster-Hits-of-2019-Telugu-2019-20191224174915-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10907,7 +10907,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/a07e04eb208fe118329b18db16fe87da_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Feel-The-Music-Of-Love-Telugu-2020-20201228195509-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10919,7 +10919,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/574/7c6c2b5b0df182d4ced1694cf1f4d472_320.mp4",
-      "artwork": "https://c.saavncdn.com/574/Feel-My-Love-Telugu-2020-20200205150834-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10931,7 +10931,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/1ca322a47f7f78741fac1d86ddd93d37_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Feel-The-Love-Telugu-2020-20200815001816-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -10943,7 +10943,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/210/0fcdb12585ad4bc5266d2180d297ab28_320.mp4",
-      "artwork": "https://c.saavncdn.com/210/Srivalli-DJ-A-Sen-Official-Lo-Fi-Mix-From-Pushpa-The-Rise-Telugu-2022-20220810184730-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 223,
       "isOnline": true
     },
@@ -10955,7 +10955,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/620/94aa955bad1a5159d86645385a58ab90_320.mp4",
-      "artwork": "https://c.saavncdn.com/620/Tollywood-Chartbusters-Of-2021-Telugu-2021-20211228152245-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 221,
       "isOnline": true
     },
@@ -10967,7 +10967,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/e817c0e09ddb572b5292ff57ed1187bc_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Soulful-Hits-Of-Sid-Sriram-Telugu-2022-20220514015458-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 221,
       "isOnline": true
     },
@@ -10979,7 +10979,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/0b7c8808ab01e363872426ec8dd34351_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Valentine-s-Day-Special-Songs-Telugu-2022-20220213000255-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 221,
       "isOnline": true
     },
@@ -10991,7 +10991,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/0f50dcf3ec7daabeafac4bf8ef28a7da_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/National-Crush-Rashmika-Mandanna-Hit-Songs-Telugu-2022-20220404184504-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 221,
       "isOnline": true
     },
@@ -11003,7 +11003,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/819cfca375779c0be0c43ae7e1f11e1a_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Srivalli-Official-Remix-From-Pushpa-The-Rise-Telugu-2024-20241207212829-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 203,
       "isOnline": true
     },
@@ -11365,7 +11365,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/712/03f0b2f5b84c8cf4ea4e9c704f0f0c05_320.mp4",
-      "artwork": "https://c.saavncdn.com/712/Bhediya-Hindi-2022-20221107185012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11473,7 +11473,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/013/bf5607afdc99d0b6ac8fef1785b5bd7a_320.mp4",
-      "artwork": "https://c.saavncdn.com/013/Hot-Hits-Bollywood-Hindi-2026-20260603175919-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11485,7 +11485,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/809/8a839d9200a725bce0b68eeae46409cf_320.mp4",
-      "artwork": "https://c.saavncdn.com/809/Wedding-Love-Songs-Hindi-2026-20251230172703-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11497,7 +11497,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/221/bd21ae43c005057abd232535e5d2173b_320.mp4",
-      "artwork": "https://c.saavncdn.com/221/Soulful-Hits-Hindi-2026-20260529163806-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11509,7 +11509,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/228/bed7fe5f8fe04ae6432bcb0717e2b74e_320.mp4",
-      "artwork": "https://c.saavncdn.com/228/Sachin-Jigar-Bollywood-Hits-Hindi-2026-20260630213800-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11521,7 +11521,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/044/e1883a74d4b0294bbf223bc44eddd2f4_320.mp4",
-      "artwork": "https://c.saavncdn.com/044/Dil-Se-Dance-Hindi-2026-20260603180113-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11533,7 +11533,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/238/5583fbab6328b12f467f01ee335e496d_320.mp4",
-      "artwork": "https://c.saavncdn.com/238/Romantic-Classics-Hits-Hindi-2026-20260529163838-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11545,7 +11545,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/120/6425409a61434ace0f3333622609e288_320.mp4",
-      "artwork": "https://c.saavncdn.com/120/Happy-Vibes-Hindi-2026-20260730190751-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11557,7 +11557,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/724/85b987ec36709702a7a77673daca9379_320.mp4",
-      "artwork": "https://c.saavncdn.com/724/Love-Songs-Forever-Hindi-2026-20260921123604-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11569,7 +11569,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/346/1268c178d3b4d2d2b4765feac0a19330_320.mp4",
-      "artwork": "https://c.saavncdn.com/346/Couple-Dance-Bollywood-Hindi-2026-20261019122940-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11581,7 +11581,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/909/38c0bda9d8074522bd10b48d2f68c753_320.mp4",
-      "artwork": "https://c.saavncdn.com/909/Winter-Coffee-House-Hindi-2026-20261030060037-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11593,7 +11593,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/539/3f14af326a5c0354d7f4cb65c9f128aa_320.mp4",
-      "artwork": "https://c.saavncdn.com/539/Bollywood-Through-The-Years-Hindi-2026-20260818072203-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11605,7 +11605,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/232/6cb26a99b12271717fc485e61de9c704_320.mp4",
-      "artwork": "https://c.saavncdn.com/232/Next-On-Repeat-Hindi-2026-20260818072141-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11749,7 +11749,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/675/1456dc2903d0fb4465d2d2904008803b_320.mp4",
-      "artwork": "https://c.saavncdn.com/675/Trending-Love-Songs-Hindi-2026-20260506185328-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11761,7 +11761,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/435/55f282926586d40c0dfc589c4f948819_320.mp4",
-      "artwork": "https://c.saavncdn.com/435/Thodi-Dhoop-Thoda-Sukoon-Hindi-2026-20261030053003-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11773,7 +11773,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/905/93d8fdb57870757e76d942282251a242_320.mp4",
-      "artwork": "https://c.saavncdn.com/905/Valentines-Special-Hindi-2026-20260122144848-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11785,7 +11785,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/157/89d0519d6218ae56e26d687e25dafa49_320.mp4",
-      "artwork": "https://c.saavncdn.com/157/World-Music-Day-2026-Hindi-2026-20260619182741-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11797,7 +11797,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/357/9dad0278d03477eb6b16922938f29853_320.mp4",
-      "artwork": "https://c.saavncdn.com/357/Arijit-Singh-Bollywood-Love-Hits-Hindi-2026-20260409184459-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11809,7 +11809,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/390/f8dd350d88c08640255fef8ac779b42d_320.mp4",
-      "artwork": "https://c.saavncdn.com/390/Bollywood-Top-Romantic-Hits-Hindi-2026-20260717151136-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11821,7 +11821,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/960/db549ef7360e430ba9351369c39d7fd2_320.mp4",
-      "artwork": "https://c.saavncdn.com/960/Best-of-2025-Hindi-2025-20251231141050-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -11833,7 +11833,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/340/c967df84d44726a98e4eb4c3d76eb243_320.mp4",
-      "artwork": "https://c.saavncdn.com/340/Arijit-Singh-Bollywood-Hits-Hindi-2026-20260406180757-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -14101,7 +14101,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/195/27f344367a0a19f4aacaa76f9f80059f_320.mp4",
-      "artwork": "https://c.saavncdn.com/195/Heartbeats-Bollywood-Hindi-2026-20260813104641-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -14113,7 +14113,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/916/6377fc85735002c389660fabf7d80aa0_320.mp4",
-      "artwork": "https://c.saavncdn.com/916/Winter-Diaries-Hindi-2026-20261030195900-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15493,7 +15493,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/151/9d5b41b1919da13e484a9aad24cf40cd_320.mp4",
-      "artwork": "https://c.saavncdn.com/151/Bollywood-Hits-By-Sachin-Jigar-Hindi-2023-20230615111058-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15505,7 +15505,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/683/1e40f811adfd05fd17717746e21e69e1_320.mp4",
-      "artwork": "https://c.saavncdn.com/683/World-Music-Day-Bollywood-Special-Hindi-2024-20250903110856-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15517,7 +15517,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/304/eec45f12e6617f13f72830c8ad4ac772_320.mp4",
-      "artwork": "https://c.saavncdn.com/304/First-Class-Hits-of-Varun-Dhawan-Hindi-2023-20230721135400-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15529,7 +15529,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/664/add5a301a5d21205976de3e53ca6dd93_320.mp4",
-      "artwork": "https://c.saavncdn.com/664/Trending-Valentines-Hits-Hindi-2025-20250903113030-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15541,7 +15541,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/699/d36a902c6178d12cb26981fb685420ad_320.mp4",
-      "artwork": "https://c.saavncdn.com/699/Ultimate-Baarish-Hits-Hindi-2024-20250424181104-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15553,7 +15553,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/313/c277ce85a6b61299848ad63709f43f92_320.mp4",
-      "artwork": "https://c.saavncdn.com/313/Monsoon-Bollywood-Hits-Hindi-2023-20250424174923-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15565,7 +15565,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/386/c1aa15cae5e8ae5d62a18345192a77de_320.mp4",
-      "artwork": "https://c.saavncdn.com/386/Top-20-Romantic-Hits-Hindi-2024-20250903110003-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15577,7 +15577,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/023/7cc5abf78ad43ddfbf4b0982ba49b7ca_320.mp4",
-      "artwork": "https://c.saavncdn.com/023/The-Arijit-Singh-Collection-Hindi-2023-20250903104809-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15589,7 +15589,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/157/4548937841045397dae55ebe05db0cd1_320.mp4",
-      "artwork": "https://c.saavncdn.com/157/Best-of-Romance-2024-Hindi-2024-20251226211534-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15601,7 +15601,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/316/d457f1e1884e5036b2d4381a20a905eb_320.mp4",
-      "artwork": "https://c.saavncdn.com/316/The-Arijit-Singh-Collection-Vol-3-Hindi-2025-20250903113128-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15613,7 +15613,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/194/d3d49bd979f0f01e51ecdd0d0cef29d4_320.mp4",
-      "artwork": "https://c.saavncdn.com/194/Love-Hits-Hindi-2024-20251226211008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15625,7 +15625,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/671/f2fbbc5b90379d564a55301cf1b9661b_320.mp4",
-      "artwork": "https://c.saavncdn.com/671/Romance-Trending-Now-Hindi-2025-20250424183656-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15637,7 +15637,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/267/52c5249ba88f18262c14e3e8fe577795_320.mp4",
-      "artwork": "https://c.saavncdn.com/267/Bollywood-Valentine-s-Day-Hits-Hindi-2023-20230203112513-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15649,7 +15649,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/379/1ec58d3897835d4a5d8405544a04849d_320.mp4",
-      "artwork": "https://c.saavncdn.com/379/Dil-Jhoom-with-Arijit-Singh-Hindi-2024-20250903105916-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15661,7 +15661,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/153/08dd093390a34a9d31d73465c2f8618f_320.mp4",
-      "artwork": "https://c.saavncdn.com/153/Non-Stop-Arijit-Singh-Hits-Hindi-2023-20250903111625-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15673,7 +15673,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/236/028d106d970045aa44b49c335a6a73c1_320.mp4",
-      "artwork": "https://c.saavncdn.com/236/Baarish-Wala-Pyaar-Hindi-2023-20250424175152-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15685,7 +15685,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/406/532ada89369ee912ab1615d4892ecf7e_320.mp4",
-      "artwork": "https://c.saavncdn.com/406/Baarish-Bollywood-Mix-Hindi-2024-20250424181358-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15697,7 +15697,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/228/77415c2e163d35dce61f82cf131d17a9_320.mp4",
-      "artwork": "https://c.saavncdn.com/228/Winter-Love-Hits-Hindi-2024-20251226211436-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15709,7 +15709,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/077/80e27c331489a9cc7b0304439a998cf8_320.mp4",
-      "artwork": "https://c.saavncdn.com/077/World-Music-Day-2025-with-Bollywood-Hits-Hindi-2025-20250620154115-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15721,7 +15721,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/522/47b6a293acc192f3fc58c5e2244899ae_320.mp4",
-      "artwork": "https://c.saavncdn.com/522/Baarish-Vibes-With-Arijit-Singh-Hindi-2023-20250903105152-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15733,7 +15733,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/188/e8fda2e281933733549d06a1d51776a3_320.mp4",
-      "artwork": "https://c.saavncdn.com/188/Long-Drive-Bollywood-Mix-Arijit-Singh-Hindi-2023-20250903105219-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15745,7 +15745,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/498/54dad1d773b6773e3b4ba61c4a623e9a_320.mp4",
-      "artwork": "https://c.saavncdn.com/498/Best-Of-Romance-Hindi-2025-20250729115955-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15757,7 +15757,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/415/0e4b922fb36e70a356ec07b6bcb7f514_320.mp4",
-      "artwork": "https://c.saavncdn.com/415/Bollywood-Cafe-Hindi-2024-20250424181000-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261,
       "isOnline": true
     },
@@ -15769,7 +15769,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/538/eaef2b280f8e6104ed5a66cadf544876_320.mp4",
-      "artwork": "https://c.saavncdn.com/538/Apna-Bana-Le-Arijit-Singh-Vocal-Only-Hindi-2026-20260427202043-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 241,
       "isOnline": true
     },
@@ -15781,7 +15781,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/337/33e2a01c7e94165e553818df04553d5b_320.mp4",
-      "artwork": "https://c.saavncdn.com/337/New-Music-Hindi-2026-Hindi-2026-20260518161134-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 241,
       "isOnline": true
     },
@@ -15793,7 +15793,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/102/d4b242734a4de923d8a266f79117dd04_320.mp4",
-      "artwork": "https://c.saavncdn.com/102/Apna-Bana-Le-Club-Mix-Hindi-2023-20230522181036-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 203,
       "isOnline": true
     },
@@ -15805,7 +15805,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/206/a07e8f868a914194daa03a938e77e3cd_320.mp4",
-      "artwork": "https://c.saavncdn.com/206/Ishq-de-Fanniyar-X-Thodi-Der-X-Apna-Bana-Le-Hindi-2026-20261027235344-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 245,
       "isOnline": true
     }
@@ -15987,7 +15987,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/866/93d1a122aacd585589ab5ad55410008b_320.mp4",
-      "artwork": "https://c.saavncdn.com/866/Mr-Majnu-Telugu-2018-20190119125345-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/866/Mr-Majnu-Telugu-2019-20190114050535-500x500.jpg",
       "duration": 270,
       "isOnline": true
     },
@@ -16875,7 +16875,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2004,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/560/54b4f9108b4e88866f31d49fdf60e2f8_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/560/Tumsa-Nahin-Dekha-A-Love-Story-Hindi-2004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 365,
       "isOnline": true
     },
@@ -17511,7 +17511,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/366/41c23b604eed1e0bb950ad4566b40198_320.mp4",
-      "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 260,
       "isOnline": true
     },
@@ -19167,7 +19167,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2004,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/560/122c29bf3519f1a674cca2016008cd11_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/560/Tumsa-Nahin-Dekha-A-Love-Story-Hindi-2004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 363,
       "isOnline": true
     },
@@ -21893,7 +21893,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23465,7 +23465,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/537/e98d36c16a2d6fce2b56b3c8b9fcc99b_320.mp4",
-      "artwork": "https://c.saavncdn.com/537/Tremendous-Tunes-Of-Thaman-Telugu-2019-20191113135643-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23477,7 +23477,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/200/cb1686c995aae40d399e3baf6ce0dbc5_320.mp4",
-      "artwork": "https://c.saavncdn.com/200/Come-To-The-Party-Telugu-2020-20201228195509-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23489,7 +23489,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/c24e2c294e87299bcf2079160dc41550_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Best-Of-2020-Telugu-2020-20201225194551-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23501,7 +23501,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/551/f936d7b0bed509ad4c436f673f3308dc_320.mp4",
-      "artwork": "https://c.saavncdn.com/551/A-Million-Beats-Telugu-2020-20200104183334-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23513,7 +23513,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/677609dc34f87725ba6f1354ff2525e9_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Director-Cut-Trivikram-Hits-Telugu-2020-20201106151019-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23525,7 +23525,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/557/24f8bbb6c43e97592b3f2ca8f83665ad_320.mp4",
-      "artwork": "https://c.saavncdn.com/557/Party-Hits-of-2019-Telugu-2019-20191225123503-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23537,7 +23537,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/abb8f505cc1ed33fe84312a5f95b267d_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Icon-Star-Allu-Arjun-Massive-Hits-Telugu-2021-20211216235440-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23549,7 +23549,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/555/115d5ca23fa7f89473bcd987449c5e24_320.mp4",
-      "artwork": "https://c.saavncdn.com/555/Block-Buster-Hits-of-2019-Telugu-2019-20191224174915-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23561,7 +23561,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/566/ddb669b70d8e6989c34c5d1c845e23e5_320.mp4",
-      "artwork": "https://c.saavncdn.com/566/Fresh-Arrivals-Telugu-2020-20200123135518-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23573,7 +23573,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/eb571d2348b0ae590b923ffd7b6722c7_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/DJ-Tonight-Telugu-2022-20220415183409-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23585,7 +23585,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/974d16f114002a8d79b0d2db8b0c5514_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Party-Hits-2021-Telugu-2021-20211228152245-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23597,7 +23597,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/610/fcf14eedd2b4fc2eec1e56089da30c5a_320.mp4",
-      "artwork": "https://c.saavncdn.com/610/Sensation-Saturday-Telugu-2020-20200618221529-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23609,7 +23609,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/08964681ae22ed81230238274186d84a_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Social-Media-Sensations-Telugu-2020-20200908014126-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23621,7 +23621,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2020,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/597/16484823ba7ce49cde2813d458ea927c_320.mp4",
-      "artwork": "https://c.saavncdn.com/597/High-Voltage-Songs-Of-Allu-Arjun-Telugu-2020-20200321134120-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -23633,7 +23633,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/621/6c17a7fd938d31aa2c206cdcc61fb2e9_320.mp4",
-      "artwork": "https://c.saavncdn.com/621/Ala-Vaikunthapurramuloo-Telugu-2024-20260930120034-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 226,
       "isOnline": true
     },
@@ -23645,7 +23645,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/328f31ccbcea659c3616f3cae588e26d_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Ramuloo-Ramulaa-Official-Remix-From-Ala-Vaikunthapurramuloo-Telugu-2024-20240217185045-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 226,
       "isOnline": true
     },
@@ -23743,7 +23743,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/393/d12d09bb2bc6ea75407cbfe910931eb6_320.mp4",
-      "artwork": "https://c.saavncdn.com/393/Love-Story-Telugu-2021-20210924151752-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 226,
       "isOnline": true
     },
@@ -23755,7 +23755,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/351/96f8c67927ddb0fa2aeeae1f6ad68dcf_320.mp4",
-      "artwork": "https://c.saavncdn.com/351/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 228,
       "isOnline": true
     },
@@ -23767,7 +23767,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/712/e616231da7e27dd8a8aa67732d8471b6_320.mp4",
-      "artwork": "images/artists/mangli.jpg",
+      "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
       "duration": 268,
       "isOnline": true
     },
@@ -23947,7 +23947,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Kannada",
       "src": "https://aac.saavncdn.com/000/7e065d51c0382333918be93f863e5df6_320.mp4",
-      "artwork": "https://c.saavncdn.com/blob/057/Pushpa-The-Rise-Kannada-2021-20211218130320-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 223,
       "isOnline": true
     },
@@ -24151,7 +24151,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/450/2ddb39d5d151f2e8613e3e7e8d1d537d_320.mp4",
-      "artwork": "https://c.saavncdn.com/450/Pushpaka-Vimanam-Telugu-2021-20211112115106-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 181,
       "isOnline": true
     },
@@ -24715,7 +24715,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/8516b59949be4aef11bc72b405bbc9a6_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Lambasingi-A-Pure-Love-Story-Telugu-2022-20240313175431-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 200,
       "isOnline": true
     },
@@ -24727,7 +24727,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/621/6c17a7fd938d31aa2c206cdcc61fb2e9_320.mp4",
-      "artwork": "https://c.saavncdn.com/621/Ala-Vaikunthapurramuloo-Telugu-2024-20260930120034-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 226,
       "isOnline": true
     },
@@ -24787,7 +24787,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/216/2263d0c252fc42e18c9583d34c30083d_320.mp4",
-      "artwork": "https://c.saavncdn.com/216/Mangli-Bonalu-Song-2023-Tamil-2023-20230714154917-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
       "duration": 221,
       "isOnline": true
     },
@@ -25375,7 +25375,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/328f31ccbcea659c3616f3cae588e26d_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Ramuloo-Ramulaa-Official-Remix-From-Ala-Vaikunthapurramuloo-Telugu-2024-20240217185045-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 226,
       "isOnline": true
     },
@@ -25435,7 +25435,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/1710d7cc4ccb96306821297b49fa9701_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Best-Dance-Beats-Of-2021-Telugu-2021-20211225011409-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 230,
       "isOnline": true
     },
@@ -25447,7 +25447,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/null/44918d6e7689cfb0fd9b9a12388e88ef_320.mp4",
-      "artwork": "https://c.saavncdn.com/null/Maguva-Maguva-Women-s-Day-2021-Special-Telugu-2021-20210306031751-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 230,
       "isOnline": true
     },
@@ -25459,7 +25459,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/360/efad9be097c60164ce31ea703fcf78b4_320.mp4",
-      "artwork": "https://c.saavncdn.com/360/Tollywood-Trending-2021-Telugu-2021-20210310160839-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 230,
       "isOnline": true
     },
@@ -25471,7 +25471,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/d8297aff2ee6daa78032702497092740_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/DJ-Tonight-Telugu-2022-20220415183409-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 230,
       "isOnline": true
     },
@@ -25483,7 +25483,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/40804a08ffd0eb466eeb63df6d2a0523_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Party-Hits-2021-Telugu-2021-20211228152245-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 230,
       "isOnline": true
     },
@@ -25495,7 +25495,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/980/ca39deeb4c3b488584dfb3da237312a2_320.mp4",
-      "artwork": "https://c.saavncdn.com/980/Super-Singer-Junior-Episode-01-Telugu-2022-20220623232715-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 246,
       "isOnline": true
     },
@@ -25507,7 +25507,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/2a37b48019e16410b132fcf561489ace_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Saranga-Dariya-Official-Remix-From-Love-Story-Telugu-2024-20241130162907-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 227,
       "isOnline": true
     },
@@ -25519,7 +25519,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/936/9c353e3644f5da155d6b40720382fe92_320.mp4",
-      "artwork": "https://c.saavncdn.com/936/Bonalu-Song-2021-Telugu-2021-20211027042514-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
       "duration": 266,
       "isOnline": true
     },
@@ -25531,7 +25531,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/344/8fdcae962119beef034758239d8ad56f_320.mp4",
-      "artwork": "https://c.saavncdn.com/344/Bonalu-Song-DJ-Version-2024-Telugu-2024-20241216165416-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
       "duration": 233,
       "isOnline": true
     }
@@ -26433,7 +26433,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2010,
       "language": "Kannada",
       "src": "https://aac.saavncdn.com/039/2c1290d5bb492b62f07eff7276d962ca_320.mp4",
-      "artwork": "https://c.saavncdn.com/039/Krishnan-Love-Story-Kannada-2010-20250318111503-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 253,
       "isOnline": true
     },
@@ -26865,7 +26865,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Kannada",
       "src": "https://aac.saavncdn.com/957/bc645c4881f1789b3a25cfd0dca1a0b1_320.mp4",
-      "artwork": "https://c.saavncdn.com/957/Baanali-Badalago-Kannada-2023-20230613183111-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 314,
       "isOnline": true
     },
@@ -30671,7 +30671,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 1998,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/252/c086f0cf5ab8996412d8d60f52bd059b_320.mp4",
-      "artwork": "images/artists/karthik.jpg",
+      "artwork": "https://c.saavncdn.com/252/Tholiprema-Telugu-2014-20251011224607-500x500.jpg",
       "duration": 265,
       "isOnline": true
     },
@@ -30707,7 +30707,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2011,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/358/92bbbbd81f22a47754d814f3f612d01a_320.mp4",
-      "artwork": "https://c.saavncdn.com/358/Mr-Perfect-Telugu-2011-20220624021239-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/358/Mr-Perfect-2011-500x500.jpg",
       "duration": 242,
       "isOnline": true
     },
@@ -31139,7 +31139,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/025/52cd5dbb524ab806279bfdeaa8223ee1_320.mp4",
-      "artwork": "https://c.saavncdn.com/025/Jigithara-From-Chennai-Love-Story-Telugu-2026-20260619191207-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 252,
       "isOnline": true
     },
@@ -31211,7 +31211,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/842/c7e12f8d99846d46f47f229c9d73acc1_320.mp4",
-      "artwork": "https://c.saavncdn.com/842/Chennai-Love-Story-Telugu-2026-20260723201006-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 252,
       "isOnline": true
     },
@@ -40275,7 +40275,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2002,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/620/5757bb6c606c1210d366f9c805c3a401_320.mp4",
-      "artwork": "https://c.saavncdn.com/620/Idhi-Maa-Ashokgadi-Love-Story-2002-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 338,
       "isOnline": true
     },
@@ -40551,7 +40551,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2002,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/620/d584abebc47e0445c966d3c388edf9a5_320.mp4",
-      "artwork": "https://c.saavncdn.com/620/Idhi-Maa-Ashokgadi-Love-Story-2002-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 286,
       "isOnline": true
     },
@@ -42809,7 +42809,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/366/2eb21d94241ba0d9e970d808a7dc015d_320.mp4",
-      "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 247,
       "isOnline": true
     },
@@ -42905,7 +42905,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/351/96f8c67927ddb0fa2aeeae1f6ad68dcf_320.mp4",
-      "artwork": "https://c.saavncdn.com/351/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 224,
       "isOnline": true
     },
@@ -42977,7 +42977,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/366/da6848c6a220b99dd20f5d82549298b4_320.mp4",
-      "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 248,
       "isOnline": true
     },
@@ -42989,7 +42989,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/366/41c23b604eed1e0bb950ad4566b40198_320.mp4",
-      "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 260,
       "isOnline": true
     },
@@ -43145,7 +43145,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/306/0d7d44aa9e308cc9cc6857fc25de07b9_320.mp4",
-      "artwork": "https://c.saavncdn.com/306/Pushpa-2-The-Rule-Hindi-2024-20241205211002-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 247,
       "isOnline": true
     },
@@ -43529,7 +43529,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/bb83c74e8715af6a6b82c4e3d1648030_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-OST-Telugu-2023-20230529153008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 115,
       "isOnline": true
     },
@@ -43565,7 +43565,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/366/0377fc358eb812da5d44b215b4bebfb3_320.mp4",
-      "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 256,
       "isOnline": true
     },
@@ -43577,7 +43577,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/306/14fabd68de4410cee4b822c89f37abd8_320.mp4",
-      "artwork": "https://c.saavncdn.com/306/Pushpa-2-The-Rule-Hindi-2024-20241205211002-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 256,
       "isOnline": true
     },
@@ -43589,7 +43589,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/269/091885a6fdcbcef30a4f5cd761038544_320.mp4",
-      "artwork": "https://c.saavncdn.com/269/Pushpa-2-The-Rule-Ost-Telugu-2025-20250129131004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 273,
       "isOnline": true
     },
@@ -43601,7 +43601,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/269/9fe9bd189323636ff2d67709d258c5c9_320.mp4",
-      "artwork": "https://c.saavncdn.com/269/Pushpa-2-The-Rule-Ost-Telugu-2025-20250129131004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 168,
       "isOnline": true
     },
@@ -43613,7 +43613,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/269/4c9386c4ea46f1e4804f348a8dfcd274_320.mp4",
-      "artwork": "https://c.saavncdn.com/269/Pushpa-2-The-Rule-Ost-Telugu-2025-20250129131004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 253,
       "isOnline": true
     },
@@ -43625,7 +43625,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Kannada",
       "src": "https://aac.saavncdn.com/618/568df4f66ae59b7733ffd8f73b05505b_320.mp4",
-      "artwork": "https://c.saavncdn.com/618/Pushpa-Pushpa-From-Pushpa-2-The-Rule-Kannada-Kannada-2024-20240501161057-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 256,
       "isOnline": true
     },
@@ -43649,7 +43649,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Tamil",
       "src": "https://aac.saavncdn.com/632/bbf43ae5f4e07d8f27b2caa54f9c7051_320.mp4",
-      "artwork": "https://c.saavncdn.com/632/Pushpa-Pushpa-From-Pushpa-2-The-Rule-Tamil-Tamil-2024-20240501161051-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 256,
       "isOnline": true
     },
@@ -43673,7 +43673,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/3ea2c957bc072b6cff6de044fafeb9b1_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-OST-Telugu-2023-20230529153008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 108,
       "isOnline": true
     },
@@ -43709,7 +43709,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/82a3cebd95f91a263c9c10bacc554173_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-OST-Telugu-2023-20230529153008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 74,
       "isOnline": true
     },
@@ -43721,7 +43721,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/269/cd36323995a6688bddc6ad772bbc4c94_320.mp4",
-      "artwork": "https://c.saavncdn.com/269/Pushpa-2-The-Rule-Ost-Telugu-2025-20250129131004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 508,
       "isOnline": true
     },
@@ -43733,7 +43733,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/49b8d19b016fabdcec55b4582a133d36_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-OST-Telugu-2023-20230529153008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 112,
       "isOnline": true
     },
@@ -43745,7 +43745,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/306/d8393f0e4c3bc0308249e057ef550414_320.mp4",
-      "artwork": "https://c.saavncdn.com/306/Pushpa-2-The-Rule-Hindi-2024-20241205211002-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 260,
       "isOnline": true
     },
@@ -43757,7 +43757,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/8e8e25cdb2912692027ebce648fa7277_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-OST-Telugu-2023-20230529153008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 77,
       "isOnline": true
     },
@@ -43769,7 +43769,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/869ff9c632e6f9f2921d5029d7d57c19_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-OST-Telugu-2023-20230529153008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 79,
       "isOnline": true
     },
@@ -43781,7 +43781,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/269/0f09771c15cf5f577f52bb3694bc469a_320.mp4",
-      "artwork": "https://c.saavncdn.com/269/Pushpa-2-The-Rule-Ost-Telugu-2025-20250129131004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 454,
       "isOnline": true
     },
@@ -43793,7 +43793,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/2d2a27e7253e40dbf31476393aee88ed_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-OST-Telugu-2023-20230529153008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 111,
       "isOnline": true
     },
@@ -43805,7 +43805,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/306/dfba297b756193ee14bb6b85d60e41eb_320.mp4",
-      "artwork": "https://c.saavncdn.com/306/Pushpa-2-The-Rule-Hindi-2024-20241205211002-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 208,
       "isOnline": true
     },
@@ -43841,7 +43841,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/601/6925b52900fce1f23b9b8a3c373205b4_320.mp4",
-      "artwork": "https://c.saavncdn.com/601/Pushpa-Pushpa-From-Pushpa-2-The-Rule-Telugu-Telugu-2024-20240501161044-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 256,
       "isOnline": true
     },
@@ -43865,7 +43865,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Tamil",
       "src": "https://aac.saavncdn.com/603/682e7a876f850ea585f11c4b006f4e60_320.mp4",
-      "artwork": "https://c.saavncdn.com/603/Soodaana-From-Pushpa-2-The-Rule-Tamil-2024-20240528221008-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 260,
       "isOnline": true
     },
@@ -43901,7 +43901,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/073/3d0cb43e6a9cea9affe94dd3949a00fb_320.mp4",
-      "artwork": "https://c.saavncdn.com/073/Dum-Hai-To-Rok-Ke-Bata-From-Pushpa-2-The-Rule-Hindi-2024-20241224141009-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 93,
       "isOnline": true
     },
@@ -43913,7 +43913,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2025,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/269/c2bbc4e8bb19140a152c4f85f9dbbd67_320.mp4",
-      "artwork": "https://c.saavncdn.com/269/Pushpa-2-The-Rule-Ost-Telugu-2025-20250129131004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 120,
       "isOnline": true
     },
@@ -43925,7 +43925,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/588/1eb132fd93d71e17c9c09c709f234fb9_320.mp4",
-      "artwork": "https://c.saavncdn.com/588/Pushpa-Pushpa-From-Pushpa-2-The-Rule-Hindi-Hindi-2024-20240501161111-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 256,
       "isOnline": true
     },
@@ -43949,7 +43949,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Kannada",
       "src": "https://aac.saavncdn.com/560/3c8a863b3d2b39b854fd1588769e61dd_320.mp4",
-      "artwork": "https://c.saavncdn.com/560/Peelings-From-Pushpa-2-The-Rule-Kannada-Kannada-2024-20241201171020-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 247,
       "isOnline": true
     },
@@ -44289,7 +44289,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/109/67b57d6b8abcf3f2780e817a3a831eb0_320.mp4",
-      "artwork": "https://c.saavncdn.com/109/DJ-Tillu-Telugu-2022-20220202165243-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/430/DJ-Tillu-Telugu-2022-20220210033850-500x500.jpg",
       "duration": 216,
       "isOnline": true
     },
@@ -44301,7 +44301,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/978/f7a0dc15a51351119bfaaaee1bfdc3d4_320.mp4",
-      "artwork": "https://c.saavncdn.com/978/Jathi-Ratnalu-Telugu-2021-20210309174548-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -44637,7 +44637,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/201f2bdc7961133f661059e3b520bbbf_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Tillu-Anna-Dj-Pedithe-Official-Remix-Telugu-2024-20240208114545-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/430/DJ-Tillu-Telugu-2022-20220210033850-500x500.jpg",
       "duration": 183,
       "isOnline": true
     },
@@ -44961,7 +44961,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/450/cac9a329b826b03aff9229fda330dbc8_320.mp4",
-      "artwork": "https://c.saavncdn.com/450/Pushpaka-Vimanam-Telugu-2021-20211112115106-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 246,
       "isOnline": true
     },
@@ -45393,7 +45393,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/032c387cd3cd7bfed511f46cc2e4390f_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/DJ-Tonight-Telugu-2022-20220415183409-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/430/DJ-Tillu-Telugu-2022-20220210033850-500x500.jpg",
       "duration": 183,
       "isOnline": true
     },
@@ -49371,7 +49371,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2010,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/295/f57faf879838fa55c935195d16d738bd_320.mp4",
-      "artwork": "https://c.saavncdn.com/295/Golimaar-Telugu-2010-20220718051759-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/295/Golimaar-2010-500x500.jpg",
       "duration": 245,
       "isOnline": true
     },
@@ -50981,7 +50981,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/298/e762e16c19e101a8f6e3d293c2a6877b_320.mp4",
-      "artwork": "https://c.saavncdn.com/298/Guruthunda-From-Chennai-Love-Story-Telugu-2026-20260330161003-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 325,
       "isOnline": true
     },
@@ -51077,7 +51077,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/842/a555488aeb6e8d24711bf6acd46351f1_320.mp4",
-      "artwork": "https://c.saavncdn.com/842/Chennai-Love-Story-Telugu-2026-20260723201006-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 325,
       "isOnline": true
     },
@@ -52253,7 +52253,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2023,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/000/3bd04f9ba78962d93ae5cdb8439fd309_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Balu-Gadi-Love-Story-Telugu-2023-20231106130533-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 231,
       "isOnline": true
     },
@@ -70427,7 +70427,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2018,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/518/446ef23b3edd2b1f04242ae0481eb208_320.mp4",
-      "artwork": "https://c.saavncdn.com/518/Yemainado-From-Mr-Majnu--Telugu-2018-20181214041813-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/866/Mr-Majnu-Telugu-2019-20190114050535-500x500.jpg",
       "duration": 196,
       "isOnline": true
     },
@@ -76875,7 +76875,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 1994,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/023/5e082236fd75dacf9d0107dc3a1e33d1_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/023/1942-A-Love-Story-Hindi-1994-20221206173549-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 275,
       "isOnline": true
     },
@@ -79575,7 +79575,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 1996,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/770/90d5eeaaf2005a6e25862670fac1a265_320.mp4",
-      "artwork": "https://c.saavncdn.com/770/Dilwale-Dulhania-Le-Jayenge-1942-A-Love-Story-Hindi-1996-20170915120411-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 402,
       "isOnline": true
     },
@@ -81471,7 +81471,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 1996,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/770/a73188ccfb9ef646a5b02bb097ef95b4_320.mp4",
-      "artwork": "https://c.saavncdn.com/770/Dilwale-Dulhania-Le-Jayenge-1942-A-Love-Story-Hindi-1996-20170915120411-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 278,
       "isOnline": true
     },
@@ -81999,7 +81999,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2022,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/845/b8508a2f2879804e1dcd9fceb8cd041e_320.mp4",
-      "artwork": "https://c.saavncdn.com/845/1942-A-Love-Story-Jhankar-Beats-Hindi-2022-20221020114026-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 274,
       "isOnline": true
     },
@@ -97765,7 +97765,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2004,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/560/54b4f9108b4e88866f31d49fdf60e2f8_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/560/Tumsa-Nahin-Dekha-A-Love-Story-Hindi-2004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 365,
       "isOnline": true
     },
@@ -97801,7 +97801,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2004,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/560/f6ba2ad95532d13577baa7a68a371279_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/560/Tumsa-Nahin-Dekha-A-Love-Story-Hindi-2004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 352,
       "isOnline": true
     },
@@ -113373,7 +113373,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2024,
       "language": "Hindi",
       "src": "https://aac.saavncdn.com/306/14fabd68de4410cee4b822c89f37abd8_320.mp4",
-      "artwork": "https://c.saavncdn.com/306/Pushpa-2-The-Rule-Hindi-2024-20241205211002-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 256,
       "isOnline": true
     },
@@ -117855,7 +117855,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2026,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/876/b2a3c8904ea20c34a5ecccb03d20aca1_320.mp4",
-      "artwork": "https://c.saavncdn.com/876/Chitti-Chitti-Cheema-From-Aakasamlo-Oka-Tara-Telugu-2026-20260728141032-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
       "duration": 308,
       "isOnline": true
     },
@@ -118901,7 +118901,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2012,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/076/cfc0dd9d74b3ba511470307e96448f7f_320.mp4",
-      "artwork": "https://c.saavncdn.com/076/Kadali-Telugu-2012-20190822130810-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
       "duration": 302,
       "isOnline": true
     },
@@ -120737,7 +120737,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2019,
       "language": "Malayalam",
       "src": "https://aac.saavncdn.com/535/01c78b530edbbeff6f744cb2cc3e1c41_320.mp4",
-      "artwork": "https://c.saavncdn.com/535/Angu-Vaikuntapurathu-Malayalam-2019-20200110131441-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 219,
       "isOnline": true
     },
@@ -122455,7 +122455,7 @@ window.ALL_ARTIST_DISCOGRAPHIES = {
       "year": 2021,
       "language": "Telugu",
       "src": "https://aac.saavncdn.com/733/95f8dd1dfa10f747d16ecaf5b38e7aee_320.mp4",
-      "artwork": "https://c.saavncdn.com/733/Telangana-Bonalu-Song-2021-Telugu-2021-20230913141512-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
       "duration": 303,
       "isOnline": true
     },

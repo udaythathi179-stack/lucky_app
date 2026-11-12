@@ -108,7 +108,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/517/339d76dce4db4f43f4721eec2d8f03ef_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 222
     },
     {
@@ -120,7 +120,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/000/05c5d77f6a8225d6667cf7a1fcaf37d8_320.mp4",
-      "artwork": "https://c.saavncdn.com/000/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 224
     },
     {
@@ -230,7 +230,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Hindi",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/712/03f0b2f5b84c8cf4ea4e9c704f0f0c05_320.mp4",
-      "artwork": "https://c.saavncdn.com/712/Bhediya-Hindi-2022-20221107185012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
       "duration": 261
     },
     {
@@ -402,7 +402,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
-      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200113143521-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
       "duration": 245
     },
     {
@@ -500,7 +500,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/393/d12d09bb2bc6ea75407cbfe910931eb6_320.mp4",
-      "artwork": "https://c.saavncdn.com/393/Love-Story-Telugu-2021-20210924151752-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 226
     },
     {
@@ -512,7 +512,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/351/96f8c67927ddb0fa2aeeae1f6ad68dcf_320.mp4",
-      "artwork": "https://c.saavncdn.com/351/Pushpa-The-Rise-Part-01-Telugu-2021-20211231174950-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 228
     },
     {
@@ -524,7 +524,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/712/e616231da7e27dd8a8aa67732d8471b6_320.mp4",
-      "artwork": "images/artists/mangli.jpg",
+      "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
       "duration": 268
     },
     {
@@ -990,7 +990,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/366/2eb21d94241ba0d9e970d808a7dc015d_320.mp4",
-      "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
       "duration": 247
     },
     {
@@ -1150,7 +1150,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/109/67b57d6b8abcf3f2780e817a3a831eb0_320.mp4",
-      "artwork": "https://c.saavncdn.com/109/DJ-Tillu-Telugu-2022-20220202165243-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/430/DJ-Tillu-Telugu-2022-20220210033850-500x500.jpg",
       "duration": 216
     },
     {
@@ -1162,7 +1162,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/978/f7a0dc15a51351119bfaaaee1bfdc3d4_320.mp4",
-      "artwork": "https://c.saavncdn.com/978/Jathi-Ratnalu-Telugu-2021-20210309174548-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
       "duration": 219
     },
     {
@@ -1614,7 +1614,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Telugu",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/298/e762e16c19e101a8f6e3d293c2a6877b_320.mp4",
-      "artwork": "https://c.saavncdn.com/298/Guruthunda-From-Chennai-Love-Story-Telugu-2026-20260330161003-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 325
     },
     {
@@ -2582,7 +2582,7 @@ window.ARTIST_CURATED_TRACKS = {
       "language": "Hindi",
       "category": "Curated",
       "src": "https://aac.saavncdn.com/560/54b4f9108b4e88866f31d49fdf60e2f8_sar_320.mp4",
-      "artwork": "https://c.saavncdn.com/560/Tumsa-Nahin-Dekha-A-Love-Story-Hindi-2004-500x500.jpg",
+      "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
       "duration": 365
     },
     {
