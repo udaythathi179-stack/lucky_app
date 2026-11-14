@@ -1949,6 +1949,14 @@ const HOME_ARTISTS = [
   { name: 'Arijit Singh', tag: 'Soul of Bollywood', img: 'images/artists/arijit-singh.jpg', query: 'Arijit Singh romantic hits' },
   { name: 'Shreya Ghoshal', tag: 'Melody Queen', img: 'images/artists/shreya-ghoshal.jpg', query: 'Shreya Ghoshal Telugu' },
   { name: 'Anurag Kulkarni', tag: 'Ramuloo, Pilla Raa', img: 'images/artists/anurag-kulkarni.jpg', query: 'Anurag Kulkarni Telugu' },
+  { name: 'Ed Sheeran', tag: 'Global Pop King &bull; Shape of You', img: 'https://c.saavncdn.com/286/WMG_190295851286-English-2017-500x500.jpg', query: 'Ed Sheeran' },
+  { name: 'The Weeknd', tag: 'Starboy &bull; Blinding Lights', img: 'https://c.saavncdn.com/372/Starboy-English-2016-500x500.jpg', query: 'The Weeknd' },
+  { name: 'Imagine Dragons', tag: 'Believer &bull; Rock Titans', img: 'https://c.saavncdn.com/248/Evolve-English-2018-20260605220036-500x500.jpg', query: 'Imagine Dragons' },
+  { name: 'Taylor Swift', tag: 'Cruel Summer &bull; Global Icon', img: 'https://c.saavncdn.com/716/Lover-English-2019-20190823091910-500x500.jpg', query: 'Taylor Swift' },
+  { name: 'Queen', tag: 'Bohemian Rhapsody &bull; Rock Legends', img: 'https://c.saavncdn.com/542/Chill-Rock-Pop-Vibes-English-2026-20260312015555-500x500.jpg', query: 'Queen' },
+  { name: 'Michael Jackson', tag: 'King of Pop &bull; Billie Jean', img: 'https://c.saavncdn.com/514/Ben-English-2010-20190620023024-500x500.jpg', query: 'Michael Jackson' },
+  { name: 'Anirudh Ravichander', tag: 'Devara & Jawan &bull; Rockstar', img: 'https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg', query: 'Anirudh Ravichander' },
+  { name: 'Ghantasala', tag: 'Telugu Golden Era Legend', img: 'https://c.saavncdn.com/979/Mayabazar-Telugu-1957-500x500.jpg', query: 'Ghantasala' },
   { name: 'Mangli', tag: 'Folk Sensationalist', img: 'images/artists/mangli.jpg', query: 'Mangli songs' },
   { name: 'Sonu Nigam', tag: 'Golden Voice', img: 'images/artists/sonu-nigam.jpg', query: 'Sonu Nigam romantic hits' },
   { name: 'Karthik', tag: 'Ee Manase, Niluvaddham', img: 'images/artists/karthik.jpg', query: 'Karthik Telugu songs' },
@@ -2721,6 +2729,406 @@ const FOLK_MASTERPIECES = [
   }
 ];
 
+const LATEST_MOVIE_HITS = [
+  {
+    "id": "latest-1-themeofkal",
+    "title": "Theme of Kalki",
+    "artist": "Santhosh Narayanan, Gowtham Bharadwaj",
+    "badge": "Blockbuster 2024",
+    "movie": "Kalki 2898 AD",
+    "year": 2024,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/888/a40cb595cf75a62e1469ac0a8194e998_320.mp4",
+    "artwork": "https://c.saavncdn.com/888/Kalki-2898-Ad-Telugu-Telugu-2024-20240712063717-500x500.jpg",
+    "duration": 189
+  },
+  {
+    "id": "latest-2-chuttamall",
+    "title": "Chuttamalle",
+    "artist": "Shilpa Rao, Anirudh Ravichander",
+    "badge": "Blockbuster 2024",
+    "movie": "Devara Part 1",
+    "year": 2024,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/313/e49e604945889f330e5b3536dd0ff524_320.mp4",
+    "artwork": "https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg",
+    "duration": 222
+  },
+  {
+    "id": "latest-3-soosekithe",
+    "title": "Sooseki (The Couple Song)",
+    "artist": "Shreya Ghoshal, Devi Sri Prasad",
+    "badge": "Blockbuster 2024",
+    "movie": "Pushpa 2: The Rule",
+    "year": 2024,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/366/41c23b604eed1e0bb950ad4566b40198_320.mp4",
+    "artwork": "https://c.saavncdn.com/366/Pushpa-2-The-Rule-Telugu-Telugu-2024-20241205211012-500x500.jpg",
+    "duration": 260
+  },
+  {
+    "id": "latest-4-aajkiraat",
+    "title": "Aaj Ki Raat",
+    "artist": "Madhubanti Bagchi, Divya Kumar, Sachin-Jigar",
+    "badge": "Blockbuster 2024",
+    "movie": "Stree 2",
+    "year": 2024,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/373/36b1b3637cdeedfaa9a9012453948aa6_320.mp4",
+    "artwork": "https://c.saavncdn.com/373/Stree-2-Hindi-2024-20240828083834-500x500.jpg",
+    "duration": 228
+  },
+  {
+    "id": "latest-5-pehlebhima",
+    "title": "Pehle Bhi Main",
+    "artist": "Vishal Mishra, JAM8",
+    "badge": "Blockbuster 2024",
+    "movie": "Animal",
+    "year": 2023,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/092/81b52beea90f186f27cf5c5eead972c8_320.mp4",
+    "artwork": "https://c.saavncdn.com/092/ANIMAL-Hindi-2023-20260724191152-500x500.jpg",
+    "duration": 250
+  },
+  {
+    "id": "latest-6-satranga",
+    "title": "Satranga",
+    "artist": "Arijit Singh, Shreyas Puranik",
+    "badge": "Blockbuster 2024",
+    "movie": "Animal",
+    "year": 2023,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/092/86b1368e104225e0bfbc69cda4ab8580_320.mp4",
+    "artwork": "https://c.saavncdn.com/092/ANIMAL-Hindi-2023-20260724191152-500x500.jpg",
+    "duration": 271
+  },
+  {
+    "id": "latest-7-dummasala",
+    "title": "Dum Masala",
+    "artist": "Sanjith Hegde, Thaman S",
+    "badge": "Blockbuster 2024",
+    "movie": "Guntur Kaaram",
+    "year": 2024,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/000/a20063ed2317350eb8f7e13728847e40_320.mp4",
+    "artwork": "https://c.saavncdn.com/000/Guntur-Kaaram-Telugu-2023-20240126145901-500x500.jpg",
+    "duration": 206
+  },
+  {
+    "id": "latest-8-chaleya",
+    "title": "Chaleya",
+    "artist": "Arijit Singh, Shilpa Rao, Anirudh Ravichander",
+    "badge": "Blockbuster 2024",
+    "movie": "Jawan",
+    "year": 2023,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/047/d1366530468931703ac909e82a3ee788_320.mp4",
+    "artwork": "https://c.saavncdn.com/047/Jawan-Hindi-2023-20230921190854-500x500.jpg",
+    "duration": 200
+  },
+  {
+    "id": "latest-9-ticketehko",
+    "title": "Ticket Eh Konakunda",
+    "artist": "Ram Miriyala",
+    "badge": "Blockbuster 2024",
+    "movie": "Tillu Square",
+    "year": 2024,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/000/4230cca1e82b5c22a2c34063e561ae0f_320.mp4",
+    "artwork": "https://c.saavncdn.com/000/Tillu-Square-Telugu-2023-20240405190047-500x500.jpg",
+    "duration": 189
+  },
+  {
+    "id": "latest-10-amijetomar",
+    "title": "Ami Je Tomar 3.0",
+    "artist": "Shreya Ghoshal, Amaal Mallik, Pritam",
+    "badge": "Blockbuster 2024",
+    "movie": "Bhool Bhulaiyaa 3",
+    "year": 2024,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/443/a852d618fa668280b031631e1f01d5c0_320.mp4",
+    "artwork": "https://c.saavncdn.com/443/Bhool-Bhulaiyaa-3-Hindi-2024-20250430161035-500x500.jpg",
+    "duration": 315
+  }
+];
+
+const GOLDEN_ERA_CLASSICS = [
+  {
+    "id": "classic-1-omkaaranaa",
+    "title": "Omkaara Naadaanu",
+    "artist": "S. P. Balasubrahmanyam, K. V. Mahadevan",
+    "badge": "Golden Classic",
+    "movie": "Shankarabharanam",
+    "year": 1980,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/956/3fc3ee51fb84d78c26e570aa6c375e7b_320.mp4",
+    "artwork": "https://c.saavncdn.com/956/Shankara-Bharanam-Telugu-1979-500x500.jpg",
+    "duration": 354
+  },
+  {
+    "id": "classic-2-dorakunaai",
+    "title": "Dorakunaa Ituvanti Seva",
+    "artist": "S. P. Balasubrahmanyam, Vani Jayaram",
+    "badge": "Golden Classic",
+    "movie": "Shankarabharanam",
+    "year": 1980,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/653/998f6a07a7799c83f989af850970b70c_320.mp4",
+    "artwork": "https://c.saavncdn.com/653/Shankarabharanam-Kannada-2021-20220827080451-500x500.jpg",
+    "duration": 277
+  },
+  {
+    "id": "classic-3-omnamahshi",
+    "title": "Om Namah Shivaaya",
+    "artist": "S. P. Balasubrahmanyam, K. S. Chithra, Ilaiyaraaja",
+    "badge": "Golden Classic",
+    "movie": "Geethanjali",
+    "year": 1989,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/525/d58110283b17643f5ac7e6cd4ec24956_320.mp4",
+    "artwork": "https://c.saavncdn.com/525/Bhoom-Shankara-Kannada-2025-20250719214506-500x500.jpg",
+    "duration": 241
+  },
+  {
+    "id": "classic-4-vedamanuva",
+    "title": "Vedam Anuvanuvuna",
+    "artist": "S. P. Balasubrahmanyam, S. P. Sailaja, Ilaiyaraaja",
+    "badge": "Golden Classic",
+    "movie": "Sagara Sangamam",
+    "year": 1983,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/901/348819da9f4641c73a44341be7922c0e_320.mp4",
+    "artwork": "https://c.saavncdn.com/901/Sagara-Sangamam-Telugu-Telugu-1983-500x500.jpg",
+    "duration": 315
+  },
+  {
+    "id": "classic-5-lahirilahi",
+    "title": "Lahiri Lahiri Lahirilo",
+    "artist": "Ghantasala, P. Leela",
+    "badge": "Golden Classic",
+    "movie": "Mayabazar",
+    "year": 1957,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/596/774d24d9934f4395c6f1a865c2fbbb15_sar_320.mp4",
+    "artwork": "https://c.saavncdn.com/279/Maya-Bazaar-Tamil-1957-20230509153547-500x500.jpg",
+    "duration": 230
+  },
+  {
+    "id": "classic-6-meresapnon",
+    "title": "Mere Sapnon Ki Rani",
+    "artist": "Kishore Kumar, S. D. Burman",
+    "badge": "Golden Classic",
+    "movie": "Aradhana",
+    "year": 1969,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/951/4882fc8a7bf7b8e7a1040ef94de6b9ef_sar_320.mp4",
+    "artwork": "https://c.saavncdn.com/951/Aradhana-Hindi-1969-500x500.jpg",
+    "duration": 300
+  },
+  {
+    "id": "classic-7-yehdostihu",
+    "title": "Yeh Dosti Hum Nahi Todenge",
+    "artist": "Kishore Kumar, Manna Dey, R. D. Burman",
+    "badge": "Golden Classic",
+    "movie": "Sholay",
+    "year": 1975,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/619/5534a1d8fbe23d8765c28af27a3a8470_320.mp4",
+    "artwork": "https://c.saavncdn.com/619/Ye-Dosti-Hum-Nahin-Todenge-Hindi-2024-20240727053154-500x500.jpg",
+    "duration": 321
+  },
+  {
+    "id": "classic-8-kahidoorja",
+    "title": "Kahi Door Jab Din Dhal Jaye",
+    "artist": "Mukesh, Salil Chowdhury",
+    "badge": "Golden Classic",
+    "movie": "Anand",
+    "year": 1971,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/339/581c52f09522eab9b94a72987e194bcd_sar_320.mp4",
+    "artwork": "https://c.saavncdn.com/339/Anand-Hindi-1971-20180111-500x500.jpg",
+    "duration": 202
+  },
+  {
+    "id": "classic-9-churaliyah",
+    "title": "Chura Liya Hai Tumne Jo Dil Ko",
+    "artist": "Mohammed Rafi, Asha Bhosle, R. D. Burman",
+    "badge": "Golden Classic",
+    "movie": "Yaadon Ki Baaraat",
+    "year": 1973,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/854/a48723fa6382061a3db02b90c5c0bd43_sar_320.mp4",
+    "artwork": "https://c.saavncdn.com/854/Yaadon-Ki-Baaraat-Hindi-1973-20200622062706-500x500.jpg",
+    "duration": 289
+  },
+  {
+    "id": "classic-10-gulabiaank",
+    "title": "Gulabi Aankhen",
+    "artist": "Mohammed Rafi, R. D. Burman",
+    "badge": "Golden Classic",
+    "movie": "The Train",
+    "year": 1970,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/812/4a604c9ad0d3435a9d07f1b40513bde3_320.mp4",
+    "artwork": "https://c.saavncdn.com/812/Barish-with-Rafi-Hindi-2026-20260827053717-500x500.jpg",
+    "duration": 198
+  }
+];
+
+const GLOBAL_ENGLISH_HITS = [
+  {
+    "id": "english-1-perfect",
+    "title": "Perfect",
+    "artist": "Ed Sheeran",
+    "badge": "Global Chartbuster",
+    "movie": "÷ (Divide)",
+    "year": 2017,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/286/71bb6cc3391ddf619a4a3f1a1134f1c4_320.mp4",
+    "artwork": "https://c.saavncdn.com/286/WMG_190295851286-English-2017-500x500.jpg",
+    "duration": 263
+  },
+  {
+    "id": "english-2-starboy",
+    "title": "Starboy",
+    "artist": "The Weeknd ft. Daft Punk",
+    "badge": "Global Chartbuster",
+    "movie": "Starboy",
+    "year": 2016,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/396/b4e570050007b056c662f2a98c9f28ec_320.mp4",
+    "artwork": "https://c.saavncdn.com/396/The-Highlights-English-2021-20240207045714-500x500.jpg",
+    "duration": 230
+  },
+  {
+    "id": "english-3-demons",
+    "title": "Demons",
+    "artist": "Imagine Dragons",
+    "badge": "Global Chartbuster",
+    "movie": "Night Visions",
+    "year": 2012,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/210/6878daf1737dcbd57b99677f085952d1_320.mp4",
+    "artwork": "https://c.saavncdn.com/210/Night-Visions-2013-500x500.jpg",
+    "duration": 175
+  },
+  {
+    "id": "english-4-cruelsumme",
+    "title": "Cruel Summer",
+    "artist": "Taylor Swift",
+    "badge": "Global Chartbuster",
+    "movie": "Lover",
+    "year": 2019,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/243/cf6b522de1390996fdbe109298873c72_320.mp4",
+    "artwork": "https://c.saavncdn.com/243/The-Cruelest-Summer-English-2023-20231109123211-500x500.jpg",
+    "duration": 178
+  },
+  {
+    "id": "english-5-peaches",
+    "title": "Peaches",
+    "artist": "Justin Bieber ft. Daniel Caesar, Giveon",
+    "badge": "Global Chartbuster",
+    "movie": "Justice",
+    "year": 2021,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/983/01100b84f61ca8b3a0432f12c564be8e_320.mp4",
+    "artwork": "https://c.saavncdn.com/983/Justice-English-2021-20210325102906-500x500.jpg",
+    "duration": 198
+  },
+  {
+    "id": "english-6-dontstartn",
+    "title": "Don't Start Now",
+    "artist": "Dua Lipa",
+    "badge": "Global Chartbuster",
+    "movie": "Future Nostalgia",
+    "year": 2019,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/175/ebe4bde7f08c39cc9f98596f9b0d943f_320.mp4",
+    "artwork": "https://c.saavncdn.com/175/Don-t-Start-Now-English-2019-20231110075133-500x500.jpg",
+    "duration": 183
+  },
+  {
+    "id": "english-7-bohemianrh",
+    "title": "Bohemian Rhapsody",
+    "artist": "Queen",
+    "badge": "Rock Legend",
+    "movie": "A Night at the Opera",
+    "year": 1975,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/271/25722226e82ded09c73b13896a437a78_320.mp4",
+    "artwork": "https://c.saavncdn.com/271/A-Night-At-The-Opera-Deluxe-Edition-English-2026-20260617043527-500x500.jpg",
+    "duration": 358
+  },
+  {
+    "id": "english-8-billiejean",
+    "title": "Billie Jean",
+    "artist": "Michael Jackson",
+    "badge": "Rock Legend",
+    "movie": "Thriller",
+    "year": 1982,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/798/ba245d3ac53dc20f560b9da379d7f4b3_320.mp4",
+    "artwork": "https://c.saavncdn.com/798/Mundial-2026-Copa-de-F-tbol-del-Mundo-2026-English-2026-20260714021441-500x500.jpg",
+    "duration": 293
+  },
+  {
+    "id": "english-9-asitwas",
+    "title": "As It Was",
+    "artist": "Harry Styles",
+    "badge": "Global Chartbuster",
+    "movie": "Harry's House",
+    "year": 2022,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/061/3cd80564e24ad83245334f8a0e7fb126_320.mp4",
+    "artwork": "https://c.saavncdn.com/061/Harry-s-House-English-2022-20220518224913-500x500.jpg",
+    "duration": 167
+  },
+  {
+    "id": "english-10-hymnforthe",
+    "title": "Hymn For The Weekend",
+    "artist": "Coldplay",
+    "badge": "Global Chartbuster",
+    "movie": "A Head Full of Dreams",
+    "year": 2015,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/141/579c70096de26b2fab435301383d2bfb_320.mp4",
+    "artwork": "https://c.saavncdn.com/141/A-Head-Full-of-Dreams-English-2015-20201104170723-500x500.jpg",
+    "duration": 258
+  }
+];
+
+
 const ALBUMS_FEATURING = [
   {
     id: "alb-vikramasimha",
@@ -2910,6 +3318,15 @@ function renderHomeDashboard() {
 
   // 7. Folk & Cultural Masterpieces (100% verified folk songs)
   renderShelf('folkShelf', FOLK_MASTERPIECES);
+
+  // 8. Latest Movie Blockbusters (2024-2026 Telugu & Hindi)
+  renderShelf('latestHitsShelf', LATEST_MOVIE_HITS);
+
+  // 9. Golden Era Retro Classics (Telugu & Hindi)
+  renderShelf('classicHitsShelf', GOLDEN_ERA_CLASSICS);
+
+  // 10. Global English Hits & Legends
+  renderShelf('englishHitsShelf', GLOBAL_ENGLISH_HITS);
 }
 
 // Progressive Song Grid Rendering (Ultra-Smooth 60FPS Virtual Pagination)
