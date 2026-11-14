@@ -1431,39 +1431,46 @@ if (initialRecentTracks.length < 6) {
 // Clean and deduplicate any list of tracks by normalized title, artist and movie
 function deduplicateTrackList(tracks) {
   if (!Array.isArray(tracks)) return [];
-  const seenKeys = new Set();
+  const seenTitleKeys = new Set();
   const seenUrls = new Set();
   const unique = [];
 
   for (const track of tracks) {
     if (!track || !track.title) continue;
 
-    const normTitle = String(track.title)
-      .toLowerCase()
+    const rawTitle = String(track.title).toLowerCase();
+
+    // Aggressive normalization of title
+    const normTitle = rawTitle
       .replace(/\s*\(.*?\)/g, '')
       .replace(/\s*\[.*?\]/g, '')
-      .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original).*$/i, '')
+      .replace(/\s*-\s*(from|lyrical|remix|full video|audio|remastered|video song|single|original|telugu|hindi|party mix).*$/i, '')
+      .replace(/\b(from|song|video song|full song|lyrical|remix|audio|track|soundtrack)\b/gi, '')
       .replace(/[^a-z0-9]/g, '')
       .trim();
 
-    const normMovie = String(track.movie || '')
+    // Primary artist (first person's normalized name)
+    const primaryArtist = String(track.artist || '')
       .toLowerCase()
+      .split(/[,&/|]/)[0]
       .replace(/[^a-z0-9]/g, '')
       .trim();
 
-    const normArtist = String(track.artist || '')
-      .toLowerCase()
-      .split(',')[0]
-      .replace(/[^a-z0-9]/g, '')
-      .trim();
-
-    const key = `${normTitle}__${normArtist}__${normMovie}`;
     const cleanUrl = track.src ? String(track.src).trim().toLowerCase().split('?')[0] : '';
 
-    if (normTitle && seenKeys.has(key)) continue;
+    // Check URL duplicate
     if (cleanUrl && seenUrls.has(cleanUrl)) continue;
 
-    if (normTitle) seenKeys.add(key);
+    // Check Title Duplicate
+    // If title is distinct (>3 letters and not generic), check by normTitle alone OR (normTitle + primaryArtist)
+    const isGeneric = ['intro', 'outro', 'theme', 'bgm', 'instrumental', 'titlesong'].includes(normTitle);
+    const titleKey = (!isGeneric && normTitle.length > 3)
+      ? normTitle
+      : `${normTitle}__${primaryArtist}`;
+
+    if (normTitle && seenTitleKeys.has(titleKey)) continue;
+
+    if (normTitle) seenTitleKeys.add(titleKey);
     if (cleanUrl) seenUrls.add(cleanUrl);
     unique.push(track);
   }
@@ -2181,7 +2188,7 @@ const HOME_SHELF_TRACKS_MAP = new Map();
 
 const RECOMMENDED_TODAY = [
   {
-    "id": "rec-boomboom",
+    "id": "reco-1-boomboom",
     "title": "Boom Boom",
     "artist": "Sai Abhyankkar, Deepthi Suresh, Bebhumika",
     "badge": "Trending",
@@ -2194,7 +2201,7 @@ const RECOMMENDED_TODAY = [
     "duration": 240
   },
   {
-    "id": "rec-magadheera",
+    "id": "reco-2-panchadaar",
     "title": "Panchadaara",
     "artist": "M. M. Keeravaani, Rita Thyagarajan, Anuj Gurwara",
     "badge": "Blockbuster",
@@ -2207,7 +2214,7 @@ const RECOMMENDED_TODAY = [
     "duration": 288
   },
   {
-    "id": "rec-guru",
+    "id": "reco-3-terebina",
     "title": "Tere Bina",
     "artist": "A.R. Rahman, Chinmayi, Murtuza Khan",
     "badge": "Masterpiece",
@@ -2220,7 +2227,7 @@ const RECOMMENDED_TODAY = [
     "duration": 309
   },
   {
-    "id": "rec-yeshanagula",
+    "id": "reco-4-yeshanagul",
     "title": "Yeshanagula",
     "artist": "Anirudh Ravichander, Singer Prabha, Jangi Reddy",
     "badge": "Latest Hit",
@@ -2233,7 +2240,7 @@ const RECOMMENDED_TODAY = [
     "duration": 236
   },
   {
-    "id": "rec-namo-re",
+    "id": "reco-5-namore",
     "title": "Namo Re",
     "artist": "Sri Harsha Emani, Junaid Kumar, AbhE",
     "badge": "Divine",
@@ -2246,7 +2253,7 @@ const RECOMMENDED_TODAY = [
     "duration": 215
   },
   {
-    "id": "rec-kesariya",
+    "id": "reco-6-kesariya",
     "title": "Kesariya",
     "artist": "Arijit Singh, Pritam",
     "badge": "Melody",
@@ -2259,7 +2266,7 @@ const RECOMMENDED_TODAY = [
     "duration": 268
   },
   {
-    "id": "rec-srivalli",
+    "id": "reco-7-srivalli",
     "title": "Srivalli",
     "artist": "Sid Sriram, Devi Sri Prasad",
     "badge": "Chartbuster",
@@ -2272,36 +2279,10 @@ const RECOMMENDED_TODAY = [
     "duration": 224
   },
   {
-    "id": "rec-ramuloo",
-    "title": "Ramuloo Ramulaa",
-    "artist": "Anurag Kulkarni, Mangli",
-    "badge": "Party Hit",
-    "movie": "Ala Vaikunthapurramuloo",
-    "year": 2019,
-    "language": "Telugu",
-    "category": "Telugu",
-    "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
-    "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-    "duration": 261
-  },
-  {
-    "id": "rec-saranga",
-    "title": "Saranga Dariya",
-    "artist": "Mangli",
-    "badge": "Folk Anthem",
-    "movie": "Love Story",
-    "year": 2021,
-    "language": "Telugu",
-    "category": "Folk",
-    "src": "https://aac.saavncdn.com/582/499f47fee99a0809e9d2b343ac2bec8e_320.mp4",
-    "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
-    "duration": 236
-  },
-  {
-    "id": "rec-fear-song",
+    "id": "reco-8-fearsong",
     "title": "Fear Song",
     "artist": "Anirudh Ravichander",
-    "badge": "Mass Beat",
+    "badge": "Mass Hit",
     "movie": "Devara Part 1",
     "year": 2024,
     "language": "Telugu",
@@ -2311,10 +2292,10 @@ const RECOMMENDED_TODAY = [
     "duration": 194
   },
   {
-    "id": "rec-pushpa2",
+    "id": "reco-9-pushpapush",
     "title": "Pushpa Pushpa",
     "artist": "Nakash Aziz, Devi Sri Prasad",
-    "badge": "Anthem",
+    "badge": "Dance",
     "movie": "Pushpa 2: The Rule",
     "year": 2024,
     "language": "Telugu",
@@ -2324,23 +2305,10 @@ const RECOMMENDED_TODAY = [
     "duration": 266
   },
   {
-    "id": "rec-chitti",
-    "title": "Chitti",
-    "artist": "Ram Miriyala",
-    "badge": "Superhit",
-    "movie": "Jathi Ratnalu",
-    "year": 2021,
-    "language": "Telugu",
-    "category": "Telugu",
-    "src": "https://aac.saavncdn.com/604/f2c7f087e4bee0bf947b0c43bc22a507_320.mp4",
-    "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
-    "duration": 184
-  },
-  {
-    "id": "rec-kurchi",
+    "id": "reco-10-kurchimada",
     "title": "Kurchi Madathapetti",
     "artist": "Thaman S, Sri Krishna, Sahithi Chaganti",
-    "badge": "Mass Blockbuster",
+    "badge": "Mega Hit",
     "movie": "Guntur Kaaram",
     "year": 2024,
     "language": "Telugu",
@@ -2348,607 +2316,411 @@ const RECOMMENDED_TODAY = [
     "src": "https://aac.saavncdn.com/000/a8b06cdf02fd61001823e10d55ad3ebe_320.mp4",
     "artwork": "https://c.saavncdn.com/000/Guntur-Kaaram-Telugu-2023-20240126145901-500x500.jpg",
     "duration": 215
-  },
-  {
-    "id": "rec-samajavaragamana",
-    "title": "Samajavaragamana",
-    "artist": "Sid Sriram, Thaman S",
-    "badge": "All-Time Melody",
-    "movie": "Ala Vaikunthapurramuloo",
-    "year": 2019,
-    "language": "Telugu",
-    "category": "Telugu",
-    "src": "https://aac.saavncdn.com/517/339d76dce4db4f43f4721eec2d8f03ef_320.mp4",
-    "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-    "duration": 214
-  },
-  {
-    "id": "rec-naatu",
-    "title": "Naatu Naatu",
-    "artist": "Rahul Sipligunj, Kaala Bhairava",
-    "badge": "Oscar Winner",
-    "movie": "RRR",
-    "year": 2022,
-    "language": "Telugu",
-    "category": "Telugu",
-    "src": "https://aac.saavncdn.com/683/000ab54759049a8451ffcdc6412a0ef6_320.mp4",
-    "artwork": "https://c.saavncdn.com/683/RRR-Telugu-Telugu-2022-20250828171313-500x500.jpg",
-    "duration": 214
   }
 ];
 
 const JUMP_BACK_TRACKS = [
   {
-    "id": "jb-srivalli",
-    "title": "Srivalli",
-    "artist": "Sid Sriram, Devi Sri Prasad",
-    "movie": "Pushpa - The Rise",
-    "year": 2021,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/000/05c5d77f6a8225d6667cf7a1fcaf37d8_320.mp4",
-    "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
-    "duration": 224
-  },
-  {
-    "id": "jb-kesariya",
-    "title": "Kesariya",
-    "artist": "Arijit Singh, Pritam",
-    "movie": "Brahmastra",
-    "year": 2022,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/871/c2febd353f3a076a406fa37510f31f9f_320.mp4",
-    "artwork": "https://c.saavncdn.com/871/Brahmastra-Original-Motion-Picture-Soundtrack-Hindi-2022-20221006155213-500x500.jpg",
-    "duration": 268
-  },
-  {
-    "id": "jb-shape-of-you",
+    "id": "jump-1-shapeofyou",
     "title": "Shape of You",
     "artist": "Ed Sheeran",
+    "badge": "Global Pop",
     "movie": "÷",
     "year": 2017,
     "language": "English",
+    "category": "English",
     "src": "https://aac.saavncdn.com/286/2929d11a5d44a3592ced0383fa6f1977_320.mp4",
-    "artwork": "https://c.saavncdn.com/286/Shape-of-You-English-2017-500x500.jpg",
+    "artwork": "https://c.saavncdn.com/286/WMG_190295851286-English-2017-500x500.jpg",
     "duration": 233
   },
   {
-    "id": "jb-samajavaragamana",
-    "title": "Samajavaragamana",
-    "artist": "Sid Sriram, Thaman S",
-    "movie": "Ala Vaikunthapurramuloo",
-    "year": 2019,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/517/339d76dce4db4f43f4721eec2d8f03ef_320.mp4",
-    "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-    "duration": 214
-  },
-  {
-    "id": "jb-tum-hi-ho",
+    "id": "jump-2-tumhiho",
     "title": "Tum Hi Ho",
     "artist": "Arijit Singh",
+    "badge": "Evergreen",
     "movie": "Aashiqui 2",
     "year": 2013,
     "language": "Hindi",
+    "category": "Hindi",
     "src": "https://aac.saavncdn.com/430/5c5ea5cc00e3bff45616013226f376fe_320.mp4",
     "artwork": "https://c.saavncdn.com/430/Aashiqui-2-Hindi-2013-500x500.jpg",
     "duration": 262
   },
   {
-    "id": "jb-believer",
+    "id": "jump-3-believer",
     "title": "Believer",
     "artist": "Imagine Dragons",
+    "badge": "Rock Anthem",
     "movie": "Evolve",
-    "year": 2017,
+    "year": 2018,
     "language": "English",
+    "category": "English",
     "src": "https://aac.saavncdn.com/248/46944eb7b4b31f5b0abf5eb2e1be2d2a_320.mp4",
     "artwork": "https://c.saavncdn.com/248/Evolve-English-2018-20260605220036-500x500.jpg",
     "duration": 204
   },
   {
-    "id": "jb-naatu-naatu",
-    "title": "Naatu Naatu",
-    "artist": "Rahul Sipligunj, Kaala Bhairava",
-    "movie": "RRR",
-    "year": 2022,
+    "id": "jump-4-buttabomma",
+    "title": "Butta Bomma",
+    "artist": "Armaan Malik",
+    "badge": "Chartbuster",
+    "movie": "Ala Vaikunthapurramuloo",
+    "year": 2020,
     "language": "Telugu",
-    "src": "https://aac.saavncdn.com/683/000ab54759049a8451ffcdc6412a0ef6_320.mp4",
-    "artwork": "https://c.saavncdn.com/683/RRR-Telugu-Telugu-2022-20250828171313-500x500.jpg",
-    "duration": 214
+    "category": "Curated",
+    "src": "https://aac.saavncdn.com/517/68cc88035f2fbcd5772e6551bf64c111_320.mp4",
+    "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
+    "duration": 198
   },
   {
-    "id": "jb-apna-bana-le",
-    "title": "Apna Bana Le",
-    "artist": "Arijit Singh, Sachin-Jigar",
-    "movie": "Bhediya",
-    "year": 2022,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/815/483a6e118e8108cbb3e5cd8701674f32_320.mp4",
-    "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
-    "duration": 261
+    "id": "jump-5-inkeminkem",
+    "title": "Inkem Inkem Inkem Kaavaale",
+    "artist": "Sid Sriram",
+    "badge": "Soulful Melody",
+    "movie": "Geetha Govindam",
+    "year": 2018,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/237/7942edb73e64d4e35e488337e14753b7_320.mp4",
+    "artwork": "https://c.saavncdn.com/237/Geetha-Govindam-Telugu-2018-20180921-500x500.jpg",
+    "duration": 266
   },
   {
-    "id": "jb-blinding-lights",
+    "id": "jump-6-blindingli",
     "title": "Blinding Lights",
     "artist": "The Weeknd",
-    "movie": "After Hours",
+    "badge": "Synthwave",
+    "movie": "Blinding Lights",
     "year": 2020,
     "language": "English",
-    "src": "https://aac.saavncdn.com/077/0b02a92687d1ae3369b6859f44872e52_320.mp4",
-    "artwork": "https://c.saavncdn.com/077/After-Hours-English-2020-20260804045014-500x500.jpg",
-    "duration": 200
+    "category": "English",
+    "src": "https://aac.saavncdn.com/820/5ddb9a79a5218f85ca9bef170f3a461d_320.mp4",
+    "artwork": "https://c.saavncdn.com/820/Blinding-Lights-English-2020-20200912094411-500x500.jpg",
+    "duration": 204
   },
   {
-    "id": "jb-chitti",
-    "title": "Chitti",
-    "artist": "Ram Miriyala",
-    "movie": "Jathi Ratnalu",
+    "id": "jump-7-stay",
+    "title": "STAY",
+    "artist": "The Kid LAROI, Justin Bieber",
+    "badge": "Pop Hit",
+    "movie": "F*CK LOVE 3+: OVER YOU",
     "year": 2021,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/604/f2c7f087e4bee0bf947b0c43bc22a507_320.mp4",
-    "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
-    "duration": 184
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/663/a1d051c95254676b565d2afef135b626_320.mp4",
+    "artwork": "https://c.saavncdn.com/663/F-CK-LOVE-3-OVER-YOU-English-2021-20210727032800-500x500.jpg",
+    "duration": 140
   },
   {
-    "id": "jb-kurchi",
-    "title": "Kurchi Madathapetti",
-    "artist": "Thaman S, Sri Krishna, Sahithi Chaganti",
-    "movie": "Guntur Kaaram",
-    "year": 2024,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/000/a8b06cdf02fd61001823e10d55ad3ebe_320.mp4",
-    "artwork": "https://c.saavncdn.com/000/Guntur-Kaaram-Telugu-2023-20240126145901-500x500.jpg",
-    "duration": 215
-  },
-  {
-    "id": "jb-boomboom",
-    "title": "Boom Boom",
-    "artist": "Sai Abhyankkar, Deepthi Suresh, Bebhumika",
-    "movie": "Dude",
-    "year": 2025,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/177/7f1d8dfacf14f782e07dd0597699f941_320.mp4",
-    "artwork": "https://c.saavncdn.com/177/Dude-Telugu-Original-Motion-Picture-Soundtrack-Telugu-2025-20251029174900-500x500.jpg",
-    "duration": 240
+    "id": "jump-8-levitating",
+    "title": "Levitating",
+    "artist": "Dua Lipa",
+    "badge": "Disco Pop",
+    "movie": "Future Nostalgia",
+    "year": 2020,
+    "language": "English",
+    "category": "English",
+    "src": "https://aac.saavncdn.com/665/7790c3b9097592113008eaf1031d6e57_320.mp4",
+    "artwork": "https://c.saavncdn.com/665/Future-Nostalgia-English-2020-20260306223201-500x500.jpg",
+    "duration": 203
   }
 ];
 
 const TOLLYWOOD_BLOCKBUSTERS = [
   {
-    "id": "tb-kurchi",
-    "title": "Kurchi Madathapetti",
-    "artist": "Thaman S, Sri Krishna, Sahithi Chaganti",
-    "movie": "Guntur Kaaram",
-    "year": 2024,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/000/a8b06cdf02fd61001823e10d55ad3ebe_320.mp4",
-    "artwork": "https://c.saavncdn.com/000/Guntur-Kaaram-Telugu-2023-20240126145901-500x500.jpg",
-    "duration": 215
-  },
-  {
-    "id": "tb-srivalli",
-    "title": "Srivalli",
-    "artist": "Sid Sriram, Devi Sri Prasad",
-    "movie": "Pushpa - The Rise",
-    "year": 2021,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/000/05c5d77f6a8225d6667cf7a1fcaf37d8_320.mp4",
-    "artwork": "https://c.saavncdn.com/blob/056/Pushpa-The-Rise-Telugu-2021-20211216115409-500x500.jpg",
-    "duration": 224
-  },
-  {
-    "id": "tb-samajavaragamana",
+    "id": "toll-1-samajavara",
     "title": "Samajavaragamana",
-    "artist": "Sid Sriram, Thaman S",
+    "artist": "Sid Sriram",
+    "badge": "Sensational",
     "movie": "Ala Vaikunthapurramuloo",
     "year": 2019,
     "language": "Telugu",
+    "category": "Telugu",
     "src": "https://aac.saavncdn.com/517/339d76dce4db4f43f4721eec2d8f03ef_320.mp4",
     "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-    "duration": 214
+    "duration": 219
   },
   {
-    "id": "tb-ramuloo",
-    "title": "Ramuloo Ramulaa",
-    "artist": "Anurag Kulkarni, Mangli",
-    "movie": "Ala Vaikunthapurramuloo",
-    "year": 2019,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
-    "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-    "duration": 261
-  },
-  {
-    "id": "tb-naatu",
+    "id": "toll-2-naatunaatu",
     "title": "Naatu Naatu",
     "artist": "Rahul Sipligunj, Kaala Bhairava",
-    "movie": "RRR",
+    "badge": "Oscar Winner",
+    "movie": "RRR - Telugu",
     "year": 2022,
     "language": "Telugu",
+    "category": "Telugu",
     "src": "https://aac.saavncdn.com/683/000ab54759049a8451ffcdc6412a0ef6_320.mp4",
     "artwork": "https://c.saavncdn.com/683/RRR-Telugu-Telugu-2022-20250828171313-500x500.jpg",
     "duration": 214
   },
   {
-    "id": "tb-chitti",
+    "id": "toll-3-chitti",
     "title": "Chitti",
     "artist": "Ram Miriyala",
+    "badge": "Viral Hit",
     "movie": "Jathi Ratnalu",
     "year": 2021,
     "language": "Telugu",
+    "category": "Folk",
     "src": "https://aac.saavncdn.com/604/f2c7f087e4bee0bf947b0c43bc22a507_320.mp4",
     "artwork": "https://c.saavncdn.com/604/Jathi-Ratnalu-Telugu-2021-20251011225120-500x500.jpg",
-    "duration": 184
+    "duration": 186
   },
   {
-    "id": "tb-tillu",
+    "id": "toll-4-ramulooram",
+    "title": "Ramuloo Ramulaa",
+    "artist": "Anurag Kulkarni, Mangli",
+    "badge": "Party Hit",
+    "movie": "Ala Vaikunthapurramuloo",
+    "year": 2019,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
+    "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
+    "duration": 245
+  },
+  {
+    "id": "toll-5-tilluannad",
     "title": "Tillu Anna DJ Pedithe",
     "artist": "Ram Miriyala",
+    "badge": "Club Anthem",
     "movie": "DJ Tillu",
     "year": 2022,
     "language": "Telugu",
+    "category": "Folk",
     "src": "https://aac.saavncdn.com/430/7c1e7a6ca761e7db04d9169208d46eca_320.mp4",
     "artwork": "https://c.saavncdn.com/430/DJ-Tillu-Telugu-2022-20220210033850-500x500.jpg",
-    "duration": 191
+    "duration": 183
   },
   {
-    "id": "tb-balagam",
-    "title": "Ooru Palletooru",
-    "artist": "Ram Miriyala, Mangli",
-    "movie": "Balagam",
-    "year": 2023,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/000/2b768ef9928cdc7dc77c032227082576_320.mp4",
-    "artwork": "https://c.saavncdn.com/000/Balagam-Telugu-2023-20230304184334-500x500.jpg",
-    "duration": 236
-  },
-  {
-    "id": "tb-pillaraa",
-    "title": "Pillaa Raa",
-    "artist": "Anurag Kulkarni",
-    "movie": "RX 100",
-    "year": 2018,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/172/4c364289c4c896e2a87012f74ba4a11d_sar_320.mp4",
-    "artwork": "https://c.saavncdn.com/172/RX-100-Telugu-2018-20230207103253-500x500.jpg",
-    "duration": 237
-  },
-  {
-    "id": "tb-sirivennela",
-    "title": "Sirivennela",
-    "artist": "Anurag Kulkarni",
-    "movie": "Shyam Singha Roy",
-    "year": 2021,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/008/663f6bb75d853aa700bffbebcb4e74fc_sar_320.mp4",
-    "artwork": "https://c.saavncdn.com/008/Shyam-Singha-Roy-Telugu-Telugu-2021-20220113123204-500x500.jpg",
-    "duration": 244
-  },
-  {
-    "id": "tb-eemanase",
-    "title": "Ee Manase Se Se",
-    "artist": "S.P. Balasubrahmanyam",
-    "movie": "Tholiprema",
-    "year": 1998,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/252/c086f0cf5ab8996412d8d60f52bd059b_320.mp4",
-    "artwork": "https://c.saavncdn.com/252/Tholiprema-Telugu-2014-20251011224607-500x500.jpg",
-    "duration": 257
-  },
-  {
-    "id": "tb-allantha",
-    "title": "Allantha Doorala",
-    "artist": "S.P. Balasubrahmanyam",
-    "movie": "Aadavari Matalaku Ardhalu Veruley",
-    "year": 2007,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/483/3c96b533ef626347762d06d3a9f433c5_320.mp4",
-    "artwork": "https://c.saavncdn.com/483/Aadavari-Matalaku-Ardhalu-Veruley-2007-500x500.jpg",
-    "duration": 274
-  },
-  {
-    "id": "tb-saranga",
-    "title": "Saranga Dariya",
-    "artist": "Mangli",
-    "movie": "Love Story",
-    "year": 2021,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/582/499f47fee99a0809e9d2b343ac2bec8e_320.mp4",
-    "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
-    "duration": 236
-  },
-  {
-    "id": "tb-pakkalocal",
+    "id": "toll-6-pakkalocal",
     "title": "Pakka Local",
     "artist": "Geetha Madhuri, Sagar",
+    "badge": "Mass Beat",
     "movie": "Janatha Garage",
     "year": 2016,
     "language": "Telugu",
-    "src": "https://aac.saavncdn.com/978/d9d20c541cfa97645d9472314e30ef48_320.mp4",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/974/4bfe0670f5515c0ee16a98fbb2a8c27d_320.mp4",
     "artwork": "https://c.saavncdn.com/974/Janatha-Garage-Telugu-2016-20251012002813-500x500.jpg",
-    "duration": 262
+    "duration": 259
   },
   {
-    "id": "tb-dhivara",
+    "id": "toll-7-toplesipod",
+    "title": "Top Lesi Poddi",
+    "artist": "Geetha Madhuri, Sagar",
+    "badge": "Energy Beat",
+    "movie": "Iddarammayilatho",
+    "year": 2013,
+    "language": "Telugu",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/514/fe66691dec3c9f0660c14073878e779a_320.mp4",
+    "artwork": "https://c.saavncdn.com/514/Idharammayilatho-2013-500x500.jpg",
+    "duration": 259
+  },
+  {
+    "id": "toll-8-dhivara",
     "title": "Dhivara",
     "artist": "Ramya Behara, Deepu",
-    "movie": "Baahubali - The Beginning",
+    "badge": "Epic Soundtrack",
+    "movie": "Baahubali - The Beginning (Telugu)",
     "year": 2015,
     "language": "Telugu",
-    "src": "https://aac.saavncdn.com/832/ee3f7e0251767664fc018a1bf194125b_320.mp4",
+    "category": "Telugu",
+    "src": "https://aac.saavncdn.com/301/78a0e467f2f62690869c1b0474745953_320.mp4",
     "artwork": "https://c.saavncdn.com/301/Baahubali-The-Beginning-Telugu-2015-20251028160018-500x500.jpg",
-    "duration": 343
+    "duration": 327
   }
 ];
 
 const BOLLYWOOD_MELODIES = [
   {
-    "id": "bm-kesariya",
-    "title": "Kesariya",
-    "artist": "Arijit Singh, Pritam",
-    "movie": "Brahmastra",
-    "year": 2022,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/871/c2febd353f3a076a406fa37510f31f9f_320.mp4",
-    "artwork": "https://c.saavncdn.com/871/Brahmastra-Original-Motion-Picture-Soundtrack-Hindi-2022-20221006155213-500x500.jpg",
-    "duration": 268
-  },
-  {
-    "id": "bm-tum-hi-ho",
-    "title": "Tum Hi Ho",
-    "artist": "Arijit Singh",
-    "movie": "Aashiqui 2",
-    "year": 2013,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/430/5c5ea5cc00e3bff45616013226f376fe_320.mp4",
-    "artwork": "https://c.saavncdn.com/430/Aashiqui-2-Hindi-2013-500x500.jpg",
-    "duration": 262
-  },
-  {
-    "id": "bm-channa-mereya",
-    "title": "Channa Mereya",
-    "artist": "Arijit Singh, Pritam",
-    "movie": "Ae Dil Hai Mushkil",
-    "year": 2016,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/597/6da0627cfcc4b937160f664841e4572d_320.mp4",
-    "artwork": "https://c.saavncdn.com/597/Ae-Dil-Hai-Mushkil-Hindi-2016-500x500.jpg",
-    "duration": 289
-  },
-  {
-    "id": "bm-apna-bana-le",
+    "id": "boll-1-apnabanale",
     "title": "Apna Bana Le",
     "artist": "Arijit Singh, Sachin-Jigar",
+    "badge": "Pure Romance",
     "movie": "Bhediya",
-    "year": 2022,
+    "year": 2023,
     "language": "Hindi",
+    "category": "Hindi",
     "src": "https://aac.saavncdn.com/815/483a6e118e8108cbb3e5cd8701674f32_320.mp4",
     "artwork": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg",
     "duration": 261
   },
   {
-    "id": "bm-kal-ho-naa-ho",
+    "id": "boll-2-raataanlam",
+    "title": "Raataan Lambiyan",
+    "artist": "Jubin Nautiyal, Asees Kaur",
+    "badge": "Romantic Hit",
+    "movie": "Shershaah",
+    "year": 2021,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/238/35726d4394604604e961bf5b846870d0_320.mp4",
+    "artwork": "https://c.saavncdn.com/238/Shershaah-Original-Motion-Picture-Soundtrack--Hindi-2021-20210815181610-500x500.jpg",
+    "duration": 230
+  },
+  {
+    "id": "boll-3-peeloon",
+    "title": "Pee Loon (From \"Once Upon A Time In Mumbaai\")",
+    "artist": "Mohit Chauhan, Pritam, Irshad Kamil",
+    "badge": "Soul Classic",
+    "movie": "Emraan Hashmi Hits",
+    "year": 2026,
+    "language": "Hindi",
+    "category": "Curated",
+    "src": "https://aac.saavncdn.com/106/c7c9cdfc2ea4dcd3388fe15e3eae06c2_320.mp4",
+    "artwork": "https://c.saavncdn.com/106/Emraan-Hashmi-Hits-Hindi-2026-20260905191028-500x500.jpg",
+    "duration": 285
+  },
+  {
+    "id": "boll-4-kalhonaaho",
     "title": "Kal Ho Naa Ho",
-    "artist": "Sonu Nigam, Shankar-Ehsaan-Loy",
+    "artist": "Sonu Nigam",
+    "badge": "Nostalgic Classic",
     "movie": "Kal Ho Naa Ho",
     "year": 2003,
     "language": "Hindi",
+    "category": "Hindi",
     "src": "https://aac.saavncdn.com/587/d3bd1ed49eb108d2425e4875cc3ad86e_320.mp4",
     "artwork": "https://c.saavncdn.com/587/Kal-Ho-Naa-Ho-Hindi-2003-20190516130956-500x500.jpg",
     "duration": 321
   },
   {
-    "id": "bm-abhi-mujh-mein",
-    "title": "Abhi Mujh Mein Kahin",
-    "artist": "Sonu Nigam, Ajay-Atul",
-    "movie": "Agneepath",
-    "year": 2012,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/317/ff7bb9dd26d1e8054bab5bb90c4a6b2a_320.mp4",
-    "artwork": "https://c.saavncdn.com/317/Agneepath-Hindi-2011-500x500.jpg",
-    "duration": 364
-  },
-  {
-    "id": "bm-deewani-mastani",
-    "title": "Deewani Mastani",
-    "artist": "Shreya Ghoshal",
-    "movie": "Bajirao Mastani",
+    "id": "boll-5-agartumsaa",
+    "title": "Agar Tum Saath Ho",
+    "artist": "Alka Yagnik, Arijit Singh",
+    "badge": "Heartfelt",
+    "movie": "Tamasha",
     "year": 2015,
     "language": "Hindi",
-    "src": "https://aac.saavncdn.com/808/08d91b5009b5e221ea5838d2acb4b690_320.mp4",
-    "artwork": "https://c.saavncdn.com/808/Bajirao-Mastani-Hindi-2025-20260120201154-500x500.jpg",
-    "duration": 340
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/994/2e6b47719cea3e7c9f971a3f1ddc9b0a_320.mp4",
+    "artwork": "https://c.saavncdn.com/994/Tamasha-Hindi-2015-500x500.jpg",
+    "duration": 341
   },
   {
-    "id": "bm-raataan-lambiyan",
-    "title": "Raataan Lambiyan",
-    "artist": "Jubin Nautiyal, Asees Kaur",
-    "movie": "Shershaah",
-    "year": 2021,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/492/689cce080fa1fe5fec6bdf8a21396a60_320.mp4",
-    "artwork": "https://c.saavncdn.com/238/Shershaah-Original-Motion-Picture-Soundtrack--Hindi-2021-20210815181610-500x500.jpg",
-    "duration": 230
-  },
-  {
-    "id": "bm-lut-gaye",
-    "title": "Lut Gaye",
-    "artist": "Jubin Nautiyal",
-    "movie": "Lut Gaye",
-    "year": 2021,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/264/3dfd8ebf1b626f21c255bc2ff4c575a7_320.mp4",
-    "artwork": "https://c.saavncdn.com/106/Emraan-Hashmi-Hits-Hindi-2026-20260905191028-500x500.jpg",
-    "duration": 228
-  },
-  {
-    "id": "bm-tum-se-hi",
-    "title": "Tum Se Hi",
-    "artist": "Mohit Chauhan, Pritam",
-    "movie": "Jab We Met",
-    "year": 2007,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/046/c8a4cff2051eb339906d203878b40813_320.mp4",
-    "artwork": "https://c.saavncdn.com/223/Jab-We-Met-Hindi-2007-20231016162009-500x500.jpg",
-    "duration": 323
-  },
-  {
-    "id": "bm-kun-faya",
-    "title": "Kun Faaya Kun",
-    "artist": "A.R. Rahman, Mohit Chauhan, Javed Ali",
-    "movie": "Rockstar",
+    "id": "boll-6-kaisehua",
+    "title": "Kaise Hua",
+    "artist": "Vishal Mishra",
+    "badge": "Emotional Hit",
+    "movie": "Singham",
     "year": 2011,
     "language": "Hindi",
-    "src": "https://aac.saavncdn.com/284/d326f50b4ea98f6a3d1d1796dcf9742d_320.mp4",
-    "artwork": "https://c.saavncdn.com/408/Rockstar-Hindi-2011-20221212023139-500x500.jpg",
-    "duration": 473
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/971/6135b7bb882ab68c151b74eee28187f7_320.mp4",
+    "artwork": "https://c.saavncdn.com/470/Singham-Hindi-2011-20221211220044-500x500.jpg",
+    "duration": 350
   },
   {
-    "id": "bm-bol-do-na-zara",
-    "title": "Bol Do Na Zara",
-    "artist": "Armaan Malik",
-    "movie": "Azhar",
+    "id": "boll-7-deewanimas",
+    "title": "Deewani Mastani",
+    "artist": "Shreya Ghoshal",
+    "badge": "Royal Grandeur",
+    "movie": "Bajirao Mastani",
+    "year": 2025,
+    "language": "Hindi",
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/808/08d91b5009b5e221ea5838d2acb4b690_320.mp4",
+    "artwork": "https://c.saavncdn.com/808/Bajirao-Mastani-Hindi-2025-20260120201154-500x500.jpg",
+    "duration": 339
+  },
+  {
+    "id": "boll-8-channamere",
+    "title": "Channa Mereya",
+    "artist": "Arijit Singh, Pritam",
+    "badge": "Heartbreak Classic",
+    "movie": "Ae Dil Hai Mushkil  [Deluxe Edition]",
     "year": 2016,
     "language": "Hindi",
-    "src": "https://aac.saavncdn.com/491/2ba86b4efd55734fc5e37894a8f906f2_320.mp4",
-    "artwork": "https://c.saavncdn.com/633/Azhar-1-Hindi-2016-500x500.jpg",
-    "duration": 293
-  },
-  {
-    "id": "bm-pehla-nasha",
-    "title": "Pehla Nasha",
-    "artist": "Udit Narayan, Sadhana Sargam",
-    "movie": "Jo Jeeta Wohi Sikandar",
-    "year": 1992,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/852/9d335ee08b26f171a3d65e11f8819d52_sar_320.mp4",
-    "artwork": "https://c.saavncdn.com/852/Jo-Jeeta-Wohi-Sikandar-Hindi-1992-500x500.jpg",
-    "duration": 291
-  },
-  {
-    "id": "bm-lag-ja-gale",
-    "title": "Lag Ja Gale Se Phir",
-    "artist": "Lata Mangeshkar",
-    "movie": "Woh Kaun Thi",
-    "year": 1964,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/834/ea681a69a0bc7ecc4cd3ea4fc477cefe_320.mp4",
-    "artwork": "https://c.saavncdn.com/834/Woh-Kaun-Thi-Hindi-1964-20251103094113-500x500.jpg",
-    "duration": 258
-  },
-  {
-    "id": "bm-pal-pal",
-    "title": "Pal Pal Dil Ke Paas",
-    "artist": "Kishore Kumar",
-    "movie": "Blackmail",
-    "year": 1973,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/328/6ff61e5c0e55485a5fe61f1a79efe944_320.mp4",
-    "artwork": "https://c.saavncdn.com/821/Blackmail-Hindi-1973-20190924060932-500x500.jpg",
-    "duration": 329
-  },
-  {
-    "id": "bm-o-mere-dil",
-    "title": "O Mere Dil Ke Chain",
-    "artist": "Kishore Kumar",
-    "movie": "Mere Jeevan Saathi",
-    "year": 1972,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/086/e7cb16446c3a8205febe7aa602a1c97a_sar_320.mp4",
-    "artwork": "https://c.saavncdn.com/086/Mere-Jeevan-Saathi-Hindi-1972-20200901153944-500x500.jpg",
-    "duration": 274
+    "category": "Hindi",
+    "src": "https://aac.saavncdn.com/608/26836683536476d7c5fda4473c2dce98_320.mp4",
+    "artwork": "https://c.saavncdn.com/608/Ae-Dil-Hai-Mushkil-Deluxe-Edition-Hindi-2016-500x500.jpg",
+    "duration": 289
   }
 ];
 
 const FOLK_MASTERPIECES = [
   {
-    "id": "folk-saranga",
+    "id": "folk-1-sarangadar",
     "title": "Saranga Dariya",
     "artist": "Mangli",
+    "badge": "Telangana Folk",
     "movie": "Love Story",
-    "year": 2021,
+    "year": 2020,
     "language": "Telugu",
+    "category": "Folk",
     "src": "https://aac.saavncdn.com/582/499f47fee99a0809e9d2b343ac2bec8e_320.mp4",
     "artwork": "https://c.saavncdn.com/582/Love-Story-Telugu-2020-20210923220520-500x500.jpg",
-    "duration": 236
+    "duration": 230
   },
   {
-    "id": "folk-vachinde",
-    "title": "Vachinde",
-    "artist": "Madhu Priya, Ramki",
-    "movie": "Fidaa",
-    "year": 2017,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/605/73dbb893cb56221147a46c31be95e4e8_320.mp4",
-    "artwork": "https://c.saavncdn.com/904/Fidaa-Telugu-2017-500x500.jpg",
-    "duration": 343
-  },
-  {
-    "id": "folk-bullettu",
+    "id": "folk-2-bullettuba",
     "title": "Bullettu Bandi",
     "artist": "Mohana Bhogaraju",
+    "badge": "Baraat Folk",
     "movie": "Bullettu Bandi",
     "year": 2021,
     "language": "Telugu",
-    "src": "https://aac.saavncdn.com/132/d9fb036be0a4176ae253815330e719ff_320.mp4",
+    "category": "Folk",
+    "src": "https://aac.saavncdn.com/009/afc28d94bfee619e879a150d37a4ee52_320.mp4",
     "artwork": "https://c.saavncdn.com/009/Bullettu-Bandi-Telugu-2021-20210327120013-500x500.jpg",
-    "duration": 204
+    "duration": 282
   },
   {
-    "id": "folk-chaudhary",
-    "title": "Chaudhary",
-    "artist": "Mame Khan, Amit Trivedi",
-    "movie": "Coke Studio S2",
-    "year": 2012,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/668/e66b0ca97c953970ed512e327b5f969e_320.mp4",
-    "artwork": "https://c.saavncdn.com/668/Coke-Studio-S2-Hindi-2023-20260606091636-500x500.jpg",
-    "duration": 442
+    "id": "folk-3-bonalusong",
+    "title": "Bonalu Song - Chethilo Gampa",
+    "artist": "Mangli",
+    "badge": "Devotional Folk",
+    "movie": "Telangana Bonalu Beats",
+    "year": 2022,
+    "language": "Telugu",
+    "category": "Curated",
+    "src": "https://aac.saavncdn.com/712/e616231da7e27dd8a8aa67732d8471b6_320.mp4",
+    "artwork": "https://c.saavncdn.com/246/Bonalu-Song-2024-Telugu-2024-20240711234452-500x500.jpg",
+    "duration": 268
   },
   {
-    "id": "folk-kesariya-balam",
-    "title": "Kesariya Balam",
-    "artist": "Mame Khan",
-    "movie": "Desert Sessions",
-    "year": 2015,
-    "language": "Hindi",
-    "src": "https://aac.saavncdn.com/172/a4bea4456e24237e27cfe35a86d5cec7_320.mp4",
-    "artwork": "https://c.saavncdn.com/532/Desert-Sessions-Hindi-2021-20210605103757-500x500.jpg",
-    "duration": 318
-  },
-  {
-    "id": "folk-balagam",
+    "id": "folk-4-oorupallet",
     "title": "Ooru Palletooru",
-    "artist": "Ram Miriyala, Mangli",
+    "artist": "Ram Miriyala",
+    "badge": "Village Soul",
     "movie": "Balagam",
     "year": 2023,
     "language": "Telugu",
+    "category": "Folk",
     "src": "https://aac.saavncdn.com/000/2b768ef9928cdc7dc77c032227082576_320.mp4",
     "artwork": "https://c.saavncdn.com/000/Balagam-Telugu-2023-20230304184334-500x500.jpg",
-    "duration": 236
+    "duration": 247
   },
   {
-    "id": "folk-ramuloo",
-    "title": "Ramuloo Ramulaa",
-    "artist": "Mangli, Anurag Kulkarni",
-    "movie": "Ala Vaikunthapurramuloo",
-    "year": 2019,
-    "language": "Telugu",
-    "src": "https://aac.saavncdn.com/517/5702757c42c1ad44b3224a339817c8b0_320.mp4",
-    "artwork": "https://c.saavncdn.com/517/Ala-Vaikunthapurramuloo-Telugu-2019-20200116144338-500x500.jpg",
-    "duration": 261
+    "id": "folk-5-chaudhary",
+    "title": "Chaudhary",
+    "artist": "Mame Khan, Amit Trivedi",
+    "badge": "Rajasthani Folk",
+    "movie": "Coke Studio S2",
+    "year": 2023,
+    "language": "Hindi",
+    "category": "Folk",
+    "src": "https://aac.saavncdn.com/668/e66b0ca97c953970ed512e327b5f969e_320.mp4",
+    "artwork": "https://c.saavncdn.com/668/Coke-Studio-S2-Hindi-2023-20260606091636-500x500.jpg",
+    "duration": 420
   },
   {
-    "id": "folk-naatu",
-    "title": "Naatu Naatu",
-    "artist": "Rahul Sipligunj, Kaala Bhairava",
-    "movie": "RRR",
-    "year": 2022,
+    "id": "folk-6-bayiloneba",
+    "title": "Bayilone Ballipalike",
+    "artist": "Mangli",
+    "badge": "Desi Rhythm",
+    "movie": "Bayilone Ballipalike",
+    "year": 2025,
     "language": "Telugu",
-    "src": "https://aac.saavncdn.com/683/000ab54759049a8451ffcdc6412a0ef6_320.mp4",
-    "artwork": "https://c.saavncdn.com/683/RRR-Telugu-Telugu-2022-20250828171313-500x500.jpg",
-    "duration": 214
+    "category": "Curated",
+    "src": "https://aac.saavncdn.com/604/2ef1404906dcb0e534340d2f3cfa3e33_320.mp4",
+    "artwork": "https://c.saavncdn.com/604/Bayilone-Ballipalike-Telugu-2025-20251121155720-500x500.jpg",
+    "duration": 247
   }
 ];
+
 const ALBUMS_FEATURING = [
   {
     id: "alb-vikramasimha",
@@ -2975,7 +2747,7 @@ const ALBUMS_FEATURING = [
     badge: "Album",
     artwork: "https://c.saavncdn.com/798/Shree-Hanuman-Chalisa-Hanuman-Ashtak-Hindi-1992-20240924151740-500x500.jpg",
     query: "Hanuman Chalisa Hariharan",
-    src: "https://aac.saavncdn.com/798/Shree-Hanuman-Chalisa-Hanuman-Ashtak-Hindi-1992-20240924151740-500x500.jpg"
+    src: "https://aac.saavncdn.com/707/dbb4a98e6cdd947ae974b3f37e6ad42d_320.mp4"
   },
   {
     id: "alb-pushpa2",
