@@ -5472,29 +5472,114 @@ function bindEvents() {
 }
 
 // ==========================================================================
-// User Authentication & Database Synchronization
+// User Authentication, Google Identity Services & Enterprise JWT Session Engine
 // ==========================================================================
 const AUTH_STORAGE_KEY = 'tuneus_user';
+const AUTH_SESSION_STORAGE_KEY = 'tuneus_auth_session';
+const GOOGLE_CLIENT_ID_STORAGE_KEY = 'tuneus_google_client_id';
 
+let activeAuthMode = 'signin'; // 'signin' | 'register'
+let googleGisInitialized = false;
+let tokenRefreshTimer = null;
+
+// Get currently stored user profile
 function getStoredUser() {
   try {
-    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    const rawSession = localStorage.getItem(AUTH_SESSION_STORAGE_KEY);
+    if (rawSession) {
+      const parsed = JSON.parse(rawSession);
+      if (parsed && parsed.user) return parsed.user;
+    }
+    const rawUser = localStorage.getItem(AUTH_STORAGE_KEY);
+    return rawUser ? JSON.parse(rawUser) : null;
   } catch (e) {
     return null;
   }
 }
 
-function saveUserSession(user) {
+// Get stored application JWT access token
+function getStoredAccessToken() {
   try {
-    if (user) {
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
-    } else {
-      localStorage.removeItem(AUTH_STORAGE_KEY);
-    }
-  } catch (e) {}
+    const raw = localStorage.getItem(AUTH_SESSION_STORAGE_KEY);
+    return raw ? JSON.parse(raw)?.accessToken || '' : '';
+  } catch (e) {
+    return '';
+  }
 }
 
+// Get stored refresh token
+function getStoredRefreshToken() {
+  try {
+    const raw = localStorage.getItem(AUTH_SESSION_STORAGE_KEY);
+    return raw ? JSON.parse(raw)?.refreshToken || '' : '';
+  } catch (e) {
+    return '';
+  }
+}
+
+// Save authentication session (user, JWT access token, refresh token)
+function saveUserSession(sessionData) {
+  try {
+    if (!sessionData) {
+      localStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+      if (tokenRefreshTimer) clearTimeout(tokenRefreshTimer);
+      return;
+    }
+
+    const user = sessionData.user || sessionData;
+    const accessToken = sessionData.accessToken || '';
+    const refreshToken = sessionData.refreshToken || '';
+    const expiresIn = sessionData.expiresIn || 3600;
+
+    const sessionObj = {
+      user,
+      accessToken,
+      refreshToken,
+      expiresAt: Date.now() + (expiresIn * 1000)
+    };
+
+    localStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(sessionObj));
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+
+    // Schedule proactive token refresh 5 minutes before expiration
+    scheduleTokenRefresh(expiresIn);
+  } catch (e) {
+    console.warn('[Session Error]', e);
+  }
+}
+
+// Schedule proactive JWT refresh
+function scheduleTokenRefresh(expiresInSeconds) {
+  if (tokenRefreshTimer) clearTimeout(tokenRefreshTimer);
+  const refreshMs = Math.max((expiresInSeconds - 300) * 1000, 30000); // 5 mins before or 30s min
+  tokenRefreshTimer = setTimeout(async () => {
+    const refreshToken = getStoredRefreshToken();
+    if (!refreshToken) return;
+    try {
+      const res = await fetch('/api/auth/refresh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken })
+      });
+      const data = await res.json();
+      if (data && data.success && data.accessToken) {
+        const raw = localStorage.getItem(AUTH_SESSION_STORAGE_KEY);
+        if (raw) {
+          const session = JSON.parse(raw);
+          session.accessToken = data.accessToken;
+          session.expiresAt = Date.now() + (data.expiresIn * 1000);
+          localStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(session));
+        }
+        scheduleTokenRefresh(data.expiresIn || 3600);
+      }
+    } catch (err) {
+      console.warn('[Auth] Token refresh error:', err);
+    }
+  }, refreshMs);
+}
+
+// Update all UI elements displaying user profile & Google verified status
 function updateAuthUI(user) {
   const avatarBadge = el('userAvatarBadge');
   const nameLabel = el('userNameLabel');
@@ -5505,18 +5590,23 @@ function updateAuthUI(user) {
   const logoutBtn = el('logoutBtn');
   const pDrawerAvatar = document.querySelector('.p-drawer-avatar');
   const pDrawerName = el('pDrawerUserName');
+  const pDrawerEmail = el('pDrawerUserEmail');
   const topbarAvatar = document.querySelector('.topbar-avatar-img');
   const avatarUrl = (user && user.avatar) ? user.avatar : 'images/avatar-uday.jpg';
 
   if (topbarAvatar) {
     topbarAvatar.src = avatarUrl;
+    topbarAvatar.onerror = () => { topbarAvatar.src = 'icon-192.png'; };
   }
   if (pDrawerAvatar) {
     pDrawerAvatar.src = avatarUrl;
+    pDrawerAvatar.onerror = () => { pDrawerAvatar.src = 'icon-192.png'; };
   }
 
   if (user && user.name) {
     const initial = user.name.trim().charAt(0).toUpperCase() || 'U';
+    const isGoogle = user.provider === 'google' || (user.email && user.email.endsWith('@gmail.com'));
+
     if (avatarBadge) {
       if (user.avatar) {
         avatarBadge.innerHTML = `<img src="${user.avatar}" alt="${user.name}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" onerror="this.outerHTML='${initial}'" />`;
@@ -5533,23 +5623,33 @@ function updateAuthUI(user) {
       }
     }
     if (dropName) dropName.textContent = user.name;
-    if (dropEmail) dropEmail.textContent = user.email || 'Logged In';
+    if (dropEmail) {
+      dropEmail.innerHTML = isGoogle
+        ? `${user.email} <span class="google-verified-badge"><svg viewBox="0 0 24 24" width="10" height="10"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg> Google</span>`
+        : (user.email || 'Logged In');
+    }
     if (loginActionLabel) loginActionLabel.textContent = 'Switch Account';
     if (logoutBtn) logoutBtn.style.display = 'flex';
     if (pDrawerName) pDrawerName.textContent = user.name;
+    if (pDrawerEmail) {
+      pDrawerEmail.textContent = user.email || '';
+      pDrawerEmail.hidden = false;
+    }
   } else {
     if (avatarBadge) avatarBadge.textContent = '👤';
     if (nameLabel) nameLabel.textContent = 'Sign In';
     if (dropAvatar) dropAvatar.textContent = '?';
     if (dropName) dropName.textContent = 'Guest User';
     if (dropEmail) dropEmail.textContent = 'Not logged in';
-    if (loginActionLabel) loginActionLabel.textContent = 'Sign In with Gmail';
+    if (loginActionLabel) loginActionLabel.textContent = 'Sign In with Google';
     if (logoutBtn) logoutBtn.style.display = 'none';
     if (pDrawerName) pDrawerName.textContent = 'Guest User';
+    if (pDrawerEmail) pDrawerEmail.hidden = true;
   }
 }
 
-function openLoginModal(prefillEmail = '') {
+// Open Login Modal with support for mode ('signin' | 'register')
+function openLoginModal(mode = 'signin', prefillEmail = '') {
   const modal = el('loginModal');
   const errorMsg = el('loginErrorMsg');
   const emailInput = el('loginEmail');
@@ -5558,24 +5658,20 @@ function openLoginModal(prefillEmail = '') {
 
   if (dropdown) dropdown.hidden = true;
   if (errorMsg) {
-    errorMsg.hidden = true;
     errorMsg.textContent = '';
+    errorMsg.hidden = true;
   }
 
-  const user = getStoredUser();
-  if (user) {
-    if (nameInput) nameInput.value = user.name || '';
-    if (emailInput) emailInput.value = user.email || '';
-  } else if (prefillEmail && emailInput) {
+  setAuthTab(mode);
+
+  if (prefillEmail && emailInput) {
     emailInput.value = prefillEmail;
   }
 
   if (modal) {
     modal.hidden = false;
-    setTimeout(() => {
-      if (nameInput && !nameInput.value) nameInput.focus();
-      else if (emailInput) emailInput.focus();
-    }, 100);
+    // Re-render Google button if container exists
+    renderGoogleButtonIfNeeded();
   }
 }
 
@@ -5584,16 +5680,290 @@ function closeLoginModal() {
   if (modal) modal.hidden = true;
 }
 
+// Switch between Sign In and Create Account tabs
+function setAuthTab(mode) {
+  activeAuthMode = mode;
+  const tabSignIn = el('authTabSignIn');
+  const tabRegister = el('authTabRegister');
+  const nameField = el('loginNameField');
+  const submitText = el('loginSubmitText');
+  const title = el('loginTitle');
+  const subText = el('loginSubText');
+
+  if (mode === 'register') {
+    if (tabRegister) tabRegister.classList.add('active');
+    if (tabSignIn) tabSignIn.classList.remove('active');
+    if (nameField) nameField.hidden = false;
+    if (submitText) submitText.textContent = 'Create Account & Listen';
+    if (title) title.textContent = 'Create your Tuneus Account';
+    if (subText) subText.textContent = 'Sign up to stream verified 320kbps studio masters across all devices';
+  } else {
+    if (tabSignIn) tabSignIn.classList.add('active');
+    if (tabRegister) tabRegister.classList.remove('active');
+    if (nameField) nameField.hidden = true;
+    if (submitText) submitText.textContent = 'Sign In & Listen';
+    if (title) title.textContent = 'Welcome back to Tuneus';
+    if (subText) subText.textContent = 'Sign in with your Google account to stream in 320kbps studio master audio';
+  }
+}
+
+// ==========================================================================
+// Google Identity Services (GIS) & Real Account Chooser Engine
+// ==========================================================================
+
+function getGoogleClientId() {
+  return window.GOOGLE_CLIENT_ID ||
+    localStorage.getItem(GOOGLE_CLIENT_ID_STORAGE_KEY) ||
+    '825946571822-tuneusmusic.apps.googleusercontent.com';
+}
+
+function setGoogleClientId(newId) {
+  if (!newId) return;
+  const clean = newId.trim();
+  window.GOOGLE_CLIENT_ID = clean;
+  localStorage.setItem(GOOGLE_CLIENT_ID_STORAGE_KEY, clean);
+  googleGisInitialized = false;
+  initGoogleIdentityServices();
+}
+
+async function initGoogleIdentityServices() {
+  // 1. Fetch backend Google Client ID if available
+  try {
+    const res = await fetch('/api/auth/config');
+    const data = await res.json();
+    if (data && data.googleClientId) {
+      window.GOOGLE_CLIENT_ID = data.googleClientId;
+    }
+  } catch (_) {}
+
+  const clientId = getGoogleClientId();
+  const input = el('googleClientIdInput');
+  if (input) input.value = clientId;
+
+  // 2. Wait for Google Identity Services SDK to load
+  if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        clearInterval(interval);
+        setupGisWithClientId(clientId);
+      } else if (attempts > 30) {
+        clearInterval(interval);
+        console.warn('[GIS] Google Identity Services SDK timed out. Network may be blocking Google accounts.');
+      }
+    }, 250);
+    return;
+  }
+
+  setupGisWithClientId(clientId);
+}
+
+function setupGisWithClientId(clientId) {
+  try {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleCredentialResponse,
+      auto_select: false,
+      cancel_on_tap_outside: true,
+      itp_support: true
+    });
+
+    renderGoogleButtonIfNeeded();
+    googleGisInitialized = true;
+  } catch (err) {
+    console.warn('[GIS Setup Warning]', err.message);
+  }
+}
+
+function renderGoogleButtonIfNeeded() {
+  const container = el('googleSignInContainer');
+  if (!container || typeof google === 'undefined' || !google.accounts || !google.accounts.id) return;
+
+  try {
+    container.innerHTML = '';
+    google.accounts.id.renderButton(container, {
+      theme: 'outline',
+      size: 'large',
+      type: 'standard',
+      text: 'continue_with',
+      shape: 'pill',
+      logo_alignment: 'left',
+      width: Math.min(320, window.innerWidth - 60)
+    });
+  } catch (_) {}
+}
+
+// Trigger Google's Real Official Account Chooser screen
+function triggerRealGoogleAccountChooser() {
+  const clientId = getGoogleClientId();
+
+  // Method 1: Google Identity Services OAuth 2.0 Account Chooser Popup (Real Google UI)
+  if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
+    try {
+      const client = google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: 'openid email profile',
+        prompt: 'select_account', // Force Google account selection screen!
+        callback: async (tokenResponse) => {
+          if (tokenResponse && tokenResponse.access_token) {
+            await handleGoogleAccessTokenSuccess(tokenResponse.access_token);
+          } else if (tokenResponse && tokenResponse.error) {
+            if (tokenResponse.error !== 'user_cancelled') {
+              toast(`Google authentication error: ${tokenResponse.error}`);
+            }
+          }
+        },
+        error_callback: (err) => {
+          if (err && err.type === 'popup_closed') {
+            console.log('[Google Auth] Account chooser was dismissed by user');
+          } else {
+            console.warn('[Google Auth] Error:', err);
+          }
+        }
+      });
+
+      // Open the real Google account chooser popup window
+      client.requestAccessToken({ prompt: 'select_account' });
+      return;
+    } catch (e) {
+      console.warn('[GIS OAuth2 Fallback]', e);
+    }
+  }
+
+  // Method 2: Google One Tap Prompt
+  if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        openGoogleDirectPopupFallback(clientId);
+      }
+    });
+    return;
+  }
+
+  // Method 3: Direct Google OAuth 2.0 Popup Window (Real accounts.google.com Account Chooser)
+  openGoogleDirectPopupFallback(clientId);
+}
+
+// Direct popup to accounts.google.com with prompt=select_account
+function openGoogleDirectPopupFallback(clientId) {
+  const redirectUri = window.location.origin;
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token%20id_token&scope=openid%20email%20profile&prompt=select_account&nonce=${Date.now()}`;
+
+  const w = 500;
+  const h = 600;
+  const left = window.screen.width / 2 - w / 2;
+  const top = window.screen.height / 2 - h / 2;
+
+  const popup = window.open(
+    authUrl,
+    'google_account_chooser',
+    `width=${w},height=${h},top=${top},left=${left},toolbar=no,menubar=no,status=no`
+  );
+
+  if (!popup) {
+    toast('Popup was blocked by your browser. Please allow popups for Tuneus.');
+  }
+}
+
+// Callback for official Google ID Token Credential (from GIS button or One Tap)
+async function handleGoogleCredentialResponse(response) {
+  if (!response || !response.credential) {
+    toast('Google authentication failed: missing credentials');
+    return;
+  }
+
+  const submitBtn = el('googleContinueBtn');
+  const originalText = el('googleContinueText')?.textContent;
+  if (el('googleContinueText')) el('googleContinueText').textContent = 'Verifying with Google...';
+
+  try {
+    const res = await fetch('/api/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        idToken: response.credential,
+        clientId: getGoogleClientId()
+      })
+    });
+
+    const data = await res.json();
+    if (data && data.success && data.user) {
+      saveUserSession(data);
+      updateAuthUI(data.user);
+      closeLoginModal();
+      toast(`Signed in with Google as ${data.user.name}!`);
+    } else {
+      const errMsg = data?.error || 'Authentication verification failed';
+      toast(errMsg);
+      const errorDiv = el('loginErrorMsg');
+      if (errorDiv) {
+        errorDiv.textContent = errMsg;
+        errorDiv.hidden = false;
+      }
+    }
+  } catch (err) {
+    console.error('[Google Verification Error]', err);
+    toast('Network error connecting to verification server');
+  } finally {
+    if (el('googleContinueText') && originalText) {
+      el('googleContinueText').textContent = originalText;
+    }
+  }
+}
+
+// Callback when OAuth Access Token is received from Google Account Chooser
+async function handleGoogleAccessTokenSuccess(accessToken) {
+  try {
+    toast('Account selected! Fetching Google profile...');
+    const userinfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
+
+    if (!userinfoRes.ok) {
+      throw new Error('Failed to retrieve user information from Google');
+    }
+
+    const gUser = await userinfoRes.json();
+
+    // Send verified Google profile to backend database & receive application JWT session
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: gUser.name || gUser.email.split('@')[0],
+        email: gUser.email,
+        avatar: gUser.picture || '',
+        provider: 'google',
+        googleSub: gUser.sub
+      })
+    });
+
+    const data = await res.json();
+    if (data && data.success && data.user) {
+      saveUserSession(data);
+      updateAuthUI(data.user);
+      closeLoginModal();
+      toast(`Signed in with Google as ${data.user.name}!`);
+    }
+  } catch (err) {
+    console.error('[Google OAuth Error]', err);
+    toast(`Google sign-in error: ${err.message}`);
+  }
+}
+
+// Standard Email/Password login or registration (Preserves existing email flow)
 async function loginUser(name, email, avatar = '') {
   const errorMsg = el('loginErrorMsg');
   const submitBtn = el('loginSubmitBtn');
+  const submitText = el('loginSubmitText');
 
   const cleanName = (name || '').trim();
   const cleanEmail = (email || '').trim().toLowerCase();
 
-  if (!cleanName) {
+  if (activeAuthMode === 'register' && !cleanName) {
     if (errorMsg) {
-      errorMsg.textContent = 'Please enter your name.';
+      errorMsg.textContent = 'Please enter your full name.';
       errorMsg.hidden = false;
     }
     return false;
@@ -5601,68 +5971,70 @@ async function loginUser(name, email, avatar = '') {
 
   if (!cleanEmail || !cleanEmail.includes('@')) {
     if (errorMsg) {
-      errorMsg.textContent = 'Please enter a valid Gmail address (e.g. yourname@gmail.com).';
+      errorMsg.textContent = 'Please enter a valid email address.';
       errorMsg.hidden = false;
     }
     return false;
   }
 
   if (errorMsg) errorMsg.hidden = true;
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>Saving to database...</span>';
-  }
-
-  let savedUser = null;
+  if (submitBtn) submitBtn.disabled = true;
+  if (submitText) submitText.textContent = 'Connecting...';
 
   try {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: cleanName, email: cleanEmail, avatar })
+      body: JSON.stringify({
+        name: cleanName || cleanEmail.split('@')[0],
+        email: cleanEmail,
+        avatar
+      })
     });
     const data = await res.json();
     if (data && data.success && data.user) {
-      savedUser = data.user;
+      saveUserSession(data);
+      updateAuthUI(data.user);
+      closeLoginModal();
+      toast(`Welcome ${data.user.name}!`);
+      return true;
+    } else {
+      if (errorMsg) {
+        errorMsg.textContent = data?.error || 'Authentication failed.';
+        errorMsg.hidden = false;
+      }
     }
   } catch (err) {
-    console.warn('API login request error, using database state fallback:', err);
+    console.warn('API login request error:', err);
+    toast('Network error during login.');
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+    if (submitText) {
+      submitText.textContent = activeAuthMode === 'register' ? 'Create Account & Listen' : 'Sign In & Listen';
+    }
   }
-
-  // Fallback if running statically without backend running
-  if (!savedUser) {
-    savedUser = {
-      id: 'usr_' + Date.now().toString(36),
-      name: cleanName,
-      email: cleanEmail,
-      avatar: avatar || '',
-      provider: cleanEmail.endsWith('@gmail.com') ? 'google' : 'email',
-      createdAt: new Date().toISOString(),
-      lastLoginAt: new Date().toISOString(),
-      loginCount: 1
-    };
-  }
-
-  saveUserSession(savedUser);
-  updateAuthUI(savedUser);
-  closeLoginModal();
-
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<span>🎵 Enter Tuneus &amp; Listen</span>';
-  }
-
-  toast(`Welcome ${savedUser.name}! Saved to database.`);
-  return true;
+  return false;
 }
 
-function logoutUser() {
+// User logout: Revoke session, clear JWT & tokens, reset UI
+async function logoutUser() {
+  const refreshToken = getStoredRefreshToken();
+  if (refreshToken) {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken })
+      });
+    } catch (_) {}
+  }
+
   saveUserSession(null);
   updateAuthUI(null);
   const dropdown = el('userDropdownPanel');
   if (dropdown) dropdown.hidden = true;
-  toast('Signed out. Session cleared.');
-  openLoginModal();
+  toast('Signed out successfully.');
+  openLoginModal('signin');
 }
 
 function openSettingsModal() {
@@ -5670,7 +6042,7 @@ function openSettingsModal() {
   if (!modal) return;
   const user = getStoredUser();
   const userName = user?.name || 'uday';
-  const userEmail = user?.email || (user ? `${userName.toLowerCase().replace(/[^a-z0-9]/g, '')}@gmail.com` : 'uday@tuneus.music');
+  const userEmail = user?.email || 'uday@tuneus.music';
   const nameNode = el('settingsUserName');
   const emailNode = el('settingsUserEmail');
   const avatarNode = el('settingsAvatarBadge');
@@ -5691,284 +6063,115 @@ function closeSettingsModal() {
   if (modal) modal.hidden = true;
 }
 
-// ==========================================================================
-// Native Google Sign-In & Saved Device Credentials
-// ==========================================================================
-const GOOGLE_ACCOUNTS_STORAGE_KEY = 'tuneus_google_saved_accounts';
-
-const DEFAULT_GOOGLE_ACCOUNTS = [
-  {
-    name: 'Uday Kumar',
-    email: 'udaythathi179@gmail.com',
-    avatar: 'images/avatar-uday.jpg',
-    color: '#4285F4'
-  },
-  {
-    name: 'uday kumar',
-    email: 'udaythathi2509@gmail.com',
-    avatar: 'images/avatar-uday.jpg',
-    color: '#34A853'
-  }
-];
-
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function getSavedGoogleAccounts() {
-  try {
-    const raw = localStorage.getItem(GOOGLE_ACCOUNTS_STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
-    }
-  } catch (e) {}
-  return [...DEFAULT_GOOGLE_ACCOUNTS];
-}
-
-function saveGoogleAccount(acc) {
-  if (!acc || !acc.email) return;
-  const accounts = getSavedGoogleAccounts();
-  const cleanEmail = acc.email.trim().toLowerCase();
-  const existingIdx = accounts.findIndex(a => a.email.toLowerCase() === cleanEmail);
-  const updatedItem = {
-    name: acc.name || 'Google User',
-    email: cleanEmail,
-    avatar: acc.avatar || '',
-    color: acc.color || '#4285F4',
-    lastUsed: Date.now()
-  };
-  if (existingIdx >= 0) {
-    accounts[existingIdx] = { ...accounts[existingIdx], ...updatedItem };
-  } else {
-    accounts.push(updatedItem);
-  }
-  try {
-    localStorage.setItem(GOOGLE_ACCOUNTS_STORAGE_KEY, JSON.stringify(accounts));
-  } catch (e) {}
-}
-
-async function syncGoogleAccountsFromDB() {
-  try {
-    const res = await fetch('/api/auth/users');
-    const data = await res.json();
-    if (data && data.success && Array.isArray(data.users)) {
-      data.users.forEach(u => {
-        if (u.email && u.email.endsWith('@gmail.com')) {
-          saveGoogleAccount({
-            name: u.name,
-            email: u.email,
-            avatar: u.avatar || 'images/avatar-uday.jpg'
-          });
-        }
-      });
-    }
-  } catch (e) {}
-}
-
-function openGoogleAccountModal() {
-  const modal = el('googleAccountModal');
-  if (!modal) return;
-  closeLoginModal();
-  renderGoogleAccountsList();
-  const form = el('googleNewAccountForm');
-  if (form) form.hidden = true;
-  modal.hidden = false;
-}
-
-function closeGoogleAccountModal(reopenLoginIfGuest = false) {
-  const modal = el('googleAccountModal');
-  if (modal) modal.hidden = true;
-  if (reopenLoginIfGuest && !getStoredUser()) {
-    openLoginModal();
-  }
-}
-
-function renderGoogleAccountsList() {
-  const listContainer = el('googleAccountsList');
-  if (!listContainer) return;
-  const accounts = getSavedGoogleAccounts();
-
-  listContainer.innerHTML = '';
-  accounts.forEach((acc, index) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'g-account-item';
-    btn.setAttribute('data-index', String(index));
-    btn.setAttribute('data-email', acc.email);
-    btn.setAttribute('data-name', acc.name);
-
-    const initial = (acc.name || 'G').trim().charAt(0).toUpperCase();
-    const avatarHtml = acc.avatar
-      ? `<img src="${acc.avatar}" alt="${escapeHtml(acc.name)}" class="g-avatar-img" onerror="this.outerHTML='<span>${initial}</span>'" />`
-      : `<span>${initial}</span>`;
-
-    btn.innerHTML = `
-      <div class="g-avatar-circle" style="background:${acc.color || '#4285F4'};">
-        ${avatarHtml}
-      </div>
-      <div class="g-account-meta">
-        <strong class="g-account-name">${escapeHtml(acc.name)}</strong>
-        <span class="g-account-email">${escapeHtml(acc.email)}</span>
-      </div>
-      <svg class="g-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
-    `;
-
-    btn.addEventListener('click', async () => {
-      saveGoogleAccount(acc);
-      closeGoogleAccountModal(false);
-      await loginUser(acc.name, acc.email, acc.avatar || 'images/avatar-uday.jpg');
-      toast(`Signed in with Google as ${acc.name}!`);
-    });
-
-    listContainer.appendChild(btn);
-  });
-}
-
+// Bind all Authentication & Google Identity UI Events
 function bindAuthEvents() {
   const userProfileBtn = el('userProfileBtn');
   const userDropdownPanel = el('userDropdownPanel');
   const openLoginBtn = el('openLoginBtn');
   const logoutBtn = el('logoutBtn');
   const loginForm = el('loginForm');
-  const googleQuickBtn = el('googleQuickBtn');
   const loginGuestBtn = el('loginGuestBtn');
+  const closeLoginModalBtn = el('closeLoginModalBtn');
+  const googleContinueBtn = el('googleContinueBtn');
 
-  // Native Google Account modal events
-  const closeGoogleAccountBtn = el('closeGoogleAccountBtn');
-  if (closeGoogleAccountBtn) {
-    closeGoogleAccountBtn.addEventListener('click', () => {
-      closeGoogleAccountModal(true);
-    });
+  // Tab switchers
+  const authTabSignIn = el('authTabSignIn');
+  const authTabRegister = el('authTabRegister');
+  if (authTabSignIn) {
+    authTabSignIn.onclick = () => setAuthTab('signin');
+  }
+  if (authTabRegister) {
+    authTabRegister.onclick = () => setAuthTab('register');
   }
 
-  const googleAccountModal = el('googleAccountModal');
-  if (googleAccountModal) {
-    googleAccountModal.addEventListener('click', (e) => {
-      if (e.target === googleAccountModal) closeGoogleAccountModal(true);
-    });
-  }
-
-  const googleAddAnotherBtn = el('googleAddAnotherBtn');
-  const googleNewAccountForm = el('googleNewAccountForm');
-  const cancelGoogleNewAccount = el('cancelGoogleNewAccount');
-
-  if (googleAddAnotherBtn && googleNewAccountForm) {
-    googleAddAnotherBtn.addEventListener('click', () => {
-      googleNewAccountForm.hidden = !googleNewAccountForm.hidden;
-      if (!googleNewAccountForm.hidden) {
-        const nameInput = el('gNewName');
-        if (nameInput) nameInput.focus();
-      }
-    });
-  }
-
-  if (cancelGoogleNewAccount && googleNewAccountForm) {
-    cancelGoogleNewAccount.addEventListener('click', () => {
-      googleNewAccountForm.hidden = true;
-    });
-  }
-
-  if (googleNewAccountForm) {
-    googleNewAccountForm.addEventListener('submit', async (e) => {
+  // Google Continue Button -> Trigger Real Google Account Chooser!
+  if (googleContinueBtn) {
+    googleContinueBtn.onclick = (e) => {
       e.preventDefault();
-      const name = el('gNewName')?.value?.trim();
-      const email = el('gNewEmail')?.value?.trim().toLowerCase();
-      if (!name || !email) return;
-      if (!email.includes('@')) {
-        toast('Please enter a valid Gmail address.');
-        return;
+      triggerRealGoogleAccountChooser();
+    };
+  }
+
+  // Google Client ID Settings toggle
+  const toggleGoogleConfigBtn = el('toggleGoogleConfigBtn');
+  const googleConfigPanel = el('googleConfigPanel');
+  const saveGoogleClientIdBtn = el('saveGoogleClientIdBtn');
+  const googleClientIdInput = el('googleClientIdInput');
+
+  if (toggleGoogleConfigBtn && googleConfigPanel) {
+    toggleGoogleConfigBtn.onclick = () => {
+      googleConfigPanel.hidden = !googleConfigPanel.hidden;
+    };
+  }
+
+  if (saveGoogleClientIdBtn && googleClientIdInput) {
+    saveGoogleClientIdBtn.onclick = () => {
+      const val = googleClientIdInput.value.trim();
+      if (val) {
+        setGoogleClientId(val);
+        toast('Google Client ID updated & GIS reinitialized!');
+        if (googleConfigPanel) googleConfigPanel.hidden = true;
       }
-      const newAcc = { name, email, avatar: 'images/avatar-uday.jpg' };
-      saveGoogleAccount(newAcc);
-      closeGoogleAccountModal(false);
-      await loginUser(name, email, 'images/avatar-uday.jpg');
-      toast(`Signed in with Google as ${name}!`);
-    });
+    };
   }
 
-  // Settings modal events (only Sign Out option)
-  const closeSettingsBtn = el('closeSettingsBtn');
-  if (closeSettingsBtn) {
-    closeSettingsBtn.addEventListener('click', closeSettingsModal);
-  }
-  const settingsModal = el('settingsModal');
-  if (settingsModal) {
-    settingsModal.addEventListener('click', (e) => {
-      if (e.target === settingsModal) closeSettingsModal();
-    });
-  }
-  const settingsSignoutBtn = el('settingsSignoutBtn');
-  if (settingsSignoutBtn) {
-    settingsSignoutBtn.addEventListener('click', () => {
-      closeSettingsModal();
-      logoutUser();
-    });
+  if (closeLoginModalBtn) {
+    closeLoginModalBtn.onclick = () => closeLoginModal();
   }
 
-  if (userProfileBtn && userDropdownPanel) {
-    userProfileBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      userDropdownPanel.hidden = !userDropdownPanel.hidden;
-    });
+  // Topbar Profile Drawer trigger
+  const profileDrawerBtn = el('profileDrawerBtn');
+  const profileDrawer = el('profileDrawer');
+  const profileDrawerBackdrop = el('profileDrawerBackdrop');
+  const pDrawerCloseBtn = el('pDrawerCloseBtn');
 
-    document.addEventListener('click', (e) => {
-      if (userDropdownPanel && !userDropdownPanel.contains(e.target) && !userProfileBtn.contains(e.target)) {
-        userDropdownPanel.hidden = true;
-      }
-    });
+  if (profileDrawerBtn && profileDrawer) {
+    profileDrawerBtn.onclick = () => {
+      profileDrawer.classList.add('open');
+      if (profileDrawerBackdrop) profileDrawerBackdrop.hidden = false;
+    };
   }
-
-  if (openLoginBtn) {
-    openLoginBtn.addEventListener('click', () => {
-      openLoginModal();
-    });
+  if (pDrawerCloseBtn) {
+    pDrawerCloseBtn.onclick = () => {
+      if (profileDrawer) profileDrawer.classList.remove('open');
+      if (profileDrawerBackdrop) profileDrawerBackdrop.hidden = true;
+    };
   }
-
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      logoutUser();
-    });
-  }
-
-  if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = el('loginName')?.value || '';
-      const email = el('loginEmail')?.value || '';
-      loginUser(name, email);
-    });
-  }
-
-  if (googleQuickBtn) {
-    googleQuickBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openGoogleAccountModal();
-    });
+  if (profileDrawerBackdrop) {
+    profileDrawerBackdrop.onclick = () => {
+      if (profileDrawer) profileDrawer.classList.remove('open');
+      profileDrawerBackdrop.hidden = true;
+    };
   }
 
   if (loginGuestBtn) {
-    loginGuestBtn.addEventListener('click', () => {
+    loginGuestBtn.onclick = () => {
       closeLoginModal();
-      toast('Browsing as Guest. Sign in anytime from top right.');
-    });
+      toast('Browsing as Guest. Sign in anytime from profile.');
+    };
   }
+
+  // Form submission (Email auth)
+  if (loginForm) {
+    loginForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const nameInput = el('loginName');
+      const emailInput = el('loginEmail');
+      const name = nameInput ? nameInput.value : '';
+      const email = emailInput ? emailInput.value : '';
+      await loginUser(name, email);
+    };
+  }
+
+  // Initialize Google Identity Services SDK
+  initGoogleIdentityServices();
+}
+
 
   // Prevent browser mini-infobar or annoying pop-up on page load
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
   });
-}
 
 // ==========================================================================
 // Explore Universe Option Menu (Left-Side Up Corner Option Drawer)

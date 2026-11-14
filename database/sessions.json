@@ -1,0 +1,34 @@
+[
+  {
+    "userId": "usr_test_123",
+    "refreshToken": "5b2b8b3569c082a76f66353ccf1ebe8aad12d9df0bd77ea55213b6a4c96f7dfb551d9fd37eddff9d",
+    "userAgent": "Mocha/1.0",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-14T16:04:57.661Z",
+    "expiresAt": 1794758697660
+  },
+  {
+    "userId": "usr_test_123",
+    "refreshToken": "4b9de14112269f6656f639c9fa13689aec8c58dbd62b828d39ccff11d94c77b93a1957153875c1e4",
+    "userAgent": "Mocha/1.0",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-14T16:09:56.811Z",
+    "expiresAt": 1794758996810
+  },
+  {
+    "userId": "usr_test_123",
+    "refreshToken": "14e4a61aae5a27c1ceeb10d83b169fdc74ae6fdf0ce1c53304ffdef65619ae567b79e127b2e0635c",
+    "userAgent": "Mocha/1.0",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-14T16:10:07.188Z",
+    "expiresAt": 1794759007187
+  },
+  {
+    "userId": "usr_test_123",
+    "refreshToken": "9bfc7cac459e50cecc717bcfdd288fe111baf08b8006a35d6c0bafc49074edf959f4f18248caf6ae",
+    "userAgent": "Mocha/1.0",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-14T16:11:11.711Z",
+    "expiresAt": 1794759071711
+  }
+]

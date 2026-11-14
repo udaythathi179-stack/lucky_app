@@ -8,10 +8,12 @@ const path = require('path');
 
 const DB_DIR = __dirname;
 const USERS_FILE = path.join(DB_DIR, 'users.json');
+const SESSIONS_FILE = path.join(DB_DIR, 'sessions.json');
 const DISCOGRAPHIES_FILE = path.join(DB_DIR, 'artistDiscographies.json');
 
 // In-memory cache for high-throughput sub-millisecond queries
 let usersCache = null;
+let sessionsCache = null;
 let discographiesCache = null;
 
 // --- Helper Functions ---
@@ -80,8 +82,9 @@ function saveUser(userData) {
     users[existingIndex] = {
       ...existing,
       name: userData.name || existing.name,
-      avatar: userData.avatar !== undefined ? userData.avatar : existing.avatar,
+      avatar: (userData.avatar && userData.avatar.trim()) ? userData.avatar : existing.avatar,
       provider: userData.provider || existing.provider || 'google',
+      googleSub: userData.googleSub || existing.googleSub || null,
       lastLoginAt: now,
       loginCount: (existing.loginCount || 1) + 1
     };
@@ -91,8 +94,9 @@ function saveUser(userData) {
       id: userData.id || `usr_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
       name: userData.name || userData.email.split('@')[0],
       email: emailLower,
-      avatar: userData.avatar || 'images/avatar-uday.jpg',
+      avatar: (userData.avatar && userData.avatar.trim()) ? userData.avatar : 'images/avatar-uday.jpg',
       provider: userData.provider || 'google',
+      googleSub: userData.googleSub || null,
       createdAt: now,
       lastLoginAt: now,
       loginCount: 1
@@ -104,6 +108,57 @@ function saveUser(userData) {
   writeJSONAtomic(USERS_FILE, users);
   usersCache = users;
   return users[existingIndex];
+}
+
+// --- Session & Refresh Token API ---
+
+function getSessions() {
+  if (sessionsCache) return sessionsCache;
+  const data = readJSON(SESSIONS_FILE, []);
+  sessionsCache = Array.isArray(data) ? data : [];
+  return sessionsCache;
+}
+
+function saveSession(sessionData) {
+  if (!sessionData || !sessionData.userId || !sessionData.refreshToken) {
+    throw new Error('Valid userId and refreshToken required for session');
+  }
+
+  const sessions = getSessions();
+  const now = Date.now();
+  // Filter out expired sessions
+  const valid = sessions.filter(s => s.expiresAt && s.expiresAt > now);
+
+  valid.push({
+    userId: sessionData.userId,
+    refreshToken: sessionData.refreshToken,
+    userAgent: sessionData.userAgent || '',
+    ip: sessionData.ip || '',
+    createdAt: new Date().toISOString(),
+    expiresAt: sessionData.expiresAt || (now + 30 * 24 * 60 * 60 * 1000)
+  });
+
+  writeJSONAtomic(SESSIONS_FILE, valid);
+  sessionsCache = valid;
+  return true;
+}
+
+function getSession(refreshToken) {
+  if (!refreshToken) return null;
+  const sessions = getSessions();
+  const now = Date.now();
+  const found = sessions.find(s => s.refreshToken === refreshToken);
+  if (!found || found.expiresAt < now) return null;
+  return found;
+}
+
+function deleteSession(refreshToken) {
+  if (!refreshToken) return false;
+  const sessions = getSessions();
+  const filtered = sessions.filter(s => s.refreshToken !== refreshToken);
+  writeJSONAtomic(SESSIONS_FILE, filtered);
+  sessionsCache = filtered;
+  return true;
 }
 
 function deleteUser(id) {
@@ -187,11 +242,15 @@ module.exports = {
   getUserByEmail,
   saveUser,
   deleteUser,
+  saveSession,
+  getSession,
+  deleteSession,
   getAllDiscographies,
   getArtistTracks,
   searchTracks,
   getStats,
   USERS_FILE,
+  SESSIONS_FILE,
   DISCOGRAPHIES_FILE
 };
 

@@ -38,5 +38,16 @@
     "createdAt": "2026-11-06T03:28:45.658Z",
     "lastLoginAt": "2026-11-06T13:05:00.000Z",
     "loginCount": 2
+  },
+  {
+    "id": "usr_mwglrs4f3jlp",
+    "name": "Google Test User",
+    "email": "googletest@gmail.com",
+    "avatar": "images/avatar-uday.jpg",
+    "provider": "google",
+    "googleSub": null,
+    "createdAt": "2026-11-14T16:11:11.775Z",
+    "lastLoginAt": "2026-11-14T16:11:11.775Z",
+    "loginCount": 1
   }
 ]
