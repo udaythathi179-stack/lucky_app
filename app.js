@@ -5588,6 +5588,8 @@ function updateAuthUI(user) {
   const dropEmail = el('dropdownEmail');
   const loginActionLabel = el('loginActionLabel');
   const logoutBtn = el('logoutBtn');
+  const settingsSignoutBtn = el('settingsSignoutBtn');
+  const pDrawerSignOutBtn = el('pDrawerSignOutBtn');
   const pDrawerAvatar = document.querySelector('.p-drawer-avatar');
   const pDrawerName = el('pDrawerUserName');
   const pDrawerEmail = el('pDrawerUserEmail');
@@ -5603,7 +5605,9 @@ function updateAuthUI(user) {
     pDrawerAvatar.onerror = () => { pDrawerAvatar.src = 'icon-192.png'; };
   }
 
-  if (user && user.name) {
+  const isLoggedIn = user && user.name && user.name !== 'Guest User';
+
+  if (isLoggedIn) {
     const initial = user.name.trim().charAt(0).toUpperCase() || 'U';
     const isGoogle = user.provider === 'google' || (user.email && user.email.endsWith('@gmail.com'));
 
@@ -5630,6 +5634,8 @@ function updateAuthUI(user) {
     }
     if (loginActionLabel) loginActionLabel.textContent = 'Switch Account';
     if (logoutBtn) logoutBtn.style.display = 'flex';
+    if (settingsSignoutBtn) settingsSignoutBtn.style.display = 'inline-flex';
+    if (pDrawerSignOutBtn) pDrawerSignOutBtn.style.display = 'flex';
     if (pDrawerName) pDrawerName.textContent = user.name;
     if (pDrawerEmail) {
       pDrawerEmail.textContent = user.email || '';
@@ -5643,6 +5649,8 @@ function updateAuthUI(user) {
     if (dropEmail) dropEmail.textContent = 'Not logged in';
     if (loginActionLabel) loginActionLabel.textContent = 'Sign In with Google';
     if (logoutBtn) logoutBtn.style.display = 'none';
+    if (settingsSignoutBtn) settingsSignoutBtn.style.display = 'none';
+    if (pDrawerSignOutBtn) pDrawerSignOutBtn.style.display = 'none';
     if (pDrawerName) pDrawerName.textContent = 'Guest User';
     if (pDrawerEmail) pDrawerEmail.hidden = true;
   }
@@ -6029,10 +6037,19 @@ async function logoutUser() {
     } catch (_) {}
   }
 
+  // Disable Google Auto Select so GIS prompts account selection next time
+  if (window.google?.accounts?.id?.disableAutoSelect) {
+    try {
+      window.google.accounts.id.disableAutoSelect();
+    } catch (_) {}
+  }
+
   saveUserSession(null);
   updateAuthUI(null);
   const dropdown = el('userDropdownPanel');
   if (dropdown) dropdown.hidden = true;
+  closeSettingsModal();
+  closeProfileDrawer();
   toast('Signed out successfully.');
   openLoginModal('signin');
 }
@@ -6041,11 +6058,14 @@ function openSettingsModal() {
   const modal = el('settingsModal');
   if (!modal) return;
   const user = getStoredUser();
-  const userName = user?.name || 'uday';
-  const userEmail = user?.email || 'uday@tuneus.music';
+  const isLoggedIn = user && user.name && user.name !== 'Guest User';
+  const userName = isLoggedIn ? user.name : 'Guest User';
+  const userEmail = (isLoggedIn && user.email) ? user.email : 'Not logged in';
   const nameNode = el('settingsUserName');
   const emailNode = el('settingsUserEmail');
   const avatarNode = el('settingsAvatarBadge');
+  const signoutBtn = el('settingsSignoutBtn');
+
   if (nameNode) nameNode.textContent = userName;
   if (emailNode) emailNode.textContent = userEmail;
   if (avatarNode) {
@@ -6054,6 +6074,9 @@ function openSettingsModal() {
     } else {
       avatarNode.textContent = userName.charAt(0).toUpperCase();
     }
+  }
+  if (signoutBtn) {
+    signoutBtn.style.display = isLoggedIn ? 'inline-flex' : 'none';
   }
   modal.hidden = false;
 }
@@ -6141,6 +6164,46 @@ function bindAuthEvents() {
     profileDrawerBackdrop.onclick = () => {
       if (profileDrawer) profileDrawer.classList.remove('open');
       profileDrawerBackdrop.hidden = true;
+    };
+  }
+
+  // Settings Modal Sign Out & Close
+  const settingsSignoutBtn = el('settingsSignoutBtn');
+  if (settingsSignoutBtn) {
+    settingsSignoutBtn.onclick = (e) => {
+      e.preventDefault();
+      closeSettingsModal();
+      logoutUser();
+    };
+  }
+
+  // Profile Drawer Sign Out
+  const pDrawerSignOutBtn = el('pDrawerSignOutBtn');
+  if (pDrawerSignOutBtn) {
+    pDrawerSignOutBtn.onclick = (e) => {
+      e.preventDefault();
+      closeProfileDrawer();
+      logoutUser();
+    };
+  }
+
+  // Settings Modal Close Buttons & Backdrop
+  const closeSettingsBtn = el('closeSettingsBtn');
+  if (closeSettingsBtn) {
+    closeSettingsBtn.onclick = () => closeSettingsModal();
+  }
+
+  const settingsModal = el('settingsModal');
+  if (settingsModal) {
+    settingsModal.onclick = (e) => {
+      if (e.target === settingsModal) closeSettingsModal();
+    };
+  }
+
+  if (logoutBtn) {
+    logoutBtn.onclick = (e) => {
+      e.preventDefault();
+      logoutUser();
     };
   }
 
@@ -6282,17 +6345,33 @@ function bindUniverseDrawerEvents() {
 function openProfileDrawer() {
   const drawer = el('profileDrawer');
   const backdrop = el('profileDrawerBackdrop');
-  if (drawer) drawer.hidden = false;
+  if (drawer) {
+    drawer.hidden = false;
+    drawer.classList.add('open');
+  }
   if (backdrop) backdrop.hidden = false;
   const user = getStoredUser();
+  const isLoggedIn = user && user.name && user.name !== 'Guest User';
   const nameEl = el('pDrawerUserName');
-  if (nameEl) nameEl.textContent = (user && user.name) ? user.name : 'uday';
+  if (nameEl) nameEl.textContent = isLoggedIn ? user.name : 'Guest User';
+  const emailEl = el('pDrawerUserEmail');
+  if (emailEl) {
+    emailEl.textContent = (isLoggedIn && user.email) ? user.email : '';
+    emailEl.hidden = !(isLoggedIn && user.email);
+  }
+  const signoutBtn = el('pDrawerSignOutBtn');
+  if (signoutBtn) {
+    signoutBtn.style.display = isLoggedIn ? 'flex' : 'none';
+  }
 }
 
 function closeProfileDrawer() {
   const drawer = el('profileDrawer');
   const backdrop = el('profileDrawerBackdrop');
-  if (drawer) drawer.hidden = true;
+  if (drawer) {
+    drawer.hidden = true;
+    drawer.classList.remove('open');
+  }
   if (backdrop) backdrop.hidden = true;
 }
 
@@ -6402,7 +6481,12 @@ function bindSpotifyNavigationEvents() {
   if (viewProfileBtn) {
     viewProfileBtn.addEventListener('click', () => {
       closeProfileDrawer();
-      openLoginModal();
+      const user = getStoredUser();
+      if (user && user.name && user.name !== 'Guest User') {
+        openSettingsModal();
+      } else {
+        openLoginModal('signin');
+      }
     });
   }
 
@@ -6410,7 +6494,16 @@ function bindSpotifyNavigationEvents() {
   if (addAccountBtn) {
     addAccountBtn.addEventListener('click', () => {
       closeProfileDrawer();
-      openGoogleAccountModal();
+      openLoginModal('signin');
+    });
+  }
+
+  const pDrawerSignOutBtn = el('pDrawerSignOutBtn');
+  if (pDrawerSignOutBtn) {
+    pDrawerSignOutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeProfileDrawer();
+      logoutUser();
     });
   }
 

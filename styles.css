@@ -6335,6 +6335,19 @@ input:focus-visible:not(#search):not(.search-wrap input):not(.universe-filter-wr
   flex: 1;
 }
 
+.p-drawer-signout-item {
+  margin-top: 10px;
+  color: #f87171 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+}
+
+.p-drawer-signout-item:hover {
+  background: rgba(239, 68, 68, 0.16) !important;
+  color: #ef4444 !important;
+  transform: translateX(4px);
+}
+
 /* Hide old desktop player bar in favor of unified Spotify-style floating mini player */
 #player {
   display: none !important;
