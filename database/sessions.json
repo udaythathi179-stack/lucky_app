@@ -30,5 +30,13 @@
     "ip": "127.0.0.1",
     "createdAt": "2026-11-14T16:11:11.711Z",
     "expiresAt": 1794759071711
+  },
+  {
+    "userId": "usr_test_123",
+    "refreshToken": "1c1605c627660864311e568610bd8212a8a4811af9dc9b35dd9eab2cc45295329aa2c4e098f214e0",
+    "userAgent": "Mocha/1.0",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-15T06:35:50.524Z",
+    "expiresAt": 1794810950522
   }
 ]

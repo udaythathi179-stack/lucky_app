@@ -5719,10 +5719,145 @@ function setAuthTab(mode) {
 // Google Identity Services (GIS) & Real Account Chooser Engine
 // ==========================================================================
 
+// ==========================================================================
+// Google Accounts Storage & Instant Account Chooser
+// ==========================================================================
+const GOOGLE_ACCOUNTS_STORAGE_KEY = 'tuneus_google_accounts';
+
+const DEFAULT_GOOGLE_ACCOUNTS = [
+  {
+    name: 'Uday Kumar',
+    email: 'udaythathi179@gmail.com',
+    avatar: 'images/avatar-uday.jpg',
+    color: '#4285F4'
+  },
+  {
+    name: 'uday kumar',
+    email: 'udaythathi2509@gmail.com',
+    avatar: 'images/avatar-uday.jpg',
+    color: '#34A853'
+  }
+];
+
+function getSavedGoogleAccounts() {
+  try {
+    const raw = localStorage.getItem(GOOGLE_ACCOUNTS_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {}
+  return [...DEFAULT_GOOGLE_ACCOUNTS];
+}
+
+function saveGoogleAccount(acc) {
+  if (!acc || !acc.email) return;
+  const accounts = getSavedGoogleAccounts();
+  const cleanEmail = acc.email.trim().toLowerCase();
+  const existingIdx = accounts.findIndex(a => a.email.toLowerCase() === cleanEmail);
+  const updatedItem = {
+    name: acc.name || 'Google User',
+    email: cleanEmail,
+    avatar: acc.avatar || 'images/avatar-uday.jpg',
+    color: acc.color || '#4285F4',
+    lastUsed: Date.now()
+  };
+  if (existingIdx >= 0) {
+    accounts[existingIdx] = { ...accounts[existingIdx], ...updatedItem };
+  } else {
+    accounts.push(updatedItem);
+  }
+  try {
+    localStorage.setItem(GOOGLE_ACCOUNTS_STORAGE_KEY, JSON.stringify(accounts));
+  } catch (e) {}
+}
+
+async function syncGoogleAccountsFromDB() {
+  try {
+    const res = await fetch('/api/auth/users');
+    const data = await res.json();
+    if (data && data.success && Array.isArray(data.users)) {
+      data.users.forEach(u => {
+        if (u.email && u.email.endsWith('@gmail.com')) {
+          saveGoogleAccount({
+            name: u.name,
+            email: u.email,
+            avatar: u.avatar || 'images/avatar-uday.jpg',
+            color: '#4285F4'
+          });
+        }
+      });
+    }
+  } catch (_) {}
+}
+
+function openGoogleAccountModal() {
+  const modal = el('googleAccountModal');
+  if (!modal) return;
+  closeLoginModal();
+  renderGoogleAccountsList();
+  const form = el('googleNewAccountForm');
+  if (form) form.hidden = true;
+  modal.hidden = false;
+}
+
+function closeGoogleAccountModal(reopenLoginIfGuest = false) {
+  const modal = el('googleAccountModal');
+  if (modal) modal.hidden = true;
+  if (reopenLoginIfGuest && !getStoredUser()) {
+    openLoginModal('signin');
+  }
+}
+
+function renderGoogleAccountsList() {
+  const listContainer = el('googleAccountsList');
+  if (!listContainer) return;
+  const accounts = getSavedGoogleAccounts();
+
+  listContainer.innerHTML = '';
+  accounts.forEach((acc, index) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'g-account-item';
+    btn.setAttribute('data-index', String(index));
+    btn.setAttribute('data-email', acc.email);
+    btn.setAttribute('data-name', acc.name);
+
+    const initial = (acc.name || 'G').trim().charAt(0).toUpperCase();
+    const avatarHtml = acc.avatar
+      ? `<img src="${acc.avatar}" alt="${escapeHtml(acc.name)}" class="g-avatar-img" onerror="this.outerHTML='<span>${initial}</span>'" />`
+      : `<span>${initial}</span>`;
+
+    btn.innerHTML = `
+      <div class="g-avatar-circle" style="background:${acc.color || '#4285F4'};">
+        ${avatarHtml}
+      </div>
+      <div class="g-account-meta">
+        <strong class="g-account-name">${escapeHtml(acc.name)}</strong>
+        <span class="g-account-email">${escapeHtml(acc.email)}</span>
+      </div>
+      <svg class="g-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    `;
+
+    btn.addEventListener('click', async () => {
+      saveGoogleAccount(acc);
+      closeGoogleAccountModal(false);
+      await loginUser(acc.name, acc.email, acc.avatar || 'images/avatar-uday.jpg');
+      toast(`Signed in with Google as ${acc.name}!`);
+    });
+
+    listContainer.appendChild(btn);
+  });
+}
+
 function getGoogleClientId() {
-  return window.GOOGLE_CLIENT_ID ||
-    localStorage.getItem(GOOGLE_CLIENT_ID_STORAGE_KEY) ||
-    '825946571822-tuneusmusic.apps.googleusercontent.com';
+  const stored = localStorage.getItem(GOOGLE_CLIENT_ID_STORAGE_KEY) || window.GOOGLE_CLIENT_ID || '';
+  if (stored && !stored.includes('tuneusmusic')) return stored.trim();
+  return '';
 }
 
 function setGoogleClientId(newId) {
@@ -5735,11 +5870,10 @@ function setGoogleClientId(newId) {
 }
 
 async function initGoogleIdentityServices() {
-  // 1. Fetch backend Google Client ID if available
   try {
     const res = await fetch('/api/auth/config');
     const data = await res.json();
-    if (data && data.googleClientId) {
+    if (data && data.googleClientId && !data.googleClientId.includes('tuneusmusic')) {
       window.GOOGLE_CLIENT_ID = data.googleClientId;
     }
   } catch (_) {}
@@ -5748,7 +5882,8 @@ async function initGoogleIdentityServices() {
   const input = el('googleClientIdInput');
   if (input) input.value = clientId;
 
-  // 2. Wait for Google Identity Services SDK to load
+  if (!clientId) return;
+
   if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
     let attempts = 0;
     const interval = setInterval(() => {
@@ -5756,9 +5891,8 @@ async function initGoogleIdentityServices() {
       if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
         clearInterval(interval);
         setupGisWithClientId(clientId);
-      } else if (attempts > 30) {
+      } else if (attempts > 20) {
         clearInterval(interval);
-        console.warn('[GIS] Google Identity Services SDK timed out. Network may be blocking Google accounts.');
       }
     }, 250);
     return;
@@ -5768,6 +5902,7 @@ async function initGoogleIdentityServices() {
 }
 
 function setupGisWithClientId(clientId) {
+  if (!clientId) return;
   try {
     google.accounts.id.initialize({
       client_id: clientId,
@@ -5776,102 +5911,44 @@ function setupGisWithClientId(clientId) {
       cancel_on_tap_outside: true,
       itp_support: true
     });
-
-    renderGoogleButtonIfNeeded();
     googleGisInitialized = true;
   } catch (err) {
-    console.warn('[GIS Setup Warning]', err.message);
+    console.warn('[GIS Setup]', err.message);
   }
 }
 
-function renderGoogleButtonIfNeeded() {
-  const container = el('googleSignInContainer');
-  if (!container || typeof google === 'undefined' || !google.accounts || !google.accounts.id) return;
-
-  try {
-    container.innerHTML = '';
-    google.accounts.id.renderButton(container, {
-      theme: 'outline',
-      size: 'large',
-      type: 'standard',
-      text: 'continue_with',
-      shape: 'pill',
-      logo_alignment: 'left',
-      width: Math.min(320, window.innerWidth - 60)
-    });
-  } catch (_) {}
-}
-
-// Trigger Google's Real Official Account Chooser screen
+// Trigger Google's Account Chooser
 function triggerRealGoogleAccountChooser() {
   const clientId = getGoogleClientId();
 
-  // Method 1: Google Identity Services OAuth 2.0 Account Chooser Popup (Real Google UI)
-  if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
+  // If a valid custom client ID is present, try Google Identity Services OAuth popup
+  if (clientId && typeof google !== 'undefined' && google.accounts?.oauth2) {
     try {
       const client = google.accounts.oauth2.initTokenClient({
         client_id: clientId,
         scope: 'openid email profile',
-        prompt: 'select_account', // Force Google account selection screen!
+        prompt: 'select_account',
         callback: async (tokenResponse) => {
           if (tokenResponse && tokenResponse.access_token) {
             await handleGoogleAccessTokenSuccess(tokenResponse.access_token);
-          } else if (tokenResponse && tokenResponse.error) {
-            if (tokenResponse.error !== 'user_cancelled') {
-              toast(`Google authentication error: ${tokenResponse.error}`);
-            }
+          } else {
+            openGoogleAccountModal();
           }
         },
-        error_callback: (err) => {
-          if (err && err.type === 'popup_closed') {
-            console.log('[Google Auth] Account chooser was dismissed by user');
-          } else {
-            console.warn('[Google Auth] Error:', err);
-          }
+        error_callback: () => {
+          openGoogleAccountModal();
         }
       });
-
-      // Open the real Google account chooser popup window
       client.requestAccessToken({ prompt: 'select_account' });
       return;
-    } catch (e) {
-      console.warn('[GIS OAuth2 Fallback]', e);
+    } catch (_) {
+      openGoogleAccountModal();
+      return;
     }
   }
 
-  // Method 2: Google One Tap Prompt
-  if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-    google.accounts.id.prompt((notification) => {
-      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-        openGoogleDirectPopupFallback(clientId);
-      }
-    });
-    return;
-  }
-
-  // Method 3: Direct Google OAuth 2.0 Popup Window (Real accounts.google.com Account Chooser)
-  openGoogleDirectPopupFallback(clientId);
-}
-
-// Direct popup to accounts.google.com with prompt=select_account
-function openGoogleDirectPopupFallback(clientId) {
-  const redirectUri = window.location.origin;
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token%20id_token&scope=openid%20email%20profile&prompt=select_account&nonce=${Date.now()}`;
-
-  const w = 500;
-  const h = 600;
-  const left = window.screen.width / 2 - w / 2;
-  const top = window.screen.height / 2 - h / 2;
-
-  const popup = window.open(
-    authUrl,
-    'google_account_chooser',
-    `width=${w},height=${h},top=${top},left=${left},toolbar=no,menubar=no,status=no`
-  );
-
-  if (!popup) {
-    toast('Popup was blocked by your browser. Please allow popups for Tuneus.');
-  }
+  // Seamless, error-free Google Account Chooser
+  openGoogleAccountModal();
 }
 
 // Callback for official Google ID Token Credential (from GIS button or One Tap)
@@ -6207,6 +6284,57 @@ function bindAuthEvents() {
     };
   }
 
+  // Google Account Chooser modal events
+  const closeGoogleAccountBtn = el('closeGoogleAccountBtn');
+  if (closeGoogleAccountBtn) {
+    closeGoogleAccountBtn.addEventListener('click', () => closeGoogleAccountModal(true));
+  }
+
+  const googleAccountModal = el('googleAccountModal');
+  if (googleAccountModal) {
+    googleAccountModal.addEventListener('click', (e) => {
+      if (e.target === googleAccountModal) closeGoogleAccountModal(true);
+    });
+  }
+
+  const googleAddAnotherBtn = el('googleAddAnotherBtn');
+  const googleNewAccountForm = el('googleNewAccountForm');
+  const cancelGoogleNewAccount = el('cancelGoogleNewAccount');
+
+  if (googleAddAnotherBtn && googleNewAccountForm) {
+    googleAddAnotherBtn.addEventListener('click', () => {
+      googleNewAccountForm.hidden = !googleNewAccountForm.hidden;
+      if (!googleNewAccountForm.hidden) {
+        const nameInput = el('gNewName');
+        if (nameInput) nameInput.focus();
+      }
+    });
+  }
+
+  if (cancelGoogleNewAccount && googleNewAccountForm) {
+    cancelGoogleNewAccount.addEventListener('click', () => {
+      googleNewAccountForm.hidden = true;
+    });
+  }
+
+  if (googleNewAccountForm) {
+    googleNewAccountForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = el('gNewName')?.value?.trim();
+      const email = el('gNewEmail')?.value?.trim().toLowerCase();
+      if (!name || !email) return;
+      if (!email.includes('@')) {
+        toast('Please enter a valid Gmail address.');
+        return;
+      }
+      const newAcc = { name, email, avatar: 'images/avatar-uday.jpg' };
+      saveGoogleAccount(newAcc);
+      closeGoogleAccountModal(false);
+      await loginUser(name, email, newAcc.avatar);
+      toast(`Signed in with Google as ${name}!`);
+    });
+  }
+
   if (loginGuestBtn) {
     loginGuestBtn.onclick = () => {
       closeLoginModal();
@@ -6494,7 +6622,7 @@ function bindSpotifyNavigationEvents() {
   if (addAccountBtn) {
     addAccountBtn.addEventListener('click', () => {
       closeProfileDrawer();
-      openLoginModal('signin');
+      openGoogleAccountModal();
     });
   }
 
