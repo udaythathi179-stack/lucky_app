@@ -38,5 +38,13 @@
     "ip": "127.0.0.1",
     "createdAt": "2026-11-15T06:35:50.524Z",
     "expiresAt": 1794810950522
+  },
+  {
+    "userId": "usr_mvy4irye",
+    "refreshToken": "1382b173e9ec46eb5b4baeb2e5af4d12d08a074a4d908ec23cdcf841f7b0abce85727785fd78ccaf",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-15T08:11:31.901Z",
+    "expiresAt": 1797322291899
   }
 ]

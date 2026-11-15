@@ -1,28 +1,28 @@
 :root {
-  --bg: #020617;
-  --bg-card: rgba(8, 20, 52, 0.75);
-  --bg-card-hover: rgba(14, 34, 84, 0.9);
-  --border: rgba(56, 189, 248, 0.28);
-  --border-hover: rgba(96, 165, 250, 0.85);
+  --bg: #010510;
+  --bg-card: rgba(12, 28, 74, 0.78);
+  --bg-card-hover: rgba(16, 38, 98, 0.94);
+  --border: rgba(59, 130, 246, 0.28);
+  --border-hover: rgba(0, 229, 255, 0.9);
   --text: #f8fafc;
   --muted: #93c5fd;
-  --muted-dark: #3b82f6;
-  --accent: #2563eb;
-  --accent-2: #38bdf8;
-  --accent-3: #60a5fa;
-  --accent-glow: 0 0 35px rgba(37, 99, 235, 0.6), 0 0 16px rgba(56, 189, 248, 0.5);
-  --accent-grad: linear-gradient(135deg, #38bdf8 0%, #3b82f6 35%, #2563eb 70%, #1d4ed8 100%);
-  --accent-grad-strong: linear-gradient(135deg, #93c5fd 0%, #38bdf8 30%, #2563eb 70%, #1e40af 100%);
+  --muted-dark: #60a5fa;
+  --accent: #00e5ff;
+  --accent-2: #3b82f6;
+  --accent-3: #1d4ed8;
+  --accent-glow: 0 0 40px rgba(0, 229, 255, 0.65), 0 0 16px rgba(59, 130, 246, 0.55);
+  --accent-grad: linear-gradient(135deg, #00e5ff 0%, #0ea5e9 25%, #2563eb 55%, #1e3a8a 100%);
+  --accent-grad-strong: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 30%, #3b82f6 65%, #1e40af 100%);
   --telugu: #38bdf8;
-  --hindi: #60a5fa;
-  --english: #34d399;
+  --hindi: #818cf8;
+  --english: #22d3ee;
   --folk: #38bdf8;
   --favorite: #fb7185;
-  --success: #38bdf8;
-  --modal-bg: rgba(4, 12, 34, 0.96);
-  --player-bg: rgba(3, 10, 28, 0.94);
-  --glow-cyan: rgba(56, 189, 248, 0.55);
-  --glow-blue: rgba(37, 99, 235, 0.5);
+  --success: #22d3ee;
+  --modal-bg: rgba(4, 12, 36, 0.98);
+  --player-bg: rgba(3, 10, 30, 0.96);
+  --glow-cyan: rgba(0, 229, 255, 0.5);
+  --glow-blue: rgba(59, 130, 246, 0.45);
 }
 
 * {
@@ -30,7 +30,7 @@
 }
 
 ::selection {
-  background: rgba(37, 99, 235, 0.4);
+  background: rgba(0, 229, 255, 0.38);
   color: #ffffff;
 }
 
@@ -40,51 +40,53 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #020718;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(56, 189, 248, 0.32);
+  background: rgba(56, 189, 248, 0.28);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(96, 165, 250, 0.8);
-  box-shadow: 0 0 12px rgba(37, 99, 235, 0.8);
+  background: rgba(0, 229, 255, 0.75);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
 }
 
 [hidden] {
   display: none !important;
 }
 
-html,
-body {
+html {
   margin: 0;
   padding: 0;
+  background-color: #010510;
 }
 
 body {
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
   padding-bottom: 150px;
   overflow-x: hidden;
-  background-color: #020617;
+  background-color: transparent;
   color: var(--text);
   font-family: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* GPU Composited Background Layer (Eliminates scroll repaint lag) */
+/* GPU Composited Background Layer (Restores signature glowing blue soundwave theme) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -2;
-  background-color: #020617;
+  z-index: -1;
+  background-color: #020718;
   background-image:
-    radial-gradient(ellipse 130% 90% at 50% -15%, rgba(14, 52, 140, 0.45) 0%, rgba(2, 6, 23, 0.78) 45%, #020617 95%),
-    url('theme-bg.jpg');
+    radial-gradient(ellipse 120% 80% at 50% -10%, rgba(18, 58, 143, 0.82) 0%, rgba(10, 33, 96, 0.88) 30%, rgba(4, 16, 51, 0.94) 65%, #01050f 100%),
+    url('wave-theme.jpg');
   background-size: 100% auto, cover;
-  background-position: center top, center 12%;
+  background-position: center top, center 20%;
   background-repeat: no-repeat;
   pointer-events: none;
   transform: translateZ(0);
@@ -97,7 +99,7 @@ body.is-playing-music .glow-a {
 }
 
 body.is-playing-music .glow-b {
-  opacity: 0.60;
+  opacity: 0.62;
   transform: scale(1.08) translateZ(0);
   transition: opacity 1.2s ease, transform 1.2s ease;
 }
@@ -118,7 +120,7 @@ a {
   text-decoration: none;
 }
 
-/* Dynamic Glow Orbs (GPU Accelerated, Soft Gradients without expensive blur filter) */
+/* Dynamic Glow Orbs */
 .glow {
   position: fixed;
   border-radius: 50%;
@@ -129,21 +131,21 @@ a {
 }
 
 .glow-a {
-  width: 740px;
-  height: 740px;
+  width: 720px;
+  height: 720px;
   top: -240px;
   left: -180px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(59, 130, 246, 0.16) 45%, transparent 70%) !important;
-  opacity: 0.45;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.44) 0%, rgba(37, 99, 235, 0.24) 50%, transparent 75%) !important;
+  opacity: 0.55;
 }
 
 .glow-b {
-  width: 840px;
-  height: 840px;
-  right: -220px;
-  bottom: -280px;
-  background: radial-gradient(circle, rgba(29, 78, 216, 0.40) 0%, rgba(96, 165, 250, 0.16) 48%, transparent 70%) !important;
-  opacity: 0.48;
+  width: 820px;
+  height: 820px;
+  right: -200px;
+  bottom: -260px;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.45) 0%, rgba(0, 229, 255, 0.22) 50%, transparent 75%) !important;
+  opacity: 0.58;
 }
 
 /* Top Navigation Bar */
@@ -2620,9 +2622,9 @@ body.is-expanded-modal-open footer {
   content: '';
   position: fixed;
   inset: 0;
-  background: url('theme-bg.jpg') center center / cover no-repeat;
+  background: url('wave-theme.jpg') center center / cover no-repeat;
   opacity: 0.88;
-  filter: saturate(140%) brightness(1.08);
+  filter: saturate(145%) brightness(1.08);
   animation: waveAmbientFloat 12s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
@@ -2633,8 +2635,8 @@ body.is-expanded-modal-open footer {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 32%, rgba(2, 6, 23, 0.22) 0%, rgba(3, 10, 28, 0.75) 65%, #020617 100%),
-    linear-gradient(180deg, rgba(2, 6, 23, 0.5) 0%, transparent 30%, transparent 70%, rgba(1, 4, 16, 0.9) 100%);
+    radial-gradient(circle at 50% 30%, rgba(2, 8, 26, 0.22) 0%, rgba(2, 7, 24, 0.72) 65%, #01040f 100%),
+    linear-gradient(180deg, rgba(2, 7, 24, 0.5) 0%, transparent 30%, transparent 70%, rgba(1, 4, 15, 0.9) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -6335,6 +6337,19 @@ input:focus-visible:not(#search):not(.search-wrap input):not(.universe-filter-wr
   flex: 1;
 }
 
+.p-drawer-signout-item {
+  margin-top: 10px;
+  color: #f87171 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+}
+
+.p-drawer-signout-item:hover {
+  background: rgba(239, 68, 68, 0.16) !important;
+  color: #ef4444 !important;
+  transform: translateX(4px);
+}
+
 /* Hide old desktop player bar in favor of unified Spotify-style floating mini player */
 #player {
   display: none !important;
@@ -7118,3 +7133,170 @@ body.is-expanded-modal-open footer {
 
 
 
+
+/* ==========================================================================
+   Google Identity Services & Enterprise Authentication Styles
+   ========================================================================== */
+
+.login-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+  font-size: 20px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.login-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.auth-tabs-row {
+  display: flex;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  gap: 4px;
+}
+.auth-tab-btn {
+  flex: 1;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.auth-tab-btn.active {
+  background: #0284c7;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.4);
+}
+
+.google-auth-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+.google-gis-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 44px;
+}
+.google-continue-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  color: #1f2937;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+.google-continue-btn:hover {
+  background: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+.google-continue-btn:active {
+  transform: translateY(0);
+}
+
+.google-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: rgba(66, 133, 244, 0.15);
+  border: 1px solid rgba(66, 133, 244, 0.35);
+  color: #60a5fa;
+  font-size: 11.5px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.google-client-config-link-wrap {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.google-config-toggle-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 11.5px;
+  cursor: pointer;
+  padding: 6px;
+  transition: color 0.2s ease;
+  font-family: inherit;
+}
+.google-config-toggle-btn:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+.google-config-panel {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  text-align: left;
+}
+.google-config-panel label {
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+.google-config-input-group {
+  display: flex;
+  gap: 8px;
+}
+.google-config-input-group input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: monospace;
+}
+.google-config-help {
+  font-size: 10.5px;
+  color: #64748b;
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
