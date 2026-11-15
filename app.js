@@ -5919,7 +5919,11 @@ function setupGisWithClientId(clientId) {
   try {
     google.accounts.id.initialize({
       client_id: clientId,
-      callback: handleGoogleCredentialResponse,
+      callback: (response) => {
+        if (response && response.credential) {
+          processRealGoogleToken(null, response.credential);
+        }
+      },
       auto_select: false,
       cancel_on_tap_outside: true,
       itp_support: true
@@ -6233,9 +6237,6 @@ function bindAuthEvents() {
     googleSwitchAccountBtn.onclick = (e) => {
       e.preventDefault();
       startRealGoogleLogin();
-    };
-  }
-      openGoogleAccountModal();
     };
   }
 
