@@ -5937,7 +5937,7 @@ function setupGisWithClientId(clientId) {
 // Trigger the official Google Account Chooser & OAuth 2.0 flow
 function startRealGoogleLogin() {
   const clientId = '352956550844-or56kt72is04ql7b1pag65kmfk4ho1tv.apps.googleusercontent.com';
-  const redirectUri = window.location.origin; // http://localhost:3000
+  const redirectUri = window.location.origin.replace(/\/+$/, ''); // e.g. https://lucky-app-iofl.vercel.app
   const scope = encodeURIComponent('openid email profile');
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${scope}&prompt=select_account`;
 
