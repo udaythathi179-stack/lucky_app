@@ -41,10 +41,26 @@
   },
   {
     "userId": "usr_mvy4irye",
-    "refreshToken": "1382b173e9ec46eb5b4baeb2e5af4d12d08a074a4d908ec23cdcf841f7b0abce85727785fd78ccaf",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "refreshToken": "742b2806671687e928d6fdd73696be5e321df6427a78c969bf85d896570908d97aa44a666b727ef8",
+    "userAgent": "",
     "ip": "127.0.0.1",
-    "createdAt": "2026-11-15T08:11:31.901Z",
-    "expiresAt": 1797322291899
+    "createdAt": "2026-11-15T13:08:26.961Z",
+    "expiresAt": 1797340106961
+  },
+  {
+    "userId": "usr_test_123",
+    "refreshToken": "fa4a690fe4d033ad266f3c2dd7d86b16c5f8c45e05c4e9a43ad2117574a5fefae9615e07d94a3f76",
+    "userAgent": "Mocha/1.0",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-15T13:11:18.205Z",
+    "expiresAt": 1794834678204
+  },
+  {
+    "userId": "usr_test_123",
+    "refreshToken": "7e65ed453b0198b2f413ae92083df25710dd94b93a933dbbe20b4d3b3b5e9ae05984067710b77ab8",
+    "userAgent": "Mocha/1.0",
+    "ip": "127.0.0.1",
+    "createdAt": "2026-11-15T13:11:29.543Z",
+    "expiresAt": 1794834689543
   }
 ]
