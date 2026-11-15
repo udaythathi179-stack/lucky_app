@@ -6203,11 +6203,11 @@ function bindAuthEvents() {
     authTabRegister.onclick = () => setAuthTab('register');
   }
 
-  // Google Continue Button -> Trigger Real Google Account Chooser!
+  // Google Continue Button -> Open Instant Google Account Chooser
   if (googleContinueBtn) {
     googleContinueBtn.onclick = (e) => {
       e.preventDefault();
-      triggerRealGoogleAccountChooser();
+      openGoogleAccountModal();
     };
   }
 
