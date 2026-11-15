@@ -8,4 +8,8 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20
+      - key: GOOGLE_CLIENT_ID
+        value: 352956550844-or56kt72is04ql7b1pag65kmfk4ho1tv.apps.googleusercontent.com
+      - key: JWT_SECRET
+        generateValue: true
 

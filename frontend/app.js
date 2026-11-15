@@ -5477,6 +5477,7 @@ function bindEvents() {
 const AUTH_STORAGE_KEY = 'tuneus_user';
 const AUTH_SESSION_STORAGE_KEY = 'tuneus_auth_session';
 const GOOGLE_CLIENT_ID_STORAGE_KEY = 'tuneus_google_client_id';
+const AUTH_GATE_CLASS = 'auth-locked';
 
 let activeAuthMode = 'signin'; // 'signin' | 'register'
 let googleGisInitialized = false;
@@ -5488,10 +5489,10 @@ function getStoredUser() {
     const rawSession = localStorage.getItem(AUTH_SESSION_STORAGE_KEY);
     if (rawSession) {
       const parsed = JSON.parse(rawSession);
-      if (parsed && parsed.user) return parsed.user;
+      const hasToken = Boolean(parsed && (parsed.accessToken || parsed.refreshToken));
+      if (parsed && parsed.user && hasToken) return parsed.user;
     }
-    const rawUser = localStorage.getItem(AUTH_STORAGE_KEY);
-    return rawUser ? JSON.parse(rawUser) : null;
+    return null;
   } catch (e) {
     return null;
   }
@@ -5546,6 +5547,17 @@ function saveUserSession(sessionData) {
     scheduleTokenRefresh(expiresIn);
   } catch (e) {
     console.warn('[Session Error]', e);
+  }
+}
+
+// Lock the music app behind the login screen until a real session exists.
+function setAuthGate(locked) {
+  document.body.classList.toggle(AUTH_GATE_CLASS, locked);
+  const modal = el('loginModal');
+  if (locked) {
+    openLoginModal('signin');
+  } else if (modal) {
+    modal.hidden = true;
   }
 }
 
@@ -5606,6 +5618,7 @@ function updateAuthUI(user) {
   }
 
   const isLoggedIn = user && user.name && user.name !== 'Guest User';
+  setAuthGate(!isLoggedIn);
 
   if (isLoggedIn) {
     const initial = user.name.trim().charAt(0).toUpperCase() || 'U';
@@ -5656,6 +5669,11 @@ function updateAuthUI(user) {
   }
 }
 
+// Initialize Google Identity Services when the login screen becomes visible.
+function renderGoogleButtonIfNeeded() {
+  initGoogleIdentityServices();
+}
+
 // Open Login Modal with support for mode ('signin' | 'register')
 function openLoginModal(mode = 'signin', prefillEmail = '') {
   const modal = el('loginModal');
@@ -5683,7 +5701,8 @@ function openLoginModal(mode = 'signin', prefillEmail = '') {
   }
 }
 
-function closeLoginModal() {
+function closeLoginModal(force = false) {
+  if (!force && document.body.classList.contains(AUTH_GATE_CLASS)) return;
   const modal = el('loginModal');
   if (modal) modal.hidden = true;
 }
@@ -5704,14 +5723,14 @@ function setAuthTab(mode) {
     if (nameField) nameField.hidden = false;
     if (submitText) submitText.textContent = 'Create Account & Listen';
     if (title) title.textContent = 'Create your Tuneus Account';
-    if (subText) subText.textContent = 'Sign up to stream verified 320kbps studio masters across all devices';
+    if (subText) subText.textContent = 'Create an account to start listening to your music';
   } else {
     if (tabSignIn) tabSignIn.classList.add('active');
     if (tabRegister) tabRegister.classList.remove('active');
     if (nameField) nameField.hidden = true;
-    if (submitText) submitText.textContent = 'Sign In & Listen';
-    if (title) title.textContent = 'Welcome back to Tuneus';
-    if (subText) subText.textContent = 'Sign in with your Google account to stream in 320kbps studio master audio';
+    if (submitText) submitText.textContent = 'Log In & Listen';
+    if (title) title.textContent = 'Log in to Tuneus';
+    if (subText) subText.textContent = 'Log in with Google to start listening to music in 320kbps studio quality';
   }
 }
 
@@ -6337,6 +6356,7 @@ function bindAuthEvents() {
 
   if (loginGuestBtn) {
     loginGuestBtn.onclick = () => {
+      if (document.body.classList.contains(AUTH_GATE_CLASS)) return;
       closeLoginModal();
       toast('Browsing as Guest. Sign in anytime from profile.');
     };
@@ -6861,8 +6881,18 @@ function initMobileBackTrap() {
     if (scModal && !scModal.hidden) { scModal.hidden = true; return; }
     if (impModal && !impModal.hidden) { impModal.hidden = true; return; }
     if (setModal && !setModal.hidden) { setModal.hidden = true; return; }
-    if (logModal && !logModal.hidden) { logModal.hidden = true; return; }
-    if (googModal && !googModal.hidden) { googModal.hidden = true; return; }
+    if (logModal && !logModal.hidden) {
+      if (!document.body.classList.contains(AUTH_GATE_CLASS)) closeLoginModal();
+      return;
+    }
+    if (googModal && !googModal.hidden) {
+      if (document.body.classList.contains(AUTH_GATE_CLASS)) {
+        closeGoogleAccountModal(true);
+      } else {
+        googModal.hidden = true;
+      }
+      return;
+    }
     if (qDrawer && !qDrawer.hidden) { qDrawer.hidden = true; return; }
     if (profDrawer && !profDrawer.hidden) { closeProfileDrawer(); return; }
     if (uniDrawer && !uniDrawer.hidden) { closeUniverseDrawer(); return; }
@@ -6940,16 +6970,14 @@ function init() {
     });
   }
 
-  // Set default profile to Uday Kumar with user's selected cosmic profile picture
-  let currentUser = getStoredUser();
-  if (!currentUser) {
-    currentUser = { name: 'Uday Kumar', email: 'udaythathi179@gmail.com', avatar: 'images/avatar-uday.jpg' };
-    saveUserSession(currentUser);
-  } else {
-    currentUser.avatar = 'images/avatar-uday.jpg';
-    saveUserSession(currentUser);
+  // Require a real login before revealing the music app. Never auto-create a default user.
+  const currentUser = getStoredUser();
+  const hasRealSession = Boolean(currentUser && currentUser.name && currentUser.name !== 'Guest User');
+  if (!hasRealSession) {
+    localStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
+    localStorage.removeItem(AUTH_STORAGE_KEY);
   }
-  updateAuthUI(currentUser);
+  updateAuthUI(hasRealSession ? currentUser : null);
 }
 
 init();

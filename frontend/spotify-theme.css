@@ -1,0 +1,694 @@
+/* Tuneus Spotify-inspired theme layer. Loaded after styles.css. */
+:root {
+  --bg: #000000;
+  --bg-card: #181818;
+  --bg-card-hover: #282828;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.22);
+  --text: #ffffff;
+  --muted: #a7a7a7;
+  --muted-dark: #727272;
+  --accent: #1ed760;
+  --accent-2: #1ed760;
+  --accent-3: #1db954;
+  --accent-glow: 0 10px 34px rgba(30, 215, 96, 0.28);
+  --accent-grad: linear-gradient(135deg, #1ed760, #1db954);
+  --accent-grad-strong: linear-gradient(135deg, #1ed760, #1aa34a);
+  --telugu: #1ed760;
+  --hindi: #1ed760;
+  --english: #1ed760;
+  --folk: #1ed760;
+  --favorite: #1ed760;
+  --success: #1ed760;
+  --modal-bg: #181818;
+  --player-bg: #181818;
+  --glow-cyan: rgba(30, 215, 96, 0.25);
+  --glow-blue: rgba(30, 215, 96, 0.18);
+}
+
+html,
+body {
+  background: #000 !important;
+}
+
+body {
+  background: #000 !important;
+  padding-bottom: 112px;
+}
+
+body::before {
+  background-color: #000 !important;
+  background-image: none !important;
+}
+
+.starfield,
+.aurora-field,
+.glow,
+.glow-a,
+.glow-b {
+  display: none !important;
+}
+
+::selection {
+  background: rgba(30, 215, 96, 0.45);
+  color: #000;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #535353;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: none;
+}
+
+/* Login-first gate */
+body.auth-locked {
+  overflow: hidden !important;
+  padding-bottom: 0 !important;
+}
+
+body.auth-locked .topbar,
+body.auth-locked .content,
+body.auth-locked .player,
+body.auth-locked .spotify-floating-player,
+body.auth-locked .spotify-bottom-nav,
+body.auth-locked .starfield,
+body.auth-locked .aurora-field,
+body.auth-locked .glow,
+body.auth-locked .profile-drawer,
+body.auth-locked .profile-drawer-backdrop,
+body.auth-locked .universe-drawer,
+body.auth-locked .universe-drawer-backdrop,
+body.auth-locked .queue-drawer,
+body.auth-locked .expanded-modal-backdrop {
+  display: none !important;
+}
+
+body.auth-locked .login-close-btn,
+body.auth-locked .login-skip-btn,
+body.auth-locked .google-client-config-link-wrap,
+body.auth-locked .google-config-panel {
+  display: none !important;
+}
+
+.login-modal-backdrop {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(30, 215, 96, 0.16) 0%, transparent 38%),
+    #000 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.login-card {
+  max-width: 430px;
+  border-radius: 16px;
+  padding: 34px 32px 28px;
+  background: #121212 !important;
+  border: 1px solid #282828 !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.75) !important;
+}
+
+.login-logo-ring {
+  width: 78px;
+  height: 78px;
+  padding: 3px;
+  background: #1ed760 !important;
+  box-shadow: 0 0 0 4px rgba(30, 215, 96, 0.12) !important;
+  animation: none !important;
+}
+
+.login-logo-img {
+  background: #000 !important;
+}
+
+.login-brand h2 {
+  color: #fff !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  font-size: 28px;
+  letter-spacing: -0.04em;
+}
+
+.login-sub {
+  color: #a7a7a7 !important;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.auth-tabs-row {
+  background: #181818 !important;
+  border: 1px solid #282828 !important;
+}
+
+.auth-tab-btn {
+  color: #a7a7a7 !important;
+  background: transparent !important;
+  border-radius: 999px !important;
+}
+
+.auth-tab-btn.active {
+  background: #1ed760 !important;
+  color: #000 !important;
+  box-shadow: none !important;
+}
+
+.google-continue-btn {
+  background: #ffffff !important;
+  color: #000 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: none !important;
+  border-radius: 999px !important;
+  font-weight: 700;
+}
+
+.google-continue-btn:hover {
+  background: #f2f2f2 !important;
+  transform: scale(1.015);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.login-divider {
+  color: #727272 !important;
+}
+
+.login-divider::before,
+.login-divider::after {
+  background: #282828 !important;
+}
+
+.login-field label {
+  color: #fff !important;
+}
+
+.login-input-wrap {
+  background: #181818 !important;
+  border: 1px solid #3e3e3e !important;
+  border-radius: 8px !important;
+}
+
+.login-input-wrap:focus-within {
+  border-color: #fff !important;
+  box-shadow: 0 0 0 1px #fff !important;
+}
+
+.login-field input {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.login-field input::placeholder {
+  color: #727272 !important;
+}
+
+.field-icon {
+  color: #a7a7a7 !important;
+}
+
+.login-submit-btn {
+  background: #1ed760 !important;
+  color: #000 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  font-weight: 800;
+  box-shadow: none !important;
+}
+
+.login-submit-btn:hover {
+  background: #3be477 !important;
+  transform: scale(1.015);
+  box-shadow: 0 8px 24px rgba(30, 215, 96, 0.28) !important;
+}
+
+.login-error-msg {
+  background: rgba(233, 20, 41, 0.14) !important;
+  border-color: rgba(233, 20, 41, 0.45) !important;
+  color: #ff8f9a !important;
+}
+
+.secure-badge {
+  color: #727272 !important;
+  border-color: #282828 !important;
+  background: #181818 !important;
+}
+
+/* App shell */
+.topbar {
+  background: rgba(0, 0, 0, 0.86) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 14px clamp(16px, 3vw, 36px) !important;
+}
+
+.content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(18px, 3vw, 34px) clamp(16px, 3vw, 36px) 40px !important;
+}
+
+.chip {
+  background: #242424 !important;
+  border: 0 !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  font-weight: 600;
+  box-shadow: none !important;
+}
+
+.chip:hover {
+  background: #2a2a2a !important;
+  color: #fff !important;
+  transform: none !important;
+}
+
+.chip.active {
+  background: #ffffff !important;
+  color: #000 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.chip.active .chip-count {
+  color: #000 !important;
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+.chip-count {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.topbar-search-fitted {
+  background: #242424 !important;
+  border: 1px solid transparent !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+
+.topbar-search-fitted:hover {
+  background: #2a2a2a !important;
+  border-color: transparent !important;
+}
+
+.topbar-search-fitted:focus-within {
+  background: #242424 !important;
+  border-color: #fff !important;
+  box-shadow: 0 0 0 1px #fff !important;
+}
+
+.topbar-search-fitted input {
+  color: #fff !important;
+}
+
+.topbar-search-fitted input::placeholder {
+  color: #a7a7a7 !important;
+}
+
+.search-fitted-icon {
+  color: #a7a7a7 !important;
+}
+
+.home-dashboard {
+  margin-bottom: 44px;
+}
+
+.shelf-head {
+  margin-bottom: 16px !important;
+}
+
+.shelf-head h2 {
+  color: #fff !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  font-size: clamp(20px, 2vw, 26px) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.shelf-head p {
+  color: #a7a7a7 !important;
+  font-size: 13px !important;
+}
+
+.shelf-see-all {
+  color: #a7a7a7 !important;
+  font-weight: 700 !important;
+}
+
+.shelf-see-all:hover {
+  color: #fff !important;
+  text-decoration: underline;
+}
+
+.shelf-pill-tag {
+  background: #242424 !important;
+  color: #1ed760 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.quick-jump-card {
+  background: #181818 !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.quick-jump-card:hover {
+  background: #282828 !important;
+  border-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.quick-jump-art {
+  border-radius: 4px 0 0 4px;
+}
+
+.quick-jump-play {
+  background: #1ed760 !important;
+  color: #000 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+.quick-jump-card:hover .quick-jump-artist {
+  color: #fff !important;
+}
+
+.shelf-card {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  padding: 10px !important;
+  box-shadow: none !important;
+}
+
+.shelf-card:hover {
+  background: #181818 !important;
+  border-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.shelf-card::before,
+.song-card::before {
+  display: none !important;
+}
+
+.shelf-art-wrap {
+  border-radius: 4px !important;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4) !important;
+  background: #282828 !important;
+}
+
+.shelf-play-floating {
+  background: #1ed760 !important;
+  color: #000 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.shelf-title {
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+.shelf-subtitle {
+  color: #a7a7a7 !important;
+}
+
+.shelf-type-badge {
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: #fff !important;
+}
+
+.artist-shelf-card {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  padding: 10px !important;
+  box-shadow: none !important;
+}
+
+.artist-shelf-card:hover {
+  background: #181818 !important;
+  border-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.artist-name {
+  color: #fff !important;
+}
+
+.artist-genre {
+  color: #a7a7a7 !important;
+}
+
+.song-card {
+  background: #181818 !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.song-card:hover {
+  background: #282828 !important;
+  border-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.song-card.is-active {
+  border-color: rgba(30, 215, 96, 0.55) !important;
+  background: #202020 !important;
+}
+
+.song-title {
+  color: #fff !important;
+}
+
+.song-artist,
+.song-sub {
+  color: #a7a7a7 !important;
+}
+
+.card-action-btn {
+  color: #a7a7a7 !important;
+}
+
+.card-action-btn:hover,
+.card-action-btn.is-liked {
+  color: #1ed760 !important;
+}
+
+.lang-badge,
+.lang-badge.telugu,
+.lang-badge.hindi,
+.lang-badge.english,
+.lang-badge.online,
+.lang-badge.other {
+  background: #242424 !important;
+  color: #1ed760 !important;
+  border: 0 !important;
+}
+
+.primary-btn,
+.primary-btn-sm,
+.login-submit-btn,
+.artist-cta-play,
+.playlist-create-card .primary-btn-sm {
+  background: #1ed760 !important;
+  color: #000 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.primary-btn:hover,
+.primary-btn-sm:hover,
+.artist-cta-play:hover {
+  background: #3be477 !important;
+  filter: none !important;
+}
+
+.secondary-btn,
+.ghost-btn,
+.artist-cta-shuffle,
+.ghost-btn-xs {
+  background: transparent !important;
+  color: #fff !important;
+  border: 1px solid #535353 !important;
+}
+
+.secondary-btn:hover,
+.ghost-btn:hover,
+.artist-cta-shuffle:hover,
+.ghost-btn-xs:hover {
+  border-color: #fff !important;
+  color: #fff !important;
+  background: transparent !important;
+}
+
+.playlist-card,
+.playlist-create-card {
+  background: #181818 !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.playlist-card:hover,
+.playlist-create-card:hover {
+  background: #282828 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.playlist-card-icon,
+.playlist-create-icon {
+  background: #282828 !important;
+  color: #1ed760 !important;
+}
+
+/* Floating player + mobile nav */
+.spotify-floating-player {
+  background: #181818 !important;
+  border: 1px solid #282828 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65) !important;
+  border-radius: 10px !important;
+}
+
+.s-player-progress-bar {
+  background: #4d4d4d !important;
+}
+
+.s-player-progress-bar > *,
+.s-player-progress-fill {
+  background: #1ed760 !important;
+}
+
+.s-play-btn {
+  background: #1ed760 !important;
+  color: #000 !important;
+  border: 0 !important;
+}
+
+.s-player-text strong {
+  color: #fff !important;
+}
+
+.s-player-text span {
+  color: #a7a7a7 !important;
+}
+
+.spotify-bottom-nav {
+  background: rgba(0, 0, 0, 0.96) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.s-nav-item {
+  color: #a7a7a7 !important;
+}
+
+.s-nav-item.active,
+.s-nav-item:hover {
+  color: #fff !important;
+}
+
+.s-nav-item.active svg {
+  color: #1ed760 !important;
+}
+
+/* Drawers and modals */
+.profile-drawer,
+.queue-drawer,
+.universe-drawer,
+.settings-modal-card,
+.modal,
+.google-account-card,
+.download-modal,
+.eq-modal-dialog,
+.exit-confirm-card,
+.create-bottom-sheet {
+  background: #121212 !important;
+  border-color: #282828 !important;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.8) !important;
+}
+
+.profile-drawer-backdrop,
+.universe-drawer-backdrop,
+.modal-backdrop,
+.expanded-modal-backdrop,
+.create-sheet-backdrop,
+.exit-modal-backdrop {
+  background: rgba(0, 0, 0, 0.72) !important;
+  backdrop-filter: blur(6px);
+}
+
+.p-drawer-profile-card,
+.settings-user-card,
+.g-account-item,
+.download-option-card {
+  background: #181818 !important;
+  border-color: #282828 !important;
+}
+
+.p-drawer-item:hover,
+.g-account-item:hover,
+.download-option-card:hover {
+  background: #282828 !important;
+}
+
+.p-drawer-item-icon {
+  color: #a7a7a7 !important;
+}
+
+.p-drawer-view-profile-btn,
+.p-drawer-add-account-btn {
+  background: #242424 !important;
+  border-color: #3e3e3e !important;
+  color: #fff !important;
+}
+
+.p-drawer-signout-item,
+.settings-signout-btn {
+  color: #ff6b6b !important;
+}
+
+.expanded-modal-backdrop .expanded-container,
+.expanded-modal-backdrop .expanded-body {
+  background: #121212 !important;
+}
+
+.expanded-vinyl {
+  background: #1ed760 !important;
+}
+
+.tool-btn:hover,
+.icon-btn:hover,
+.icon-btn-lg:hover {
+  color: #1ed760 !important;
+}
+
+.toast {
+  background: #1ed760 !important;
+  color: #000 !important;
+  font-weight: 800;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+@media (max-width: 640px) {
+  .login-card {
+    padding: 28px 22px 22px;
+    border-radius: 14px;
+  }
+
+  .login-modal-backdrop {
+    padding: 12px;
+  }
+}

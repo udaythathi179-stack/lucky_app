@@ -6,4 +6,6 @@ android/app/build/
 node_modules/
 .vercel/
 
-.vercel
+.env
+.env.local
+.env.*.local

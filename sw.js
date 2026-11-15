@@ -1,10 +1,11 @@
-const CACHE_NAME = 'tuneus-music-v80';
+const CACHE_NAME = 'tuneus-music-v81';
 const IMAGE_CACHE_NAME = 'tuneus-artwork-v6';
 
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/styles.css',
+  '/spotify-theme.css',
   '/app.js',
   '/data/artistCuratedTracks.js',
   '/theme-bg.jpg',

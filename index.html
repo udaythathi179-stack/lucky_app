@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Tuneus - Universe of Music</title>
   <meta name="description" content="Universe of Music: Stream full-length studio tracks in 320kbps quality with offline downloads." />
-  <meta name="theme-color" content="#2563eb" />
+  <meta name="theme-color" content="#000000" />
   <meta property="og:title" content="Tuneus Music" />
   <meta property="og:description" content="Stream songs offline and online in studio quality" />
   <meta property="og:image" content="icon-512.png" />
@@ -19,10 +19,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=88" />
+  <link rel="stylesheet" href="spotify-theme.css?v=1" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-<body>
+<body class="auth-locked">
   <div class="starfield" aria-hidden="true"></div>
   <div class="aurora-field" aria-hidden="true">
     <span class="aurora-blob aurora-1"></span>
@@ -780,8 +781,8 @@
         <div class="login-logo-ring">
           <img class="login-logo-img" src="logo.png" alt="Tuneus Logo" />
         </div>
-        <h2 id="loginTitle">Welcome to Tuneus</h2>
-        <p class="login-sub" id="loginSubText">Sign in with your Google account to stream in 320kbps studio master audio</p>
+        <h2 id="loginTitle">Log in to Tuneus</h2>
+        <p class="login-sub" id="loginSubText">Log in with Google to start listening to music in 320kbps studio quality</p>
       </div>
 
       <!-- Auth Mode Switcher (Sign In / Register) -->
@@ -846,7 +847,6 @@
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           Google Identity Services &amp; JWT Verified
         </span>
-        <button type="button" class="login-skip-btn" id="loginGuestBtn" title="Continue as Guest">Continue as Guest &rarr;</button>
       </div>
 
       <!-- Quick OAuth Client ID setup toggle -->
@@ -1615,7 +1615,7 @@
   </div>
 
   <script src="data/artistCuratedTracks.js?v=2"></script>
-  <script src="app.js?v=88"></script>
+  <script src="app.js?v=89"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

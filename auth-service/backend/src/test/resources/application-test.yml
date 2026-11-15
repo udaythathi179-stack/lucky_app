@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:tuneus_auth;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+app:
+  auth:
+    jwt-secret: integration-test-secret-key-that-is-longer-than-32-bytes
+    issuer: tuneus-auth
+    audience: tuneus-web
+    access-token-ttl: PT1H
+    refresh-token-ttl: P30D
+    cookie-name: tuneus_refresh
+    cookie-secure: false
+    cookie-same-site: Strict
+    google-client-id: test-client-id.apps.googleusercontent.com
+  cors:
+    allowed-origins:
+      - http://localhost:5173
