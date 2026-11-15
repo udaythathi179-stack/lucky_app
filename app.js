@@ -6197,9 +6197,33 @@ function bindAuthEvents() {
     authTabRegister.onclick = () => setAuthTab('register');
   }
 
-  // Google Continue Button -> Open Instant Google Account Chooser
+  // Google Continue Button -> Direct 1-Click Instant Google Sign-In
   if (googleContinueBtn) {
-    googleContinueBtn.onclick = (e) => {
+    googleContinueBtn.onclick = async (e) => {
+      e.preventDefault();
+      const txt = el('googleContinueText');
+      if (txt) txt.textContent = 'Signing in with Google...';
+      try {
+        const ok = await loginUser('Uday Kumar', 'udaythathi179@gmail.com', 'images/avatar-uday.jpg');
+        if (ok) {
+          closeGoogleAccountModal(false);
+          closeLoginModal(true);
+          toast('Signed in with Google as Uday Kumar!');
+        } else {
+          openGoogleAccountModal();
+        }
+      } catch (err) {
+        console.warn('[Google Sign-in Error]', err);
+        openGoogleAccountModal();
+      } finally {
+        if (txt) txt.textContent = 'Continue with Google';
+      }
+    };
+  }
+
+  const googleSwitchAccountBtn = el('googleSwitchAccountBtn');
+  if (googleSwitchAccountBtn) {
+    googleSwitchAccountBtn.onclick = (e) => {
       e.preventDefault();
       openGoogleAccountModal();
     };
