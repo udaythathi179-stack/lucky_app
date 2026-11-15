@@ -5930,110 +5930,115 @@ function setupGisWithClientId(clientId) {
   }
 }
 
-// Trigger Google's Account Chooser
-function triggerRealGoogleAccountChooser() {
-  const clientId = getGoogleClientId();
+// Trigger the official Google Account Chooser & OAuth 2.0 flow
+function startRealGoogleLogin() {
+  const clientId = '352956550844-or56kt72is04ql7b1pag65kmfk4ho1tv.apps.googleusercontent.com';
+  const redirectUri = window.location.origin; // http://localhost:3000
+  const scope = encodeURIComponent('openid email profile');
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${scope}&prompt=select_account`;
 
-  // If a valid custom client ID is present, try Google Identity Services OAuth popup
-  if (clientId && typeof google !== 'undefined' && google.accounts?.oauth2) {
-    try {
-      const client = google.accounts.oauth2.initTokenClient({
-        client_id: clientId,
-        scope: 'openid email profile',
-        prompt: 'select_account',
-        callback: async (tokenResponse) => {
-          if (tokenResponse && tokenResponse.access_token) {
-            await handleGoogleAccessTokenSuccess(tokenResponse.access_token);
-          } else {
-            openGoogleAccountModal();
-          }
-        },
-        error_callback: () => {
-          openGoogleAccountModal();
-        }
-      });
-      client.requestAccessToken({ prompt: 'select_account' });
-      return;
-    } catch (_) {
-      openGoogleAccountModal();
-      return;
-    }
-  }
+  const btnText = el('googleContinueText');
+  if (btnText) btnText.textContent = 'Opening Google Sign-In...';
 
-  // Seamless, error-free Google Account Chooser
-  openGoogleAccountModal();
-}
+  const width = 500;
+  const height = 640;
+  const left = Math.max(0, (window.screen.width - width) / 2);
+  const top = Math.max(0, (window.screen.height - height) / 2);
 
-// Callback for official Google ID Token Credential (from GIS button or One Tap)
-async function handleGoogleCredentialResponse(response) {
-  if (!response || !response.credential) {
-    toast('Google authentication failed: missing credentials');
+  const popup = window.open(
+    authUrl,
+    'Tuneus_Google_Login',
+    `width=${width},height=${height},top=${top},left=${left},status=no,resizable=yes`
+  );
+
+  if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+    window.location.href = authUrl;
     return;
   }
 
-  const submitBtn = el('googleContinueBtn');
-  const originalText = el('googleContinueText')?.textContent;
-  if (el('googleContinueText')) el('googleContinueText').textContent = 'Verifying with Google...';
-
-  try {
-    const res = await fetch('/api/auth/google', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        idToken: response.credential,
-        clientId: getGoogleClientId()
-      })
-    });
-
-    const data = await res.json();
-    if (data && data.success && data.user) {
-      saveUserSession(data);
-      updateAuthUI(data.user);
-      closeLoginModal();
-      toast(`Signed in with Google as ${data.user.name}!`);
-    } else {
-      const errMsg = data?.error || 'Authentication verification failed';
-      toast(errMsg);
-      const errorDiv = el('loginErrorMsg');
-      if (errorDiv) {
-        errorDiv.textContent = errMsg;
-        errorDiv.hidden = false;
-      }
+  const checkClosed = setInterval(() => {
+    if (!popup || popup.closed) {
+      clearInterval(checkClosed);
+      if (btnText) btnText.textContent = 'Continue with Google';
     }
-  } catch (err) {
-    console.error('[Google Verification Error]', err);
-    toast('Network error connecting to verification server');
-  } finally {
-    if (el('googleContinueText') && originalText) {
-      el('googleContinueText').textContent = originalText;
-    }
-  }
+  }, 1000);
 }
 
-// Callback when OAuth Access Token is received from Google Account Chooser
-async function handleGoogleAccessTokenSuccess(accessToken) {
-  try {
-    toast('Account selected! Fetching Google profile...');
-    const userinfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-      headers: { 'Authorization': `Bearer ${accessToken}` }
-    });
+// Handle Google OAuth callback from URL hash (#access_token=... or #id_token=...)
+function handleGoogleOAuthCallback() {
+  const hash = window.location.hash;
+  if (!hash || (!hash.includes('access_token=') && !hash.includes('id_token='))) {
+    return false;
+  }
 
-    if (!userinfoRes.ok) {
-      throw new Error('Failed to retrieve user information from Google');
+  const cleanHash = hash.startsWith('#') ? hash.substring(1) : hash;
+  const params = new URLSearchParams(cleanHash);
+  const accessToken = params.get('access_token');
+  const idToken = params.get('id_token');
+
+  if (!accessToken && !idToken) return false;
+
+  // If this window is a popup opened by the main window:
+  if (window.opener && !window.opener.closed && window.opener !== window) {
+    try {
+      window.opener.postMessage({
+        type: 'GOOGLE_AUTH_SUCCESS',
+        accessToken,
+        idToken
+      }, window.location.origin);
+      window.close();
+      return true;
+    } catch (_) {}
+  }
+
+  // Otherwise handle directly in current window
+  processRealGoogleToken(accessToken, idToken);
+  return true;
+}
+
+// Process real Google credentials, fetch profile, and authenticate with backend
+async function processRealGoogleToken(accessToken, idToken) {
+  toast('Verifying real Google account profile...');
+  const btnText = el('googleContinueText');
+  if (btnText) btnText.textContent = 'Verifying Google Account...';
+
+  try {
+    let profile = null;
+
+    if (accessToken) {
+      const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: { 'Authorization': `Bearer ${accessToken}` }
+      });
+      if (res.ok) {
+        profile = await res.json();
+      }
     }
 
-    const gUser = await userinfoRes.json();
+    if (!profile && idToken) {
+      const parts = idToken.split('.');
+      if (parts.length === 3) {
+        profile = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+      }
+    }
 
-    // Send verified Google profile to backend database & receive application JWT session
+    if (!profile || !profile.email) {
+      throw new Error('Could not retrieve Google profile');
+    }
+
+    const realName = profile.name || profile.given_name || profile.email.split('@')[0];
+    const realEmail = profile.email;
+    const realAvatar = profile.picture || 'images/avatar-uday.jpg';
+
+    // Authenticate with backend database & issue JWT tokens
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: gUser.name || gUser.email.split('@')[0],
-        email: gUser.email,
-        avatar: gUser.picture || '',
+        name: realName,
+        email: realEmail,
+        avatar: realAvatar,
         provider: 'google',
-        googleSub: gUser.sub
+        googleSub: profile.sub
       })
     });
 
@@ -6041,14 +6046,32 @@ async function handleGoogleAccessTokenSuccess(accessToken) {
     if (data && data.success && data.user) {
       saveUserSession(data);
       updateAuthUI(data.user);
-      closeLoginModal();
+      closeLoginModal(true);
+      closeGoogleAccountModal(false);
+
+      if (window.history && window.history.replaceState) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+
       toast(`Signed in with Google as ${data.user.name}!`);
+    } else {
+      toast(data?.error || 'Authentication failed');
     }
   } catch (err) {
     console.error('[Google OAuth Error]', err);
-    toast(`Google sign-in error: ${err.message}`);
+    toast('Google Sign-In failed: ' + err.message);
+  } finally {
+    if (btnText) btnText.textContent = 'Continue with Google';
   }
 }
+
+// Window message listener for Google OAuth popup
+window.addEventListener('message', (event) => {
+  if (event.origin !== window.location.origin) return;
+  if (event.data && event.data.type === 'GOOGLE_AUTH_SUCCESS') {
+    processRealGoogleToken(event.data.accessToken, event.data.idToken);
+  }
+});
 
 // Standard Email/Password login or registration (Preserves existing email flow)
 async function loginUser(name, email, avatar = '') {
@@ -6197,27 +6220,11 @@ function bindAuthEvents() {
     authTabRegister.onclick = () => setAuthTab('register');
   }
 
-  // Google Continue Button -> Direct 1-Click Instant Google Sign-In
+  // Google Continue Button -> Trigger Real Google Account Login
   if (googleContinueBtn) {
-    googleContinueBtn.onclick = async (e) => {
+    googleContinueBtn.onclick = (e) => {
       e.preventDefault();
-      const txt = el('googleContinueText');
-      if (txt) txt.textContent = 'Signing in with Google...';
-      try {
-        const ok = await loginUser('Uday Kumar', 'udaythathi179@gmail.com', 'images/avatar-uday.jpg');
-        if (ok) {
-          closeGoogleAccountModal(false);
-          closeLoginModal(true);
-          toast('Signed in with Google as Uday Kumar!');
-        } else {
-          openGoogleAccountModal();
-        }
-      } catch (err) {
-        console.warn('[Google Sign-in Error]', err);
-        openGoogleAccountModal();
-      } finally {
-        if (txt) txt.textContent = 'Continue with Google';
-      }
+      startRealGoogleLogin();
     };
   }
 
@@ -6225,6 +6232,9 @@ function bindAuthEvents() {
   if (googleSwitchAccountBtn) {
     googleSwitchAccountBtn.onclick = (e) => {
       e.preventDefault();
+      startRealGoogleLogin();
+    };
+  }
       openGoogleAccountModal();
     };
   }
@@ -6977,16 +6987,21 @@ function init() {
     });
   }
 
-  // Set default profile to Uday Kumar with user's selected cosmic profile picture
-  let currentUser = getStoredUser();
-  if (!currentUser) {
-    currentUser = { name: 'Uday Kumar', email: 'udaythathi179@gmail.com', avatar: 'images/avatar-uday.jpg' };
-    saveUserSession(currentUser);
-  } else {
-    currentUser.avatar = 'images/avatar-uday.jpg';
-    saveUserSession(currentUser);
+  // 1. Check for incoming Google OAuth callback in URL hash
+  const handledOAuth = handleGoogleOAuthCallback();
+  if (handledOAuth) {
+    return;
   }
-  updateAuthUI(currentUser);
+
+  // 2. Check for an authenticated user session
+  const currentUser = getStoredUser();
+  if (currentUser && currentUser.name && currentUser.name !== 'Guest User') {
+    updateAuthUI(currentUser);
+  } else {
+    // Fresh arrival at localhost -> Show Login Page first as requested!
+    updateAuthUI(null);
+    openLoginModal('signin');
+  }
 }
 
 init();
