@@ -10,7 +10,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "{frontend/**,index.html,styles.css,app.js,manifest.json,sw.js,logo.png,logo.jpg,favicon.png,favicon.ico,icon-192.png,icon-512.png,theme-bg.jpg,wave-theme.jpg,images/**,data/**}",
+      "src": "{frontend/**,index.html,styles.css,spotify-theme.css,app.js,manifest.json,sw.js,logo.png,logo.jpg,favicon.png,favicon.ico,app.ico,icon.svg,icon-192.png,icon-512.png,screenshot-desktop.png,screenshot-mobile.png,theme-bg.jpg,wave-theme.jpg,images/**,data/**}",
       "use": "@vercel/static"
     }
   ],
