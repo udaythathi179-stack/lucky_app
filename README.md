@@ -1,5 +1,7 @@
 # 🎵 Tuneus Web Music Player
 
+> **Live Website:** [https://lucky-app-iofl.vercel.app](https://lucky-app-iofl.vercel.app)
+
 > **Tuneus** is a modern, responsive in-browser studio music streaming web player with 320kbps audio playback, offline downloads, equalizer & visualizer, and universal online song search covering **Tollywood, Bollywood, English & Global hits**.
 
 ---
