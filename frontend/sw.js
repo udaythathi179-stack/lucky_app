@@ -1,5 +1,5 @@
-const CACHE_NAME = 'tuneus-music-v99';
-const IMAGE_CACHE_NAME = 'tuneus-artwork-v6';
+const CACHE_NAME = 'tuneus-music-v100';
+const IMAGE_CACHE_NAME = 'tuneus-artwork-v100';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -10,7 +10,9 @@ const ASSETS_TO_CACHE = [
   '/wave-theme.jpg',
   '/manifest.json',
   '/logo.png',
+  '/logo.jpg',
   '/favicon.png',
+  '/favicon.ico',
   '/icon-192.png',
   '/icon-512.png',
   '/images/avatar-uday.jpg',
@@ -95,13 +97,15 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-First strategy for images: drastically cuts data usage and enables instant loading from disk
+  // Cache-First strategy for CDN / external music artwork: drastically cuts data usage
+  // Note: Brand assets (logos, favicons, app avatars) use Network-First to immediately reflect updates
+  const isBrandAsset = /(logo\.(png|jpg)|favicon\.(png|ico)|icon-(192|512)\.png|avatar-uday\.jpg|user-avatar\.jpg)/i.test(url.pathname);
   const isImage = (
     url.hostname.includes('c.saavncdn.com') ||
     url.pathname.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)
   );
 
-  if (isImage && event.request.method === 'GET') {
+  if (isImage && !isBrandAsset && event.request.method === 'GET') {
     event.respondWith(
       caches.open(IMAGE_CACHE_NAME).then((cache) =>
         cache.match(event.request).then((cachedResponse) => {

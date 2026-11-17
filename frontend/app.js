@@ -3613,7 +3613,7 @@ function renderPlayer() {
       playerArtNode.innerHTML = `<span class="art-initials">${esc(initials(track.title))}</span>`;
     }
   } else {
-    playerArtNode.style.backgroundImage = "url('logo.png')";
+    playerArtNode.style.backgroundImage = "url('logo.png?v=100')";
     playerArtNode.style.backgroundSize = "cover";
     playerArtNode.innerHTML = '';
   }
@@ -3637,7 +3637,7 @@ function renderPlayer() {
       expArtNode.innerHTML = esc(initials(track.title));
     }
   } else {
-    expArtNode.style.backgroundImage = "url('logo.png')";
+    expArtNode.style.backgroundImage = "url('logo.png?v=100')";
     expArtNode.style.backgroundSize = "cover";
     expArtNode.innerHTML = '';
   }
@@ -5620,15 +5620,15 @@ function updateAuthUI(user) {
   const pDrawerName = el('pDrawerUserName');
   const pDrawerEmail = el('pDrawerUserEmail');
   const topbarAvatar = document.querySelector('.topbar-avatar-img');
-  const avatarUrl = (user && user.avatar) ? user.avatar : 'images/avatar-uday.jpg';
+  const avatarUrl = (user && user.avatar) ? user.avatar : 'logo.png?v=100';
 
   if (topbarAvatar) {
     topbarAvatar.src = avatarUrl;
-    topbarAvatar.onerror = () => { topbarAvatar.src = 'icon-192.png'; };
+    topbarAvatar.onerror = () => { topbarAvatar.src = 'logo.png?v=100'; };
   }
   if (pDrawerAvatar) {
     pDrawerAvatar.src = avatarUrl;
-    pDrawerAvatar.onerror = () => { pDrawerAvatar.src = 'icon-192.png'; };
+    pDrawerAvatar.onerror = () => { pDrawerAvatar.src = 'logo.png?v=100'; };
   }
 
   const isLoggedIn = user && user.name && user.name !== 'Guest User';

@@ -295,7 +295,11 @@ const server = http.createServer(async (req, res) => {
       'Access-Control-Allow-Origin': '*'
     };
 
-    if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp' || ext === '.ico') {
+    const isBrandAsset = /(logo\.(png|jpg)|favicon\.(png|ico)|icon-(192|512)\.png|avatar-uday\.jpg|user-avatar\.jpg)/i.test(pathname);
+
+    if (isBrandAsset) {
+      extraHeaders['Cache-Control'] = 'no-cache, must-revalidate';
+    } else if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp' || ext === '.ico') {
       extraHeaders['Cache-Control'] = 'public, max-age=604800, immutable';
     } else if (ext === '.css' || ext === '.js') {
       extraHeaders['Cache-Control'] = 'public, max-age=86400';
