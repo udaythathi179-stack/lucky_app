@@ -1,67 +1,11 @@
 [
   {
-    "userId": "usr_test_123",
-    "refreshToken": "5b2b8b3569c082a76f66353ccf1ebe8aad12d9df0bd77ea55213b6a4c96f7dfb551d9fd37eddff9d",
-    "userAgent": "Mocha/1.0",
-    "ip": "127.0.0.1",
-    "createdAt": "2026-11-14T16:04:57.661Z",
-    "expiresAt": 1794758697660
-  },
-  {
-    "userId": "usr_test_123",
-    "refreshToken": "4b9de14112269f6656f639c9fa13689aec8c58dbd62b828d39ccff11d94c77b93a1957153875c1e4",
-    "userAgent": "Mocha/1.0",
-    "ip": "127.0.0.1",
-    "createdAt": "2026-11-14T16:09:56.811Z",
-    "expiresAt": 1794758996810
-  },
-  {
-    "userId": "usr_test_123",
-    "refreshToken": "14e4a61aae5a27c1ceeb10d83b169fdc74ae6fdf0ce1c53304ffdef65619ae567b79e127b2e0635c",
-    "userAgent": "Mocha/1.0",
-    "ip": "127.0.0.1",
-    "createdAt": "2026-11-14T16:10:07.188Z",
-    "expiresAt": 1794759007187
-  },
-  {
-    "userId": "usr_test_123",
-    "refreshToken": "9bfc7cac459e50cecc717bcfdd288fe111baf08b8006a35d6c0bafc49074edf959f4f18248caf6ae",
-    "userAgent": "Mocha/1.0",
-    "ip": "127.0.0.1",
-    "createdAt": "2026-11-14T16:11:11.711Z",
-    "expiresAt": 1794759071711
-  },
-  {
-    "userId": "usr_test_123",
-    "refreshToken": "1c1605c627660864311e568610bd8212a8a4811af9dc9b35dd9eab2cc45295329aa2c4e098f214e0",
-    "userAgent": "Mocha/1.0",
-    "ip": "127.0.0.1",
-    "createdAt": "2026-11-15T06:35:50.524Z",
-    "expiresAt": 1794810950522
-  },
-  {
     "userId": "usr_mvy4irye",
     "refreshToken": "742b2806671687e928d6fdd73696be5e321df6427a78c969bf85d896570908d97aa44a666b727ef8",
     "userAgent": "",
     "ip": "127.0.0.1",
     "createdAt": "2026-11-15T13:08:26.961Z",
     "expiresAt": 1797340106961
-  },
-  {
-    "userId": "usr_test_123",
-    "refreshToken": "fa4a690fe4d033ad266f3c2dd7d86b16c5f8c45e05c4e9a43ad2117574a5fefae9615e07d94a3f76",
-    "userAgent": "Mocha/1.0",
-    "ip": "127.0.0.1",
-    "createdAt": "2026-11-15T13:11:18.205Z",
-    "expiresAt": 1794834678204
-  },
-  {
-    "userId": "usr_test_123",
-    "refreshToken": "7e65ed453b0198b2f413ae92083df25710dd94b93a933dbbe20b4d3b3b5e9ae05984067710b77ab8",
-    "userAgent": "Mocha/1.0",
-    "ip": "127.0.0.1",
-    "createdAt": "2026-11-15T13:11:29.543Z",
-    "expiresAt": 1794834689543
   },
   {
     "userId": "usr_mvy4irye",
@@ -73,10 +17,10 @@
   },
   {
     "userId": "usr_mvy4irye",
-    "refreshToken": "641c202229edccd3be4a824a8a1549ca6fba321ba10d78d6e46a5c036ff4e1ce73184442e61f9fb5",
+    "refreshToken": "080bd4f95ea1d884167001a1fd59482f7a3dd685da4ab8ee68ba65a8536a56e4a534d509bd20ee43",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
     "ip": "127.0.0.1",
-    "createdAt": "2026-11-15T13:42:56.215Z",
-    "expiresAt": 1797342176214
+    "createdAt": "2026-11-17T12:51:11.623Z",
+    "expiresAt": 1797511871623
   }
 ]
