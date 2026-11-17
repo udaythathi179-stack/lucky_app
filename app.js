@@ -1506,19 +1506,107 @@ const state = {
   streamingQuality: getStoredJSON(STORAGE_STREAMING_QUALITY, '96')
 };
 
+// Strict artist matchers to prevent unrelated tracks
+const SPECIFIC_ARTIST_MATCHERS = {
+  's. p. balasubrahmanyam': (t) => /balasubrahmanyam|balasubramanyam|balasubramaniam|spb|\bs\s*p\s*b\b/i.test(t),
+  'sid sriram': (t) => /\bsid\s+sriram\b/i.test(t),
+  'arijit singh': (t) => /\barijit\b/i.test(t),
+  'shreya ghoshal': (t) => /\bshreya\b/i.test(t),
+  'anurag kulkarni': (t) => /\banurag\s+kulkarni\b/i.test(t),
+  'mangli': (t) => /\bmangli\b|\bsatyavathi\b/i.test(t),
+  'sonu nigam': (t) => /\bsonu\s+nigam\b|\bsonu\b/i.test(t),
+  'karthik': (t) => /\bkarthik\b/i.test(t),
+  'k. s. chithra': (t) => /\bchithra\b|\bchitra\b/i.test(t),
+  'kk': (t) => /\bkk\b|\bkrishnakumar\s+kunnath\b/i.test(t),
+  'devi sri prasad': (t) => /\bdevi\s+sri\s+prasad\b|\bdsp\b/i.test(t),
+  'atif aslam': (t) => /\batif\b/i.test(t),
+  'ram miriyala': (t) => /\bmiriyala\b/i.test(t),
+  'sunitha': (t) => /\bsunitha\b/i.test(t),
+  'jubin nautiyal': (t) => /\bjubin\b/i.test(t),
+  'geetha madhuri': (t) => /\bgeetha\s+madhuri\b/i.test(t),
+  'haricharan': (t) => /\bharicharan\b|\bhari\s+charan\b/i.test(t),
+  'lata mangeshkar': (t) => /\blata\b/i.test(t),
+  'kishore kumar': (t) => /\bkishore\b/i.test(t),
+  'armaan malik': (t) => /\barmaan\b/i.test(t),
+  'udit narayan': (t) => /\budit\b/i.test(t),
+  'kumar sanu': (t) => /\bkumar\s+sanu\b|\bsanu\b/i.test(t),
+  'alka yagnik': (t) => /\balka\b/i.test(t),
+  'mohammed rafi': (t) => /\brafi\b/i.test(t),
+  'mohit chauhan': (t) => /\bmohit\s+chauhan\b|\bmohit\b/i.test(t),
+  'vishal mishra': (t) => /\bvishal\s+mishra\b/i.test(t),
+  'shaan': (t) => /\bshaan\b/i.test(t),
+  'shankar mahadevan': (t) => /\bshankar\s+mahadevan\b/i.test(t),
+  'asha bhosle': (t) => /\basha\b/i.test(t),
+  'neha kakkar': (t) => /\bneha\s+kakkar\b/i.test(t),
+  'mika singh': (t) => /\bmika\b/i.test(t),
+  'revanth': (t) => /\brevanth\b/i.test(t),
+  'rahul sipligunj': (t) => /\bsipligunj\b/i.test(t),
+  'ramya behara': (t) => /\bramya\s+beh[ae]?ra\b/i.test(t),
+  'vijay yesudas': (t) => /\byesudas\b/i.test(t),
+  'madhu priya': (t) => /\bmadhu\s+priya\b/i.test(t),
+  'hemachandra': (t) => /\bhemachandra\b|\bhema\s+chandra\b/i.test(t),
+  's. p. charan': (t) => /(?:\bs\s*p\s*(?:b\s*)?charan\b|\bspb\s*charan\b|\bs\s*p\s*b\s*charan\b)/i.test(t) || (/\bcharan\b/i.test(t) && !/\bharicharan\b|\bcharan\s*raj\b/i.test(t)),
+  'saketh komanduri': (t) => /\bsaketh\b/i.test(t),
+  'ed sheeran': (t) => /\bsheeran\b/i.test(t),
+  'the weeknd': (t) => /\bweeknd\b/i.test(t),
+  'imagine dragons': (t) => /\bimagine\s+dragons\b/i.test(t),
+  'dua lipa': (t) => /\bdua\s+lipa\b/i.test(t),
+  'justin bieber': (t) => /\bbieber\b/i.test(t),
+  'taylor swift': (t) => /\btaylor\s+swift\b|\btaylor\b/i.test(t),
+  'coldplay': (t) => /\bcoldplay\b/i.test(t),
+  'queen': (t) => /\bqueen\b|\bfreddie\s+mercury\b/i.test(t),
+  'michael jackson': (t) => /\bmichael\s+jackson\b|\bmj\b/i.test(t),
+  'anirudh ravichander': (t) => /\banirudh\b/i.test(t),
+  'santhosh narayanan': (t) => /\bsanthosh\s+narayanan\b/i.test(t),
+  'ghantasala': (t) => /\bghantasala\b/i.test(t)
+};
+
+// Check if track matches target artist name strictly
+function matchesArtist(track, artistName, query = '') {
+  if (!track || !track.artist) return false;
+  const tArtist = (track.artist || '').toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  const targetKey = (artistName || '').toLowerCase().trim();
+
+  // 1. Check custom artist matcher if defined
+  const matcher = SPECIFIC_ARTIST_MATCHERS[targetKey];
+  if (matcher) {
+    return matcher(tArtist);
+  }
+
+  // 2. Generic exact whole-phrase or distinctive token match
+  const cleanTarget = targetKey.replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!cleanTarget) return false;
+
+  const escaped = cleanTarget.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp('(?:^|\\s)' + escaped + '(?:\\s|$)', 'i').test(tArtist)) {
+    return true;
+  }
+
+  // Disallow solo generic tokens
+  const genericTokens = new Set(['singh', 'kumar', 'prasad', 'sri', 'sharma', 'malik', 'roy', 'reddy', 'rao', 'das', 'khan', 'nair', 'gupta', 'verma', 'the', 'and', 'music', 'songs', 'hits']);
+  const tokens = cleanTarget.split(/\s+/).filter(tok => tok.length >= 4 && !genericTokens.has(tok));
+  if (tokens.length >= 2) {
+    return tokens.every(tok => new RegExp('(?:^|\\s)' + tok + '(?:\\s|$)', 'i').test(tArtist));
+  } else if (tokens.length === 1 && cleanTarget.length > 5) {
+    return new RegExp('(?:^|\\s)' + tokens[0] + '(?:\\s|$)', 'i').test(tArtist);
+  }
+
+  return false;
+}
+
 // Expand and populate full Universe library with hundreds of top songs across Telugu, Hindi, Folk & Global
 function hydrateLibraryWithUniverseSongs() {
   const extraSongs = [];
   if (typeof window !== 'undefined' && window.ARTIST_CURATED_TRACKS) {
     for (const key of Object.keys(window.ARTIST_CURATED_TRACKS)) {
       const list = window.ARTIST_CURATED_TRACKS[key];
-      if (Array.isArray(list)) extraSongs.push(...list);
+      if (Array.isArray(list)) extraSongs.push(...list.filter((t) => matchesArtist(t, key)));
     }
   }
   if (typeof window !== 'undefined' && window.ALL_ARTIST_DISCOGRAPHIES) {
     for (const key of Object.keys(window.ALL_ARTIST_DISCOGRAPHIES)) {
       const list = window.ALL_ARTIST_DISCOGRAPHIES[key];
-      if (Array.isArray(list)) extraSongs.push(...list.slice(0, 20));
+      if (Array.isArray(list)) extraSongs.push(...list.slice(0, 20).filter((t) => matchesArtist(t, key)));
     }
   }
   if (extraSongs.length > 0) {
@@ -1875,7 +1963,7 @@ function startVisualizerLoop() {
 // Filter and Sort Tracks
 function visibleTracks() {
   if (state.activeArtist) {
-    return state.onlineTracks;
+    return state.onlineTracks.filter((t) => matchesArtist(t, state.activeArtist));
   }
   if (state.onlineSearch) {
     return state.onlineTracks;
@@ -3982,84 +4070,6 @@ function toggleOnlineSearch() {
   }
 }
 
-// Check if track matches target artist name or query tokens
-function matchesArtist(track, artistName, query = '') {
-  if (!track || !track.artist) return false;
-  const clean = (s) => (s || '')
-    .toLowerCase()
-    .replace(/[.\-_,()]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  const tArtist = clean(track.artist);
-  const target = clean(artistName);
-  const qClean = clean(query).replace(/\b(telugu|hindi|english|hits|songs|classic|romantic|party|legendary|masters|icons)\b/g, '').trim();
-
-  const hasWord = (haystack, needle) => {
-    if (!haystack || !needle) return false;
-    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return new RegExp(`(^|\\s)${escaped}(\\s|$)`, 'i').test(haystack);
-  };
-
-  // Substring or exact match with word boundaries
-  if (target && (tArtist === target || hasWord(tArtist, target))) return true;
-  if (target && target.length > 5 && tArtist.includes(target)) return true;
-  if (qClean && qClean.length > 5 && tArtist.includes(qClean)) return true;
-
-  // Well-known artist aliases (safe word-boundary matching)
-  const aliases = [
-    ['spb', 'balasubrahmanyam'],
-    ['dsp', 'devi sri prasad'],
-    ['chithra', 'ks chithra'],
-    ['chitra', 'ks chithra'],
-    ['sid sriram', 'sriram'],
-    ['arijit', 'arijit singh'],
-    ['shreya', 'shreya ghoshal'],
-    ['anurag', 'anurag kulkarni'],
-    ['sonu', 'sonu nigam'],
-    ['lata', 'lata mangeshkar'],
-    ['kishore', 'kishore kumar'],
-    ['armaan', 'armaan malik'],
-    ['haricharan', 'hari charan'],
-    ['ram miriyala', 'miriyala'],
-    ['sunitha', 'sunitha upadrasta'],
-    ['thaman', 's thaman'],
-    ['anirudh', 'anirudh ravichander'],
-    ['rahman', 'a r rahman'],
-    ['harris', 'harris jayaraj'],
-    ['yuvan', 'yuvan shankar raja'],
-    ['taylor', 'taylor swift'],
-    ['ed sheeran', 'sheeran'],
-    ['justin bieber', 'bieber'],
-    ['michael jackson', 'jackson'],
-    ['weeknd', 'the weeknd'],
-    ['neha', 'neha kakkar'],
-    ['shaan', 'shaan mukherjee'],
-    ['vishal', 'vishal mishra'],
-    ['mika', 'mika singh'],
-    ['alka', 'alka yagnik'],
-    ['rafi', 'mohammed rafi'],
-    ['shankar', 'shankar mahadevan'],
-    ['vijay yesudas', 'yesudas'],
-    ['revanth', 'l v revanth'],
-    ['rahul sipligunj', 'sipligunj']
-  ];
-  for (const [k, v] of aliases) {
-    const targetHasAlias = hasWord(target, k) || hasWord(target, v) || target === k || target === v;
-    const qHasAlias = hasWord(qClean, k) || hasWord(qClean, v) || qClean === k || qClean === v;
-    const trackHasAlias = hasWord(tArtist, k) || hasWord(tArtist, v) || tArtist === k || tArtist === v;
-    if ((targetHasAlias || qHasAlias) && trackHasAlias) return true;
-  }
-
-  // Token match (tokens with length >= 4, word-boundary checked)
-  const parts = target.split(/\s+/).filter((p) => p.length >= 4);
-  if (parts.length > 0 && parts.some((p) => hasWord(tArtist, p))) return true;
-
-  const qParts = qClean.split(/\s+/).filter((p) => p.length >= 4);
-  if (qParts.length > 0 && qParts.some((p) => hasWord(tArtist, p))) return true;
-
-  return false;
-}
-
 let artistDiscographyPage = 1;
 let isLoadingArtistMore = false;
 const ARTIST_DISCOGRAPHY_CACHE = new Map();
@@ -4103,14 +4113,21 @@ async function loadMoreArtistDiscography() {
     }
 
     if (newResults.length > 0 && state.activeArtist) {
-      const merged = deduplicateTrackList([...state.onlineTracks, ...newResults]);
-      const addedCount = merged.length - state.onlineTracks.length;
-      state.onlineTracks = merged;
-      ARTIST_DISCOGRAPHY_CACHE.set(state.activeArtist, merged);
-      const songCountBadge = el('artistSongCountBadge');
-      if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
-      render();
-      toast(`Added ${addedCount} more songs by ${state.activeArtist} (${merged.length} total)`);
+      const validResults = newResults.filter((t) => matchesArtist(t, state.activeArtist));
+      if (validResults.length > 0) {
+        const merged = deduplicateTrackList([...state.onlineTracks, ...validResults]).filter((t) => matchesArtist(t, state.activeArtist));
+        const addedCount = merged.length - state.onlineTracks.length;
+        state.onlineTracks = merged;
+        ARTIST_DISCOGRAPHY_CACHE.set(state.activeArtist, merged);
+        const songCountBadge = el('artistSongCountBadge');
+        if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
+        render();
+        toast(`Added ${addedCount} more songs by ${state.activeArtist} (${merged.length} total)`);
+      } else {
+        toast(`All lifetime songs loaded for ${state.activeArtist}`);
+        const container = el('artistLoadMoreContainer');
+        if (container) container.hidden = true;
+      }
     } else {
       toast(`All lifetime songs loaded for ${state.activeArtist}`);
       const container = el('artistLoadMoreContainer');
@@ -4192,9 +4209,10 @@ async function openArtistHero(artistName, query) {
   const playAllBtn = el('artistPlayAllBtn');
   if (playAllBtn) {
     playAllBtn.onclick = () => {
-      if (state.onlineTracks.length > 0) {
-        playTrack(state.onlineTracks[0]);
-        toast(`Playing all ${state.onlineTracks.length} songs by ${artistData.name}`);
+      const list = visibleTracks();
+      if (list.length > 0) {
+        playTrack(list[0]);
+        toast(`Playing all ${list.length} songs by ${artistData.name}`);
       }
     };
   }
@@ -4202,8 +4220,9 @@ async function openArtistHero(artistName, query) {
   const shuffleBtn = el('artistShuffleBtn');
   if (shuffleBtn) {
     shuffleBtn.onclick = () => {
-      if (state.onlineTracks.length > 0) {
-        const shuffled = state.onlineTracks.slice().sort(() => Math.random() - 0.5);
+      const list = visibleTracks();
+      if (list.length > 0) {
+        const shuffled = list.slice().sort(() => Math.random() - 0.5);
         state.onlineTracks = shuffled;
         render();
         playTrack(shuffled[0]);
@@ -4221,7 +4240,7 @@ async function openArtistHero(artistName, query) {
 
   // Check instant client-side cache
   if (ARTIST_DISCOGRAPHY_CACHE.has(artistData.name)) {
-    const cachedTracks = ARTIST_DISCOGRAPHY_CACHE.get(artistData.name);
+    const cachedTracks = ARTIST_DISCOGRAPHY_CACHE.get(artistData.name).filter((t) => matchesArtist(t, artistData.name));
     state.onlineTracks = cachedTracks;
     if (songCountBadge) songCountBadge.textContent = `${cachedTracks.length} Lifetime Studio Songs`;
     render();
@@ -4232,9 +4251,9 @@ async function openArtistHero(artistName, query) {
 
   // Instantly show top curated tracks from local memory (0ms initial paint)
   const curatedMap = window.ARTIST_CURATED_TRACKS || {};
-  const curated = (curatedMap[artistData.name] || []).slice();
-  const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name, artistData.query));
-  const initialTracks = deduplicateTrackList([...curated, ...localLibraryMatches]);
+  const curated = (curatedMap[artistData.name] || []).filter((t) => matchesArtist(t, artistData.name));
+  const localLibraryMatches = state.tracks.filter((t) => matchesArtist(t, artistData.name));
+  const initialTracks = deduplicateTrackList([...curated, ...localLibraryMatches]).filter((t) => matchesArtist(t, artistData.name));
 
   state.onlineTracks = initialTracks;
   if (songCountBadge) {
@@ -4253,7 +4272,8 @@ async function openArtistHero(artistName, query) {
     if (res.ok) {
       const data = await res.json();
       if (data.success && Array.isArray(data.results) && data.results.length > 0 && state.activeArtist === artistData.name) {
-        const merged = deduplicateTrackList([...initialTracks, ...data.results]);
+        const validApiResults = data.results.filter((t) => matchesArtist(t, artistData.name));
+        const merged = deduplicateTrackList([...initialTracks, ...validApiResults]).filter((t) => matchesArtist(t, artistData.name));
         state.onlineTracks = merged;
         ARTIST_DISCOGRAPHY_CACHE.set(artistData.name, merged);
         if (songCountBadge) songCountBadge.textContent = `${merged.length} Lifetime Studio Songs`;
