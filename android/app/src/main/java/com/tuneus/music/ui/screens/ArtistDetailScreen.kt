@@ -49,6 +49,7 @@ import com.tuneus.music.data.remote.SaavnRepository
 import com.tuneus.music.playback.PlayerManager
 import com.tuneus.music.ui.components.SongCard
 import com.tuneus.music.ui.theme.BgCard
+import com.tuneus.music.ui.theme.CardBorder
 import com.tuneus.music.ui.theme.BgMain
 import com.tuneus.music.ui.theme.ElectricBlue
 import com.tuneus.music.ui.theme.TextMuted
