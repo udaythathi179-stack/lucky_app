@@ -1,0 +1,47 @@
+name: Build Tuneus Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "android/**"
+      - ".github/workflows/build-tuneus-apk.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android 34 build tools
+        run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
+      - name: Set up Gradle 8.6
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: "8.6"
+
+      - name: Build debug APK
+        run: gradle -p android --no-daemon assembleDebug
+
+      - name: Upload Tuneus APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tuneus-debug-APK
+          path: android/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 30
