@@ -295,7 +295,7 @@ const server = http.createServer(async (req, res) => {
       'Access-Control-Allow-Origin': '*'
     };
 
-    const isBrandAsset = /(logo\.(png|jpg)|favicon\.(png|ico)|icon-(192|512)\.png|avatar-uday\.jpg|user-avatar\.jpg)/i.test(pathname);
+    const isBrandAsset = /(logo\.(png|jpg)|favicon\.(png|ico)|icon-(192|512)\.png|avatar-uday\.jpg|user-avatar\.jpg|wave-theme\.jpg)/i.test(pathname);
 
     if (isBrandAsset) {
       extraHeaders['Cache-Control'] = 'no-cache, must-revalidate';

@@ -1,5 +1,5 @@
-const CACHE_NAME = 'tuneus-music-v100';
-const IMAGE_CACHE_NAME = 'tuneus-artwork-v100';
+const CACHE_NAME = 'tuneus-music-v101';
+const IMAGE_CACHE_NAME = 'tuneus-artwork-v101';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -99,7 +99,7 @@ self.addEventListener('fetch', (event) => {
 
   // Cache-First strategy for CDN / external music artwork: drastically cuts data usage
   // Note: Brand assets (logos, favicons, app avatars) use Network-First to immediately reflect updates
-  const isBrandAsset = /(logo\.(png|jpg)|favicon\.(png|ico)|icon-(192|512)\.png|avatar-uday\.jpg|user-avatar\.jpg)/i.test(url.pathname);
+  const isBrandAsset = /(logo\.(png|jpg)|favicon\.(png|ico)|icon-(192|512)\.png|avatar-uday\.jpg|user-avatar\.jpg|wave-theme\.jpg)/i.test(url.pathname);
   const isImage = (
     url.hostname.includes('c.saavncdn.com') ||
     url.pathname.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)

@@ -81,12 +81,12 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-color: #020718;
+  background-color: #010410;
   background-image:
-    radial-gradient(ellipse 120% 80% at 50% -10%, rgba(18, 58, 143, 0.82) 0%, rgba(10, 33, 96, 0.88) 30%, rgba(4, 16, 51, 0.94) 65%, #01050f 100%),
-    url('wave-theme.jpg');
-  background-size: 100% auto, cover;
-  background-position: center top, center 20%;
+    linear-gradient(180deg, rgba(1, 4, 16, 0.42) 0%, rgba(1, 4, 16, 0.15) 30%, rgba(1, 4, 16, 0.48) 72%, rgba(1, 4, 16, 0.88) 100%),
+    url('wave-theme.jpg?v=101');
+  background-size: cover;
+  background-position: center bottom;
   background-repeat: no-repeat;
   pointer-events: none;
   transform: translateZ(0);
@@ -2645,9 +2645,9 @@ body.is-expanded-modal-open footer {
   content: '';
   position: fixed;
   inset: 0;
-  background: url('wave-theme.jpg') center center / cover no-repeat;
-  opacity: 0.88;
-  filter: saturate(145%) brightness(1.08);
+  background: url('wave-theme.jpg?v=101') center center / cover no-repeat;
+  opacity: 0.92;
+  filter: saturate(140%) brightness(1.05);
   animation: waveAmbientFloat 12s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
