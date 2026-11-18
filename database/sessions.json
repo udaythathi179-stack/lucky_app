@@ -17,10 +17,10 @@
   },
   {
     "userId": "usr_mvy4irye",
-    "refreshToken": "080bd4f95ea1d884167001a1fd59482f7a3dd685da4ab8ee68ba65a8536a56e4a534d509bd20ee43",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoicmVmcmVzaCIsInN1YiI6InVzcl9tdnk0aXJ5ZSIsImVtYWlsIjoidWRheXRoYXRoaTE3OUBnbWFpbC5jb20iLCJuYW1lIjoiVWRheSBLdW1hciIsImF2YXRhciI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0twWnF2aTRUak9CRTdQWmNIeXhhOVFMRnB3UC1ZVFNacVlOb0N4YmVXSUc0MndJMUxLWFE9czk2LWMiLCJwcm92aWRlciI6Imdvb2dsZSIsImlhdCI6MTc5NDk2ODMyNSwiZXhwIjoxODI2NTA0MzI1fQ.wRvoPoMbG6t_263vh1bU1t2xOtgOVNsQc4FiPJEZhbw",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
     "ip": "127.0.0.1",
-    "createdAt": "2026-11-17T12:51:11.623Z",
-    "expiresAt": 1797511871623
+    "createdAt": "2026-11-18T02:18:45.197Z",
+    "expiresAt": 1826504325196
   }
 ]

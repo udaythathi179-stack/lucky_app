@@ -1508,63 +1508,68 @@ const state = {
 
 // Strict artist matchers to prevent unrelated tracks
 const SPECIFIC_ARTIST_MATCHERS = {
-  's. p. balasubrahmanyam': (t) => /balasubrahmanyam|balasubramanyam|balasubramaniam|spb|\bs\s*p\s*b\b/i.test(t),
+  's. p. balasubrahmanyam': (t) => /balasubrahmanyam|balasubramanyam|balasubramaniam/i.test(t) || (/\bs\s*p\s*b\b|\bspb\b/i.test(t) && !/\bs\s*p\s*b\s*charan\b|\bspb\s*charan\b/i.test(t)),
   'sid sriram': (t) => /\bsid\s+sriram\b/i.test(t),
-  'arijit singh': (t) => /\barijit\b/i.test(t),
-  'shreya ghoshal': (t) => /\bshreya\b/i.test(t),
+  'arijit singh': (t) => /\barijit\s+singh\b/i.test(t),
+  'shreya ghoshal': (t) => /\bshreya\s+gh?oshal\b/i.test(t),
   'anurag kulkarni': (t) => /\banurag\s+kulkarni\b/i.test(t),
   'mangli': (t) => /\bmangli\b|\bsatyavathi\b/i.test(t),
-  'sonu nigam': (t) => /\bsonu\s+nigam\b|\bsonu\b/i.test(t),
-  'karthik': (t) => /\bkarthik\b/i.test(t),
-  'k. s. chithra': (t) => /\bchithra\b|\bchitra\b/i.test(t),
-  'kk': (t) => /\bkk\b|\bkrishnakumar\s+kunnath\b/i.test(t),
+  'sonu nigam': (t) => /\bsonu\s+nigam\b/i.test(t),
+  'karthik': (t) => /\bkarthik\b/i.test(t.replace(/\bkarthik\s+raja\b/gi, '')) && !/\bkarthikeya\b/i.test(t),
+  'k. s. chithra': (t) => /\bk\s*s\s*chith?ra\b|\bchithra\b|\bchitra\b/i.test(t),
+  'kk': (t) => /(?:^|,|\s)k\s*k(?:$|,|\s)|\bkrishnakumar\s+kunnath\b/i.test(t),
   'devi sri prasad': (t) => /\bdevi\s+sri\s+prasad\b|\bdsp\b/i.test(t),
-  'atif aslam': (t) => /\batif\b/i.test(t),
-  'ram miriyala': (t) => /\bmiriyala\b/i.test(t),
-  'sunitha': (t) => /\bsunitha\b/i.test(t),
-  'jubin nautiyal': (t) => /\bjubin\b/i.test(t),
+  'atif aslam': (t) => /\batif\s+aslam\b/i.test(t),
+  'ram miriyala': (t) => /\bram\s+miriyala\b|\bmiriyala\b/i.test(t),
+  'sunitha': (t) => /\bsunitha\b/i.test(t) && !/\bsunitha\s+sarathy\b/i.test(t),
+  'jubin nautiyal': (t) => /\bjubin\s+nautiyal\b/i.test(t),
   'geetha madhuri': (t) => /\bgeetha\s+madhuri\b/i.test(t),
   'haricharan': (t) => /\bharicharan\b|\bhari\s+charan\b/i.test(t),
-  'lata mangeshkar': (t) => /\blata\b/i.test(t),
-  'kishore kumar': (t) => /\bkishore\b/i.test(t),
-  'armaan malik': (t) => /\barmaan\b/i.test(t),
-  'udit narayan': (t) => /\budit\b/i.test(t),
-  'kumar sanu': (t) => /\bkumar\s+sanu\b|\bsanu\b/i.test(t),
-  'alka yagnik': (t) => /\balka\b/i.test(t),
-  'mohammed rafi': (t) => /\brafi\b/i.test(t),
-  'mohit chauhan': (t) => /\bmohit\s+chauhan\b|\bmohit\b/i.test(t),
+  'lata mangeshkar': (t) => /\blata\s+mangeshkar\b/i.test(t),
+  'kishore kumar': (t) => /\bkishore\s+kumar\b/i.test(t),
+  'armaan malik': (t) => /\barmaan\s+malik\b/i.test(t),
+  'udit narayan': (t) => /\budit\s+narayan\b/i.test(t),
+  'kumar sanu': (t) => /\bkumar\s+sanu\b/i.test(t),
+  'alka yagnik': (t) => /\balka\s+yagnik\b/i.test(t),
+  'mohammed rafi': (t) => /\b(?:mohammed|mohammad|mohd)\s+rafi\b/i.test(t),
+  'mohit chauhan': (t) => /\bmohit\s+chauhan\b/i.test(t),
   'vishal mishra': (t) => /\bvishal\s+mishra\b/i.test(t),
   'shaan': (t) => /\bshaan\b/i.test(t),
   'shankar mahadevan': (t) => /\bshankar\s+mahadevan\b/i.test(t),
-  'asha bhosle': (t) => /\basha\b/i.test(t),
+  'asha bhosle': (t) => /\basha\s+bhosle\b/i.test(t),
   'neha kakkar': (t) => /\bneha\s+kakkar\b/i.test(t),
-  'mika singh': (t) => /\bmika\b/i.test(t),
+  'mika singh': (t) => /\bmika\s+singh\b/i.test(t),
   'revanth': (t) => /\brevanth\b/i.test(t),
-  'rahul sipligunj': (t) => /\bsipligunj\b/i.test(t),
+  'rahul sipligunj': (t) => /\brahul\s+sipligunj\b|\bsipligunj\b/i.test(t),
   'ramya behara': (t) => /\bramya\s+beh[ae]?ra\b/i.test(t),
-  'vijay yesudas': (t) => /\byesudas\b/i.test(t),
+  'vijay yesudas': (t) => /\bvijay\s+yesudas\b/i.test(t),
   'madhu priya': (t) => /\bmadhu\s+priya\b/i.test(t),
   'hemachandra': (t) => /\bhemachandra\b|\bhema\s+chandra\b/i.test(t),
-  's. p. charan': (t) => /(?:\bs\s*p\s*(?:b\s*)?charan\b|\bspb\s*charan\b|\bs\s*p\s*b\s*charan\b)/i.test(t) || (/\bcharan\b/i.test(t) && !/\bharicharan\b|\bcharan\s*raj\b/i.test(t)),
-  'saketh komanduri': (t) => /\bsaketh\b/i.test(t),
-  'ed sheeran': (t) => /\bsheeran\b/i.test(t),
-  'the weeknd': (t) => /\bweeknd\b/i.test(t),
+  's. p. charan': (t) => /\bs\s*p\s*(?:b\s*)?charan\b|\bspb\s*charan\b/i.test(t),
+  'saketh komanduri': (t) => /\bsaketh\s+komanduri\b|\bsaketh\b/i.test(t),
+  'ed sheeran': (t) => /\bed\s+sheeran\b/i.test(t),
+  'the weeknd': (t) => /\bthe\s+weeknd\b|\bweeknd\b/i.test(t),
   'imagine dragons': (t) => /\bimagine\s+dragons\b/i.test(t),
   'dua lipa': (t) => /\bdua\s+lipa\b/i.test(t),
-  'justin bieber': (t) => /\bbieber\b/i.test(t),
-  'taylor swift': (t) => /\btaylor\s+swift\b|\btaylor\b/i.test(t),
+  'justin bieber': (t) => /\bjustin\s+bieber\b/i.test(t),
+  'taylor swift': (t) => /\btaylor\s+swift\b/i.test(t),
   'coldplay': (t) => /\bcoldplay\b/i.test(t),
-  'queen': (t) => /\bqueen\b|\bfreddie\s+mercury\b/i.test(t),
-  'michael jackson': (t) => /\bmichael\s+jackson\b|\bmj\b/i.test(t),
-  'anirudh ravichander': (t) => /\banirudh\b/i.test(t),
+  'queen': (t) => /(?:^|,|\s)queen(?:$|,|\s)|\bfreddie\s+mercury\b/i.test(t) && !/\bqueen\s+latifah\b/i.test(t),
+  'michael jackson': (t) => /\bmichael\s+jackson\b/i.test(t),
+  'anirudh ravichander': (t) => /\banirudh\s+ravichander\b|\banirudh\b/i.test(t),
   'santhosh narayanan': (t) => /\bsanthosh\s+narayanan\b/i.test(t),
   'ghantasala': (t) => /\bghantasala\b/i.test(t)
 };
 
-// Check if track matches target artist name strictly
+const NON_ORIGINAL_TRACK_RE = /\b(mashup|dj\s*mix|remix|lofi|lo-fi|karaoke|instrumental|tribute|cover|recreated|slowed|reverb|reverbed|8d|ringtone|dialogue|teaser|trailer|jukebox|nonstop|non-stop|medley|bgm|ambient|lullaby|meditation|whistle\s+cover|bit\s+song|-bit)\b/i;
+
+// Check if track is an original song strictly sung by the target artist
 function matchesArtist(track, artistName, query = '') {
   if (!track || !track.artist) return false;
-  const tArtist = (track.artist || '').toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (NON_ORIGINAL_TRACK_RE.test(track.title || '') || NON_ORIGINAL_TRACK_RE.test(track.movie || '')) {
+    return false;
+  }
+  const tArtist = (track.artist || '').toLowerCase().replace(/[^a-z0-9,]/g, ' ').replace(/\s+/g, ' ').trim();
   const targetKey = (artistName || '').toLowerCase().trim();
 
   // 1. Check custom artist matcher if defined
@@ -2030,21 +2035,21 @@ function visibleTracks() {
   return deduplicateTrackList(list);
 }
 
-// Popular Home Artists Data
+// Popular Home Artists Data (100% verified local 500x500 portraits)
 const HOME_ARTISTS = [
   { name: 'S. P. Balasubrahmanyam', tag: 'Legend &bull; 40k Songs', img: 'images/artists/sp-balasubrahmanyam.jpg', query: 'SP Balasubrahmanyam Telugu hits' },
   { name: 'Sid Sriram', tag: 'Melody King &bull; Srivalli', img: 'images/artists/sid-sriram.jpg', query: 'Sid Sriram Telugu' },
   { name: 'Arijit Singh', tag: 'Soul of Bollywood', img: 'images/artists/arijit-singh.jpg', query: 'Arijit Singh romantic hits' },
   { name: 'Shreya Ghoshal', tag: 'Melody Queen', img: 'images/artists/shreya-ghoshal.jpg', query: 'Shreya Ghoshal Telugu' },
   { name: 'Anurag Kulkarni', tag: 'Ramuloo, Pilla Raa', img: 'images/artists/anurag-kulkarni.jpg', query: 'Anurag Kulkarni Telugu' },
-  { name: 'Ed Sheeran', tag: 'Global Pop King &bull; Shape of You', img: 'https://c.saavncdn.com/286/WMG_190295851286-English-2017-500x500.jpg', query: 'Ed Sheeran' },
-  { name: 'The Weeknd', tag: 'Starboy &bull; Blinding Lights', img: 'https://c.saavncdn.com/372/Starboy-English-2016-500x500.jpg', query: 'The Weeknd' },
-  { name: 'Imagine Dragons', tag: 'Believer &bull; Rock Titans', img: 'https://c.saavncdn.com/248/Evolve-English-2018-20260605220036-500x500.jpg', query: 'Imagine Dragons' },
-  { name: 'Taylor Swift', tag: 'Cruel Summer &bull; Global Icon', img: 'https://c.saavncdn.com/716/Lover-English-2019-20190823091910-500x500.jpg', query: 'Taylor Swift' },
-  { name: 'Queen', tag: 'Bohemian Rhapsody &bull; Rock Legends', img: 'https://c.saavncdn.com/542/Chill-Rock-Pop-Vibes-English-2026-20260312015555-500x500.jpg', query: 'Queen' },
-  { name: 'Michael Jackson', tag: 'King of Pop &bull; Billie Jean', img: 'https://c.saavncdn.com/514/Ben-English-2010-20190620023024-500x500.jpg', query: 'Michael Jackson' },
-  { name: 'Anirudh Ravichander', tag: 'Devara & Jawan &bull; Rockstar', img: 'https://c.saavncdn.com/313/Devara-Part-1-Telugu-Telugu-2024-20240926171010-500x500.jpg', query: 'Anirudh Ravichander' },
-  { name: 'Ghantasala', tag: 'Telugu Golden Era Legend', img: 'https://c.saavncdn.com/979/Mayabazar-Telugu-1957-500x500.jpg', query: 'Ghantasala' },
+  { name: 'Ed Sheeran', tag: 'Global Pop King &bull; Shape of You', img: 'images/artists/ed-sheeran.jpg', query: 'Ed Sheeran' },
+  { name: 'The Weeknd', tag: 'Starboy &bull; Blinding Lights', img: 'images/artists/the-weeknd.jpg', query: 'The Weeknd' },
+  { name: 'Imagine Dragons', tag: 'Believer &bull; Rock Titans', img: 'images/artists/imagine-dragons.jpg', query: 'Imagine Dragons' },
+  { name: 'Taylor Swift', tag: 'Cruel Summer &bull; Global Icon', img: 'images/artists/taylor-swift.jpg', query: 'Taylor Swift' },
+  { name: 'Queen', tag: 'Bohemian Rhapsody &bull; Rock Legends', img: 'images/artists/queen.jpg', query: 'Queen' },
+  { name: 'Michael Jackson', tag: 'King of Pop &bull; Billie Jean', img: 'images/artists/michael-jackson.jpg', query: 'Michael Jackson' },
+  { name: 'Anirudh Ravichander', tag: 'Devara & Jawan &bull; Rockstar', img: 'images/artists/anirudh-ravichander.jpg', query: 'Anirudh Ravichander' },
+  { name: 'Ghantasala', tag: 'Telugu Golden Era Legend', img: 'images/artists/ghantasala.jpg', query: 'Ghantasala' },
   { name: 'Mangli', tag: 'Folk Sensationalist', img: 'images/artists/mangli.jpg', query: 'Mangli songs' },
   { name: 'Sonu Nigam', tag: 'Golden Voice', img: 'images/artists/sonu-nigam.jpg', query: 'Sonu Nigam romantic hits' },
   { name: 'Karthik', tag: 'Ee Manase, Niluvaddham', img: 'images/artists/karthik.jpg', query: 'Karthik Telugu songs' },
@@ -2061,6 +2066,61 @@ const HOME_ARTISTS = [
   { name: 'Kishore Kumar', tag: 'Evergreen Legend', img: 'images/artists/kishore-kumar.jpg', query: 'Kishore Kumar classic hits' },
   { name: 'Armaan Malik', tag: 'Butta Bomma', img: 'images/artists/armaan-malik.jpg', query: 'Armaan Malik Hindi songs' }
 ];
+
+// Complete local portrait lookup for all 51 artists (including Artist Menu drawer singers)
+const ALL_ARTIST_AVATARS = {
+  's. p. balasubrahmanyam': 'images/artists/sp-balasubrahmanyam.jpg',
+  'sid sriram': 'images/artists/sid-sriram.jpg',
+  'arijit singh': 'images/artists/arijit-singh.jpg',
+  'shreya ghoshal': 'images/artists/shreya-ghoshal.jpg',
+  'anurag kulkarni': 'images/artists/anurag-kulkarni.jpg',
+  'ed sheeran': 'images/artists/ed-sheeran.jpg',
+  'the weeknd': 'images/artists/the-weeknd.jpg',
+  'imagine dragons': 'images/artists/imagine-dragons.jpg',
+  'taylor swift': 'images/artists/taylor-swift.jpg',
+  'queen': 'images/artists/queen.jpg',
+  'michael jackson': 'images/artists/michael-jackson.jpg',
+  'anirudh ravichander': 'images/artists/anirudh-ravichander.jpg',
+  'ghantasala': 'images/artists/ghantasala.jpg',
+  'dua lipa': 'images/artists/dua-lipa.jpg',
+  'justin bieber': 'images/artists/justin-bieber.jpg',
+  'coldplay': 'images/artists/coldplay.jpg',
+  'santhosh narayanan': 'images/artists/santhosh-narayanan.jpg',
+  'mangli': 'images/artists/mangli.jpg',
+  'sonu nigam': 'images/artists/sonu-nigam.jpg',
+  'karthik': 'images/artists/karthik.jpg',
+  'k. s. chithra': 'images/artists/ks-chithra.jpg',
+  'kk': 'images/artists/kk.jpg',
+  'devi sri prasad': 'images/artists/dsp.jpg',
+  'atif aslam': 'images/artists/atif-aslam.jpg',
+  'ram miriyala': 'images/artists/ram-miriyala.jpg',
+  'sunitha': 'images/artists/sunitha.jpg',
+  'jubin nautiyal': 'images/artists/jubin-nautiyal.jpg',
+  'geetha madhuri': 'images/artists/geetha-madhuri.jpg',
+  'haricharan': 'images/artists/haricharan.jpg',
+  'lata mangeshkar': 'images/artists/lata-mangeshkar.jpg',
+  'kishore kumar': 'images/artists/kishore-kumar.jpg',
+  'armaan malik': 'images/artists/armaan-malik.jpg',
+  'udit narayan': 'images/artists/udit-narayan.jpg',
+  'kumar sanu': 'images/artists/kumar-sanu.jpg',
+  'alka yagnik': 'images/artists/alka-yagnik.jpg',
+  'mohammed rafi': 'images/artists/mohammed-rafi.jpg',
+  'mohit chauhan': 'images/artists/mohit-chauhan.jpg',
+  'vishal mishra': 'images/artists/vishal-mishra.jpg',
+  'shaan': 'images/artists/shaan.jpg',
+  'shankar mahadevan': 'images/artists/shankar-mahadevan.jpg',
+  'asha bhosle': 'images/artists/asha-bhosle.jpg',
+  'neha kakkar': 'images/artists/neha-kakkar.jpg',
+  'mika singh': 'images/artists/mika-singh.jpg',
+  'revanth': 'images/artists/revanth.jpg',
+  'rahul sipligunj': 'images/artists/rahul-sipligunj.jpg',
+  'ramya behara': 'images/artists/ramya-behara.jpg',
+  'vijay yesudas': 'images/artists/vijay-yesudas.jpg',
+  'madhu priya': 'images/artists/madhu-priya.jpg',
+  'hemachandra': 'images/artists/hemachandra.jpg',
+  's. p. charan': 'images/artists/sp-charan.jpg',
+  'saketh komanduri': 'images/artists/saketh-komanduri.jpg'
+};
 
 function queueTracks() {
   const list = visibleTracks();
@@ -4159,10 +4219,14 @@ async function openArtistHero(artistName, query) {
   });
 
   if (!artistData) {
+    const cLower = cleanName.toLowerCase();
+    const mappedImg = ALL_ARTIST_AVATARS[cLower]
+      || Object.entries(ALL_ARTIST_AVATARS).find(([k]) => k.includes(cLower) || cLower.includes(k))?.[1]
+      || 'logo.png?v=100';
     artistData = {
       name: cleanName,
       tag: 'Playback Singer &bull; Hit Discography',
-      img: 'images/artists/sp-balasubrahmanyam.jpg',
+      img: mappedImg,
       query: searchQuery || cleanName
     };
   }

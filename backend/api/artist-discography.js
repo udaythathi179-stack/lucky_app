@@ -9,60 +9,66 @@ const { cleanHTML, fetchUrl } = require('../utils/helpers');
 
 const discographyCache = new Map();
 
-// Strict artist matchers to prevent unrelated tracks
+// Strict singer-only artist matchers to guarantee ONLY songs actually sung by that artist
 const SPECIFIC_ARTIST_MATCHERS = {
-  's. p. balasubrahmanyam': (t) => /balasubrahmanyam|balasubramanyam|balasubramaniam|spb|\bs\s*p\s*b\b/i.test(t),
+  's. p. balasubrahmanyam': (t) => /balasubrahmanyam|balasubramanyam|balasubramaniam/i.test(t) || (/\bs\s*p\s*b\b|\bspb\b/i.test(t) && !/\bs\s*p\s*b\s*charan\b|\bspb\s*charan\b/i.test(t)),
   'sid sriram': (t) => /\bsid\s+sriram\b/i.test(t),
-  'arijit singh': (t) => /\barijit\b/i.test(t),
-  'shreya ghoshal': (t) => /\bshreya\b/i.test(t),
+  'arijit singh': (t) => /\barijit\s+singh\b/i.test(t),
+  'shreya ghoshal': (t) => /\bshreya\s+gh?oshal\b/i.test(t),
   'anurag kulkarni': (t) => /\banurag\s+kulkarni\b/i.test(t),
   'mangli': (t) => /\bmangli\b|\bsatyavathi\b/i.test(t),
-  'sonu nigam': (t) => /\bsonu\s+nigam\b|\bsonu\b/i.test(t),
-  'karthik': (t) => /\bkarthik\b/i.test(t),
-  'k. s. chithra': (t) => /\bchithra\b|\bchitra\b/i.test(t),
-  'kk': (t) => /\bkk\b|\bkrishnakumar\s+kunnath\b/i.test(t),
+  'sonu nigam': (t) => /\bsonu\s+nigam\b/i.test(t),
+  'karthik': (t) => /\bkarthik\b/i.test(t.replace(/\bkarthik\s+raja\b/gi, '')) && !/\bkarthikeya\b/i.test(t),
+  'k. s. chithra': (t) => /\bk\s*s\s*chith?ra\b|\bchithra\b|\bchitra\b/i.test(t),
+  'kk': (t) => /(?:^|,|\s)k\s*k(?:$|,|\s)|\bkrishnakumar\s+kunnath\b/i.test(t),
   'devi sri prasad': (t) => /\bdevi\s+sri\s+prasad\b|\bdsp\b/i.test(t),
-  'atif aslam': (t) => /\batif\b/i.test(t),
-  'ram miriyala': (t) => /\bmiriyala\b/i.test(t),
-  'sunitha': (t) => /\bsunitha\b/i.test(t),
-  'jubin nautiyal': (t) => /\bjubin\b/i.test(t),
+  'atif aslam': (t) => /\batif\s+aslam\b/i.test(t),
+  'ram miriyala': (t) => /\bram\s+miriyala\b|\bmiriyala\b/i.test(t),
+  'sunitha': (t) => /\bsunitha\b/i.test(t) && !/\bsunitha\s+sarathy\b/i.test(t),
+  'jubin nautiyal': (t) => /\bjubin\s+nautiyal\b/i.test(t),
   'geetha madhuri': (t) => /\bgeetha\s+madhuri\b/i.test(t),
   'haricharan': (t) => /\bharicharan\b|\bhari\s+charan\b/i.test(t),
-  'lata mangeshkar': (t) => /\blata\b/i.test(t),
-  'kishore kumar': (t) => /\bkishore\b/i.test(t),
-  'armaan malik': (t) => /\barmaan\b/i.test(t),
-  'udit narayan': (t) => /\budit\b/i.test(t),
-  'kumar sanu': (t) => /\bkumar\s+sanu\b|\bsanu\b/i.test(t),
-  'alka yagnik': (t) => /\balka\b/i.test(t),
-  'mohammed rafi': (t) => /\brafi\b/i.test(t),
-  'mohit chauhan': (t) => /\bmohit\s+chauhan\b|\bmohit\b/i.test(t),
+  'lata mangeshkar': (t) => /\blata\s+mangeshkar\b/i.test(t),
+  'kishore kumar': (t) => /\bkishore\s+kumar\b/i.test(t),
+  'armaan malik': (t) => /\barmaan\s+malik\b/i.test(t),
+  'udit narayan': (t) => /\budit\s+narayan\b/i.test(t),
+  'kumar sanu': (t) => /\bkumar\s+sanu\b/i.test(t),
+  'alka yagnik': (t) => /\balka\s+yagnik\b/i.test(t),
+  'mohammed rafi': (t) => /\b(?:mohammed|mohammad|mohd)\s+rafi\b/i.test(t),
+  'mohit chauhan': (t) => /\bmohit\s+chauhan\b/i.test(t),
   'vishal mishra': (t) => /\bvishal\s+mishra\b/i.test(t),
   'shaan': (t) => /\bshaan\b/i.test(t),
   'shankar mahadevan': (t) => /\bshankar\s+mahadevan\b/i.test(t),
-  'asha bhosle': (t) => /\basha\b/i.test(t),
+  'asha bhosle': (t) => /\basha\s+bhosle\b/i.test(t),
   'neha kakkar': (t) => /\bneha\s+kakkar\b/i.test(t),
-  'mika singh': (t) => /\bmika\b/i.test(t),
+  'mika singh': (t) => /\bmika\s+singh\b/i.test(t),
   'revanth': (t) => /\brevanth\b/i.test(t),
-  'rahul sipligunj': (t) => /\bsipligunj\b/i.test(t),
+  'rahul sipligunj': (t) => /\brahul\s+sipligunj\b|\bsipligunj\b/i.test(t),
   'ramya behara': (t) => /\bramya\s+beh[ae]?ra\b/i.test(t),
-  'vijay yesudas': (t) => /\byesudas\b/i.test(t),
+  'vijay yesudas': (t) => /\bvijay\s+yesudas\b/i.test(t),
   'madhu priya': (t) => /\bmadhu\s+priya\b/i.test(t),
   'hemachandra': (t) => /\bhemachandra\b|\bhema\s+chandra\b/i.test(t),
-  's. p. charan': (t) => /(?:\bs\s*p\s*(?:b\s*)?charan\b|\bspb\s*charan\b|\bs\s*p\s*b\s*charan\b)/i.test(t) || (/\bcharan\b/i.test(t) && !/\bharicharan\b|\bcharan\s*raj\b/i.test(t)),
-  'saketh komanduri': (t) => /\bsaketh\b/i.test(t),
-  'ed sheeran': (t) => /\bsheeran\b/i.test(t),
-  'the weeknd': (t) => /\bweeknd\b/i.test(t),
+  's. p. charan': (t) => /\bs\s*p\s*(?:b\s*)?charan\b|\bspb\s*charan\b/i.test(t),
+  'saketh komanduri': (t) => /\bsaketh\s+komanduri\b|\bsaketh\b/i.test(t),
+  'ed sheeran': (t) => /\bed\s+sheeran\b/i.test(t),
+  'the weeknd': (t) => /\bthe\s+weeknd\b|\bweeknd\b/i.test(t),
   'imagine dragons': (t) => /\bimagine\s+dragons\b/i.test(t),
   'dua lipa': (t) => /\bdua\s+lipa\b/i.test(t),
-  'justin bieber': (t) => /\bbieber\b/i.test(t),
-  'taylor swift': (t) => /\btaylor\s+swift\b|\btaylor\b/i.test(t),
+  'justin bieber': (t) => /\bjustin\s+bieber\b/i.test(t),
+  'taylor swift': (t) => /\btaylor\s+swift\b/i.test(t),
   'coldplay': (t) => /\bcoldplay\b/i.test(t),
-  'queen': (t) => /\bqueen\b|\bfreddie\s+mercury\b/i.test(t),
-  'michael jackson': (t) => /\bmichael\s+jackson\b|\bmj\b/i.test(t),
-  'anirudh ravichander': (t) => /\banirudh\b/i.test(t),
+  'queen': (t) => /(?:^|,|\s)queen(?:$|,|\s)|\bfreddie\s+mercury\b/i.test(t) && !/\bqueen\s+latifah\b/i.test(t),
+  'michael jackson': (t) => /\bmichael\s+jackson\b/i.test(t),
+  'anirudh ravichander': (t) => /\banirudh\s+ravichander\b|\banirudh\b/i.test(t),
   'santhosh narayanan': (t) => /\bsanthosh\s+narayanan\b/i.test(t),
   'ghantasala': (t) => /\bghantasala\b/i.test(t)
 };
+
+const NON_ORIGINAL_RE = /\b(mashup|dj\s*mix|remix|lofi|lo-fi|karaoke|instrumental|tribute|cover|recreated|slowed|reverb|reverbed|8d|ringtone|dialogue|teaser|trailer|jukebox|nonstop|non-stop|medley|bgm|ambient|lullaby|meditation|whistle\s+cover|bit\s+song|-bit)\b/i;
+
+function isOriginalSong(title, movie = '') {
+  return !NON_ORIGINAL_RE.test(title || '') && !NON_ORIGINAL_RE.test(movie || '');
+}
 
 function isArtistCredMatch(creds, artistName) {
   if (!creds || !artistName) return false;
@@ -125,8 +131,8 @@ module.exports = async function handler(req, res) {
   if (page === 1) {
     const localTracks = db.getArtistTracks(artistName);
     if (Array.isArray(localTracks) && localTracks.length > 0) {
-      // Strictly ensure every track belongs to the requested artist
-      const validTracks = localTracks.filter(t => isArtistCredMatch(`${t.artist || ''} ${t.title || ''}`, artistName));
+      // Strictly ensure every track is an original song actually sung by the requested artist
+      const validTracks = localTracks.filter(t => isArtistCredMatch(t.artist || '', artistName) && isOriginalSong(t.title, t.movie));
       const payload = { success: true, page: 1, total: validTracks.length, results: validTracks };
       discographyCache.set(cacheKey, payload);
       res.setHeader('Cache-Control', 'public, max-age=3600');
@@ -162,20 +168,21 @@ module.exports = async function handler(req, res) {
         if (!streamUrl) continue;
 
         const title = cleanHTML(song.song || song.title);
-        // Strict spam and mashup filter
-        if (/mashup|dj mix|remix by|ambient|calming cadence|lofi|karaoke|instrumental cover|meditation|lullaby/i.test(title)) {
+        const movie = cleanHTML(song.album || song.more_info?.album || 'Single');
+        // Strict original song filter (reject remixes, covers, 8D, slowed/reverb, karaoke, teasers, BGM, mashups)
+        if (!isOriginalSong(title, movie)) {
           continue;
         }
 
-        const creds = `${song.singers || ''} ${song.primary_artists || ''} ${song.more_info?.singers || ''} ${song.more_info?.music || ''}`.toLowerCase();
+        // Check singer/primary artist credits ONLY (exclude composer-only `music` field)
+        const creds = `${song.singers || ''} ${song.more_info?.singers || ''} ${song.primary_artists || ''}`.toLowerCase();
         
         // Strict artist credit check
         if (!isArtistCredMatch(creds, artistName)) {
-          continue; // Skip tracks where the requested artist is not actually credited!
+          continue; // Skip tracks where the requested artist did not actually sing/perform!
         }
 
-        const artist = cleanHTML(song.singers || song.primary_artists || song.more_info?.singers || song.more_info?.music || clean);
-        const movie = cleanHTML(song.album || song.more_info?.album || 'Single');
+        const artist = cleanHTML(song.singers || song.more_info?.singers || song.primary_artists || clean);
         const artwork = (song.image || '').replace('150x150.jpg', '500x500.jpg');
         const rawLang = song.language || (song.more_info && song.more_info.language) || 'Global';
         const cleanLang = rawLang.charAt(0).toUpperCase() + rawLang.slice(1).toLowerCase();
