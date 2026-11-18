@@ -5496,6 +5496,7 @@ function bindEvents() {
 // ==========================================================================
 const AUTH_STORAGE_KEY = 'tuneus_user';
 const AUTH_SESSION_STORAGE_KEY = 'tuneus_auth_session';
+const AUTH_COOKIE_KEY = 'tuneus_persistent_user';
 const GOOGLE_CLIENT_ID_STORAGE_KEY = 'tuneus_google_client_id';
 const AUTH_GATE_CLASS = 'auth-locked';
 
@@ -5503,15 +5504,88 @@ let activeAuthMode = 'signin'; // 'signin' | 'register'
 let googleGisInitialized = false;
 let tokenRefreshTimer = null;
 
-// Get currently stored user profile
+// Persist logged-in user in a 1-year cookie as backup alongside localStorage
+// so login survives cache/storage hiccups until the user explicitly clicks Sign Out
+function setPersistentAuthCookie(user) {
+  try {
+    if (!user || !user.email) {
+      document.cookie = `${AUTH_COOKIE_KEY}=; Max-Age=0; Path=/; SameSite=Lax`;
+      return;
+    }
+    const slimUser = {
+      id: user.id || '',
+      name: user.name || '',
+      email: user.email || '',
+      avatar: user.avatar || '',
+      provider: user.provider || 'google'
+    };
+    const encoded = encodeURIComponent(JSON.stringify(slimUser));
+    document.cookie = `${AUTH_COOKIE_KEY}=${encoded}; Max-Age=31536000; Path=/; SameSite=Lax`;
+  } catch (_) {}
+}
+
+function getPersistentAuthCookie() {
+  try {
+    const cookies = document.cookie ? document.cookie.split(';') : [];
+    for (const part of cookies) {
+      const idx = part.indexOf('=');
+      if (idx < 0) continue;
+      const key = part.slice(0, idx).trim();
+      if (key === AUTH_COOKIE_KEY) {
+        const val = decodeURIComponent(part.slice(idx + 1).trim());
+        const parsed = JSON.parse(val);
+        if (parsed && parsed.name && parsed.email) return parsed;
+      }
+    }
+  } catch (_) {}
+  return null;
+}
+
+// Get currently stored user profile (resilient across localStorage keys + 1-year cookie)
 function getStoredUser() {
   try {
     const rawSession = localStorage.getItem(AUTH_SESSION_STORAGE_KEY);
     if (rawSession) {
       const parsed = JSON.parse(rawSession);
-      const hasToken = Boolean(parsed && (parsed.accessToken || parsed.refreshToken));
-      if (parsed && parsed.user && hasToken) return parsed.user;
+      if (parsed && parsed.user && parsed.user.name && parsed.user.name !== 'Guest User') {
+        return parsed.user;
+      }
     }
+
+    const rawUser = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (rawUser) {
+      const parsedUser = JSON.parse(rawUser);
+      if (parsedUser && parsedUser.name && parsedUser.name !== 'Guest User' && parsedUser.email) {
+        // Auto-heal session object from stored user
+        try {
+          localStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify({
+            user: parsedUser,
+            accessToken: '',
+            refreshToken: '',
+            persistent: true,
+            savedAt: Date.now()
+          }));
+        } catch (_) {}
+        return parsedUser;
+      }
+    }
+
+    // Fallback to 1-year persistent cookie if localStorage was cleared
+    const cookieUser = getPersistentAuthCookie();
+    if (cookieUser && cookieUser.name && cookieUser.name !== 'Guest User') {
+      try {
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(cookieUser));
+        localStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify({
+          user: cookieUser,
+          accessToken: '',
+          refreshToken: '',
+          persistent: true,
+          savedAt: Date.now()
+        }));
+      } catch (_) {}
+      return cookieUser;
+    }
+
     return null;
   } catch (e) {
     return null;
@@ -5539,32 +5613,38 @@ function getStoredRefreshToken() {
 }
 
 // Save authentication session (user, JWT access token, refresh token)
+// Only clears session when explicitly called with null (from Sign Out)
 function saveUserSession(sessionData) {
   try {
     if (!sessionData) {
       localStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
       localStorage.removeItem(AUTH_STORAGE_KEY);
+      setPersistentAuthCookie(null);
       if (tokenRefreshTimer) clearTimeout(tokenRefreshTimer);
       return;
     }
 
     const user = sessionData.user || sessionData;
-    const accessToken = sessionData.accessToken || '';
-    const refreshToken = sessionData.refreshToken || '';
-    const expiresIn = sessionData.expiresIn || 3600;
+    const accessToken = sessionData.accessToken || getStoredAccessToken() || '';
+    const refreshToken = sessionData.refreshToken || getStoredRefreshToken() || '';
+    const expiresIn = sessionData.expiresIn || (365 * 24 * 60 * 60);
 
     const sessionObj = {
       user,
       accessToken,
       refreshToken,
+      persistent: true,
       expiresAt: Date.now() + (expiresIn * 1000)
     };
 
     localStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(sessionObj));
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+    setPersistentAuthCookie(user);
 
-    // Schedule proactive token refresh 5 minutes before expiration
-    scheduleTokenRefresh(expiresIn);
+    // Schedule proactive token refresh (clamped safely under 32-bit setTimeout limit)
+    if (refreshToken) {
+      scheduleTokenRefresh(expiresIn);
+    }
   } catch (e) {
     console.warn('[Session Error]', e);
   }
@@ -5575,10 +5655,12 @@ function setAuthGate(locked) {
   document.body.classList.remove(AUTH_GATE_CLASS);
 }
 
-// Schedule proactive JWT refresh
+// Schedule proactive JWT refresh (clamped to <= 7 days to avoid 32-bit setTimeout overflow)
 function scheduleTokenRefresh(expiresInSeconds) {
   if (tokenRefreshTimer) clearTimeout(tokenRefreshTimer);
-  const refreshMs = Math.max((expiresInSeconds - 300) * 1000, 30000); // 5 mins before or 30s min
+  const maxSafeDelayMs = 7 * 24 * 60 * 60 * 1000; // 7 days
+  const rawDelayMs = Math.max((expiresInSeconds - 300) * 1000, 60000);
+  const refreshMs = Math.min(rawDelayMs, maxSafeDelayMs);
   tokenRefreshTimer = setTimeout(async () => {
     const refreshToken = getStoredRefreshToken();
     if (!refreshToken) return;
@@ -5594,13 +5676,14 @@ function scheduleTokenRefresh(expiresInSeconds) {
         if (raw) {
           const session = JSON.parse(raw);
           session.accessToken = data.accessToken;
-          session.expiresAt = Date.now() + (data.expiresIn * 1000);
+          session.expiresAt = Date.now() + ((data.expiresIn || (365 * 24 * 60 * 60)) * 1000);
           localStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(session));
         }
-        scheduleTokenRefresh(data.expiresIn || 3600);
+        scheduleTokenRefresh(data.expiresIn || (365 * 24 * 60 * 60));
       }
     } catch (err) {
-      console.warn('[Auth] Token refresh error:', err);
+      // Never sign out on a transient refresh error — keep user logged in
+      console.warn('[Auth] Token refresh warning:', err);
     }
   }, refreshMs);
 }
@@ -6015,12 +6098,17 @@ function handleGoogleOAuthCallback() {
     } catch (_) {}
   }
 
-  // Otherwise handle directly in current window
-  processRealGoogleToken(accessToken, idToken);
+  // Otherwise handle directly in current window (and close if this was the Google login popup)
+  const isLoginPopup = window.name === 'Tuneus_Google_Login';
+  processRealGoogleToken(accessToken, idToken).then(() => {
+    if (isLoginPopup) {
+      try { window.close(); } catch (_) {}
+    }
+  });
   return true;
 }
 
-// Process real Google credentials, fetch profile, and authenticate with backend
+// Process real Google credentials, fetch profile, and persist session permanently until explicit Sign Out
 async function processRealGoogleToken(accessToken, idToken) {
   toast('Verifying real Google account profile...');
   const btnText = el('googleContinueText');
@@ -6050,36 +6138,53 @@ async function processRealGoogleToken(accessToken, idToken) {
     }
 
     const realName = profile.name || profile.given_name || profile.email.split('@')[0];
-    const realEmail = profile.email;
-    const realAvatar = profile.picture || 'images/avatar-uday.jpg';
+    const realEmail = profile.email.toLowerCase().trim();
+    const realAvatar = profile.picture || 'logo.png?v=100';
 
-    // Authenticate with backend database & issue JWT tokens
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: realName,
-        email: realEmail,
-        avatar: realAvatar,
-        provider: 'google',
-        googleSub: profile.sub
-      })
-    });
+    const verifiedUser = {
+      id: `google_${profile.sub || Date.now()}`,
+      name: realName,
+      email: realEmail,
+      avatar: realAvatar,
+      provider: 'google',
+      googleSub: profile.sub || null
+    };
 
-    const data = await res.json();
-    if (data && data.success && data.user) {
-      saveUserSession(data);
-      updateAuthUI(data.user);
-      closeLoginModal(true);
-      closeGoogleAccountModal(false);
+    // Persist immediately to localStorage + 1-year cookie so login never drops on reload/cold-start
+    saveUserSession({ user: verifiedUser });
+    saveGoogleAccount(verifiedUser);
+    updateAuthUI(verifiedUser);
+    closeLoginModal(true);
+    closeGoogleAccountModal(false);
 
-      if (window.history && window.history.replaceState) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
+    if (window.history && window.history.replaceState) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    toast(`Signed in with Google as ${verifiedUser.name}!`);
+
+    // Sync with backend database & upgrade with server-signed 1-year JWT tokens
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: realName,
+          email: realEmail,
+          avatar: realAvatar,
+          provider: 'google',
+          googleSub: profile.sub
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.success && data.user) {
+          saveUserSession(data);
+          updateAuthUI(data.user);
+        }
       }
-
-      toast(`Signed in with Google as ${data.user.name}!`);
-    } else {
-      toast(data?.error || 'Authentication failed');
+    } catch (syncErr) {
+      console.warn('[Auth] Backend token sync skipped (Google session preserved):', syncErr.message);
     }
   } catch (err) {
     console.error('[Google OAuth Error]', err);
@@ -6094,6 +6199,20 @@ window.addEventListener('message', (event) => {
   if (event.origin !== window.location.origin) return;
   if (event.data && event.data.type === 'GOOGLE_AUTH_SUCCESS') {
     processRealGoogleToken(event.data.accessToken, event.data.idToken);
+  }
+});
+
+// Sync login/logout state across tabs and OAuth popups (handles COOP popup isolation too)
+window.addEventListener('storage', (event) => {
+  if (event.key === AUTH_SESSION_STORAGE_KEY || event.key === AUTH_STORAGE_KEY) {
+    const user = getStoredUser();
+    if (user && user.name && user.name !== 'Guest User') {
+      updateAuthUI(user);
+      closeLoginModal(true);
+      closeGoogleAccountModal(false);
+    } else if (!event.newValue) {
+      updateAuthUI(null);
+    }
   }
 });
 
@@ -6694,15 +6813,6 @@ function bindSpotifyNavigationEvents() {
     });
   }
 
-  const pDrawerSignOutBtn = el('pDrawerSignOutBtn');
-  if (pDrawerSignOutBtn) {
-    pDrawerSignOutBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      closeProfileDrawer();
-      logoutUser();
-    });
-  }
-
   const pRecentsBtn = el('pDrawerRecentsBtn');
   if (pRecentsBtn) {
     pRecentsBtn.addEventListener('click', () => {
@@ -7014,12 +7124,14 @@ function init() {
     return;
   }
 
-  // 2. Check for an authenticated user session
+  // 2. Check for an authenticated user session (persists until user explicitly clicks Sign Out)
   const currentUser = getStoredUser();
   if (currentUser && currentUser.name && currentUser.name !== 'Guest User') {
     updateAuthUI(currentUser);
+    closeLoginModal(true);
+    setPersistentAuthCookie(currentUser);
   } else {
-    // Fresh arrival at localhost -> Show Login Page first as requested!
+    // Fresh arrival -> Show Login Page only when not logged in
     updateAuthUI(null);
     openLoginModal('signin');
   }

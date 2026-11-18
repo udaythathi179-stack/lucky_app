@@ -7,8 +7,8 @@
 const crypto = require('crypto');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tuneus_production_jwt_master_secret_2026_secure';
-const ACCESS_TOKEN_EXPIRY = 60 * 60; // 1 hour (in seconds)
-const REFRESH_TOKEN_EXPIRY_DAYS = 30; // 30 days
+const ACCESS_TOKEN_EXPIRY = 365 * 24 * 60 * 60; // 1 year (persistent login until explicit Sign Out)
+const REFRESH_TOKEN_EXPIRY_DAYS = 365; // 1 year
 
 function base64UrlEncode(str) {
   return Buffer.from(str)
@@ -88,10 +88,45 @@ function verifyAccessToken(token) {
 }
 
 /**
- * Generate Secure Refresh Token
+ * Generate Secure Refresh Token (stateless signed JWT when user is provided so it survives serverless restarts)
  */
-function generateRefreshToken() {
-  return crypto.randomBytes(40).toString('hex');
+function generateRefreshToken(user = null) {
+  if (!user || !user.email) {
+    return crypto.randomBytes(40).toString('hex');
+  }
+  const header = { alg: 'HS256', typ: 'JWT' };
+  const now = Math.floor(Date.now() / 1000);
+  const payload = {
+    type: 'refresh',
+    sub: user.id || `usr_${Date.now().toString(36)}`,
+    email: user.email,
+    name: user.name || user.email.split('@')[0],
+    avatar: user.avatar || '',
+    provider: user.provider || 'google',
+    iat: now,
+    exp: now + (REFRESH_TOKEN_EXPIRY_DAYS * 24 * 60 * 60)
+  };
+  const encHeader = base64UrlEncode(JSON.stringify(header));
+  const encPayload = base64UrlEncode(JSON.stringify(payload));
+  const signature = crypto
+    .createHmac('sha256', JWT_SECRET)
+    .update(`${encHeader}.${encPayload}`)
+    .digest('base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
+  return `${encHeader}.${encPayload}.${signature}`;
+}
+
+/**
+ * Verify Stateless Signed Refresh Token
+ */
+function verifyRefreshToken(token) {
+  const payload = verifyAccessToken(token);
+  if (payload && payload.type === 'refresh' && payload.email) {
+    return payload;
+  }
+  return null;
 }
 
 /**
@@ -187,6 +222,7 @@ module.exports = {
   generateAccessToken,
   verifyAccessToken,
   generateRefreshToken,
+  verifyRefreshToken,
   decodeJwtPayload,
   verifyGoogleIdToken,
   ACCESS_TOKEN_EXPIRY,

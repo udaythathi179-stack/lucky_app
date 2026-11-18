@@ -9,6 +9,7 @@ const {
   generateAccessToken,
   verifyAccessToken,
   generateRefreshToken,
+  verifyRefreshToken,
   verifyGoogleIdToken,
   ACCESS_TOKEN_EXPIRY,
   REFRESH_TOKEN_EXPIRY_DAYS
@@ -100,7 +101,7 @@ module.exports = async function handler(req, res) {
 
       // Generate Application JWT Access Token & Refresh Token
       const tokenData = generateAccessToken(user);
-      const refreshToken = generateRefreshToken();
+      const refreshToken = generateRefreshToken(user);
 
       // Persist session in database
       const now = Date.now();
@@ -147,19 +148,34 @@ module.exports = async function handler(req, res) {
       return sendJson(400, { success: false, error: 'refreshToken is required' });
     }
 
+    let user = null;
     const session = db.getSession(refreshToken);
-    if (!session) {
-      return sendJson(401, { success: false, error: 'Invalid or expired refresh token' });
+    if (session) {
+      user = db.getUserById(session.userId);
     }
 
-    const user = db.getUserById(session.userId);
+    // Stateless fallback for Vercel serverless cold starts where disk DB resets
     if (!user) {
-      return sendJson(401, { success: false, error: 'User no longer exists' });
+      const verified = verifyRefreshToken(refreshToken);
+      if (verified && verified.email) {
+        user = db.getUserByEmail(verified.email) || {
+          id: verified.sub,
+          name: verified.name,
+          email: verified.email,
+          avatar: verified.avatar,
+          provider: verified.provider || 'google'
+        };
+      }
+    }
+
+    if (!user) {
+      return sendJson(401, { success: false, error: 'Invalid or expired refresh token' });
     }
 
     const tokenData = generateAccessToken(user);
     return sendJson(200, {
       success: true,
+      user,
       accessToken: tokenData.accessToken,
       expiresIn: tokenData.expiresIn,
       tokenType: 'Bearer'
@@ -183,7 +199,13 @@ module.exports = async function handler(req, res) {
       const token = authHeader.slice(7).trim();
       const payload = verifyAccessToken(token);
       if (payload && payload.sub) {
-        const user = db.getUserById(payload.sub);
+        const user = db.getUserById(payload.sub) || {
+          id: payload.sub,
+          name: payload.name,
+          email: payload.email,
+          avatar: payload.avatar,
+          provider: payload.provider || 'google'
+        };
         if (user) {
           return sendJson(200, { success: true, user });
         }
@@ -235,7 +257,7 @@ module.exports = async function handler(req, res) {
       });
 
       const tokenData = generateAccessToken(user);
-      const refreshToken = generateRefreshToken();
+      const refreshToken = generateRefreshToken(user);
 
       const now = Date.now();
       db.saveSession({
