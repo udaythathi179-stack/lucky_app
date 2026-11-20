@@ -1,14 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Tuneus Music</string>
-    <string name="search_hint">Search songs, artists, albums...</string>
-    <string name="recent_songs">Recent Songs</string>
-    <string name="popular_artists">Popular Artists &amp; Legendary Singers</string>
-    <string name="jump_back_in">Jump back in</string>
-    <string name="folk_masterpieces">Folk &amp; Cultural Masterpieces</string>
-    <string name="tollywood_blockbusters">Tollywood Blockbusters</string>
-    <string name="bollywood_melodies">Bollywood Melodies</string>
-    <string name="liked_songs">Liked Songs</string>
-    <string name="artist_menu">Artist Menu</string>
-    <string name="studio_quality">Studio Master 320kbps</string>
+    <string name="app_name">Lucky App</string>
+    <string name="title_activity_main">Lucky App</string>
+    <string name="package_name">com.luckyapp.mobile</string>
+    <string name="custom_url_scheme">com.luckyapp.mobile</string>
 </resources>
-

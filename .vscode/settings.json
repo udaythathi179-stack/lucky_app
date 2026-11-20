@@ -8,5 +8,6 @@
     "**/Thumbs.db": true,
     "node_modules": true
   },
-  "java.compile.nullAnalysis.mode": "automatic"
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "automatic"
 }

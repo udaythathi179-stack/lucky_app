@@ -1,4 +1,56 @@
-// Tuneus - Studio Music Streaming Catalog (Tollywood, Bollywood, Folk, English & Global)
+// Tuneus / Lucky App - Studio Music Streaming Catalog
+// Dynamic API Base Resolution for Native Mobile (Capacitor Android/iOS) & Web
+const isNativeApp = typeof window !== 'undefined' && Boolean(window.Capacitor || window.location.protocol === 'capacitor:' || window.location.protocol === 'file:' || (window.location.protocol === 'https:' && window.location.hostname === 'localhost'));
+const API_BASE = isNativeApp ? 'https://lucky-app-iofl.vercel.app' : '';
+
+// Native Mobile Capacitor Integration (Android & iOS)
+if (typeof window !== 'undefined') {
+  const initCapacitorPlugins = () => {
+    if (window.Capacitor) {
+      if (window.Capacitor.Plugins && window.Capacitor.Plugins.SplashScreen) {
+        setTimeout(() => {
+          window.Capacitor.Plugins.SplashScreen.hide().catch(() => {});
+        }, 1200);
+      }
+      if (window.Capacitor.Plugins && window.Capacitor.Plugins.StatusBar) {
+        try {
+          window.Capacitor.Plugins.StatusBar.setBackgroundColor({ color: '#040c20' }).catch(() => {});
+        } catch (_) {}
+      }
+      if (window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+        window.Capacitor.Plugins.App.addListener('backButton', ({ canGoBack }) => {
+          const expModal = document.getElementById('expandedModal');
+          if (expModal && !expModal.hidden) {
+            if (typeof closeExpandedModal === 'function') closeExpandedModal();
+            return;
+          }
+          const hero = document.getElementById('artistHeroView');
+          if (hero && !hero.hidden) {
+            if (typeof closeArtistHero === 'function') closeArtistHero();
+            return;
+          }
+          const openModals = document.querySelectorAll('#newPlaylistModal:not([hidden]), #addToPlaylistModal:not([hidden]), #shortcutsModal:not([hidden]), #eqModal:not([hidden]), #loginModal:not([hidden])');
+          if (openModals.length > 0) {
+            openModals.forEach(m => m.hidden = true);
+            document.body.classList.remove('is-expanded-modal-open', 'is-create-sheet-open');
+            return;
+          }
+          if (canGoBack) {
+            window.history.back();
+          } else {
+            window.Capacitor.Plugins.App.exitApp();
+          }
+        });
+      }
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCapacitorPlugins);
+  } else {
+    initCapacitorPlugins();
+  }
+}
+
 const catalog = [
   {
     "id": "allantha-doorala",
@@ -3820,7 +3872,7 @@ function getStreamProxyUrl(rawUrl) {
   if (rawUrl.startsWith('data:') || rawUrl.startsWith('blob:') || rawUrl.includes('/api/stream')) {
     return rawUrl;
   }
-  return `/api/stream?url=${encodeURIComponent(rawUrl)}`;
+  return `${API_BASE}/api/stream?url=${encodeURIComponent(rawUrl)}`;
 }
 
 // Preload next track into memory/disk cache for zero-latency seamless playback
@@ -4163,7 +4215,7 @@ async function searchOnlineCatalog(term) {
 
   try {
     const q = state.streamingQuality || '96';
-    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&quality=${q}`);
+    const res = await fetch(`${API_BASE}/api/search?q=${encodeURIComponent(query)}&quality=${q}`);
     const data = await res.json();
 
     if (data.success && data.results && data.results.length > 0) {
@@ -4212,7 +4264,7 @@ async function loadMoreArtistDiscography() {
 
     // Attempt 1: Fetch from dedicated artist-discography endpoint
     try {
-      const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(state.activeArtist)}&page=${artistDiscographyPage}&quality=${qQuality}`);
+      const res = await fetch(`${API_BASE}/api/artist-discography?name=${encodeURIComponent(state.activeArtist)}&page=${artistDiscographyPage}&quality=${qQuality}`);
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.results)) {
@@ -4224,7 +4276,7 @@ async function loadMoreArtistDiscography() {
     // Attempt 2: Fallback to /api/search with artist query
     if (newResults.length === 0) {
       try {
-        const res2 = await fetch(`/api/search?q=${encodeURIComponent(state.activeArtist + ' hits')}&quality=${qQuality}`);
+        const res2 = await fetch(`${API_BASE}/api/search?q=${encodeURIComponent(state.activeArtist + ' hits')}&quality=${qQuality}`);
         if (res2.ok) {
           const data2 = await res2.json();
           if (data2.success && Array.isArray(data2.results)) {
@@ -4394,7 +4446,7 @@ async function openArtistHero(artistName, query) {
   // High-performance API fetch from in-memory backend database (Sub-millisecond response)
   try {
     const qQuality = state.streamingQuality || '320';
-    const res = await fetch(`/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
+    const res = await fetch(`${API_BASE}/api/artist-discography?name=${encodeURIComponent(artistData.name)}&page=1&quality=${qQuality}`);
     if (res.ok) {
       const data = await res.json();
       if (data.success && Array.isArray(data.results) && data.results.length > 0 && state.activeArtist === artistData.name) {
@@ -4714,7 +4766,7 @@ async function handleDownloadChoice(mode) {
     } else {
       // Fallback via streaming proxy endpoint
       try {
-        const proxyUrl = `/api/download?url=${encodeURIComponent(track.src)}&name=${encodeURIComponent(fileName)}`;
+        const proxyUrl = `${API_BASE}/api/download?url=${encodeURIComponent(track.src)}&name=${encodeURIComponent(fileName)}`;
         const link = document.createElement('a');
         link.href = proxyUrl;
         link.download = fileName;
@@ -4767,7 +4819,7 @@ async function handleDownloadChoice(mode) {
       toast(`Saved "${cleanTitle}" to device AND inside Tuneus app!`);
       render();
     } else {
-      const proxyUrl = `/api/download?url=${encodeURIComponent(track.src)}&name=${encodeURIComponent(fileName)}`;
+      const proxyUrl = `${API_BASE}/api/download?url=${encodeURIComponent(track.src)}&name=${encodeURIComponent(fileName)}`;
       const link = document.createElement('a');
       link.href = proxyUrl;
       link.download = fileName;
@@ -5837,7 +5889,7 @@ function scheduleTokenRefresh(expiresInSeconds) {
     const refreshToken = getStoredRefreshToken();
     if (!refreshToken) return;
     try {
-      const res = await fetch('/api/auth/refresh', {
+      const res = await fetch(`${API_BASE}/api/auth/refresh`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken })
@@ -6064,7 +6116,7 @@ function saveGoogleAccount(acc) {
 
 async function syncGoogleAccountsFromDB() {
   try {
-    const res = await fetch('/api/auth/users');
+    const res = await fetch(`${API_BASE}/api/auth/users`);
     const data = await res.json();
     if (data && data.success && Array.isArray(data.users)) {
       data.users.forEach(u => {
@@ -6159,7 +6211,7 @@ function setGoogleClientId(newId) {
 
 async function initGoogleIdentityServices() {
   try {
-    const res = await fetch('/api/auth/config');
+    const res = await fetch(`${API_BASE}/api/auth/config`);
     const data = await res.json();
     if (data && data.googleClientId && !data.googleClientId.includes('tuneusmusic')) {
       window.GOOGLE_CLIENT_ID = data.googleClientId;
@@ -6337,7 +6389,7 @@ async function processRealGoogleToken(accessToken, idToken) {
 
     // Sync with backend database & upgrade with server-signed 1-year JWT tokens
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -6418,7 +6470,7 @@ async function loginUser(name, email, password = '', avatar = '') {
   if (submitText) submitText.textContent = 'Connecting...';
 
   try {
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -6458,7 +6510,7 @@ async function logoutUser() {
   const refreshToken = getStoredRefreshToken();
   if (refreshToken) {
     try {
-      await fetch('/api/auth/logout', {
+      await fetch(`${API_BASE}/api/auth/logout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken })

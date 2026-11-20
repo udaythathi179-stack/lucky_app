@@ -1,8 +1,41 @@
-# 🎵 Tuneus Web Music Player
+# 🎵 Lucky App (Tuneus Mobile & Web Music Player)
 
-> **Live Website:** [https://lucky-app-iofl.vercel.app](https://lucky-app-iofl.vercel.app)
+> **Live Website:** [https://lucky-app-iofl.vercel.app](https://lucky-app-iofl.vercel.app)  
+> **Android Package ID:** `com.luckyapp.mobile`  
+> **iOS Bundle ID:** `com.luckyapp.mobile`  
+> **Target Platforms:** Android (APK & AAB), iOS (Xcode Project), Web (Responsive SPA)
 
-> **Tuneus** is a modern, responsive in-browser studio music streaming web player with 320kbps audio playback, offline downloads, equalizer & visualizer, and universal online song search covering **Tollywood, Bollywood, English & Global hits**.
+---
+
+## 📱 Mobile Applications (Android & iOS)
+
+Lucky App has been packaged into native mobile applications for Android and iOS using Ionic Capacitor v8:
+
+### 1. Android Release
+- **Direct Release APK:** [`release/LuckyApp-release.apk`](file:///c:/Users/User/OneDrive/Desktop/songs%20app/release/LuckyApp-release.apk)
+- **Google Play App Bundle (AAB):** [`release/LuckyApp-release.aab`](file:///c:/Users/User/OneDrive/Desktop/songs%20app/release/LuckyApp-release.aab)
+- **Package Name:** `com.luckyapp.mobile`
+- **Compile SDK:** Android 36 (Android 16 preview / target Android 34+)
+- **Signing Keystore:** `android/app/luckyapp-release-key.jks` (Key alias: `luckyapp`)
+
+### 📲 How to Install the APK on Your Android Phone
+1. Transfer `LuckyApp-release.apk` to your Android device (via USB cable, Google Drive, WhatsApp, or local download).
+2. Tap on the APK file on your Android phone.
+3. If prompted with *"Install Unknown Apps"*, tap **Settings** and enable **"Allow from this source"**.
+4. Tap **Install**.
+5. Tap **Open** and enjoy Lucky App natively!
+
+### 2. iOS Xcode Project
+- Located at: [`ios/App/App.xcodeproj`](file:///c:/Users/User/OneDrive/Desktop/songs%20app/ios/App/App.xcodeproj)
+- Bundle Identifier: `com.luckyapp.mobile`
+- Display Name: `Lucky App`
+- **Building IPA on macOS:**
+  ```bash
+  cd ios/App
+  pod install # if cocoapods used, or open directly in Xcode
+  open App.xcodeproj
+  # Select your Apple Developer Team in Signing & Capabilities, then Product > Archive.
+  ```
 
 ---
 
