@@ -241,18 +241,35 @@ module.exports = async function handler(req, res) {
     const body = await parseBody();
     const name = (body.name || req.query?.name || parsedUrl?.searchParams.get('name') || '').trim();
     const email = (body.email || req.query?.email || parsedUrl?.searchParams.get('email') || '').toLowerCase().trim();
+    const password = (body.password || req.query?.password || '').trim();
     const avatar = body.avatar || '';
 
-    if (!name || !email) {
-      return sendJson(400, { success: false, error: 'Name and valid email are required' });
+    if (!email) {
+      return sendJson(400, { success: false, error: 'Valid email is required' });
     }
 
     try {
+      const existingUser = db.getUserByEmail(email);
+
+      // Verify password if user exists and has a registered password
+      const crypto = require('crypto');
+      const hashPassword = (pw) => crypto.createHash('sha256').update(pw + 'tuneus_salt_2509').digest('hex');
+
+      if (existingUser && existingUser.passwordHash) {
+        if (!password) {
+          return sendJson(401, { success: false, error: 'Password is required to sign in.' });
+        }
+        if (existingUser.passwordHash !== hashPassword(password)) {
+          return sendJson(401, { success: false, error: 'Incorrect password. Please try again.' });
+        }
+      }
+
       const isGoogle = email.endsWith('@gmail.com');
       const user = db.saveUser({
-        name,
+        name: name || (existingUser ? existingUser.name : email.split('@')[0]),
         email,
         avatar,
+        passwordHash: (!existingUser || !existingUser.passwordHash) && password ? hashPassword(password) : undefined,
         provider: isGoogle ? 'google' : (body.provider || 'email')
       });
 
@@ -268,9 +285,12 @@ module.exports = async function handler(req, res) {
         expiresAt: now + (REFRESH_TOKEN_EXPIRY_DAYS * 24 * 60 * 60 * 1000)
       });
 
+      // Strip sensitive passwordHash before returning to client
+      const { passwordHash: _, ...safeUser } = user;
+
       return sendJson(200, {
         success: true,
-        user,
+        user: safeUser,
         accessToken: tokenData.accessToken,
         refreshToken,
         expiresIn: tokenData.expiresIn,

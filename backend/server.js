@@ -267,6 +267,25 @@ const server = http.createServer(async (req, res) => {
   let reqPath = decodeURI(pathname);
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
+  // Security hardening: prevent access to sensitive files, dotfiles, database, backend code, secrets
+  const cleanNormReq = reqPath.replace(/\\/g, '/').toLowerCase();
+  const baseName = path.basename(cleanNormReq);
+  if (
+    baseName.startsWith('.') ||
+    cleanNormReq.includes('.env') ||
+    cleanNormReq.startsWith('/backend') ||
+    cleanNormReq.startsWith('/database') ||
+    cleanNormReq.startsWith('/tests') ||
+    cleanNormReq.startsWith('/node_modules') ||
+    baseName === 'package.json' ||
+    baseName === 'package-lock.json' ||
+    baseName === 'vercel.json' ||
+    baseName === 'server.js'
+  ) {
+    res.writeHead(403, { 'Content-Type': 'text/plain; charset=UTF-8' });
+    return res.end('403 Forbidden');
+  }
+
   // Primary search in FRONTEND_DIR, fallback to ROOT_DIR
   let filePath = path.normalize(path.join(FRONTEND_DIR, reqPath));
   if (!fs.existsSync(filePath)) {

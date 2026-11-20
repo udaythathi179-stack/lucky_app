@@ -1622,8 +1622,14 @@ hydrateLibraryWithUniverseSongs();
 
 // HTML5 Audio Engine & Web Audio Visualizer / EQ
 const audio = new Audio();
-audio.preload = 'none';
+audio.preload = 'auto';
 audio.crossOrigin = 'anonymous';
+
+// Background audio preloader for zero-latency instant transitions
+const preloadAudio = new Audio();
+preloadAudio.preload = 'auto';
+preloadAudio.volume = 0;
+preloadAudio.muted = true;
 
 let audioCtx = null;
 let audioSourceNode = null;
@@ -1878,7 +1884,12 @@ function closeEqModal() {
   if (modal) modal.hidden = true;
 }
 
-// High-Performance Visualizer Loop (Zero CPU/GPU usage when paused)
+// High-Performance Visualizer Loop (Zero GC pauses & zero CPU/GPU overhead when hidden)
+let cachedMiniGrad = null;
+let cachedMiniH = 0;
+let cachedExpGrad = null;
+let cachedExpH = 0;
+
 function startVisualizerLoop() {
   if (animFrameId) return;
 
@@ -1911,14 +1922,19 @@ function startVisualizerLoop() {
       }
     }
 
-    if (miniCtx && miniCanvas) {
+    const isModalOpen = !el('expandedModal').hidden;
+
+    if (miniCtx && miniCanvas && !isModalOpen) {
+      if (!cachedMiniGrad || cachedMiniH !== miniCanvas.height) {
+        cachedMiniGrad = miniCtx.createLinearGradient(0, 0, 0, miniCanvas.height);
+        cachedMiniGrad.addColorStop(0, '#38bdf8');
+        cachedMiniGrad.addColorStop(1, '#1d4ed8');
+        cachedMiniH = miniCanvas.height;
+      }
       miniCtx.clearRect(0, 0, miniCanvas.width, miniCanvas.height);
       const barCount = 36;
       const barWidth = miniCanvas.width / barCount;
-      const grad = miniCtx.createLinearGradient(0, 0, 0, miniCanvas.height);
-      grad.addColorStop(0, '#38bdf8');
-      grad.addColorStop(1, '#1d4ed8');
-      miniCtx.fillStyle = grad;
+      miniCtx.fillStyle = cachedMiniGrad;
 
       for (let i = 0; i < barCount; i++) {
         const val = dataArray[i % bufferLength] / 255;
@@ -1927,16 +1943,19 @@ function startVisualizerLoop() {
       }
     }
 
-    if (expCtx && expCanvas && !el('expandedModal').hidden) {
+    if (expCtx && expCanvas && isModalOpen) {
+      if (!cachedExpGrad || cachedExpH !== expCanvas.height) {
+        cachedExpGrad = expCtx.createLinearGradient(0, 0, 0, expCanvas.height);
+        cachedExpGrad.addColorStop(0, '#e0f2fe');
+        cachedExpGrad.addColorStop(0.25, '#38bdf8');
+        cachedExpGrad.addColorStop(0.65, '#2563eb');
+        cachedExpGrad.addColorStop(1, 'rgba(29, 78, 216, 0.45)');
+        cachedExpH = expCanvas.height;
+      }
       expCtx.clearRect(0, 0, expCanvas.width, expCanvas.height);
       const barCount = 48;
       const barWidth = expCanvas.width / barCount;
-      const expGrad = expCtx.createLinearGradient(0, 0, 0, expCanvas.height);
-      expGrad.addColorStop(0, '#e0f2fe');
-      expGrad.addColorStop(0.25, '#38bdf8');
-      expGrad.addColorStop(0.65, '#2563eb');
-      expGrad.addColorStop(1, 'rgba(29, 78, 216, 0.45)');
-      expCtx.fillStyle = expGrad;
+      expCtx.fillStyle = cachedExpGrad;
 
       for (let i = 0; i < barCount; i++) {
         const val = dataArray[i % bufferLength] / 255;
@@ -3444,10 +3463,10 @@ function renderHomeDashboard() {
   // 3. Popular Artists Shelf (Circular Avatars)
   const homeArtistsEl = el('homeArtistsShelf');
   if (homeArtistsEl) {
-    homeArtistsEl.innerHTML = HOME_ARTISTS.map((artist) => `
+    homeArtistsEl.innerHTML = HOME_ARTISTS.map((artist, idx) => `
       <button class="artist-shelf-card" type="button" data-artist-query="${esc(artist.query)}" data-artist-name="${esc(artist.name)}" onclick="window.openArtistShelfSongs(this, event)" title="Listen to all songs by ${esc(artist.name)}">
         <div class="artist-avatar-wrap">
-          <img class="artist-avatar-img" src="${esc(artist.img)}" alt="${esc(artist.name)}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
+          <img class="artist-avatar-img" src="${esc(artist.img)}" alt="${esc(artist.name)}" loading="${idx < 8 ? 'eager' : 'lazy'}" decoding="async" onerror="this.onerror=null; this.src='icon-192.png';" />
         </div>
         <span class="artist-name">${esc(artist.name)}</span>
         <span class="artist-genre">${esc(artist.tag)}</span>
@@ -3660,6 +3679,10 @@ function renderPlayer() {
   el('expPlayBtn').classList.toggle('is-playing', isPlaying);
   el('expPlayBtn').setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
 
+  const isBuffering = Boolean(state.buffering);
+  el('playBtn').classList.toggle('is-buffering', isBuffering);
+  el('expPlayBtn').classList.toggle('is-buffering', isBuffering);
+
   el('nowTitle').textContent = track ? track.title : 'Nothing playing';
   el('nowArtist').textContent = track ? `${track.artist} \u00b7 ${track.language || 'Music'}` : 'Pick a song to start';
 
@@ -3727,10 +3750,11 @@ function renderPlayer() {
 function syncPlayState() {
   const currentId = state.current ? String(state.current.id) : null;
   const isPlaying = Boolean(state.playing && state.current);
+  const isBuffering = Boolean(state.buffering);
 
-  document.querySelectorAll('.song-card.is-active, .song-card.is-playing').forEach((c) => {
+  document.querySelectorAll('.song-card.is-active, .song-card.is-playing, .song-card.is-buffering').forEach((c) => {
     if (c.dataset.id !== currentId) {
-      c.classList.remove('is-active', 'is-playing');
+      c.classList.remove('is-active', 'is-playing', 'is-buffering');
     }
   });
 
@@ -3738,8 +3762,21 @@ function syncPlayState() {
     document.querySelectorAll(`.song-card[data-id="${CSS.escape(currentId)}"]`).forEach((c) => {
       c.classList.add('is-active');
       c.classList.toggle('is-playing', isPlaying);
+      c.classList.toggle('is-buffering', isBuffering);
     });
   }
+
+  document.querySelectorAll('.quick-jump-card.is-playing').forEach((c) => {
+    if (c.dataset.id !== currentId || !isPlaying) {
+      c.classList.remove('is-playing');
+    }
+  });
+  if (currentId && isPlaying) {
+    document.querySelectorAll(`.quick-jump-card[data-id="${CSS.escape(currentId)}"]`).forEach((c) => {
+      c.classList.add('is-playing');
+    });
+  }
+
   renderPlayer();
 }
 
@@ -3786,12 +3823,35 @@ function getStreamProxyUrl(rawUrl) {
   return `/api/stream?url=${encodeURIComponent(rawUrl)}`;
 }
 
-// Play specified track (Full Length 320kbps Audio)
+// Preload next track into memory/disk cache for zero-latency seamless playback
+function preloadNextTrack() {
+  try {
+    const list = queueTracks();
+    if (!list || !list.length) return;
+    const currentIndex = state.current ? list.findIndex((t) => t && t.id === state.current.id) : -1;
+    const nextIndex = (currentIndex + 1) % list.length;
+    const nextTrack = list[nextIndex];
+    if (!nextTrack || nextTrack.id === state.current?.id) return;
+    const nextSrc = trackSource(nextTrack);
+    if (!nextSrc) return;
+
+    if (!preloadAudio.src || preloadAudio.src !== nextSrc) {
+      preloadAudio.src = nextSrc;
+      preloadAudio.load();
+    }
+  } catch (_) {}
+}
+
+// Play specified track with instant 0ms visual response & high-speed audio pipeline
 function playTrack(track, forceModal = null) {
-  stopAll();
+  if (!track) return;
   state.current = track;
-  state.playing = false;
+  state.playing = true;
+  state.buffering = true;
+
+  // Defer history storage off critical touch/gesture thread
   addToRecentHistory(track);
+
   initWebAudio();
   if (audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume().catch(() => {});
@@ -3799,10 +3859,14 @@ function playTrack(track, forceModal = null) {
 
   const src = trackSource(track);
   if (src) {
-    if (audio.src !== src) {
+    const isNew = audio.src !== src;
+    if (isNew) {
       audio.src = src;
+      audio.load(); // Immediately start high-speed chunk fetch
+    } else if (audio.currentTime > 0) {
+      audio.currentTime = 0;
     }
-    audio.currentTime = 0;
+
     audio.volume = state.muted ? 0 : state.volume;
     updateProgress(0, track.duration || 210);
 
@@ -3811,39 +3875,29 @@ function playTrack(track, forceModal = null) {
       playPromise.then(() => {
         if (state.current && state.current.id === track.id) {
           state.playing = true;
+          state.buffering = false;
           syncPlayState();
           startVisualizerLoop();
-          renderRecentGrid();
+          preloadNextTrack();
         }
       }).catch((err) => {
         if (err && err.name === 'AbortError') {
           return; // Benign transient interruption, do not show any error
         }
-        // Resilient fallback: if direct stream was blocked by CORS or network, switch to proxy
+        // Resilient fallback: immediate failover to stream proxy with ZERO artificial delay
         if (src.startsWith('http') && !src.includes('/api/stream')) {
           const proxyUrl = getStreamProxyUrl(src);
           audio.src = proxyUrl;
-          setTimeout(() => {
-            if (state.current && state.current.id === track.id) {
-              audio.play().then(() => {
-                state.playing = true;
-                syncPlayState();
-                startVisualizerLoop();
-                renderRecentGrid();
-              }).catch(() => {});
-            }
-          }, 200);
-        } else {
-          setTimeout(() => {
-            if (state.current && state.current.id === track.id) {
-              audio.play().then(() => {
-                state.playing = true;
-                syncPlayState();
-                startVisualizerLoop();
-                renderRecentGrid();
-              }).catch(() => {});
-            }
-          }, 300);
+          audio.load();
+          if (state.current && state.current.id === track.id) {
+            audio.play().then(() => {
+              state.playing = true;
+              state.buffering = false;
+              syncPlayState();
+              startVisualizerLoop();
+              preloadNextTrack();
+            }).catch(() => {});
+          }
         }
       });
     }
@@ -3851,6 +3905,7 @@ function playTrack(track, forceModal = null) {
     toast(`No audio source found for ${track.title}`);
   }
 
+  // Instantaneous UI reflection (0ms visual feedback)
   syncPlayState();
 
   const shouldOpen = forceModal !== null ? forceModal : true;
@@ -3880,11 +3935,18 @@ function resumePlayback() {
   const track = state.current;
   const src = trackSource(track);
   if (src) {
-    if (!audio.getAttribute('src')) audio.src = src;
+    if (!audio.getAttribute('src')) {
+      audio.src = src;
+      audio.load();
+    }
+    state.playing = true;
+    syncPlayState();
     audio.play().then(() => {
       state.playing = true;
+      state.buffering = false;
       syncPlayState();
       startVisualizerLoop();
+      preloadNextTrack();
     }).catch(() => {
       playTrack(track);
     });
@@ -5173,29 +5235,36 @@ function bindEvents() {
     }
   });
 
+function toggleShuffle() {
+  state.shuffle = !state.shuffle;
+  toast(state.shuffle ? 'Shuffle enabled' : 'Shuffle disabled');
+  renderPlayer();
+  return state.shuffle;
+}
+window.toggleShuffle = toggleShuffle;
+
+function cycleRepeat() {
+  if (state.repeat === 'none') {
+    state.repeat = 'all';
+    toast('Repeat All enabled');
+  } else if (state.repeat === 'all') {
+    state.repeat = 'one';
+    toast('Repeat One enabled');
+  } else {
+    state.repeat = 'none';
+    toast('Repeat disabled');
+  }
+  renderPlayer();
+  return state.repeat;
+}
+window.cycleRepeat = cycleRepeat;
+
   el('playBtn').addEventListener('click', togglePlayback);
   el('nextBtn').addEventListener('click', nextTrack);
   el('prevBtn').addEventListener('click', prevTrack);
 
-  el('shuffleBtn').addEventListener('click', () => {
-    state.shuffle = !state.shuffle;
-    toast(state.shuffle ? 'Shuffle enabled' : 'Shuffle disabled');
-    renderPlayer();
-  });
-
-  el('repeatBtn').addEventListener('click', () => {
-    if (state.repeat === 'none') {
-      state.repeat = 'all';
-      toast('Repeat All enabled');
-    } else if (state.repeat === 'all') {
-      state.repeat = 'one';
-      toast('Repeat One enabled');
-    } else {
-      state.repeat = 'none';
-      toast('Repeat disabled');
-    }
-    renderPlayer();
-  });
+  el('shuffleBtn').addEventListener('click', toggleShuffle);
+  el('repeatBtn').addEventListener('click', cycleRepeat);
 
   el('seek').addEventListener('input', (e) => {
     seekTo(Number(e.target.value) / 1000);
@@ -5249,14 +5318,8 @@ function bindEvents() {
   el('expPlayBtn').addEventListener('click', togglePlayback);
   el('expNextBtn').addEventListener('click', nextTrack);
   el('expPrevBtn').addEventListener('click', prevTrack);
-  el('expShuffleBtn').addEventListener('click', () => {
-    state.shuffle = !state.shuffle;
-    renderPlayer();
-  });
-  el('expRepeatBtn').addEventListener('click', () => {
-    state.repeat = state.repeat === 'none' ? 'all' : state.repeat === 'all' ? 'one' : 'none';
-    renderPlayer();
-  });
+  el('expShuffleBtn').addEventListener('click', toggleShuffle);
+  el('expRepeatBtn').addEventListener('click', cycleRepeat);
 
   el('expSeek').addEventListener('input', (e) => {
     seekTo(Number(e.target.value) / 1000);
@@ -5435,6 +5498,32 @@ function bindEvents() {
   audio.addEventListener('loadedmetadata', () => {
     if (state.current && trackSource(state.current)) updateProgress(audio.currentTime, audio.duration);
   });
+  audio.addEventListener('playing', () => {
+    if (state.current) {
+      state.playing = true;
+      state.buffering = false;
+      syncPlayState();
+      startVisualizerLoop();
+      preloadNextTrack();
+    }
+  });
+  audio.addEventListener('waiting', () => {
+    if (state.playing) {
+      state.buffering = true;
+      syncPlayState();
+    }
+  });
+  audio.addEventListener('canplay', () => {
+    if (state.playing && audio.paused) {
+      audio.play().catch(() => {});
+    }
+  });
+  audio.addEventListener('pause', () => {
+    if (!state.buffering) {
+      state.playing = false;
+      syncPlayState();
+    }
+  });
   audio.addEventListener('ended', handleEnded);
   audio.addEventListener('error', () => {
     const curSrc = audio.src || '';
@@ -5442,13 +5531,32 @@ function bindEvents() {
       const proxyUrl = getStreamProxyUrl(curSrc);
       console.log('Audio error encountered, switching to stream proxy:', proxyUrl);
       audio.src = proxyUrl;
+      audio.load();
       audio.play().then(() => {
         state.playing = true;
+        state.buffering = false;
         syncPlayState();
         startVisualizerLoop();
+        preloadNextTrack();
       }).catch(() => {});
     }
   });
+
+  // Pre-warm and unlock AudioContext on the very first gesture anywhere in the app
+  const unlockAudio = () => {
+    initWebAudio();
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(() => {});
+    }
+    window.removeEventListener('pointerdown', unlockAudio);
+    window.removeEventListener('touchstart', unlockAudio);
+    window.removeEventListener('keydown', unlockAudio);
+    window.removeEventListener('click', unlockAudio);
+  };
+  window.addEventListener('pointerdown', unlockAudio, { once: true, passive: true });
+  window.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+  window.addEventListener('keydown', unlockAudio, { once: true, passive: true });
+  window.addEventListener('click', unlockAudio, { once: true, passive: true });
 
   // Global Keyboard Shortcuts
   document.addEventListener('keydown', (event) => {
@@ -6082,7 +6190,7 @@ async function initGoogleIdentityServices() {
 }
 
 function setupGisWithClientId(clientId) {
-  if (!clientId) return;
+  if (!clientId || googleGisInitialized) return;
   try {
     google.accounts.id.initialize({
       client_id: clientId,
@@ -6281,7 +6389,7 @@ window.addEventListener('storage', (event) => {
 });
 
 // Standard Email/Password login or registration (Preserves existing email flow)
-async function loginUser(name, email, avatar = '') {
+async function loginUser(name, email, password = '', avatar = '') {
   const errorMsg = el('loginErrorMsg');
   const submitBtn = el('loginSubmitBtn');
   const submitText = el('loginSubmitText');
@@ -6316,6 +6424,7 @@ async function loginUser(name, email, avatar = '') {
       body: JSON.stringify({
         name: cleanName || cleanEmail.split('@')[0],
         email: cleanEmail,
+        password: (password || '').trim(),
         avatar
       })
     });
@@ -6599,9 +6708,11 @@ function bindAuthEvents() {
       e.preventDefault();
       const nameInput = el('loginName');
       const emailInput = el('loginEmail');
+      const passwordInput = el('loginPassword');
       const name = nameInput ? nameInput.value : '';
       const email = emailInput ? emailInput.value : '';
-      await loginUser(name, email);
+      const password = passwordInput ? passwordInput.value : '';
+      await loginUser(name, email, password);
     };
   }
 

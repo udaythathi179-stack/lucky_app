@@ -85,6 +85,7 @@ function saveUser(userData) {
       avatar: (userData.avatar && userData.avatar.trim()) ? userData.avatar : existing.avatar,
       provider: userData.provider || existing.provider || 'google',
       googleSub: userData.googleSub || existing.googleSub || null,
+      passwordHash: userData.passwordHash || existing.passwordHash || null,
       lastLoginAt: now,
       loginCount: (existing.loginCount || 1) + 1
     };
@@ -97,6 +98,7 @@ function saveUser(userData) {
       avatar: (userData.avatar && userData.avatar.trim()) ? userData.avatar : 'images/avatar-uday.jpg',
       provider: userData.provider || 'google',
       googleSub: userData.googleSub || null,
+      passwordHash: userData.passwordHash || null,
       createdAt: now,
       lastLoginAt: now,
       loginCount: 1
