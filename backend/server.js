@@ -39,6 +39,8 @@ const db = require('../database/db');
 const searchHandler = require('./api/search');
 const discographyHandler = require('./api/artist-discography');
 const authHandler = require('./api/auth');
+const streamHandler = require('./api/stream');
+const statsHandler = require('./api/stats');
 
 const PORT = process.env.PORT || 3000;
 const FRONTEND_DIR = path.resolve(__dirname, '..', 'frontend');
@@ -250,7 +252,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (pathname === '/api/stream') {
-    return handleStreamProxy(req, res, parsedUrl);
+    return streamHandler(req, res);
   }
 
   if (pathname === '/api/download') {
@@ -258,9 +260,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (pathname === '/api/stats') {
-    const stats = db.getStats();
-    res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
-    return res.end(JSON.stringify({ success: true, ...stats }));
+    return statsHandler(req, res);
   }
 
   // --- Tier 1: Frontend Static File Serving ---

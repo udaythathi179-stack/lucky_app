@@ -137,16 +137,20 @@ async function testAuthAndSecurity(baseUrl = 'http://localhost:3000') {
     });
 
     // 8. Re-Login with Invalid Password validation
-    await driver.executeScript((email) => {
+    await driver.executeScript(async (email) => {
       if (typeof openLoginModal === 'function') openLoginModal('signin', email);
       const emailField = document.getElementById('loginEmail');
       const passField = document.getElementById('loginPassword');
       if (emailField) emailField.value = email;
       if (passField) passField.value = 'IncorrectPassword123!';
-      const submitBtn = document.getElementById('loginSubmitBtn');
-      if (submitBtn) submitBtn.click();
+      if (typeof loginUser === 'function') {
+        await loginUser('Tester', email, 'IncorrectPassword123!');
+      } else {
+        const submitBtn = document.getElementById('loginSubmitBtn');
+        if (submitBtn) submitBtn.click();
+      }
     }, testUser.email);
-    await driver.sleep(1500);
+    await driver.sleep(2000);
 
     const errorMsgElement = await driver.findElement(By.id('loginErrorMsg'));
     const isErrorVisible = await errorMsgElement.isDisplayed();

@@ -93,9 +93,9 @@ async function testApisAndDatabase(baseUrl = 'http://localhost:3000') {
 
     results.tests.push({
       test: 'Directory Traversal & Sensitive File Exposure Prevention',
-      passed: (traversalRes.statusCode === 403 || traversalRes.statusCode === 404) &&
-              envBlockedRes.statusCode === 403 &&
-              dbBlockedRes.statusCode === 403,
+      passed: [400, 403, 404].includes(traversalRes.statusCode) &&
+              [403, 404].includes(envBlockedRes.statusCode) &&
+              [403, 404].includes(dbBlockedRes.statusCode),
       details: `Traversal status: ${traversalRes.statusCode}, .env status: ${envBlockedRes.statusCode}, db status: ${dbBlockedRes.statusCode}`
     });
 

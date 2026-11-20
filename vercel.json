@@ -24,6 +24,18 @@
       "dest": "/backend/api/search.js"
     },
     {
+      "src": "/api/stream",
+      "dest": "/backend/api/stream.js"
+    },
+    {
+      "src": "/api/download",
+      "dest": "/backend/api/download.js"
+    },
+    {
+      "src": "/api/stats",
+      "dest": "/backend/api/stats.js"
+    },
+    {
       "src": "/api/auth/(.*)",
       "dest": "/backend/api/auth.js"
     },

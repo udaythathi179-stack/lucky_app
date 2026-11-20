@@ -16,9 +16,26 @@ let usersCache = null;
 let sessionsCache = null;
 let discographiesCache = null;
 
+const IS_SERVERLESS = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const TMP_DIR = '/tmp';
+
+function getEffectivePath(filePath) {
+  if (IS_SERVERLESS) {
+    const base = path.basename(filePath);
+    return path.join(TMP_DIR, base);
+  }
+  return filePath;
+}
+
 // --- Helper Functions ---
 function readJSON(filePath, fallback = null) {
   try {
+    if (IS_SERVERLESS) {
+      const tmpPath = getEffectivePath(filePath);
+      if (fs.existsSync(tmpPath)) {
+        return JSON.parse(fs.readFileSync(tmpPath, 'utf8'));
+      }
+    }
     if (!fs.existsSync(filePath)) return fallback;
     const raw = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(raw);
@@ -29,13 +46,14 @@ function readJSON(filePath, fallback = null) {
 }
 
 function writeJSONAtomic(filePath, data) {
-  const tmpFile = `${filePath}.tmp.${Date.now()}`;
+  const targetPath = getEffectivePath(filePath);
+  const tmpFile = `${targetPath}.tmp.${Date.now()}`;
   try {
     fs.writeFileSync(tmpFile, JSON.stringify(data, null, 2), 'utf8');
-    fs.renameSync(tmpFile, filePath);
+    fs.renameSync(tmpFile, targetPath);
     return true;
   } catch (err) {
-    console.error(`[DB Error] Failed to write ${filePath}:`, err.message);
+    console.error(`[DB Error] Failed to write ${targetPath}:`, err.message);
     try {
       if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     } catch (_) {}

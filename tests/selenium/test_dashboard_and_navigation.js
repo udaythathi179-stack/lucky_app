@@ -40,8 +40,13 @@ async function testDashboardAndNavigation(baseUrl = 'http://localhost:3000') {
 
     // 2. Search Bar input and live search
     const searchInput = await driver.findElement(By.id('search'));
-    await searchInput.sendKeys('Believer');
-    await driver.sleep(1200);
+    await searchInput.clear();
+    await searchInput.sendKeys('Believer', Key.ENTER);
+    await driver.wait(async () => {
+      const count = await driver.executeScript(() => document.querySelectorAll('.song-card').length);
+      return count > 0;
+    }, 8000).catch(() => {});
+    await driver.sleep(500);
 
     const searchQuery = await driver.executeScript(() => state.query);
     const searchCardsCount = await driver.executeScript(() => {
